@@ -1,0 +1,217 @@
+@import "../../scss/common/colors";
+@import "../../scss/common/screen";
+@import "../../scss/common/variables";
+@import "../../scss/common/mixins";
+
+.authPage {
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  h3 {
+    margin: 0;
+    padding: 35px 0 20px;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    font-size: 24px;
+  }
+
+  width: 100%;
+  height: 667px;
+  margin: 0 auto;
+  background-image: url('../../img/background-image.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  .gradient {
+    height: 100%;
+    width: 100%;
+    background: $background-color;
+  }
+
+  .header {
+    height: 40%;
+
+    .header__wrapper {
+      padding-top: 150px;
+      justify-content: center;
+      display: flex;
+
+      .text-container {
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 20px;
+        padding-top: 10px;
+
+        p:first-of-type {
+          margin: 0;
+          color: #fcc808;
+          font-family: "Open Sans";
+          font-size: 34px;
+          font-weight: 700;
+          line-height: 34px;
+          text-transform: uppercase;
+
+          span:first-of-type {
+            color: #ffffff;
+            font-family: "Open Sans Light";
+            font-weight: 300;
+            letter-spacing: 1.85px;
+          }
+
+          span:last-of-type {
+            font-family: "Open Sans";
+            font-weight: 700;
+            letter-spacing: 1.85px;
+          }
+        }
+
+        p:last-of-type {
+          margin: 0;
+          color: #dad8f3;
+          font-weight: 300;
+          letter-spacing: 1.56px;
+        }
+      }
+
+      width: 100%;
+    }
+
+    img {
+      width: 72px;
+      height: 71px;
+    }
+
+  }
+
+  .authInputs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    input {
+      background-color: transparent;
+      border-radius: 35px;
+      border: 1px solid #ffffff;
+      height: 50px;
+      width: 75%;
+      margin: 15px 0;
+      color: white;
+      font-size: 18px;
+      padding: 0 10px;
+      box-sizing: border-box;
+      text-transform: uppercase;
+    }
+    input::placeholder {
+      color: white;
+      text-align: center;
+      font-size: 14px;
+    }
+  }
+
+  .signInButton {
+    a {
+      color: #241e9f;
+    }
+
+    display: flex;
+    justify-content: center;
+
+    button {
+      font-weight: bold;
+      letter-spacing: 0.81px;
+      margin: 15px 0;
+      width: 75%;
+      background-color: white;
+      border-radius: 35px;
+      border: 1px solid #ffffff;
+      text-transform: uppercase;
+      height: 50px;
+    }
+  }
+
+  .authButtons {
+    //display: flex;
+    //flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 30px;
+
+    button {
+      font-weight: bold;
+      letter-spacing: 0.81px;
+      margin: 15px 0;
+      width: 75%;
+      background-color: transparent;
+      border-radius: 35px;
+      border: 1px solid #ffffff;
+      text-transform: uppercase;
+      color: white;
+      height: 50px;
+    }
+
+    button:active {
+      background-color: white;
+      color: #241e9f;
+    }
+  }
+
+  .authPage__footer {
+    display: flex;
+    justify-content: center;
+    padding-top: 130px;
+
+    p {
+      text-align: center;
+      width: 100%;
+      /* Style for "© 2020 MyS" */
+      height: 18px;
+      color: #c3c1ed;
+      font-family: "Open Sans";
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 42.7px;
+      /* Text style for "© 2020 MyS" */
+      letter-spacing: 0.45px;
+    }
+  }
+
+  .inputBox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    input {
+      background-color: transparent;
+      border-radius: 35px;
+      border: 1px solid #ffffff;
+      height: 50px;
+      width: 75%;
+      margin: 15px 0;
+      color: white;
+      font-size: 18px;
+      padding: 0 10px;
+      box-sizing: border-box;
+    }
+    input::placeholder {
+      color: white;
+      text-align: center;
+      font-size: 14px;
+    }
+  }
+  .usersConsent {
+    text-align: center;
+    margin: 20px 0 30px;
+    color: white;
+    input {
+      border-radius: 5px;
+      border: 1px solid #ffffff;
+      background-color: transparent;
+    }
+  }
+}
