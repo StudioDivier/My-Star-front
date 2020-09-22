@@ -1,0 +1,37 @@
+@import "../../scss/common/colors";
+@import "../../scss/common/screen";
+@import "../../scss/common/variables";
+@import "../../scss/common/mixins";
+
+.categories {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+
+  h3 {
+    margin: 0;
+    padding: 30px 0;
+    text-align: center;
+    color: white;
+    font-size: 22px;
+  }
+
+  .gradient {
+    width: 100%;
+    background: $background-color;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+  }
+
+  .categories__container {
+    width: 100%;
+    background-color: #eef3fc;
+    background-size: cover;
+    flex-grow: 1;
+    padding-top: 50px;
+  }
+
+  .single-category {
+    width: 100%;
+  }
+}
