@@ -3,14 +3,16 @@ import '../auth-page.scss';
 import logo from '../../../img/logo.png';
 import {AuthContext} from "../../../context/AuthContext";
 import {useHttp} from "../../../hooks/http.hook";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const SignIn = () => {
 
-    const [form, setForm] = useState({
-        email: '', password: ''
-    })
     const auth = useContext(AuthContext);
     const {loading, request, error, clearError} = useHttp();
+
+    const [form, setForm] = useState({
+        password: '', email: ''
+    })
 
     // useEffect(() => {
     //     message(error);
@@ -21,19 +23,17 @@ export const SignIn = () => {
         setForm(({...form, [event.target.name]: event.target.value}))
     }
 
-    console.log(form)
 
-    const registerHandler = async () => {
+    const loginHandler = async () => {
         try {
-            console.log({...form})
-          //const dataReg = await request('/api/auth/register', 'POST', {...form})
-          // message(dataReg.message)
+            const dataLog = await request('/api/login/', 'POST', {...form})
+            console.log(dataLog)
+            auth.login(dataLog.token, dataLog.username, dataLog.is_star)
+            // message(dataReg.message)
 
-          //const dataLogin = await request('/api/auth/login', 'POST', {...form})
-          // auth.login(dataLogin.token, dataLogin.userId)
-
-        } catch (e) {}
-      }
+        } catch (e) {
+        }
+    }
 
     return (
         <>
@@ -48,10 +48,10 @@ export const SignIn = () => {
                     </div>
                 </div>
             </div>
-            <div className="authInputs">
+            <div className="signInInputs">
                 <input
                     type="text"
-                    placeholder={'почта'}
+                    placeholder={'e-mail'}
                     onChange={changeHandler}
                     name={'email'}
                     value={form.email}
@@ -66,10 +66,21 @@ export const SignIn = () => {
             </div>
             <div className="signInButton">
                 <button
-                    onClick={registerHandler}
+                    onClick={loginHandler}
                 >
                     Войти
                 </button>
+            </div>
+            <div className="socialMediaLogin">
+                <p>Вход через</p>
+                <div className={'buttonContainer'}>
+                    <button>
+                         <FontAwesomeIcon size='lg' icon={['fab', 'google']} />&nbsp;&nbsp;google
+                    </button>
+                    <button>
+                        <FontAwesomeIcon size='lg' icon={['fab', 'vk']} />&nbsp;&nbsp;вконтакте
+                    </button>
+                </div>
             </div>
         </>
     )

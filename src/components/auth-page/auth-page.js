@@ -15,17 +15,17 @@ export const AuthPage = () => {
             <div className={'authPage'}>
                 <Switch>
                     <Route path="/" exact>
-                        <div className={'gradient'}>
+                        <div className={'gradient__signIn'}>
                             <Start/>
                         </div>
                     </Route>
                     <Route path="/sign-in" exact>
-                        <div className={'gradient'}>
+                        <div className={'gradient__signIn'}>
                             <SignIn/>
                         </div>
                     </Route>
                     <Route path="/sign-up" exact>
-                        <div className={'gradient'}>
+                        <div className={'gradient__signUp'}>
                             <SignUp/>
                         </div>
                     </Route>

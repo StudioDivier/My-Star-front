@@ -1,13 +1,14 @@
 import React from "react";
 import {Switch, Route, Redirect} from 'react-router-dom';
 import {AuthPage} from "./components/auth-page/auth-page";
+import {Categories} from "./components/categories/categories";
 
 export const useRoutes = (isAuthenticated, isStar) => {
     if (isAuthenticated && !isStar) {
         return (
             <Switch>
-                <Route>
-
+                 <Route exact path="/">
+                    <Categories />
                 </Route>
                 <Redirect to="/"/>
             </Switch>

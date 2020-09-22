@@ -4,6 +4,10 @@ import {BrowserRouter} from "react-router-dom";
 import {useAuth} from './hooks/auth.hook';
 import {AuthContext} from "./context/AuthContext";
 import {useRoutes} from "./routes";
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fab } from '@fortawesome/free-brands-svg-icons';
+
+library.add(fab)
 
 function App() {
     const {login, logout, token, userId, star} = useAuth();
