@@ -1,38 +1,52 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import './categories.scss';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {Category} from './components/category';
 import {useHttp} from "../../hooks/http.hook";
-import icon1 from '../../img/icon1.png';
-import icon2 from '../../img/icon2.png';
-import icon3 from '../../img/icon3.png';
-import icon4 from '../../img/icon4.png';
+import {AuthContext} from "../../context/AuthContext";
 
 export const Categories = () => {
+    const authToken = useContext(AuthContext)
     const {loading, request, error, clearError} = useHttp()
     const [data, setData] = useState([]);
 
+    const getCats = async () => {
+        try {
+            const cats = await request('/api/categories/', 'GET', {Authorization: `Bearer ${authToken.token}`})
+            console.log(cats)
+            setData([...cats])
 
-    // const getCats = async () => {
-    //     try {
-    //         const cats = await request('/api/categories/', 'GET')
-    //         setData({...cats})
-    //
-    //     } catch (e) {
-    //     }
-    // }
-
-    useEffect(() => {
-        async function fetchData() {
-            const cats = await request('/api/categories/', 'GET')
-            setData({...cats})
+        } catch (e) {
         }
-        fetchData()
+    }
+        useEffect(() => {
+            getCats()
     }, [])
 
-    console.log(data);
+        // console.log(data)
+
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         const cats = await request('/api/categories/', 'GET')
+    //         if (!!cats.length) {
+    //             setData([...cats])
+    //         }
+    //         console.log('hello1')
+    //
+    //     }
+    //
+    //     console.log('hello2')
+    //     fetchData();
+    // }, [])
+
+    // useEffect(() => {
+    //     axios.get('http://192.168.1.131:8080/api/categories/')
+    //         .then(res => {
+    //             // setData([...res.data])
+    //         })
+    // })
 
     return (
         <>
@@ -44,19 +58,15 @@ export const Categories = () => {
                     <Container>
                         <Row>
                             <div className="single-category">
-                                <Col lg>
-                                    <Category/>
-                                </Col>
-                                <Col lg>
-                                    <Category/>
-                                </Col>
-                                <Col lg>
-                                    <Category/>
-                                </Col>
-                                <Col lg>
-                                    <Category/>
-                                </Col>
-
+                                {data.map((key, value) => {
+                                    // console.log(key, value)
+                                    return (
+                                        <Col lg key={value}>
+                                            <Category id={value + 1} name={key.cat_name}/>
+                                        </Col>
+                                    )
+                                })
+                                }
                             </div>
                         </Row>
                     </Container>

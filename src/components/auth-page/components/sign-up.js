@@ -2,9 +2,10 @@ import React, {useState, useEffect, useContext} from "react";
 import '../auth-page.scss';
 import {AuthContext} from "../../../context/AuthContext";
 import {useHttp} from "../../../hooks/http.hook";
+import {useHistory} from 'react-router-dom';
 
 export const SignUp = () => {
-
+    const history = useHistory();
     const auth = useContext(AuthContext);
     const {loading, request, error, clearError} = useHttp();
 
@@ -29,6 +30,7 @@ export const SignUp = () => {
             console.log(dataAuth)
             auth.login(dataAuth.token, dataAuth.username, dataAuth.is_star)
             // console.log(dataAuth.token.valueOf())
+            history.push('/categories');
         } catch (e) {}
       }
 

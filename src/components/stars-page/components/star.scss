@@ -1,0 +1,47 @@
+@import "../../../scss/common/colors";
+@import "../../../scss/common/screen";
+@import "../../../scss/common/variables";
+@import "../../../scss/common/mixins";
+
+.star-card {
+  background-color: white;
+  padding: 15px;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  .col-4, .col-8 {
+    @include px(0, 0);
+  }
+
+  h3 {
+    color: black;
+    padding: 0;
+    text-align: left;
+    font-size: 18px;
+    letter-spacing: 0.65px;
+    text-transform: capitalize;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  button {
+    border: 0;
+    color: white;
+    border-radius: 26px;
+    background-color: #2e3a46;
+    padding: 7px 21px;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: bold;
+    margin-top: 55px;
+  }
+  svg {
+    color: #fcc808;
+    margin: 0 2.5px;
+    border-color: #fcc808;
+  }
+  svg:first-of-type {
+    margin-left: 0;
+  }
+}

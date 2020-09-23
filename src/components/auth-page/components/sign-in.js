@@ -4,9 +4,10 @@ import logo from '../../../img/logo.png';
 import {AuthContext} from "../../../context/AuthContext";
 import {useHttp} from "../../../hooks/http.hook";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {useHistory} from 'react-router-dom';
 
 export const SignIn = () => {
-
+    const history = useHistory();
     const auth = useContext(AuthContext);
     const {loading, request, error, clearError} = useHttp();
 
@@ -31,6 +32,7 @@ export const SignIn = () => {
             auth.login(dataLog.token, dataLog.username, dataLog.is_star)
             // message(dataReg.message)
 
+            history.push('/categories');
         } catch (e) {
         }
     }
