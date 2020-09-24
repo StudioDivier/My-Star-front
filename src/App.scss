@@ -1,3 +1,4 @@
+@import "~materialize-css/dist/css/materialize.min.css";
 @import "scss/common/colors";
 @import "scss/common/screen";
 @import "scss/common/variables";
@@ -5,6 +6,10 @@
 
 html, body {
   height:100%;
+}
+
+body {
+  //height: 100vh;
 }
 
 body {

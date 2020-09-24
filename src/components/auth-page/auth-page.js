@@ -1,14 +1,12 @@
 import './auth-page.scss';
 
-import React, {useContext, useEffect, useState} from 'react';
-import {AuthContext} from "../../context/AuthContext";
+import React from 'react';
 import {Switch, Route, Redirect, BrowserRouter} from 'react-router-dom';
 import {SignIn} from "./components/sign-in";
 import {SignUp} from "./components/sign-up";
 import {Start} from "./components/start";
 
 export const AuthPage = () => {
-    const auth = useContext(AuthContext);
 
     return (
         <BrowserRouter>

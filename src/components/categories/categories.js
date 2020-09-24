@@ -9,13 +9,12 @@ import {AuthContext} from "../../context/AuthContext";
 
 export const Categories = () => {
     const authToken = useContext(AuthContext)
-    const {loading, request, error, clearError} = useHttp()
+    const {request} = useHttp()
     const [data, setData] = useState([]);
 
     const getCats = async () => {
         try {
-            const cats = await request('/api/categories/', 'GET', {Authorization: `Bearer ${authToken.token}`})
-            console.log(cats)
+            const cats = await request('/api/categories/', 'GET', null, {Authorization: `Bearer ${authToken.token}`})
             setData([...cats])
 
         } catch (e) {
@@ -25,7 +24,7 @@ export const Categories = () => {
             getCats()
     }, [])
 
-        // console.log(data)
+        console.log(data)
 
     // useEffect(() => {
     //     async function fetchData() {

@@ -1,10 +1,8 @@
 import {useState, useCallback} from 'react';
 
 export const useHttp = () => {
-    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
-    const request = useCallback(async (url, method = 'GET', headers = {}, body = null) => {
-        setLoading(true)
+    const request = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
         try {
             if (body) {
                 body = JSON.stringify(body);
@@ -12,24 +10,27 @@ export const useHttp = () => {
             }
 
             url = 'http://192.168.1.131:8080' + url
-            const response = await fetch(url, {method, headers, body});
+            const response = await fetch(url, {method, body, headers});
             const data = await response.json()
 
             // for (let key in data) {
             //     console.log("Ключ: " + key + " значение: " + data[key])
             // }
 
-            if (!response.ok) {
-                throw new Error(`Ошибка: ${data.message}` || `Ошибка: неизвестно`)
+            if (url == 'http://192.168.1.131:8080/api/login/') {
+
             }
 
-            setLoading(false);
-
+            // if (!response.ok) {
+            //     console.log("Некорректные данные при регистрации")
+            //     data.error = "Некорректные данные при регистрации"
+            //     throw new Error(`Ошибка: ${data.message}` || `Ошибка: неизвестно`)
+            // }
             return data;
 
         } catch (e) {
-            setLoading(false)
-            setError(e.message)
+            // console.log(e.message)
+            // setError(e.message)
             throw e
         }
     }, [])
@@ -39,5 +40,5 @@ export const useHttp = () => {
     }, [])
 
 
-    return {loading, request, error, clearError}
+    return {request, error, clearError}
 }

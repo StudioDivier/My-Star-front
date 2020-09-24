@@ -1,15 +1,15 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useContext} from 'react';
 import './stars-page.scss';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import {useHttp} from "../../hooks/http.hook";
+// import {useHttp} from "../../hooks/http.hook";
 import {Star} from './components/star';
 import {StarsContext} from "../../context/StarsContext";
 
 export const Stars = () => {
-    const {loading, request, error, clearError} = useHttp()
-    const [stars, setStars] = useState([]);
+    // const {loading, request, error, clearError} = useHttp()
+    // const [stars, setStars] = useState([]);
     const fetchedList = useContext(StarsContext);
 
     // const getCats = async () => {
@@ -49,7 +49,7 @@ export const Stars = () => {
                                 return (
                                     <div className="single-star" key={value}>
                                         <Col lg>
-                                            <Star id={key.id} name={key.username} rating={key.rating} price={key.price} days={key.days} />
+                                            <Star id={key.id} name={key.username} rating={key.rating} price={key.price} days={key.days} avatar={key.avatar} />
                                         </Col>
                                     </div>
                                     )

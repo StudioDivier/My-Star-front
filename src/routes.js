@@ -1,14 +1,14 @@
-import React, {useContext} from "react";
+import React from "react";
 import {Switch, Route, Redirect} from 'react-router-dom';
 import {AuthPage} from "./components/auth-page/auth-page";
 import {Categories} from "./components/categories/categories";
 import {Stars} from "./components/stars-page/stars";
-import {StarsContext, StarsProvider} from "./context/StarsContext";
+import {StarsProvider} from "./context/StarsContext";
 import {Order} from "./components/order/order";
+import {Confirm} from "./components/confirm/confirm";
 
 export const useRoutes = (isAuthenticated, isStar) => {
-    const fetchedList = useContext(StarsContext)
-    console.log(fetchedList)
+
     if (isAuthenticated && !isStar) {
         return (
             <Switch>
@@ -21,6 +21,9 @@ export const useRoutes = (isAuthenticated, isStar) => {
                     </Route>
                     <Route exact path="/categories/stars/order">
                         <Order />
+                    </Route>
+                    <Route exact path="/categories/stars/order/confirm">
+                        <Confirm />
                     </Route>
                     <Redirect to="/categories" />
                 </StarsProvider>

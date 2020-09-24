@@ -1,22 +1,30 @@
-import React, {useState, useEffect, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import '../auth-page.scss';
 import {AuthContext} from "../../../context/AuthContext";
 import {useHttp} from "../../../hooks/http.hook";
 import {useHistory} from 'react-router-dom';
+import MaskedInput from 'react-text-mask';
+import {useMessage} from "../../../hooks/message.hook";
 
 export const SignUp = () => {
     const history = useHistory();
     const auth = useContext(AuthContext);
-    const {loading, request, error, clearError} = useHttp();
+    const message = useMessage();
+    const {request, error, clearError} = useHttp();
 
     const [form, setForm] = useState({
         email: '', password: '', phone: '', username: '', date_of_birth: ''
     })
 
-    // useEffect(() => {
-    //     message(error);
-    //     clearError();
-    // }, [error, message, clearError])
+    // const [] = useState({
+    //     day: '', month: '', year: ''
+    // })
+
+
+    useEffect(() => {
+        message(error);
+        clearError();
+    }, [error, message, clearError])
 
     const changeHandler = event => {
         setForm(({...form, [event.target.name]: event.target.value}))
@@ -26,7 +34,11 @@ export const SignUp = () => {
     const registerHandler = async () => {
         try {
 
-            const dataAuth = await request('/api/customer/create/', 'POST', {...form})
+            const dataAuth = await request('/api/registration/', 'POST', {...form
+                //'username': form.username,
+                //'date_of_birth': `${date.year}-${dat}`
+            })
+            message(dataAuth.phone)
             console.log(dataAuth)
             auth.login(dataAuth.token, dataAuth.username, dataAuth.is_star)
             // console.log(dataAuth.token.valueOf())
@@ -64,14 +76,16 @@ export const SignUp = () => {
                     value={form.email}
                     onChange={changeHandler}
                 />
-                <input
+                <MaskedInput
+                    mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
                     placeholder={'ТЕЛЕФОН'}
                     type="text"
                     name={'phone'}
                     value={form.phone}
                     onChange={changeHandler}
                 />
-                <input
+                <MaskedInput
+                    mask={[/[1-9]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
                     placeholder={'ДАТА РОЖДЕНИЯ'}
                     type="text"
                     name={'date_of_birth'}

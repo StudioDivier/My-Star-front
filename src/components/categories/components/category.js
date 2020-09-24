@@ -12,14 +12,14 @@ import {AuthContext} from "../../../context/AuthContext";
 
 export const Category = ({id, name}) => {
     const history = useHistory();
-    const {loading, request, error, clearError} = useHttp();
+    const {request} = useHttp();
     const [starsList, setStarsList] = useState();
     const list = useContext(StarsContext)
     const authToken = useContext(AuthContext);
 
     const clickHandler = async () => {
         try {
-            const starsFetch = await request(`/api/star/category/?id=${id}`, 'GET', {Authorization: `Bearer ${authToken.token}`});
+            const starsFetch = await request(`/api/star/category/?id=${id}`, 'GET', null, {Authorization: `Bearer ${authToken.token}`});
             setStarsList([...starsFetch])
             list.setArray([...starsFetch])
             history.push(`/categories/stars`)

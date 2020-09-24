@@ -23,7 +23,7 @@ export const AllStars = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const starsList = await request('/api/star/getlist/', 'GET', {Authorization: `Bearer ${authToken.token}`})
+            const starsList = await request('/api/star/getlist/', 'GET', null,{Authorization: `Bearer ${authToken.token}`})
             setStars([...starsList])
         }
 

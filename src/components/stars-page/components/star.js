@@ -3,21 +3,26 @@ import './star.scss';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import photo from '../../../img/photo.png';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import Rating from 'react-rating';
 import {useHistory} from 'react-router-dom';
 import {StarsContext} from "../../../context/StarsContext";
 
-export const Star = ({id, price, name, rating, days}) => {
+export const Star = ({id, price, name, rating, days, avatar}) => {
     const history = useHistory();
-    const starId = useContext(StarsContext);
+    const star = useContext(StarsContext);
 
     const chooseStar = () => {
-        starId.setStarId(id)
+        star.setStarId(id)
+        star.setStarPrice(price)
+        star.setStarName(name)
+        star.setStarRating(rating)
+        star.setStarDays(days)
+        star.setAvatar(avatar)
         history.push(`/categories/stars/order`);
-        console.log(id)
+        // console.log(id)
     };
+
+    const url = 'http://192.168.1.131:8080/';
 
     return (
         <div className={'star-card'}>
@@ -26,17 +31,22 @@ export const Star = ({id, price, name, rating, days}) => {
                     <Col xs={6}>
                         <div className="star-info">
                             <h3>{name}</h3>
-                            <Rating
-                                placeholderRating={rating}
-                                emptySymbol={<FontAwesomeIcon icon={['far', 'star']} size='xs'/>}
-                                placeholderSymbol={<FontAwesomeIcon icon={['fas', 'star']} size='xs'/>}
-                                fullSymbol={<FontAwesomeIcon icon={['fas', 'star']} size='xs'/>}
-                            />
+                            {/*<Rating*/}
+                            {/*    placeholderRating={rating}*/}
+                            {/*    emptySymbol={<FontAwesomeIcon icon={['far', 'star']} size='xs'/>}*/}
+                            {/*    placeholderSymbol={<FontAwesomeIcon icon={['fas', 'star']} size='xs'/>}*/}
+                            {/*    fullSymbol={<FontAwesomeIcon icon={['fas', 'star']} size='xs'/>}*/}
+                            {/*/>*/}
+                            <FontAwesomeIcon icon={['far', 'star']} size='xs'/>
+                            <FontAwesomeIcon icon={['far', 'star']} size='xs'/>
+                            <FontAwesomeIcon icon={['far', 'star']} size='xs'/>
+                            <FontAwesomeIcon icon={['far', 'star']} size='xs'/>
+                            <FontAwesomeIcon icon={['far', 'star']} size='xs'/>
                             <button onClick={chooseStar}>Заказать</button>
                         </div>
                     </Col>
                     <Col xs={6}>
-                        <img src={photo} alt="Star photo"/>
+                        <img src={url + avatar} alt="Star"/>
                     </Col>
 
                 </Row>
