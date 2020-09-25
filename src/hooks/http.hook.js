@@ -17,9 +17,9 @@ export const useHttp = () => {
             //     console.log("Ключ: " + key + " значение: " + data[key])
             // }
 
-            if (url == 'http://192.168.1.131:8080/api/login/') {
-
-            }
+            // if (url == 'http://192.168.1.131:8080/api/login/') {
+            //
+            // }
 
             // if (!response.ok) {
             //     console.log("Некорректные данные при регистрации")

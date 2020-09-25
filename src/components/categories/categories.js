@@ -12,34 +12,34 @@ export const Categories = () => {
     const {request} = useHttp()
     const [data, setData] = useState([]);
 
-    const getCats = async () => {
-        try {
-            const cats = await request('/api/categories/', 'GET', null, {Authorization: `Bearer ${authToken.token}`})
-            setData([...cats])
-
-        } catch (e) {
-        }
-    }
-        useEffect(() => {
-            getCats()
-    }, [])
-
-        console.log(data)
-
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         const cats = await request('/api/categories/', 'GET')
-    //         if (!!cats.length) {
-    //             setData([...cats])
-    //         }
-    //         console.log('hello1')
+    // const getCats = async () => {
+    //     try {
+    //         const cats = await request('/api/categories/', 'GET', null, {Authorization: `Bearer ${authToken.token}`})
+    //         setData([...cats])
     //
+    //     } catch (e) {
     //     }
-    //
-    //     console.log('hello2')
-    //     fetchData();
+    // }
+    // useEffect((data) => {
+    //     getCats()
     // }, [])
 
+
+    useEffect(() => {
+        async function fetchData() {
+            const cats = await request('/api/categories/', 'GET', null, {Authorization: `Bearer ${authToken.token}`})
+            if (!!cats.length) {
+                setData([...cats])
+            }
+            // console.log('hello1')
+
+        }
+
+        // console.log('hello2')
+        fetchData();
+    }, [])
+
+        // console.log(data)
     // useEffect(() => {
     //     axios.get('http://192.168.1.131:8080/api/categories/')
     //         .then(res => {

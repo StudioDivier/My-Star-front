@@ -34,17 +34,26 @@ export const SignUp = () => {
     const registerHandler = async () => {
         try {
 
-            const dataAuth = await request('/api/registration/', 'POST', {...form
+            const dataAuth = await request('/api/registration/', 'POST', {
+                ...form
                 //'username': form.username,
                 //'date_of_birth': `${date.year}-${dat}`
             })
-            message(dataAuth.phone)
-            console.log(dataAuth)
+            // console.log(dataAuth)
             auth.login(dataAuth.token, dataAuth.username, dataAuth.is_star)
+            if (Object.keys(dataAuth).length !== 1) {
+                for (let e in dataAuth) {
+                    message(e +' : '+ dataAuth[e][0]);
+                }
+            }
             // console.log(dataAuth.token.valueOf())
             history.push('/categories');
-        } catch (e) {}
-      }
+        } catch (e) {
+            message(e);
+            // console.log(e)
+            history.push('/sign-up');
+        }
+    }
 
     return (
         <>
@@ -77,7 +86,7 @@ export const SignUp = () => {
                     onChange={changeHandler}
                 />
                 <MaskedInput
-                    mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+                    mask={[/[1-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
                     placeholder={'ТЕЛЕФОН'}
                     type="text"
                     name={'phone'}

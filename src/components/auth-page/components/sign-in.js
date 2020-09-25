@@ -34,13 +34,16 @@ export const SignIn = () => {
             const dataLog = await request('/api/login/', 'POST', {...form})
             // console.log(dataLog)
             auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
-            for (let i in dataLog) {
-                console.log(typeof (dataLog[i][0]))
+            if (Object.keys(dataLog).length === 2) {
+                for (let e in dataLog) {
+                    message(e +' : '+ dataLog[e][0]);
+                }
             }
-
             history.push('/categories');
         } catch (e) {
-            console.log(e)
+            message(e);
+            history.push('/sign-in');
+            // console.log(e);
         }
     }
 

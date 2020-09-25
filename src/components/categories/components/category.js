@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useCallback, useContext, useEffect, useState} from 'react';
 import './category.scss';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -19,10 +19,15 @@ export const Category = ({id, name}) => {
 
     const clickHandler = async () => {
         try {
+            console.log('here0')
             const starsFetch = await request(`/api/star/category/?id=${id}`, 'GET', null, {Authorization: `Bearer ${authToken.token}`});
+            console.log('here1')
             setStarsList([...starsFetch])
+            console.log('here2')
             list.setArray([...starsFetch])
+            console.log('here3')
             history.push(`/categories/stars`)
+
         } catch (e) {
 
         }
@@ -37,7 +42,7 @@ export const Category = ({id, name}) => {
                     <Col xs={4}>
                         <div className="card-logo">
                             <div className="logo-gradient">
-                                <img src={icon} alt={'icon'} />
+                                <img src={icon} alt={'icon'}/>
                             </div>
                         </div>
                     </Col>

@@ -25,4 +25,21 @@ body {
   height: 100%;
 }
 
+#toast-container {
+  .toast {
+    margin: 0 auto !important;
+    //text-align: center;
+    color: white;
+    border-radius: 24px;
+    width: 75%;
+    background-color: tomato;
+    font-weight: bold;
+    padding: 18px 25px;
+  }
+    top: -88%;
+    right: 50%;
+    transform: translateX(50%) translateY(50%);
+}
+
+
 @import "components/auth-page/auth-page";
