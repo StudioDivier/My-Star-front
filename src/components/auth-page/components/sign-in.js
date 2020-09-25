@@ -34,7 +34,7 @@ export const SignIn = () => {
             const dataLog = await request('/api/login/', 'POST', {...form})
             // console.log(dataLog)
             auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
-            if (Object.keys(dataLog).length === 2) {
+            if (Object.keys(dataLog).length == 1 || Object.keys(dataLog).length == 2) {
                 for (let e in dataLog) {
                     message(e +' : '+ dataLog[e][0]);
                 }

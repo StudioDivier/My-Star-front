@@ -39,19 +39,23 @@ export const SignUp = () => {
                 //'username': form.username,
                 //'date_of_birth': `${date.year}-${dat}`
             })
-            // console.log(dataAuth)
-            auth.login(dataAuth.token, dataAuth.username, dataAuth.is_star)
             if (Object.keys(dataAuth).length !== 1) {
-                for (let e in dataAuth) {
-                    message(e +' : '+ dataAuth[e][0]);
-                }
+                setTimeout(() => {
+                    for (let e in dataAuth) {
+                        message(e + ' : ' + dataAuth[e][0]);
+                    }
+                }, 555)
+
             }
+            const dataLog = await request('/api/login/', 'POST', {...form})
+
+            // console.log(dataAuth)
+            // auth.login(dataAuth.token, form.username, dataAuth.is_star)
+            auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
+
             // console.log(dataAuth.token.valueOf())
-            history.push('/categories');
         } catch (e) {
             message(e);
-            // console.log(e)
-            history.push('/sign-up');
         }
     }
 
@@ -108,6 +112,7 @@ export const SignUp = () => {
             </div>
             <div className="signInButton">
                 <button
+                    type={'button'}
                     onClick={registerHandler}
                 >
                     Зарегистрироваться

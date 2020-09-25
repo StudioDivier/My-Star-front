@@ -7,14 +7,23 @@ import Col from 'react-bootstrap/Col';
 import {useHttp} from "../../hooks/http.hook";
 import {useHistory} from 'react-router-dom';
 import {AuthContext} from "../../context/AuthContext";
+import MaskedInput from "react-text-mask";
+import {useMessage} from "../../hooks/message.hook";
 
 export const Confirm = () => {
     const {request} = useHttp();
+    const message = useMessage();
     const auth = useContext(AuthContext);
     const history = useHistory();
     const starInfo = useContext(StarsContext);
     const [form, setForm] = useState({
-        status_order: '0', for_whom: '', by_date: '', comment: '', order_price: starInfo.starPrice, star_id: starInfo.starId, customer_id: auth.id
+        status_order: '0',
+        for_whom: '',
+        by_date: '',
+        comment: '',
+        order_price: starInfo.starPrice,
+        star_id: starInfo.starId,
+        customer_id: auth.id
     })
 
     const changeHandler = event => {
@@ -25,7 +34,7 @@ export const Confirm = () => {
         try {
             const dataLog = await request('/api/order/', 'POST', {...form}, {Authorization: `Bearer ${auth.token}`})
             console.log(dataLog)
-            // message(dataReg.message)
+            message(dataLog)
 
             history.push('/categories');
         } catch (e) {
@@ -65,12 +74,20 @@ export const Confirm = () => {
                                             onChange={changeHandler}
                                             placeholder={'Кого поздравить'}
                                         />
-                                        <input
+                                        {/*<input*/}
+                                        {/*    type="text"*/}
+                                        {/*    name={'by_date'}*/}
+                                        {/*    value={form.by_date}*/}
+                                        {/*    onChange={changeHandler}*/}
+                                        {/*    placeholder={'Дата'}*/}
+                                        {/*/>*/}
+                                        <MaskedInput
+                                            mask={[/[1-9]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+                                            placeholder={'Дата'}
                                             type="text"
                                             name={'by_date'}
                                             value={form.by_date}
                                             onChange={changeHandler}
-                                            placeholder={'Дата'}
                                         />
                                         <textarea
                                             name={'comment'}

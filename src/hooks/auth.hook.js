@@ -1,8 +1,10 @@
 import {useState, useCallback, useEffect} from 'react';
+import {useHistory} from 'react-router-dom';
 
 const storageName = 'userData';
 
 export const useAuth = () => {
+    const history = useHistory();
     const [token, setToken] = useState(null);
     const [userName, setUserName] = useState(null);
     const [star, setStar] = useState(null);
@@ -22,7 +24,7 @@ export const useAuth = () => {
         // let _is_star = JSON.parse(localStorage.getItem(storageName)).is_star;
         // let _token = JSON.parse(localStorage.getItem(storageName)).token;
 
-
+        // history.push('/categories');
     }, []);
 
     const logout = useCallback(() => {
