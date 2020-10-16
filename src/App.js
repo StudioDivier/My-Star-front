@@ -8,10 +8,10 @@ import {AuthContext} from "./context/AuthContext";
 import {useRoutes} from "./routes";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarEmpty} from '@fortawesome/free-regular-svg-icons';
 
-library.add(fab, faStar, faStarEmpty)
+library.add(fab, faStar, faStarEmpty, faArrowLeft)
 
 function App() {
     const {login, logout, token, userId, star, id} = useAuth();

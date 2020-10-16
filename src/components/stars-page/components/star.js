@@ -1,8 +1,5 @@
 import React, {useContext, useState} from 'react';
 import './star.scss';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import {useHistory} from 'react-router-dom';
 import {StarsContext} from "../../../context/StarsContext";
 import Ratings from 'react-ratings-declarative';
@@ -12,8 +9,10 @@ import {AuthContext} from "../../../context/AuthContext";
 // import Modal from 'react-bootstrap/Modal';
 // import {Modal} from './rate-modal';
 import Modal from 'react-modal';
+import orders from '../../../img/orders_amount.svg'
+// import orders from '../../../img/test2.png'
 
-export const Star = ({id, price, name, rating, days, avatar}) => {
+export const Star = ({id, price, name, rating, days, avatar, bgColor}) => {
     const history = useHistory();
     const star = useContext(StarsContext);
     const authToken = useContext(AuthContext)
@@ -76,100 +75,107 @@ export const Star = ({id, price, name, rating, days, avatar}) => {
     }
     Modal.setAppElement('.App')
 
+
     return (
-        <div className={'star-card'}>
-            <Container fluid>
-                <Row>
-                    <Col xs={6}>
-                        <div className="star-info">
-                            <h3>{name}</h3>
+        <a onClick={chooseStar}>
+            <div className={'star-card'} style={{backgroundImage: bgColor}}>
 
-                            <Ratings
-                                rating={newRating}
-                                widgetRatedColors="orange"
-                                widgetDimensions="14px"
-                                widgetSpacings="3px"
-                            >
-                                <Ratings.Widget/>
-                                <Ratings.Widget/>
-                                <Ratings.Widget/>
-                                <Ratings.Widget/>
-                                <Ratings.Widget/>
-                            </Ratings>
-
-                            {/*<Modal*/}
-                            {/*    size="sm"*/}
-                            {/*    show={smShow}*/}
-                            {/*    onHide={() => setSmShow(false)}*/}
-                            {/*    aria-labelledby="example-modal-sizes-title-sm"*/}
-                            {/*>*/}
-                            {/*    <Modal.Header closeButton>*/}
-                            {/*        <Modal.Title id="example-modal-sizes-title-sm">*/}
-                            {/*            Поставьте рейтинг*/}
-                            {/*        </Modal.Title>*/}
-                            {/*    </Modal.Header>*/}
-
-                            {/*    <Modal.Body>*/}
-                            {/*        <Ratings*/}
-                            {/*            rating={newRating}*/}
-                            {/*            widgetRatedColors="orange"*/}
-                            {/*            widgetDimensions="14px"*/}
-                            {/*            widgetSpacings="3px"*/}
-                            {/*            changeRating={setNewRating}*/}
-                            {/*        >*/}
-                            {/*            <Ratings.Widget/>*/}
-                            {/*            <Ratings.Widget/>*/}
-                            {/*            <Ratings.Widget/>*/}
-                            {/*            <Ratings.Widget/>*/}
-                            {/*            <Ratings.Widget/>*/}
-                            {/*        </Ratings>*/}
-                            {/*        <button onClick={rateHandler}>Оценить</button>*/}
-                            {/*    </Modal.Body>*/}
-                            {/*</Modal>*/}
-                            <Modal
-                                isOpen={modalIsOpen}
-                                onRequestClose={closeModal}
-                                contentLabel="Example Modal"
-                                style={customStyles}
-                            >
-                                <div className="modal-header">
-                                    <span>Оценить звезду</span>
-                                    <button onClick={closeModal}>х</button>
-                                </div>
-                                <div className="spread">
-                                    <Ratings
-                                        rating={newRating}
-                                        widgetRatedColors="orange"
-                                        widgetDimensions="14px"
-                                        widgetSpacings="3px"
-                                        changeRating={setNewRating}
-                                    >
-                                        <Ratings.Widget/>
-                                        <Ratings.Widget/>
-                                        <Ratings.Widget/>
-                                        <Ratings.Widget/>
-                                        <Ratings.Widget/>
-                                    </Ratings>
-                                    <button onClick={rateHandler}>Оценить</button>
-                                </div>
-                            </Modal>
-
+                <div className="avatar-img"
+                     style={{backgroundImage: "url(" + bgUrl + ")"}}
+                />
+                <div className="orders-amount">
+                    <span>&lt; 10</span>
+                    <span>заказов</span>
+                </div>
+                <div className="star-info">
+                    <div className="star-description">
+                        <h5>{name}</h5>
+                        <span>Хип-хоп исполнитель</span>
+                    </div>
+                    <div className="star-stats">
+                        <div className="star-stats__likes">
+                            <span>999</span>
+                            <span>Like</span>
                         </div>
-                    </Col>
-                    <Col xs={6}>
-                        <div className="avatar-img"
-                             style={{backgroundImage: "url(" + bgUrl + ")"}}
-                        />
-                        {/*<img src={url + avatar} alt="Star"/>*/}
-                    </Col>
-                    <Col xs={12}>
-                        <div className="buttonContainer">
-                            <button onClick={chooseStar}>Заказать</button>
-                            <button onClick={() => showModal()}>Оцените</button>
+                        <div className="star-stats__likes">
+                            <span>999</span>
+                            <span>Like</span>
                         </div>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
+                        <div className="star-stats__likes">
+                            <span>999</span>
+                            <span>Like</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="orders">
+                    <img src={orders} alt=""/>
+                </div>
+
+                {/*<Container fluid>*/}
+                {/*    <Row>*/}
+                {/*<Col xs={6}>*/}
+                {/*<div className="star-info">*/}
+                {/*<h3>{name}</h3>*/}
+
+                {/*<Ratings*/}
+                {/*    rating={newRating}*/}
+                {/*    widgetRatedColors="orange"*/}
+                {/*    widgetDimensions="14px"*/}
+                {/*    widgetSpacings="3px"*/}
+                {/*>*/}
+                {/*    <Ratings.Widget/>*/}
+                {/*    <Ratings.Widget/>*/}
+                {/*    <Ratings.Widget/>*/}
+                {/*    <Ratings.Widget/>*/}
+                {/*    <Ratings.Widget/>*/}
+                {/*</Ratings>*/}
+
+                {/*<Modal*/}
+                {/*    isOpen={modalIsOpen}*/}
+                {/*    onRequestClose={closeModal}*/}
+                {/*    contentLabel="Example Modal"*/}
+                {/*    style={customStyles}*/}
+                {/*>*/}
+                {/*    <div className="modal-header">*/}
+                {/*        <span>Оценить звезду</span>*/}
+                {/*        <button onClick={closeModal}>х</button>*/}
+                {/*    </div>*/}
+                {/*    <div className="spread">*/}
+                {/*        <Ratings*/}
+                {/*            rating={newRating}*/}
+                {/*            widgetRatedColors="orange"*/}
+                {/*            widgetDimensions="14px"*/}
+                {/*            widgetSpacings="3px"*/}
+                {/*            changeRating={setNewRating}*/}
+                {/*        >*/}
+                {/*            <Ratings.Widget/>*/}
+                {/*            <Ratings.Widget/>*/}
+                {/*            <Ratings.Widget/>*/}
+                {/*            <Ratings.Widget/>*/}
+                {/*            <Ratings.Widget/>*/}
+                {/*        </Ratings>*/}
+                {/*        <button onClick={rateHandler}>Оценить</button>*/}
+                {/*    </div>*/}
+                {/*</Modal>*/}
+
+                {/*</div>*/}
+                {/*</Col>*/}
+                {/*<Col xs={6}>*/}
+                {/*    <div className="avatar-img"*/}
+                {/*         style={{backgroundImage: "url(" + bgUrl + ")"}}*/}
+                {/*    />*/}
+                {/*    /!*<img src={url + avatar} alt="Star"/>*!/*/}
+                {/*</Col>*/}
+                {/*<Col xs={12}>*/}
+                {/*    <div className="buttonContainer">*/}
+                {/*        <button onClick={chooseStar}>Заказать</button>*/}
+                {/*        <button onClick={() => showModal()}>Оцените</button>*/}
+                {/*    </div>*/}
+                {/*</Col>*/}
+                {/*    </Row>*/}
+                {/*</Container>*/}
+            </div>
+        </a>
     )
 }

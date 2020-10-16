@@ -6,6 +6,9 @@ import Col from 'react-bootstrap/Col';
 // import {useHttp} from "../../hooks/http.hook";
 import {Star} from './components/star';
 import {StarsContext} from "../../context/StarsContext";
+import backBlueArrow from '../../img/back-blue.svg'
+import {Filter} from "../button-group/button-group";
+import {BottomMenu} from "../bottom-menu/bottom-menu";
 
 export const Stars = () => {
     // const {loading, request, error, clearError} = useHttp()
@@ -32,24 +35,55 @@ export const Stars = () => {
     //     fetchData();
     // }, [])
 
+    const colors = [
+        'linear-gradient(to top, #f76364 0%, #f76665 26%, #f76665 51%, #f76665 76%, #f56664 100%)',
+        'linear-gradient(to top, #774ef7 0%, #7651f7 26%, #7651f7 51%, #7651f7 76%, #754ff6 100%)',
+        'linear-gradient(to top, #f78c5c 0%, #f78b5e 26%, #f78b5e 51%, #f68b5f 76%, #f68a61 100%)',
+        'linear-gradient(to top, #29bdf6 0%, #29bdf7 26%, #29bdf7 51%, #29bbf7 76%, #27bdf6 100%)',
+        'linear-gradient(to top, #5960f8 0%, #5762f7 26%, #585df7 51%, #5661f7 76%, #5661f7 100%)',
+        'linear-gradient(to top, #90d443 0%, #91d343 26%, #91d343 51%, #91d343 76%, #91d347 100%)'
+    ]
+
+    console.log(window.screen.width)
+
     // console.log(stars)
     // console.log(fetchedList.array)
 
     return (
         <>
             <div className="stars">
-                <div className="gradient">
-                    <h3>Артисты</h3>
+                <div className="header-block">
+                    <div className={'icon-container'}>
+                        <a href={'/categories'}>
+                            <img src={backBlueArrow} alt="Back button"/>
+                        </a>
+                    </div>
+                    <div>
+                        <h3>Исполнители</h3>
+                    </div>
                 </div>
                 <div className="stars__container">
+                    <Filter />
                     <Container>
                         <Row>
                             {fetchedList.array.map((key, value) => {
                                 console.log(key, value)
+
+                                let randomNum = Math.floor(Math.random() * 6);
+                                let bgColor = colors[randomNum];
+
                                 return (
                                     <div className="single-star" key={value}>
-                                        <Col lg>
-                                            <Star id={key.id} name={key.username} rating={key.rating} price={key.price} days={key.days} avatar={key.avatar} />
+                                        <Col>
+                                            <Star
+                                                id={key.id}
+                                                name={key.username}
+                                                rating={key.rating}
+                                                price={key.price}
+                                                days={key.days}
+                                                avatar={key.avatar}
+                                                bgColor={bgColor}
+                                            />
                                         </Col>
                                     </div>
                                     )
@@ -79,6 +113,7 @@ export const Stars = () => {
                     </Container>
                 </div>
             </div>
+            <BottomMenu />
         </>
     )
 }

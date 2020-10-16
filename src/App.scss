@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;500;600;700;800&display=swap");//Montserrat ExtraLight, Regular, Semibold, Medium, Bold,ExtraBold
+
 @import "~materialize-css/dist/css/materialize.min.css";
 @import "scss/common/colors";
 @import "scss/common/screen";
@@ -13,7 +15,7 @@ body {
 }
 
 body {
-  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   margin: 0;
 }
 
@@ -42,4 +44,4 @@ body {
 }
 
 
-@import "components/auth-page/auth-page";
+//@import "components/auth-page/auth-page";

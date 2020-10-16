@@ -1,16 +1,13 @@
 import React, {useCallback, useContext, useEffect, useState} from 'react';
 import './category.scss';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import icon from '../../../img/icon1.png';
+// import icon from '../../../img/icon1.svg';
 import {useHistory} from 'react-router-dom';
 import {useHttp} from "../../../hooks/http.hook";
 import {StarsContext} from "../../../context/StarsContext";
 import {AuthContext} from "../../../context/AuthContext";
 
 
-export const Category = ({id, name}) => {
+export const Category = ({id, name, bgColor, catPhoto}) => {
     const history = useHistory();
     const {request} = useHttp();
     const [starsList, setStarsList] = useState();
@@ -33,33 +30,26 @@ export const Category = ({id, name}) => {
         }
     }
 
+    const catPic = 'http://192.168.1.131:8080/' + catPhoto;
+
     console.log(starsList)
 
     return (
-        <div className={'category-card'}>
-            <Container fluid>
-                <Row>
-                    <Col xs={4}>
-                        <div className="card-logo">
-                            <div className="logo-gradient">
-                                <img src={icon} alt={'icon'}/>
-                            </div>
+        <>
+            <a onClick={clickHandler} className={'category-card'}>
+                <div style={{backgroundImage: bgColor}}>
+                    <div className="category-card__description">
+                        <span>Популярные</span>
+                        <div className="img-card">
+                            <img src={catPic} alt="icon"/>
                         </div>
-                    </Col>
-                    <Col xs={8}>
-                        <div className="card-info">
-                            <Row>
-                                <Col lg>
-                                    {name}
-                                </Col>
-                                <Col lg>
-                                    <button onClick={clickHandler}>Заказать</button>
-                                </Col>
-                            </Row>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
+                    </div>
+                    <div className="category-card__info">
+                            <h5>{name}</h5>
+                            <span>Песня в подарок</span>
+                    </div>
+                </div>
+            </a>
+        </>
     )
 }

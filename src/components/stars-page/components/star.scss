@@ -10,10 +10,13 @@
   .modal-header {
     display: flex;
     justify-content: space-between;
+
     span {
       font-size: 16px;
     }
+
     padding: 14px 0;
+
     button {
       background-color: transparent;
       color: gray;
@@ -50,67 +53,83 @@
 
 .star-card {
   background-color: white;
-  padding: 15px;
-  margin-bottom: 30px;
+  //padding: 15px 15px 13px 15px;
+  padding: 10px;
+  margin-bottom: 15px;
   border-radius: 10px;
-
-
-  .col-4, .col-8 {
-    @include px(0, 0);
-  }
-
-  .row {
-    margin-bottom: 10px;
-  }
-
-  h3 {
-    color: black;
-    padding: 0;
-    text-align: left;
-    font-size: 18px;
-    letter-spacing: 0.65px;
-    text-transform: capitalize;
-  }
-
-  img {
-    width: 127.5px;
-    border-radius: 65px;
-    height: 126px;
-  }
+  color: white;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
 
   .avatar-img {
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    width: 127.5px;
+    width: 110px;
     border-radius: 65px;
-    height: 126px;
+    height: 110px;
   }
 
-  .buttonContainer {
-    margin-top: 20px;
+  .star-info {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    padding: 0 0 0 25px;
+    font-size: 12px;
+
+    span:nth-child(2) {
+      font-weight: 200;
+    }
+
+    .star-description {
+      padding-bottom: 10px;
+    }
+
+    .star-stats {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+
+      .star-stats__likes {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        span:first-of-type {
+          font-weight: 700;
+          font-size: 14px;
+        }
+      }
+    }
   }
 
-  button {
-    border: 0;
-    color: white;
-    border-radius: 26px;
-    background-color: #2e3a46;
-    padding: 7px 21px;
-    text-transform: uppercase;
-    font-size: 10px;
-    font-weight: bold;
+  .orders {
+    //width: 100%;
+    position: relative;
+    margin-left: auto;
+    margin-right: -11px;
+    margin-bottom: -15px;
+    width: 56px;
+
+    img {
+      width: 100%;
+    }
   }
 
-  svg {
-    color: #fcc808;
-    border-color: #fcc808;
-  }
+  .orders-amount {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-left: auto;
+    margin-right: 15px;
+    right: 0;
+    bottom: 38px;
+    font-size: 12px;
 
-  svg:first-of-type {
-    margin-left: 0;
+    span:first-of-type {
+      font-weight: 700;
+      font-size: 14px;
+    }
   }
 }

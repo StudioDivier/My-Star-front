@@ -3,14 +3,26 @@ import './categories.scss';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import {BottomMenu} from '../bottom-menu/bottom-menu';
 import {Category} from './components/category';
 import {useHttp} from "../../hooks/http.hook";
 import {AuthContext} from "../../context/AuthContext";
+import backBlueArrow from '../../img/back-blue.svg';
+import {Filter} from "../button-group/button-group";
 
 export const Categories = () => {
     const authToken = useContext(AuthContext)
     const {request} = useHttp()
     const [data, setData] = useState([]);
+
+    const colors = [
+        'linear-gradient(to top, #f76364 0%, #f76665 26%, #f76665 51%, #f76665 76%, #f56664 100%)',
+        'linear-gradient(to top, #774ef7 0%, #7651f7 26%, #7651f7 51%, #7651f7 76%, #754ff6 100%)',
+        'linear-gradient(to top, #f78c5c 0%, #f78b5e 26%, #f78b5e 51%, #f68b5f 76%, #f68a61 100%)',
+        'linear-gradient(to top, #29bdf6 0%, #29bdf7 26%, #29bdf7 51%, #29bbf7 76%, #27bdf6 100%)',
+        'linear-gradient(to top, #5960f8 0%, #5762f7 26%, #585df7 51%, #5661f7 76%, #5661f7 100%)',
+        'linear-gradient(to top, #90d443 0%, #91d343 26%, #91d343 51%, #91d343 76%, #91d347 100%)'
+    ]
 
     // const getCats = async () => {
     //     try {
@@ -39,7 +51,7 @@ export const Categories = () => {
         fetchData();
     }, [])
 
-        // console.log(data)
+    // console.log(data)
     // useEffect(() => {
     //     axios.get('http://192.168.1.131:8080/api/categories/')
     //         .then(res => {
@@ -50,27 +62,42 @@ export const Categories = () => {
     return (
         <>
             <div className="categories">
-                <div className="gradient">
-                    <h3>Категории</h3>
+                <div className="header-block">
+                    <div className={'icon-container'}>
+                        <a href={'/'}>
+                            <img src={backBlueArrow} alt="Back button"/>
+                        </a>
+                    </div>
+                    <div>
+                        <h3>Категории</h3>
+                    </div>
                 </div>
                 <div className="categories__container">
+                    <Filter />
                     <Container>
                         <Row>
-                            <div className="single-category">
-                                {data.map((key, value) => {
-                                    // console.log(key, value)
-                                    return (
-                                        <Col lg key={value}>
-                                            <Category id={value + 1} name={key.cat_name}/>
-                                        </Col>
-                                    )
-                                })
-                                }
-                            </div>
+                            {data.map((value, key) => {
+                                // console.log(value, key)
+                                let randomNum = Math.floor(Math.random() * 6);
+                                let bgColor = colors[randomNum];
+
+                                return (
+                                    <Col xs={6} key={key}>
+                                        <Category
+                                            id={key + 1}
+                                            name={value.cat_name}
+                                            catPhoto={value.cat_photo}
+                                            bgColor={bgColor}
+                                        />
+                                    </Col>
+                                )
+                            })
+                            }
                         </Row>
                     </Container>
                 </div>
             </div>
+            <BottomMenu/>
         </>
     )
 }
