@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import {Star} from './components/star';
 import {StarsContext} from "../../context/StarsContext";
 import backBlueArrow from '../../img/back-blue.svg'
-import {Filter} from "../button-group/button-group";
+import {Filter} from "../filter/filter";
 import {BottomMenu} from "../bottom-menu/bottom-menu";
 
 export const Stars = () => {
@@ -54,7 +54,7 @@ export const Stars = () => {
             <div className="stars">
                 <div className="header-block">
                     <div className={'icon-container'}>
-                        <a href={'/categories'}>
+                        <a href={'/'}>
                             <img src={backBlueArrow} alt="Back button"/>
                         </a>
                     </div>

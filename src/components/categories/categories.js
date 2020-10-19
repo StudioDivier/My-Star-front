@@ -8,7 +8,7 @@ import {Category} from './components/category';
 import {useHttp} from "../../hooks/http.hook";
 import {AuthContext} from "../../context/AuthContext";
 import backBlueArrow from '../../img/back-blue.svg';
-import {Filter} from "../button-group/button-group";
+import {Filter} from "../filter/filter";
 
 export const Categories = () => {
     const authToken = useContext(AuthContext)
@@ -51,7 +51,7 @@ export const Categories = () => {
         fetchData();
     }, [])
 
-    // console.log(data)
+    console.log(data)
     // useEffect(() => {
     //     axios.get('http://192.168.1.131:8080/api/categories/')
     //         .then(res => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.scss';
-import 'materialize-css'
+import 'materialize-css/dist/css/materialize.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter} from "react-router-dom";
 import {useAuth} from './hooks/auth.hook';

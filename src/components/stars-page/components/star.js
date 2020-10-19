@@ -10,7 +10,7 @@ import {AuthContext} from "../../../context/AuthContext";
 // import {Modal} from './rate-modal';
 import Modal from 'react-modal';
 import orders from '../../../img/orders_amount.svg'
-// import orders from '../../../img/test2.png'
+// import orders-page from '../../../img/test2.png'
 
 export const Star = ({id, price, name, rating, days, avatar, bgColor}) => {
     const history = useHistory();

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './bottom-menu.scss'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -7,27 +7,39 @@ import home from '../../img/home.svg'
 import cats from '../../img/categories.svg'
 import orders from '../../img/orders.svg'
 import account from '../../img/account.svg'
+import {useMessage} from "../../hooks/message.hook";
+import {useHttp} from "../../hooks/http.hook";
+import {AuthContext} from "../../context/AuthContext";
 
 export const BottomMenu = () => {
+
     return (
         <div className={'bottom-menu'}>
             <Container>
                 <Row>
                     <Col>
-                        <img src={home} alt="Home"/>
-                        <span>Главная</span>
+                        <a href="/categories">
+                            <img src={home} alt="Home"/>
+                            <span>Главная</span>
+                        </a>
                     </Col>
                     <Col>
-                        <img src={cats} alt="Categories"/>
-                        <span>Категории</span>
+                        <a href="/categories">
+                            <img src={cats} alt="Categories"/>
+                            <span>Категории</span>
+                        </a>
                     </Col>
                     <Col>
-                        <img src={orders} alt="Orders"/>
-                        <span>Мои заказы</span>
+                        <a href="/orders">
+                            <img src={orders} alt="Orders"/>
+                            <span>Мои заказы</span>
+                        </a>
                     </Col>
                     <Col>
-                        <img src={account} alt="Account"/>
-                        <span>Аккаунт</span>
+                        <a href="/profile">
+                            <img src={account} alt="Account"/>
+                            <span>Аккаунт</span>
+                        </a>
                     </Col>
                 </Row>
             </Container>

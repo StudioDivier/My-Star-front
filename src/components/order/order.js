@@ -6,11 +6,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {useHistory} from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import priceTag from '../../img/order_icons/priceTag.png';
+import priceTag from '../../img/order_icons/priceTag.svg';
 import stars from '../../img/order_icons/stars.png';
 import time from '../../img/order_icons/time.png';
-import menu from '../../img/order_icons/menu.png';
-import account from '../../img/order_icons/account.png';
+import menu from '../../img/order_icons/menu.svg';
+import account from '../../img/order_icons/account.svg';
+import like from '../../img/order_icons/icon_like.png';
+import {NavBar} from "../navbar/navbar";
 
 export const Order = () => {
     const starInfo = useContext(StarsContext);
@@ -27,13 +29,18 @@ export const Order = () => {
                     <div className="chosen-star__info" style={{background: 'linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)), url(' + avatar +')'}}>
                         <div className="header">
                             <div className="header-top">
-                                <img src={menu} alt=""/>
+                                <a href="#" data-target="slide-out" className="sidenav-trigger show-on-large">
+                                    <img src={menu} alt=""/>
+                                </a>
                                 <span>Профиль</span>
                                 <img src={account} alt=""/>
                             </div>
                             <div className="header-bottom">
                                 <h3>{starInfo.starName}</h3>
                                 <span>Хип-хоп исполнитель</span>
+                                <div className="likes">
+                                    <img src={like} alt=""/><span>&nbsp;&nbsp;425</span>
+                                </div>
                             </div>
                         </div>
                         {/*<img src={url + starInfo.starAvatar} alt={'star'}/>*/}
@@ -82,6 +89,7 @@ export const Order = () => {
                     </div>
                 </div>
             </div>
+            <NavBar />
         </>
     )
 }

@@ -6,6 +6,7 @@ import {Stars} from "./components/stars-page/stars";
 import {StarsProvider} from "./context/StarsContext";
 import {Order} from "./components/order/order";
 import {Confirm} from "./components/confirm/confirm";
+import {OrdersPage} from "./components/orders-page/orders-page";
 
 export const useRoutes = (isAuthenticated, isStar) => {
 
@@ -13,7 +14,13 @@ export const useRoutes = (isAuthenticated, isStar) => {
         return (
             <Switch>
                 <StarsProvider>
-                     <Route exact path="/categories">
+                    <Route exact path={'/'}>
+                        <Redirect to="/categories" />
+                    </Route>
+                     <Route exact path="/orders">
+                        <OrdersPage />
+                    </Route>
+                    <Route exact path="/categories">
                         <Categories />
                     </Route>
                     <Route exact path="/categories/stars">
@@ -25,7 +32,6 @@ export const useRoutes = (isAuthenticated, isStar) => {
                     <Route exact path="/categories/stars/order/confirm">
                         <Confirm />
                     </Route>
-                    <Redirect to="/categories" />
                 </StarsProvider>
             </Switch>
         )
