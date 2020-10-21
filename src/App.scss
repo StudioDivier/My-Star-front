@@ -4,14 +4,9 @@
 @import "scss/common/colors";
 @import "scss/common/screen";
 @import "scss/common/variables";
-@import "scss/common/screen";
 
 html, body {
   height:100%;
-}
-
-body {
-  //height: 100vh;
 }
 
 body {
@@ -37,6 +32,10 @@ body {
     background-color: tomato;
     font-weight: bold;
     padding: 18px 25px;
+  }
+
+  .success {
+    background-color: limegreen;
   }
     top: -88%;
     right: 50%;

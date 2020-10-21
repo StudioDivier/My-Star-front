@@ -61,6 +61,7 @@
   display: flex;
   align-items: center;
   overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
 
   .avatar-img {
     background-size: cover;
@@ -125,7 +126,7 @@
     margin-right: 15px;
     right: 0;
     bottom: 38px;
-    font-size: 12px;
+    font-size: 10px;
 
     span:first-of-type {
       font-weight: 700;

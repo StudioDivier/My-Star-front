@@ -14,6 +14,7 @@ export const Categories = () => {
     const authToken = useContext(AuthContext)
     const {request} = useHttp()
     const [data, setData] = useState([]);
+    const [query, setQuery] = useState('');
 
     const colors = [
         'linear-gradient(to top, #f76364 0%, #f76665 26%, #f76665 51%, #f76665 76%, #f56664 100%)',
@@ -49,15 +50,13 @@ export const Categories = () => {
 
         // console.log('hello2')
         fetchData();
-    }, [])
+    }, [authToken.token, request]) // needed?
 
-    console.log(data)
-    // useEffect(() => {
-    //     axios.get('http://192.168.1.131:8080/api/categories/')
-    //         .then(res => {
-    //             // setData([...res.data])
-    //         })
-    // })
+    // console.log(data)
+
+    const getQuery = (query) => {
+        setQuery(query)
+    }
 
     return (
         <>
@@ -73,7 +72,9 @@ export const Categories = () => {
                     </div>
                 </div>
                 <div className="categories__container">
-                    <Filter />
+                    <Filter
+                        getQuery={getQuery}
+                    />
                     <Container>
                         <Row>
                             {data.map((value, key) => {
@@ -81,16 +82,29 @@ export const Categories = () => {
                                 let randomNum = Math.floor(Math.random() * 6);
                                 let bgColor = colors[randomNum];
 
-                                return (
-                                    <Col xs={6} key={key}>
-                                        <Category
-                                            id={key + 1}
-                                            name={value.cat_name}
-                                            catPhoto={value.cat_photo}
-                                            bgColor={bgColor}
-                                        />
-                                    </Col>
-                                )
+                                if (value.cat_name.toLowerCase().includes(query.toLowerCase())) {
+                                    return (
+                                        <Col xs={6} key={key}>
+                                            <Category
+                                                id={value.id}
+                                                name={value.cat_name}
+                                                catPhoto={value.cat_photo}
+                                                bgColor={bgColor}
+                                            />
+                                        </Col>
+                                    )
+                                } else if (query === '') {
+                                    return (
+                                        <Col xs={6} key={key}>
+                                            <Category
+                                                id={value.id}
+                                                name={value.cat_name}
+                                                catPhoto={value.cat_photo}
+                                                bgColor={bgColor}
+                                            />
+                                        </Col>
+                                    )
+                                }
                             })
                             }
                         </Row>

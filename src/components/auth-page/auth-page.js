@@ -5,6 +5,7 @@ import {Switch, Route, Redirect, BrowserRouter} from 'react-router-dom';
 import {SignIn} from "./components/sign-in";
 import {SignUp} from "./components/sign-up";
 import {Start} from "./components/start";
+import {Reset} from "./reset";
 
 export const AuthPage = () => {
 
@@ -25,6 +26,11 @@ export const AuthPage = () => {
                     <Route path="/sign-up" exact>
                         <div className={'gradient__signUp'}>
                             <SignUp/>
+                        </div>
+                    </Route>
+                    <Route path='/password-reset/confirm/'>
+                        <div className={'gradient__signUp'}>
+                            <Reset/>
                         </div>
                     </Route>
                     <Redirect to="/"/>

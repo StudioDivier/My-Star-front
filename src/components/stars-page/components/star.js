@@ -1,43 +1,41 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import './star.scss';
 import {useHistory} from 'react-router-dom';
 import {StarsContext} from "../../../context/StarsContext";
-import Ratings from 'react-ratings-declarative';
-import {useHttp} from "../../../hooks/http.hook";
-import {useMessage} from "../../../hooks/message.hook";
-import {AuthContext} from "../../../context/AuthContext";
-// import Modal from 'react-bootstrap/Modal';
-// import {Modal} from './rate-modal';
-import Modal from 'react-modal';
+// import Ratings from 'react-ratings-declarative';
+// import {useHttp} from "../../../hooks/http.hook";
+// import {useMessage} from "../../../hooks/message.hook";
+// import {AuthContext} from "../../../context/AuthContext";
+// import Modal from 'react-bootstrap/Modal'; //unused
+// import {Modal} from './rate-modal'; //unused
+// import Modal from 'react-modal';
 import orders from '../../../img/orders_amount.svg'
-// import orders-page from '../../../img/test2.png'
 
-export const Star = ({id, price, name, rating, days, avatar, bgColor}) => {
+export const Star = ({id, price, name, rating, days, avatar, bgColor, likes}) => {
     const history = useHistory();
     const star = useContext(StarsContext);
-    const authToken = useContext(AuthContext)
-    const message = useMessage();
-    const {request} = useHttp();
-    const [newRating, setNewRating] = useState(rating);
+    // const authToken = useContext(AuthContext)
+    // const message = useMessage();
+    // const {request} = useHttp();
+    // const [newRating, setNewRating] = useState(rating);
     // const [smShow, setSmShow] = useState(false);
-    const [modalIsOpen, setIsOpen] = useState(false);
+    // const [modalIsOpen, setIsOpen] = useState(false);
 
-
-    console.log(authToken)
-    const rateHandler = async () => {
-        try {
-            const dataLog = await request('/api/ratestar/', 'PUT', {
-                "rating": `${newRating}`,
-                "adresat": authToken.id,
-                "adresant": id,
-            }, {Authorization: `Bearer ${authToken.token}`})
-            message(dataLog);
-            console.log(dataLog)
-        } catch (e) {
-            message(e);
-            // console.log(e);
-        }
-    }
+    // console.log(authToken)
+    // const rateHandler = async () => {
+    //     try {
+    //         const dataLog = await request('/api/ratestar/', 'PUT', {
+    //             "rating": `${newRating}`,
+    //             "adresat": authToken.id,
+    //             "adresant": id,
+    //         }, {Authorization: `Bearer ${authToken.token}`})
+    //         message(dataLog);
+    //         console.log(dataLog)
+    //     } catch (e) {
+    //         message(e);
+    //         // console.log(e);
+    //     }
+    // }
 
     const chooseStar = () => {
         star.setStarId(id)
@@ -46,38 +44,39 @@ export const Star = ({id, price, name, rating, days, avatar, bgColor}) => {
         star.setStarRating(rating)
         star.setStarDays(days)
         star.setAvatar(avatar)
+        star.setLikes(likes)
         history.push(`/categories/stars/order`);
         // console.log(id)
     };
 
     const bgUrl = 'http://192.168.1.131:8080' + avatar;
 
-    const customStyles = {
-        content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-            height: 'auto',
-            width: '80%',
-            borderRadius: '25px',
-            padding: '20px 30px'
-        }
-    };
+    // const customStyles = {
+    //     content: {
+    //         top: '50%',
+    //         left: '50%',
+    //         right: 'auto',
+    //         bottom: 'auto',
+    //         marginRight: '-50%',
+    //         transform: 'translate(-50%, -50%)',
+    //         height: 'auto',
+    //         width: '80%',
+    //         borderRadius: '25px',
+    //         padding: '20px 30px'
+    //     }
+    // };
 
-    const showModal = () => {
-        setIsOpen(true)
-    }
-    const closeModal = () => {
-        setIsOpen(false)
-    }
-    Modal.setAppElement('.App')
+    // const showModal = () => {
+    //     setIsOpen(true)
+    // }
+    // const closeModal = () => {
+    //     setIsOpen(false)
+    // }
+    // Modal.setAppElement('.App')
 
 
     return (
-        <a onClick={chooseStar}>
+        <div onClick={chooseStar}>
             <div className={'star-card'} style={{backgroundImage: bgColor}}>
 
                 <div className="avatar-img"
@@ -94,7 +93,7 @@ export const Star = ({id, price, name, rating, days, avatar, bgColor}) => {
                     </div>
                     <div className="star-stats">
                         <div className="star-stats__likes">
-                            <span>999</span>
+                            <span>{likes}</span>
                             <span>Like</span>
                         </div>
                         <div className="star-stats__likes">
@@ -176,6 +175,6 @@ export const Star = ({id, price, name, rating, days, avatar, bgColor}) => {
                 {/*    </Row>*/}
                 {/*</Container>*/}
             </div>
-        </a>
+        </div>
     )
 }

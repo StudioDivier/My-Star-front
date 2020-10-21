@@ -1,11 +1,8 @@
 import React, {useContext, useState} from 'react';
 import {StarsContext} from "../../context/StarsContext";
 import './confirm.scss';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import {useHttp} from "../../hooks/http.hook";
-import {useHistory} from 'react-router-dom';
+// import {useHistory} from 'react-router-dom';
 import {AuthContext} from "../../context/AuthContext";
 import MaskedInput from "react-text-mask";
 import {useMessage} from "../../hooks/message.hook";
@@ -14,13 +11,15 @@ import account from '../../img/order_icons/account.svg';
 import like from '../../img/order_icons/icon_like.png';
 import priceTag from '../../img/order_icons/priceTag.svg';
 import {NavBar} from "../navbar/navbar";
+import {Link} from "react-router-dom";
 
 
 export const Confirm = () => {
     const {request} = useHttp();
     const message = useMessage();
     const auth = useContext(AuthContext);
-    const history = useHistory();
+    const userInfo = useContext(AuthContext);
+    // const history = useHistory();
     const starInfo = useContext(StarsContext);
     const [form, setForm] = useState({
         status_order: '0',
@@ -47,8 +46,22 @@ export const Confirm = () => {
         }
     }
 
+    const likeHandler = async () => {
+        try {
+            const dataLog = await request('/api/star/like/', 'POST', {
+                "star_id": starInfo.starId,
+                "cust_id": userInfo.id
+            }, {Authorization: `Bearer ${userInfo.token}`})
+            message(`${dataLog}`);
+        } catch (e) {
+            message(e)
+        }
+    }
+
     const url = 'http://192.168.1.131:8080';
     const avatar = url + starInfo.starAvatar;
+
+    const hashTagLink = '#';
 
     return (
         <>
@@ -58,17 +71,19 @@ export const Confirm = () => {
                          style={{background: 'linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)), url(' + avatar + ')'}}>
                         <div className="header">
                             <div className="header-top">
-                                <a href="#" data-target="slide-out" className="sidenav-trigger show-on-large">
+                                <a href={hashTagLink} data-target="slide-out" className="sidenav-trigger show-on-large">
                                     <img src={menu} alt=""/>
                                 </a>
                                 <span>Профиль</span>
-                                <img src={account} alt=""/>
+                                <Link to={'/profile'}>
+                                    <img src={account} alt="Account"/>
+                                </Link>
                             </div>
                             <div className="header-bottom">
                                 <h3>{starInfo.starName}</h3>
                                 <span>Хип-хоп исполнитель</span>
-                                <div className="likes">
-                                    <img src={like} alt=""/><span>&nbsp;&nbsp;425</span>
+                                <div className="likes" onClick={likeHandler}>
+                                    <img src={like} alt=""/><span>&nbsp;&nbsp;{starInfo.starLikes}</span>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +142,7 @@ export const Confirm = () => {
                     </div>
                 </div>
             </div>
-            <NavBar />
+            <NavBar/>
         </>
     )
 }

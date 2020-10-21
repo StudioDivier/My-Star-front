@@ -14,31 +14,32 @@ export const OrdersPage = () => {
     const authToken = useContext(AuthContext);
     const {request} = useHttp();
     const [data, setData] = useState([]);
-    const [newData, setNewData] = useState([])
+    const [name, setName] = useState([]);
     // console.log(authToken)
 
     useEffect(() => {
         async function fetchData() {
-            const personal = await request(`/api/personal/?is_star=${authToken.isStar}&user_id=${authToken.id}`, 'GET', null, {Authorization: `Bearer ${authToken.token}`})
+            const personal = await request(`/api/order/list/?is_star=${authToken.isStar}&user_id=${authToken.id}`, 'GET', null, {Authorization: `Bearer ${authToken.token}`})
             console.log(personal)
-            if (!!personal.length) {
-                setData([...personal])
-            }
+            setData([...personal.orders])
+            setName(personal.data.customer)
             // console.log('hello1')
 
         }
 
         // console.log('hello2')
         fetchData();
-    }, [])
+    }, [authToken.isStar, authToken.id, authToken.token, request]) // needed?
 
-    let fetchedData = data[1];
-    let help = [];
-    // let help2 = help['orders'];
-    for (let i in fetchedData) {
-        help = [...fetchedData[i]]
-    }
-    console.log(help)
+    // let fetchedData = data[0];
+    // let help = [];
+    // // let help2 = help['orders'];
+    // for (let i in fetchedData) {
+    //     help = [...fetchedData[i]]
+    // }
+    // console.log(data)
+    // console.log(help)
+    console.log(name)
 
 
     const colors = [
@@ -67,7 +68,6 @@ export const OrdersPage = () => {
                     <Filter/>
                     <Container>
                         <Row>
-
                             {data.map((value, key) => {
                                 // console.log(value, key)
 
@@ -76,13 +76,22 @@ export const OrdersPage = () => {
 
                                 return (
                                     <div className="orders-wrapper" key={key}>
-                                            <SingleOrder
-                                                bgColor={bgColor}
-                                            />
+                                        <SingleOrder
+                                            name={name}
+                                            date={value.by_date}
+                                            comment={value.comment}
+                                            forWhom={value.for_whom}
+                                            price={value.order_price}
+                                            status={value.status_order}
+                                            bgColor={bgColor}
+                                        />
                                     </div>
-                                    )
-                                })
+                                )
+                            })
                             }
+                            <div className="overlay">
+
+                            </div>
                             {/*{fetchedList.array.map((key, value) => {*/}
                             {/*    console.log(key, value)*/}
 

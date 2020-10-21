@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React from 'react';
 import './bottom-menu.scss'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -7,9 +7,6 @@ import home from '../../img/home.svg'
 import cats from '../../img/categories.svg'
 import orders from '../../img/orders.svg'
 import account from '../../img/account.svg'
-import {useMessage} from "../../hooks/message.hook";
-import {useHttp} from "../../hooks/http.hook";
-import {AuthContext} from "../../context/AuthContext";
 
 export const BottomMenu = () => {
 

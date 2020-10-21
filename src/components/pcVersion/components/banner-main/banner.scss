@@ -1,0 +1,32 @@
+.banner {
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+
+  .wrapper {
+    background-color: rgba(174, 143, 22, 0.87);
+    background-size: cover;
+    //height: 426px;
+    width: 100%;
+
+    img {
+      width: 100%;
+    }
+
+    .overlay-text {
+      color: white;
+      width: 452px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+
+      h2 {
+      font-size: 48px;
+        font-weight: 700;
+      }
+      p {
+        font-size: 36px;
+        font-weight: 400;
+      }
+    }
+  }
+}

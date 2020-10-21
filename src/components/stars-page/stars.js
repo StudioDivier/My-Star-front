@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import './stars-page.scss';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -14,6 +14,7 @@ export const Stars = () => {
     // const {loading, request, error, clearError} = useHttp()
     // const [stars, setStars] = useState([]);
     const fetchedList = useContext(StarsContext);
+    const [query, setQuery] = useState('');
 
     // const getCats = async () => {
     //     try {
@@ -44,10 +45,14 @@ export const Stars = () => {
         'linear-gradient(to top, #90d443 0%, #91d343 26%, #91d343 51%, #91d343 76%, #91d347 100%)'
     ]
 
-    console.log(window.screen.width)
+    // console.log(window.screen.width)
 
     // console.log(stars)
     // console.log(fetchedList.array)
+
+    const getQuery = (query) => {
+        setQuery(query)
+    }
 
     return (
         <>
@@ -63,31 +68,52 @@ export const Stars = () => {
                     </div>
                 </div>
                 <div className="stars__container">
-                    <Filter />
+                    <Filter
+                        getQuery={getQuery}
+                    />
                     <Container>
                         <Row>
-                            {fetchedList.array.map((key, value) => {
-                                console.log(key, value)
+                            {fetchedList.array.map((value, key) => {
+                                console.log(value, key)
 
                                 let randomNum = Math.floor(Math.random() * 6);
                                 let bgColor = colors[randomNum];
 
-                                return (
-                                    <div className="single-star" key={value}>
-                                        <Col>
-                                            <Star
-                                                id={key.id}
-                                                name={key.username}
-                                                rating={key.rating}
-                                                price={key.price}
-                                                days={key.days}
-                                                avatar={key.avatar}
-                                                bgColor={bgColor}
-                                            />
-                                        </Col>
-                                    </div>
+                                if (value.username.toLowerCase().includes(query.toLowerCase())) {
+                                    return (
+                                        <div className="single-star" key={key}>
+                                            <Col>
+                                                <Star
+                                                    id={value.id}
+                                                    name={value.username}
+                                                    rating={value.rating}
+                                                    price={value.price}
+                                                    days={value.days}
+                                                    avatar={value.avatar}
+                                                    bgColor={bgColor}
+                                                    likes={value.likes}
+                                                />
+                                            </Col>
+                                        </div>
                                     )
-                                })
+                                } else if (query === '') {
+                                    return (
+                                        <div className="single-star" key={key}>
+                                            <Col>
+                                                <Star
+                                                    id={value.id}
+                                                    name={value.username}
+                                                    rating={value.rating}
+                                                    price={value.price}
+                                                    days={value.days}
+                                                    avatar={value.avatar}
+                                                    bgColor={bgColor}
+                                                />
+                                            </Col>
+                                        </div>
+                                    )
+                                }
+                            })
                             }
                             {/*<div className="single-star">*/}
                             {/*    <Col lg>*/}
@@ -113,7 +139,7 @@ export const Stars = () => {
                     </Container>
                 </div>
             </div>
-            <BottomMenu />
+            <BottomMenu/>
         </>
     )
 }

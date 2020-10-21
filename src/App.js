@@ -14,7 +14,7 @@ import { faStar as faStarEmpty} from '@fortawesome/free-regular-svg-icons';
 library.add(fab, faStar, faStarEmpty, faArrowLeft)
 
 function App() {
-    const {login, logout, token, userId, star, id} = useAuth();
+    const {login, logout, token, userId, star, id, email, avatar, userName} = useAuth();
 
     const isAuthenticated = !!token;
     let isStar = !!star;
@@ -22,7 +22,7 @@ function App() {
     const routes = useRoutes(isAuthenticated, isStar)
 
     return (
-    <AuthContext.Provider value={{token, userId, login, logout, isStar, id}}>
+    <AuthContext.Provider value={{token, userId, login, logout, isStar, id, email, avatar, userName}}>
       <BrowserRouter>
         <div className="App">
           {routes}

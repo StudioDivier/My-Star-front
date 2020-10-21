@@ -1,10 +1,11 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import './category.scss';
 // import icon from '../../../img/icon1.svg';
 import {useHistory} from 'react-router-dom';
 import {useHttp} from "../../../hooks/http.hook";
 import {StarsContext} from "../../../context/StarsContext";
 import {AuthContext} from "../../../context/AuthContext";
+import {useMessage} from "../../../hooks/message.hook";
 
 
 export const Category = ({id, name, bgColor, catPhoto}) => {
@@ -13,6 +14,7 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
     const [starsList, setStarsList] = useState();
     const list = useContext(StarsContext)
     const authToken = useContext(AuthContext);
+    const message = useMessage();
 
     const clickHandler = async () => {
         try {
@@ -26,7 +28,7 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
             history.push(`/categories/stars`)
 
         } catch (e) {
-
+            message(['В данной категории нет звезд']);
         }
     }
 
@@ -36,7 +38,7 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
 
     return (
         <>
-            <a onClick={clickHandler} className={'category-card'}>
+            <div onClick={clickHandler} className={'category-card'}>
                 <div style={{backgroundImage: bgColor}}>
                     <div className="category-card__description">
                         <span>Популярные</span>
@@ -49,7 +51,7 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
                             <span>Песня в подарок</span>
                     </div>
                 </div>
-            </a>
+            </div>
         </>
     )
 }

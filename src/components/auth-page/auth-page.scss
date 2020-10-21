@@ -4,6 +4,8 @@
 @import "../../scss/common/mixins";
 
 .authPage {
+  font-family: 'Montserrat', sans-serif;
+
   a {
     text-decoration: none;
     color: white;
@@ -146,7 +148,7 @@
       //padding: 0 0 20px;
       text-align: center;
       color: white;
-      font-size: 22px;
+      font-size: 18px;
     }
 
     display: flex;
@@ -157,10 +159,11 @@
       .icon-container {
         position: absolute;
         left: 25px;
-      img {
-        width: 38px;
-        height: 20px;
-      }
+
+        img {
+          width: 38px;
+          height: 20px;
+        }
       }
     }
 
@@ -177,7 +180,7 @@
         width: 85%;
         margin: 10px 0;
         color: white;
-        font-size: 18px;
+        font-size: 12px;
         padding: 0 15px;
         text-align: center;
         box-sizing: border-box;
@@ -187,7 +190,12 @@
       input::placeholder {
         color: #c8c8c8;
         text-align: center;
-        font-size: 14px;
+        font-size: 12px;
+      }
+
+      input:focus {
+        border-bottom: 1px solid #7f92cb;
+        box-shadow: 0 0 0 0;
       }
     }
 
@@ -261,7 +269,7 @@
         width: 85%;
         margin: 15px 0;
         color: #C8C8C8;
-        font-size: 18px;
+        font-size: 12px;
         padding: 0 15px;
         box-sizing: border-box;
         text-align: center;
@@ -317,7 +325,7 @@
       .buttonContainer {
         display: flex;
         justify-content: space-around;
-        padding: 0 25px 0;
+        padding: 0 15px;
         margin-bottom: -10px;
 
       }
@@ -360,5 +368,11 @@
       }
     }
   }
+
+  //@media screen and (max-width: 425px) {
+  //  p, span {
+  //    font-size: 12px !important;
+  //  }
+  //}
 
 }

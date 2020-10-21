@@ -1,12 +1,19 @@
 import {useState, useCallback} from 'react';
 
 export const useHttp = () => {
+    let boundary1 = String(Math.random()).slice(2);
     const [error, setError] = useState(null);
     const request = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
         try {
             if (body) {
                 body = JSON.stringify(body);
+                // if (!(headers['Content-Type'] = 'multipart/form-data')) {
+                // }
                 headers['Content-type'] = 'application/json';
+                // headers['Content-Type'] = 'multipart/form-data';
+                // headers['boundary'] = boundary1;
+                // headers['Access-Control-Allow-Headers'] = `*`;
+
             }
 
             url = 'http://192.168.1.131:8080' + url
