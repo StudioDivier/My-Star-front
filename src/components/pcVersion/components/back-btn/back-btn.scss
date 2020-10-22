@@ -1,0 +1,27 @@
+@import "src/scss/common/screen";
+
+.back-btn {
+  margin-top: 20px;
+  span {
+    margin-right: 7px;
+    transition-duration: .2s;
+  }
+
+  background-color: #252525;
+  color: #ffffff;
+  border-radius: 25px;
+  padding: 10px 30px;
+
+  &:focus {
+    background-color: #fcc808
+  }
+
+  &:hover {
+    color: #ffffff;
+    span {
+      margin-right: 12px;
+      transition-duration: .2s;
+    }
+  }
+
+}

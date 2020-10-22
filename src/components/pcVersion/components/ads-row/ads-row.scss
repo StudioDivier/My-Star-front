@@ -1,0 +1,51 @@
+.ads-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .single-ad:first-child {
+    padding-left: 0;
+  }
+
+  .single-ad:last-child {
+    padding-right: 0;
+  }
+
+  .single-ad {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+
+    img {
+      width: 100%;
+    }
+
+
+    .ad-info {
+      display: flex;
+      flex-direction: column;
+      padding-top: 10px;
+
+      .ad-name {
+        font-weight: 700;
+        font-size: 26px;
+      }
+
+      .ad-description {
+        color: #bfbfbf;
+      }
+    }
+
+    .see-more {
+      padding-top: 15px;
+      .more-link {
+        font-weight: 700;
+        color: #f8de61;
+        font-size: 14px;
+      }
+    }
+
+  }
+}

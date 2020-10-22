@@ -3,14 +3,15 @@ import './header.scss';
 import {Container, Row, Col} from 'react-bootstrap';
 import lupa from '../../../../img/pc/find_white.svg';
 
-export const Header = () => {
+export const Header = ({ login, auth }) => {
+
     return (
-        <div className="header">
+        <div className="pc-header">
             <Container>
                 <Row>
                     <Col lg={5} className={'customCol'}>
                         <div className="text-container">
-                            <p><span>MY</span> <span>STAR</span></p>
+                            <p><span className={'logo'}><a href="/">Exprome</a></span></p>
                             <p>поздравление от звезды</p>
                         </div>
                     </Col>
@@ -22,8 +23,8 @@ export const Header = () => {
                     </Col>
                     <Col lg={3} className={'customCol'}>
                         <div className="auth">
-                            <span>Вход</span>
-                            <span>Регистрация</span>
+                            <div onClick={() => login()}><span>Вход</span></div>
+                            <div onClick={() => auth()}><span style={{color: 'white'}}>Регистрация</span></div>
                         </div>
                     </Col>
                 </Row>

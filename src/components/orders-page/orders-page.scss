@@ -30,7 +30,7 @@
 
   .orders__container {
     background-color: #f7f7f7;
-    padding: 15px;
+    padding: 10px;
     height: 100%;
     .row {
       padding-bottom: 76px;
@@ -38,5 +38,8 @@
     .orders-wrapper {
       width: 100%;
     }
+  }
+  .filter {
+    padding: 0 5px;
   }
 }

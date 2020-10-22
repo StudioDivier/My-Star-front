@@ -15,7 +15,7 @@ export const Footer = () => {
                         <div className="wrapper">
                             <div className="firstCol">
                                 <span>Условия использования &nbsp;&nbsp;| &nbsp;&nbsp;Политика конфиденциальности &nbsp;&nbsp;| &nbsp;&nbsp;Как это работает</span>
-                                <span><a href="">Реквизиты компании</a></span>
+                                <span><a href="/#">Реквизиты компании</a></span>
                                 <span>© 2020 MyStar</span>
                             </div>
                             <div className="secondCol">
@@ -32,7 +32,7 @@ export const Footer = () => {
                                     <img src={mc} alt="MasterCard"/>
                                     <img src={mir} alt="Mir"/>
                                 </div>
-                                <span className={'watermark'}><a href="https://www.divier.ru/zakazat-sayt/">Создание сайта</a> ДиВиЕР</span>
+                                <span className={'watermark'}><a href="https://www.divier.ru/">Создание сайта</a> ДиВиЕР</span>
                             </div>
                         </div>
                     </Col>

@@ -1,7 +1,7 @@
 import {useState, useCallback} from 'react';
 
 export const useHttp = () => {
-    let boundary1 = String(Math.random()).slice(2);
+    // let boundary1 = String(Math.random()).slice(2);
     const [error, setError] = useState(null);
     const request = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
         try {

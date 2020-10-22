@@ -8,6 +8,7 @@ import backBlueArrow from '../../img/back-blue.svg';
 import {useHttp} from "../../hooks/http.hook";
 import {AuthContext} from "../../context/AuthContext";
 import {SingleOrder} from "./components/order";
+import {DetailOrder} from "./components/detail-order/detail-order";
 
 export const OrdersPage = () => {
 
@@ -15,6 +16,7 @@ export const OrdersPage = () => {
     const {request} = useHttp();
     const [data, setData] = useState([]);
     const [name, setName] = useState([]);
+    const [order, setOrder] = useState('');
     // console.log(authToken)
 
     useEffect(() => {
@@ -37,10 +39,7 @@ export const OrdersPage = () => {
     // for (let i in fetchedData) {
     //     help = [...fetchedData[i]]
     // }
-    // console.log(data)
-    // console.log(help)
-    console.log(name)
-
+    console.log(data)
 
     const colors = [
         'linear-gradient(to top, #f76364 0%, #f76665 26%, #f76665 51%, #f76665 76%, #f56664 100%)',
@@ -50,6 +49,11 @@ export const OrdersPage = () => {
         'linear-gradient(to top, #5960f8 0%, #5762f7 26%, #585df7 51%, #5661f7 76%, #5661f7 100%)',
         'linear-gradient(to top, #90d443 0%, #91d343 26%, #91d343 51%, #91d343 76%, #91d347 100%)'
     ]
+
+    function chooseOrder(value) {
+        console.log('click')
+        setOrder(value);
+    }
 
     return (
         <>
@@ -79,11 +83,14 @@ export const OrdersPage = () => {
                                         <SingleOrder
                                             name={name}
                                             date={value.by_date}
-                                            comment={value.comment}
-                                            forWhom={value.for_whom}
+                                            // comment={value.comment}
+                                            // forWhom={value.for_whom}
                                             price={value.order_price}
                                             status={value.status_order}
                                             bgColor={bgColor}
+                                            id={value.id}
+                                            chooseOrder={chooseOrder}
+                                            // onClick={() => selectOrder}
                                         />
                                     </div>
                                 )
@@ -120,6 +127,7 @@ export const OrdersPage = () => {
                 </div>
             </div>
             <BottomMenu/>
+            {/*<DetailOrder />*/}
         </>
     )
 }

@@ -71,7 +71,10 @@ export const useRoutes = (isAuthenticated, isStar) => {
         return (
             <Switch>
                 <Route path="/">
-                    <DesktopMain/>
+                    <DesktopMain
+                        isAuth={isAuthenticated}
+                        isStar={isStar}
+                    />
                 </Route>
 
                 <Redirect to="/"/>

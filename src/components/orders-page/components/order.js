@@ -7,7 +7,7 @@ import marker from '../../../img/order_icons/chosenOne.svg';
 // import {useMessage} from "../../../hooks/message.hook";
 // import {AuthContext} from "../../../context/AuthContext";
 
-export const SingleOrder = ({bgColor, date, comment, forWhom, price, status, name, key}) => {
+export const SingleOrder = ({bgColor, date, comment, forWhom, price, status, name, key, chooseOrder, id}) => {
     // const history = useHistory();
     // const star = useContext(StarsContext);
     // const authToken = useContext(AuthContext)
@@ -59,34 +59,37 @@ export const SingleOrder = ({bgColor, date, comment, forWhom, price, status, nam
         }
     }
 
-    const overlayHandler = (comment) => {
-        if (document.getElementById(comment).classList.contains('hidden')) {
-            document.getElementById(comment).classList.add('active')
-        } else {
-            document.getElementById(comment).classList.add('hidden')
-        }
-    }
+    // const overlayHandler = (comment) => {
+    //     if (document.getElementById(comment).classList.contains('hidden')) {
+    //         document.getElementById(comment).classList.add('active')
+    //     } else {
+    //         document.getElementById(comment).classList.add('hidden')
+    //     }
+    // }
 
     return (
         // <a onClick={chooseStar}>
-        <div className={'order-card'} style={{backgroundImage: bgColor}} onClick={overlayHandler}>
-            <div className="status">
-                <span>Статус: </span>
-                <span className={'stage'} style={{backgroundColor: statusColor(status)}}>{parsedStatus(status)}</span>
-            </div>
-            <div className="main-info">
-                <div className="wrapper">
-                    <span>Заказчик: <span style={{fontWeight: 700}}>{name}</span></span>
-                    <span>Дата: <span style={{fontWeight: 700}}>{date}</span></span>
+        <>
+            <div className={'order-card'} style={{backgroundImage: bgColor}}>
+                <div className="status">
+                    <span>Статус: </span>
+                    <span className={'stage'}
+                          style={{backgroundColor: statusColor(status)}}>{parsedStatus(status)}</span>
                 </div>
-                <button>Перейти к заказу</button>
-            </div>
-            <div className="overlay hidden" id={comment}>
-                <div className="wrapper">
-                    <img src={marker} alt=""/>
+                <div className="main-info">
+                    <div className="wrapper">
+                        <span>Заказчик: <span style={{fontWeight: 700}}>{name}</span></span>
+                        <span>Дата: <span style={{fontWeight: 700}}>{date}</span></span>
+                    </div>
+                    <button onClick={() => chooseOrder(id)}>Перейти к заказу</button>
+                </div>
+                <div className="overlay hidden" id={comment}>
+                    <div className="wrapper">
+                        <img src={marker} alt=""/>
+                    </div>
                 </div>
             </div>
-        </div>
-        // /a>
+        </>
+        // </a>
     )
 }

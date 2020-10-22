@@ -6,6 +6,11 @@
 .authPage {
   font-family: 'Montserrat', sans-serif;
 
+  input {
+    border-bottom: 1px solid #7f92cb !important;
+    box-shadow: 0 0 0 0 !important;
+  }
+
   a {
     text-decoration: none;
     color: white;

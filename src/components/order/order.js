@@ -80,13 +80,15 @@ export const Order = () => {
     };
 
     const showModal = () => {
+        console.log('f u')
         setIsOpen(true)
     }
     const closeModal = () => {
         console.log('f u')
         setIsOpen(false)
     }
-    Modal.setAppElement('.App')
+
+    Modal.setAppElement(document.querySelector('.App'))
 
     return (
         <>

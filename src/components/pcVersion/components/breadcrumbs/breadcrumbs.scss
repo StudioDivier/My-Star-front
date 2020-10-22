@@ -1,0 +1,22 @@
+@import "src/scss/common/screen";
+
+nav {
+  background-color: transparent;
+  box-shadow: 0 0 0 0;
+  .breadcrumb {
+    background-color: transparent;
+    padding-left: 0;
+
+    .breadcrumb-item + .breadcrumb-item::before {
+      content: "|";
+    }
+
+    li {
+      font-size: 12px;
+
+      a {
+        color: #ffffff;
+      }
+    }
+  }
+}
