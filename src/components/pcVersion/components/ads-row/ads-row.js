@@ -19,9 +19,11 @@ export const AdsRow = () => {
                         ценит эмоции и уже устал от привычных презентов
                     </span>
                     <div className="see-more">
-                        <span className="more-link">
-                            Подробнее >
-                        </span>
+                        <a href="#">
+                            <span className="more-link">
+                                    Подробнее >
+                            </span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -37,9 +39,11 @@ export const AdsRow = () => {
                         ценит эмоции и уже устал от привычных презентов
                     </span>
                     <div className="see-more">
-                        <span className="more-link">
-                            Подробнее >
-                        </span>
+                        <a href="#">
+                            <span className="more-link">
+                                    Подробнее >
+                            </span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -55,9 +59,11 @@ export const AdsRow = () => {
                         ценит эмоции и уже устал от привычных презентов
                     </span>
                     <div className="see-more">
-                        <span className="more-link">
-                            Подробнее >
-                        </span>
+                        <a href="#">
+                            <span className="more-link">
+                                    Подробнее >
+                            </span>
+                        </a>
                     </div>
                 </div>
             </div>

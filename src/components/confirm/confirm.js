@@ -30,6 +30,7 @@ export const Confirm = () => {
         star_id: starInfo.starId,
         customer_id: auth.id
     })
+    const [orderId, setOrderId] = useState(1)
 
     const changeHandler = event => {
         setForm(({...form, [event.target.name]: event.target.value}))
@@ -37,14 +38,23 @@ export const Confirm = () => {
 
     const submitHandler = async () => {
         try {
-            const dataLog = await request('/api/order/', 'POST', {...form}, {Authorization: `Bearer ${auth.token}`})
-            console.log(dataLog)
-            message(dataLog)
-
+            const dataLog = await request('/api/order/', 'POST', 'cors', {...form}, {Authorization: `Bearer ${auth.token}`})
+            console.log(dataLog.order_id)
+            message(dataLog.message)
+            setOrderId(dataLog.order_id)
+            // makeOrder();
             // history.push('/categories');
         } catch (e) {
         }
     }
+    const redirectHandler = async () => {
+        try {
+            const makeOrder = await request(`/payments/?order_id=${orderId}`, 'GET', 'no-cors', null, {Authorization: `Bearer ${auth.token}`}, 'follow')
+            makeOrder();
+        } catch (e) {
+        }
+    }
+
 
     const likeHandler = async () => {
         try {
@@ -62,6 +72,11 @@ export const Confirm = () => {
     const avatar = url + starInfo.starAvatar;
 
     const hashTagLink = '#';
+
+    const customFunction = () => {
+        submitHandler()
+        redirectHandler()
+    }
 
     return (
         <>
@@ -134,7 +149,7 @@ export const Confirm = () => {
                             />
                         </div>
                         <div className="place-order">
-                            <button onClick={submitHandler}>
+                            <button onClick={customFunction}>
                                 Заказать
                             </button>
                             <p>Совершая заказ, вы соглашаетесь с условиями</p>

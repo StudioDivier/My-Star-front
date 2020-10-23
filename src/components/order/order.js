@@ -15,6 +15,7 @@ import Ratings from "react-ratings-declarative";
 import Modal from 'react-modal';
 import {useHttp} from "../../hooks/http.hook";
 import {useMessage} from "../../hooks/message.hook";
+import close from '../../img/close.png';
 import {AuthContext} from "../../context/AuthContext";
 
 export const Order = () => {
@@ -75,7 +76,7 @@ export const Order = () => {
             height: 'auto',
             width: '80%',
             borderRadius: '25px',
-            padding: '20px 30px'
+            padding: '30px'
         }
     };
 
@@ -156,8 +157,14 @@ export const Order = () => {
                                     style={customStyles}
                                 >
                                     <div className="modal-header">
-                                        <span>Оценить звезду</span>
-                                        <button onClick={closeModal}>х</button>
+                                        <button className={'close-btn'} onClick={closeModal}>
+                                            <img src={close}
+                                                 alt="Close"
+                                            />
+                                        </button>
+                                        <div className="header-text">
+                                            <span>Оценить звезду</span>
+                                        </div>
                                     </div>
                                     <div className="spread">
                                         <Ratings

@@ -2,13 +2,13 @@ import React, {useState, useContext, useEffect} from "react";
 import '../auth-page.scss';
 import {AuthContext} from "../../../context/AuthContext";
 import {useHttp} from "../../../hooks/http.hook";
-// import {useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import MaskedInput from 'react-text-mask';
 import {useMessage} from "../../../hooks/message.hook";
 import backArrow from '../../../img/back-arrow.svg'
 
 export const SignUp = () => {
-    // const history = useHistory();
+    const history = useHistory();
     const auth = useContext(AuthContext);
     const message = useMessage();
     const {request, error, clearError} = useHttp();
@@ -55,14 +55,16 @@ export const SignUp = () => {
 // console.log(dataAuth)
 // auth.login(dataAuth.token, form.username, dataAuth.is_star)
                 auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
-                message('Вы зарегистрированы!')
+                // message('Вы зарегистрированы!')
+                history.push('/categories')
             } else {
                 let customMessage = 'Необходимо согласие на обработку данных';
                 message([customMessage])
             }
 // console.log(dataAuth.token.valueOf())
         } catch (e) {
-            message(e);
+            message([e]);
+            history.push('/sign-up')
         }
     }
 

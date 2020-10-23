@@ -1,9 +1,113 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import './header.scss';
 import {Container, Row, Col} from 'react-bootstrap';
 import lupa from '../../../../img/pc/find_white.svg';
+import MaskedInput from 'react-text-mask';
+import {useMessage} from "../../../../hooks/message.hook";
+import {useHttp} from "../../../../hooks/http.hook";
+import {AuthContext} from "../../../../context/AuthContext";
+import Modal from 'react-modal';
+import {useHistory} from 'react-router-dom';
+import close from '../../../../img/close.png';
 
-export const Header = ({ login, auth }) => {
+export const Header = () => {
+
+
+    const history = useHistory();
+
+    const [loginIsOpen, setLoginIsOpen] = useState(false);
+    const [authIsOpen, setAuthIsOpen] = useState(false);
+
+    const message = useMessage();
+    const auth = useContext(AuthContext);
+    const {request, error, clearError} = useHttp();
+
+    const [form, setForm] = useState({
+        password: '', email: ''
+    })
+    /*
+     * For Modals
+    */
+
+    const showAuthModal = () => {
+        setAuthIsOpen(true)
+    }
+    const showLoginModal = () => {
+        setLoginIsOpen(true)
+    }
+    const closeModal = () => {
+        setLoginIsOpen(false)
+        setAuthIsOpen(false)
+    }
+
+    Modal.setAppElement(document.querySelector('.App'))
+
+    /*
+    *  For login
+    * */
+
+    const changeHandler = event => {
+        setForm(({...form, [event.target.name]: event.target.value}))
+    }
+
+    const loginHandler = async () => {
+        try {
+            const dataLog = await request('/api/login/', 'POST', {...form})
+            // console.log(dataLog)
+            auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
+            if (Object.keys(dataLog).length === 1 || Object.keys(dataLog).length === 2) {
+                for (let e in dataLog) {
+                    message(e + ' : ' + dataLog[e][0]);
+                }
+            }
+            history.push('/account-page');
+            closeModal();
+        } catch (e) {
+            message(e);
+        }
+    }
+
+    const registerHandler = async () => {
+        try {
+            const dataAuth = await request('/api/registration/', 'POST', {
+                ...form
+            })
+            if (Object.keys(dataAuth).length !== 1) {
+                setTimeout(() => {
+                    for (let e in dataAuth) {
+                        message(e + ' : ' + dataAuth[e][0]);
+                    }
+                }, 555)
+
+            }
+            const dataLog = await request('/api/login/', 'POST', {...form})
+
+// console.log(dataAuth)
+// auth.login(dataAuth.token, form.username, dataAuth.is_star)
+            auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
+            // message('Вы зарегистрированы!')
+
+// console.log(dataAuth.token.valueOf())
+        } catch (e) {
+            message(e);
+        }
+    }
+
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            height: 'auto',
+            width: '65%',
+            borderRadius: '25px',
+            padding: '50px 60px',
+            backgroundColor: `white`,
+        }
+    };
 
     return (
         <div className="pc-header">
@@ -23,12 +127,120 @@ export const Header = ({ login, auth }) => {
                     </Col>
                     <Col lg={3} className={'customCol'}>
                         <div className="auth">
-                            <div onClick={() => login()}><span>Вход</span></div>
-                            <div onClick={() => auth()}><span style={{color: 'white'}}>Регистрация</span></div>
+                            <div onClick={showLoginModal}><span>Вход</span></div>
+                            <div onClick={showAuthModal}><span style={{color: 'white'}}>Регистрация</span></div>
                         </div>
                     </Col>
                 </Row>
             </Container>
+            <Modal
+                isOpen={loginIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Example Modal"
+                style={customStyles}
+            >
+                <div className="pc-modal-header">
+                    <div className={'close-btn'} onClick={closeModal}>
+                        <img src={close}
+                             alt="Close"
+                        />
+                    </div>
+                    <div className="header-text">
+                        <span>Логин</span>
+                    </div>
+                </div>
+                <div className="signInInputs spread">
+                    <input
+                        type="text"
+                        placeholder={'Почта'}
+                        onChange={changeHandler}
+                        name={'email'}
+                        value={form.email}
+                    />
+                    <input
+                        type="text"
+                        placeholder={'Пароль'}
+                        onChange={changeHandler}
+                        name={'password'}
+                        value={form.password}
+                    />
+                    <div
+                        className="pc-signInButton"
+                        onClick={loginHandler}
+                    >
+                        Войти
+                    </div>
+                    <p>Совершая заказ, вы соглашаетесь с условиями</p>
+                </div>
+            </Modal>
+            <Modal
+                isOpen={authIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Example Modal"
+                style={customStyles}
+            >
+                <div className="pc-modal-header">
+                    <div className={'close-btn'} onClick={closeModal}>
+                        <img src={close}
+                             alt="Close"
+                        />
+                    </div>
+                    <div className="header-text">
+                        <span>Регистрация</span>
+                    </div>
+                </div>
+                <div className="signInInputs spread">
+                    <input
+                        placeholder={'Логин'}
+                        type="text"
+                        name={'username'}
+                        value={form.username}
+                        onChange={changeHandler}
+                    />
+                    <input
+                        placeholder={'Пароль'}
+                        type="text"
+                        name={'password'}
+                        value={form.password}
+                        onChange={changeHandler}
+                    />
+                    <input
+                        placeholder={'Повтор пароля'}
+                        type="text"
+                        name={'passwordRepeat'}
+                    />
+                    <input
+                        placeholder={'E-mail'}
+                        type="text"
+                        name={'email'}
+                        value={form.email}
+                        onChange={changeHandler}
+                    />
+                    <MaskedInput
+                        mask={[/[1-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
+                        placeholder={'Телефон'}
+                        type="text"
+                        name={'phone'}
+                        value={form.phone}
+                        onChange={changeHandler}
+                    />
+                    <MaskedInput
+                        mask={[/[1-9]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+                        placeholder={'Дата рождения'}
+                        type="text"
+                        name={'date_of_birth'}
+                        value={form.date_of_birth}
+                        onChange={changeHandler}
+                    />
+                    <div
+                        className="pc-signInButton"
+                        onClick={registerHandler}
+                    >
+                        Зарегистрироваться
+                    </div>
+                    <p>Совершая заказ, вы соглашаетесь с условиями</p>
+                </div>
+            </Modal>
         </div>
     )
 }

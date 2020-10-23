@@ -3,7 +3,7 @@ import {useState, useCallback} from 'react';
 export const useHttp = () => {
     // let boundary1 = String(Math.random()).slice(2);
     const [error, setError] = useState(null);
-    const request = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
+    const request = useCallback(async (url, method = 'GET', mode='no-cors', body = null, headers = {}, redirect = 'manual') => {
         try {
             if (body) {
                 body = JSON.stringify(body);
@@ -17,7 +17,7 @@ export const useHttp = () => {
             }
 
             url = 'http://192.168.1.131:8080' + url
-            const response = await fetch(url, {method, body, headers});
+            const response = await fetch(url, { method, mode, body, headers, redirect});
             const data = await response.json()
 
             // for (let key in data) {

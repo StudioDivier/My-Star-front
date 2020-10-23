@@ -19,7 +19,7 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
     const clickHandler = async () => {
         try {
             console.log('here0')
-            const starsFetch = await request(`/api/star/category/?id=${id}`, 'GET', null, {Authorization: `Bearer ${authToken.token}`});
+            const starsFetch = await request(`/api/star/category/?id=${id}`, 'GET', 'cors' ,null, {Authorization: `Bearer ${authToken.token}`});
             console.log('here1')
             setStarsList([...starsFetch])
             console.log('here2')

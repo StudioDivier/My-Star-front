@@ -10,39 +10,57 @@ import {OrdersPage} from "./components/orders-page/orders-page";
 import {Profile} from "./components/profile/profile"
 import {Policy} from "./components/docs/policy";
 import {DesktopMain} from "./components/pcVersion/main";
+import {AccountPage} from "./components/pcVersion/pages/account-page/account-page";
 
 export const useRoutes = (isAuthenticated, isStar) => {
 
     if (isAuthenticated && !isStar) {
+        if (window.screen.width <= 768) {
+            return (
+                <Switch>
+                    <StarsProvider>
+                        <Route exact path="/">
+                            <Redirect to="/categories"/>
+                        </Route>
+                        <Route exact path="/orders">
+                            <OrdersPage/>
+                        </Route>
+                        <Route exact path="/profile">
+                            <Profile/>
+                        </Route>
+                        <Route exact path="/policy">
+                            <Policy/>
+                        </Route>
+                        <Route exact path="/categories">
+                            <Categories/>
+                        </Route>
+                        <Route exact path="/categories/stars">
+                            <Stars/>
+                        </Route>
+                        <Route exact path="/categories/stars/order">
+                            <Order/>
+                        </Route>
+                        <Route exact path="/categories/stars/order/confirm">
+                            <Confirm/>
+                        </Route>
+                        {/*<Redirect to={'/'}/>*/}
+                    </StarsProvider>
+                </Switch>
+            )
+        }
         return (
             <Switch>
-                <StarsProvider>
-                    <Route exact path="/">
-                        <Redirect to="/categories"/>
-                    </Route>
-                    <Route exact path="/orders">
-                        <OrdersPage/>
-                    </Route>
-                    <Route exact path="/profile">
-                        <Profile/>
-                    </Route>
-                    <Route exact path="/policy">
-                        <Policy/>
-                    </Route>
-                    <Route exact path="/categories">
-                        <Categories/>
-                    </Route>
-                    <Route exact path="/categories/stars">
-                        <Stars/>
-                    </Route>
-                    <Route exact path="/categories/stars/order">
-                        <Order/>
-                    </Route>
-                    <Route exact path="/categories/stars/order/confirm">
-                        <Confirm/>
-                    </Route>
-                    {/*<Redirect to={'/'}/>*/}
-                </StarsProvider>
+                <Route path="/">
+                    <DesktopMain
+                        isAuth={isAuthenticated}
+                        isStar={isStar}
+                    />
+                </Route>
+                <Route path={'/account-page'}>
+                    <AccountPage/>
+                <Redirect to="/account-page"/>
+                </Route>
+
             </Switch>
         )
     }
