@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {StarsContext} from "../../context/StarsContext";
 import './confirm.scss';
 import {useHttp} from "../../hooks/http.hook";
-// import {useHistory} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import {AuthContext} from "../../context/AuthContext";
 import MaskedInput from "react-text-mask";
 import {useMessage} from "../../hooks/message.hook";
@@ -19,7 +19,7 @@ export const Confirm = () => {
     const message = useMessage();
     const auth = useContext(AuthContext);
     const userInfo = useContext(AuthContext);
-    // const history = useHistory();
+    const history = useHistory();
     const starInfo = useContext(StarsContext);
     const [form, setForm] = useState({
         status_order: '0',
@@ -50,7 +50,9 @@ export const Confirm = () => {
     const redirectHandler = async () => {
         try {
             const makeOrder = await request(`/payments/?order_id=${orderId}`, 'GET', 'no-cors', null, {Authorization: `Bearer ${auth.token}`}, 'follow')
-            makeOrder();
+            //makeOrder();
+            console.log(makeOrder)
+            //history.push(makeOrder)
         } catch (e) {
         }
     }
@@ -73,8 +75,8 @@ export const Confirm = () => {
 
     const hashTagLink = '#';
 
-    const customFunction = () => {
-        submitHandler()
+    const customFunction = async () => {
+        await submitHandler()
         redirectHandler()
     }
 
