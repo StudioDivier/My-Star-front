@@ -1,6 +1,7 @@
 .orders {
   font-family: 'Montserrat', sans-serif;
   height: 100%;
+
   .header-block {
     padding: 30px 0;
     display: flex;
@@ -32,13 +33,45 @@
     background-color: #f7f7f7;
     padding: 10px;
     height: 100%;
-    .row {
+
+    .row:last-child {
       padding-bottom: 76px;
     }
+
     .orders-wrapper {
+      overflow: hidden;
+      position: relative;
+      padding: 0 5px;
       width: 100%;
     }
+
+    .btn-wrapper {
+      padding: 0 5px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+
+      .order-decline {
+        border: 0;
+        border-radius: 35px;
+        padding: 10px 0;
+        font-size: 12px;
+        width: 40%;
+        background-color: #d1d1d1;
+      }
+
+      .order-accept {
+        border: 0;
+        border-radius: 35px;
+        color: #ffffff;
+        padding: 10px 0;
+        font-size: 12px;
+        width: 40%;
+        background-image: linear-gradient(to left, #001f77 0%, #0a1162 51%, #070b3a 100%);
+      }
+    }
   }
+
   .filter {
     padding: 0 5px;
   }

@@ -34,6 +34,11 @@ export const Order = () => {
     const url = 'http://192.168.1.131:8080';
     const avatar = url + starInfo.starAvatar;
 
+    const closeModal = () => {
+        console.log('f u')
+        setIsOpen(false)
+    }
+
     const rateHandler = async () => {
         try {
             const dataLog = await request('/api/ratestar/', 'PUT', {
@@ -42,6 +47,7 @@ export const Order = () => {
                 "adresant": starInfo.starId
             }, {Authorization: `Bearer ${userInfo.token}`})
             message(`${dataLog}`);
+            closeModal()
             // console.log(dataLog)
         } catch (e) {
             message(e);
@@ -84,10 +90,7 @@ export const Order = () => {
         console.log('f u')
         setIsOpen(true)
     }
-    const closeModal = () => {
-        console.log('f u')
-        setIsOpen(false)
-    }
+
 
     Modal.setAppElement(document.querySelector('.App'))
 

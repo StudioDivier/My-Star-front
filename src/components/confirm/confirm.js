@@ -38,7 +38,7 @@ export const Confirm = () => {
 
     const submitHandler = async () => {
         try {
-            const dataLog = await request('/api/order/', 'POST', 'cors', {...form}, {Authorization: `Bearer ${auth.token}`})
+            const dataLog = await request('/api/order/', 'POST',{...form}, {Authorization: `Bearer ${auth.token}`})// 'cors',
             console.log(dataLog.order_id)
             message(dataLog.message)
             setOrderId(dataLog.order_id)
@@ -49,7 +49,7 @@ export const Confirm = () => {
     }
     const redirectHandler = async () => {
         try {
-            const makeOrder = await request(`/payments/?order_id=${orderId}`, 'GET', 'no-cors', null, {Authorization: `Bearer ${auth.token}`}, 'follow')
+            const makeOrder = await request(`/payments/?order_id=${orderId}`,'GET', null, {Authorization: `Bearer ${auth.token}`})// 'no-cors', , 'follow'
             //makeOrder();
             console.log(makeOrder)
             //history.push(makeOrder)
@@ -70,7 +70,8 @@ export const Confirm = () => {
         }
     }
 
-    const url = 'http://192.168.1.131:8080';
+    // const url = 'http://192.168.1.131:8080';
+    const url = 'http://127.0.0.1:8080';
     const avatar = url + starInfo.starAvatar;
 
     const hashTagLink = '#';
@@ -115,7 +116,7 @@ export const Confirm = () => {
                             </div>
                             <p className={'priceTag'}>
                                 <strong>
-                                    15 000
+                                    {starInfo.starPrice}
                                 </strong>
                                 &nbsp;&#8381;
                             </p>

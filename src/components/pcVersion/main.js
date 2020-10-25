@@ -12,28 +12,27 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import {AccountPage} from "./pages/account-page/account-page";
 import {StarCard} from "./pages/star-card/star-card";
 import {Breadcrumbs} from "./components/breadcrumbs/breadcrumbs";
-import {useHttp} from "../../hooks/http.hook";
-import {AuthContext} from "../../context/AuthContext";
+import {Categories} from "./pages/cats-page/cats-page";
 
 export const DesktopMain = (isAuthenticated, isStar) => {
 
-    const userData = JSON.parse(window.localStorage.getItem('userData'));
-
-    const [stars, setStars] = useState([]);
-
-    const authToken = useContext(AuthContext)
-    const {request} = useHttp()
-
-    useEffect(() => {
-        async function fetchData() {
-            const stars = await request('/api/star/getlist/', 'GET', null, {Authorization: `Bearer ${userData.token}`})
-            if (!!stars.length) {
-                setStars([...stars])
-            }
-        }
-
-        fetchData();
-    }, [authToken.token, request]) // needed?
+    // const userData = JSON.parse(window.localStorage.getItem('userData'));
+    //
+    // const [stars, setStars] = useState([]);
+    //
+    // const authToken = useContext(AuthContext)
+    // const {request} = useHttp()
+    //
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         const stars = await request('/api/star/getlist/', 'GET', null, {Authorization: `Bearer ${userData.token}`})
+    //         if (!!stars.length) {
+    //             setStars([...stars])
+    //         }
+    //     }
+    //
+    //     fetchData();
+    // }, [authToken.token, request]) // needed?
 
     // console.log(stars)
 
@@ -64,15 +63,15 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                             <Row>
                                 <Col lg={12}>
                                     <SingleCat
-                                        list={stars}
-                                        catName={'Ведущий'}
+                                        id={1}
+                                        catName={'Подарок'}
                                     />
                                 </Col>
 
                                 <Col lg={12}>
                                     <SingleCat
-                                        list={stars}
-                                        catName={'Дом-2'}
+                                        id={2}
+                                        catName={'Девушке'}
                                     />
                                 </Col>
                             </Row>
@@ -124,6 +123,11 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                     <Route exact path="/account-page">
                         <Breadcrumbs secondItem={'Аккаунт'}/>
                         <AccountPage/>
+                    </Route>
+
+                    <Route exact path="/categories">
+                        <Breadcrumbs secondItem={'Все категории'}/>
+                        <Categories/>
                     </Route>
 
                 </Switch>

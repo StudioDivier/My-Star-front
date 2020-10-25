@@ -1,30 +1,20 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import './order.scss';
 import marker from '../../../img/order_icons/chosenOne.svg';
+import {AuthContext} from "../../../context/AuthContext";
 // import {useHistory} from 'react-router-dom';
 // import {StarsContext} from "../../../context/StarsContext";
 // import {useHttp} from "../../../hooks/http.hook";
 // import {useMessage} from "../../../hooks/message.hook";
 // import {AuthContext} from "../../../context/AuthContext";
 
-export const SingleOrder = ({bgColor, date, comment, forWhom, price, status, name, key, chooseOrder, id}) => {
-    // const history = useHistory();
-    // const star = useContext(StarsContext);
-    // const authToken = useContext(AuthContext)
-    // const message = useMessage();
-    // const {request} = useHttp();
+export const SingleOrder = ({getId, watchOrder, turnOnDetail, bgColor, date, time, comment, forWhom, price, status, name, key, id}) => {
 
+    const authToken = useContext(AuthContext);
 
-    // const chooseStar = () => {
-    // star.setStarId(id)
-    // star.setStarPrice(price)
-    // star.setStarName(name)
-    // star.setStarRating(rating)
-    // star.setStarDays(days)
-    // star.setAvatar(avatar)
-    // history.push(`/orders/order`);
-    // console.log(id)
-    // };
+    const [selected, setSelected] = useState(false)
+
+    const orderDetails = {date: date, time: time, comment: comment, forWhom: forWhom, price: price, name: name}
 
     const parsedStatus = (status) => {
         switch (status) {
@@ -59,18 +49,68 @@ export const SingleOrder = ({bgColor, date, comment, forWhom, price, status, nam
         }
     }
 
-    // const overlayHandler = (comment) => {
-    //     if (document.getElementById(comment).classList.contains('hidden')) {
-    //         document.getElementById(comment).classList.add('active')
-    //     } else {
-    //         document.getElementById(comment).classList.add('hidden')
-    //     }
-    // }
+    function multipleHandler(value) {
+        turnOnDetail(value)
+        watchOrder(orderDetails)
+    }
+
+    function multipleHandler2() {
+        getId(id);
+        setSelected(!selected)
+    }
+
+    function multipleHandler3() {
+        setSelected(!selected)
+    }
+
+
+    if (authToken.isStar) {
+        if (selected) {
+            return (
+                <>
+                    <div className={'order-card'} style={{backgroundImage: bgColor}} onClick={() => multipleHandler3()}>
+                        <div className="status">
+                            <span>Статус: </span>
+                            <span className={'stage'}
+                                  style={{backgroundColor: statusColor(status)}}>{parsedStatus(status)}</span>
+                        </div>
+                        <div className="main-info">
+                            <div className="wrapper">
+                                <span>Заказчик: <span style={{fontWeight: 700}}>{name}</span></span>
+                                <span>Дата: <span style={{fontWeight: 700}}>{date}</span></span>
+                            </div>
+                            <button onClick={() => multipleHandler(true)}>Перейти к заказу</button>
+                        </div>
+                    </div>
+                    <div className="order-card__overlay">
+                        <img src={marker} alt="Tick"/>
+                    </div>
+                </>
+            )
+        }
+        return (
+            <>
+                <div className={'order-card'} style={{backgroundImage: bgColor}} onClick={() => multipleHandler2()}>
+                    <div className="status">
+                        <span>Статус: </span>
+                        <span className={'stage'}
+                              style={{backgroundColor: statusColor(status)}}>{parsedStatus(status)}</span>
+                    </div>
+                    <div className="main-info">
+                        <div className="wrapper">
+                            <span>Заказчик: <span style={{fontWeight: 700}}>{name}</span></span>
+                            <span>Дата: <span style={{fontWeight: 700}}>{date}</span></span>
+                        </div>
+                        <button onClick={() => multipleHandler(true)}>Перейти к заказу</button>
+                    </div>
+                </div>
+            </>
+        )
+    }
 
     return (
-        // <a onClick={chooseStar}>
         <>
-            <div className={'order-card'} style={{backgroundImage: bgColor}}>
+            <div className={'order-card'} style={{backgroundImage: bgColor}} onClick={() => multipleHandler3()}>
                 <div className="status">
                     <span>Статус: </span>
                     <span className={'stage'}
@@ -81,15 +121,9 @@ export const SingleOrder = ({bgColor, date, comment, forWhom, price, status, nam
                         <span>Заказчик: <span style={{fontWeight: 700}}>{name}</span></span>
                         <span>Дата: <span style={{fontWeight: 700}}>{date}</span></span>
                     </div>
-                    <button onClick={() => chooseOrder(id)}>Перейти к заказу</button>
-                </div>
-                <div className="overlay hidden" id={comment}>
-                    <div className="wrapper">
-                        <img src={marker} alt=""/>
-                    </div>
+                    <button onClick={() => multipleHandler(true)}>Перейти к заказу</button>
                 </div>
             </div>
         </>
-        // </a>
     )
 }
