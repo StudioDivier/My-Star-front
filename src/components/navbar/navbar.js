@@ -16,6 +16,7 @@ export const NavBar = () => {
     })
 
     const bgUrl = 'http://192.168.1.131:8080/' + authData.avatar;
+    // const bgUrl = 'http://127.0.0.1:8080/' + authData.avatar;
     // console.log(data)
 
     const hashTagLink = '#';

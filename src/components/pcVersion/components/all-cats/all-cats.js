@@ -10,14 +10,16 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import {useHttp} from "../../../../hooks/http.hook";
 import {AuthContext} from "../../../../context/AuthContext";
+import {useHistory} from 'react-router-dom';
 
 
-export const AllCats = () => {
+export const AllCats = ({chooseCat, nameCat}) => {
 
     const userData = JSON.parse(window.localStorage.getItem('userData'));
 
     const authToken = useContext(AuthContext)
     const {request} = useHttp()
+    const history = useHistory();
     const [data, setData] = useState([]);
 
     const backgrounds = [
@@ -27,7 +29,7 @@ export const AllCats = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const cats = await request('/api/categories/', 'GET', null, {Authorization: `Bearer ${userData.token}`})
+            const cats = await request('/api/categories/', 'GET') //, null, {Authorization: `Bearer ${userData.token}`}
             if (!!cats.length) {
                 setData([...cats])
             }
@@ -49,6 +51,12 @@ export const AllCats = () => {
         slidesToScroll: 1
     };
 
+    const clickHandler = (id, name) => {
+        chooseCat(id)
+        nameCat(name)
+        history.push('/category')
+    }
+
     return (
         <div className="all-cats">
             <div className="header-row">
@@ -64,7 +72,7 @@ export const AllCats = () => {
                         let bgColor = backgrounds[randomNum];
 
                         return (
-                            <div className="all-cats__single-cat" key={key}>
+                            <div className="all-cats__single-cat" key={key} onClick={() => clickHandler(value.id, value.cat_name)}>
                                 <div className="inner-wrapper">
                                     {<img src={bgColor} alt=""/>}
                                     <div className="cat-name">

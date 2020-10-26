@@ -12,28 +12,36 @@ import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import {AccountPage} from "./pages/account-page/account-page";
 import {StarCard} from "./pages/star-card/star-card";
 import {Breadcrumbs} from "./components/breadcrumbs/breadcrumbs";
-import {useHttp} from "../../hooks/http.hook";
-import {AuthContext} from "../../context/AuthContext";
+import {Categories} from "./pages/cats-page/cats-page";
+import {Category} from "./pages/category-page/category";
+import {Search} from "./pages/search-page/search-page";
+import {Reset} from "../auth-page/reset";
+import {Policy} from "./pages/privacy-policy/privacy-policy";
 
 export const DesktopMain = (isAuthenticated, isStar) => {
 
-    const userData = JSON.parse(window.localStorage.getItem('userData'));
+    const [cat, setCat] = useState('')
+    const [name, setCatName] = useState('')
+    const [star, setStar] = useState([])
+    const [search, setSearch] = useState([])
 
-    const [stars, setStars] = useState([]);
-
-    const authToken = useContext(AuthContext)
-    const {request} = useHttp()
-
-    useEffect(() => {
-        async function fetchData() {
-            const stars = await request('/api/star/getlist/', 'GET', null, {Authorization: `Bearer ${userData.token}`})
-            if (!!stars.length) {
-                setStars([...stars])
-            }
-        }
-
-        fetchData();
-    }, [authToken.token, request]) // needed?
+    // const userData = JSON.parse(window.localStorage.getItem('userData'));
+    //
+    // const [stars, setStars] = useState([]);
+    //
+    // const authToken = useContext(AuthContext)
+    // const {request} = useHttp()
+    //
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         const stars = await request('/api/star/getlist/', 'GET', null, {Authorization: `Bearer ${userData.token}`})
+    //         if (!!stars.length) {
+    //             setStars([...stars])
+    //         }
+    //     }
+    //
+    //     fetchData();
+    // }, [authToken.token, request]) // needed?
 
     // console.log(stars)
 
@@ -42,7 +50,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     return (
         <div className="main">
             <Router>
-                <Header/>
+                <Header setSearch={setSearch}/>
 
                 <Switch>
 
@@ -51,7 +59,10 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                             {/*Filter*/}
                             <Row>
                                 <Col>
-                                    <FilterHead/>
+                                    <FilterHead
+                                        chooseCat={setCat}
+                                        nameCat={setCatName}
+                                    />
                                 </Col>
                             </Row>
                             {/*Top banner*/}
@@ -64,21 +75,31 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                             <Row>
                                 <Col lg={12}>
                                     <SingleCat
-                                        list={stars}
-                                        catName={'Ведущий'}
+                                        id={1}
+                                        catName={'Классика'}
+                                        chooseCat={setCat}
+                                        nameCat={setCatName}
+                                        chooseStar={setStar}
                                     />
                                 </Col>
 
                                 <Col lg={12}>
                                     <SingleCat
-                                        list={stars}
-                                        catName={'Дом-2'}
+                                        id={2}
+                                        catName={'Хип-Хоп'}
+                                        chooseCat={setCat}
+                                        nameCat={setCatName}
+                                        chooseStar={setStar}
                                     />
                                 </Col>
                             </Row>
                             <Row>
                                 <Col>
-                                    <AllCats/>
+                                    <AllCats
+                                        chooseCat={setCat}
+                                        nameCat={setCatName}
+                                        chooseStar={setStar}
+                                    />
                                 </Col>
                             </Row>
                             {/*3 Ads row*/}
@@ -88,42 +109,73 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                                 </Col>
                             </Row>
                             {/*More categories*/}
-                            <Row>
-                                <Col lg={12}>
-                                    <SingleCat
-                                        catName={'Test'}
-                                    />
-                                </Col>
-
-                                <Col lg={12}>
-                                    <SingleCat
-                                        catName={'Test'}
-                                    />
-                                </Col>
-
-                                <Col lg={12}>
-                                    <SingleCat
-                                        catName={'Test'}
-                                    />
-                                </Col>
-
-                                <Col lg={12}>
-                                    <SingleCat
-                                        catName={'Test'}
-                                    />
-                                </Col>
-                            </Row>
+                            {/*<Row>*/}
+                            {/*    <Col lg={12}>*/}
+                            {/*        <SingleCat*/}
+                            {/*            catName={'Test'}*/}
+                            {/*        />*/}
+                            {/*    </Col>*/}
+                            {/*</Row>*/}
                         </Container>
                     </Route>
 
                     <Route exact path="/star-card">
-                        <Breadcrumbs secondItem={'Все категории'} thirdItem={'Звезда'}/>
-                        <StarCard/>
+                        <StarCard
+                            star={star}
+                            chooseCat={setCat}
+                            nameCat={setCatName}
+                            chooseStar={setStar}
+                        />
                     </Route>
 
                     <Route exact path="/account-page">
                         <Breadcrumbs secondItem={'Аккаунт'}/>
                         <AccountPage/>
+                    </Route>
+
+                    <Route exact path="/category">
+                        <Category
+                            name={name}
+                            id={cat}
+                            chooseStar={setStar}
+                        />
+                    </Route>
+
+                    <Route exact path="/categories">
+                        <Breadcrumbs secondItem={'Все категории'}/>
+                        <Categories
+                            chooseCat={setCat}
+                            nameCat={setCatName}
+                            chooseStar={setStar}
+                        />
+                    </Route>
+
+                    <Route exact path="/search">
+                        <Breadcrumbs secondItem={'Поиск'}/>
+                        <Search
+                            search={search}
+                            chooseCat={setCat}
+                            nameCat={setCatName}
+                            chooseStar={setStar}
+                        />
+                    </Route>
+
+                    <Route exact path={'/privacy-policy'}>
+                        <Breadcrumbs secondItem={'Политика конфиденциальности'}/>
+                        <Policy />
+                    </Route>
+
+                    <Route exact path='/password-reset/confirm/'>
+                        <Breadcrumbs secondItem={'Сброс пароля'}/>
+                        <Container>
+                            <Row>
+                                <Col>
+                                    <div className={'pc-password-reset'}>
+                                        <Reset/>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Container>
                     </Route>
 
                 </Switch>

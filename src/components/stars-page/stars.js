@@ -4,6 +4,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 // import {useHttp} from "../../hooks/http.hook";
+import {useHistory} from 'react-router-dom';
+
 import {Star} from './components/star';
 import {StarsContext} from "../../context/StarsContext";
 import backBlueArrow from '../../img/back-blue.svg'
@@ -15,6 +17,8 @@ export const Stars = () => {
     // const [stars, setStars] = useState([]);
     const fetchedList = useContext(StarsContext);
     const [query, setQuery] = useState('');
+    const history = useHistory();
+
 
     // const getCats = async () => {
     //     try {
@@ -52,6 +56,11 @@ export const Stars = () => {
 
     const getQuery = (query) => {
         setQuery(query)
+    }
+
+    if (fetchedList.array.length === 0) {
+        history.push('/')
+        window.location.reload();
     }
 
     return (

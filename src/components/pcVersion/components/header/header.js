@@ -9,9 +9,11 @@ import {AuthContext} from "../../../../context/AuthContext";
 import Modal from 'react-modal';
 import {useHistory} from 'react-router-dom';
 import close from '../../../../img/close.png';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-export const Header = () => {
+export const Header = ({setSearch}) => {
 
+    const userData = JSON.parse(window.localStorage.getItem('userData'));
 
     const history = useHistory();
 
@@ -25,6 +27,9 @@ export const Header = () => {
     const [form, setForm] = useState({
         password: '', email: ''
     })
+
+    const [form1, setForm1] = useState({search: ''})
+
     /*
      * For Modals
     */
@@ -82,12 +87,8 @@ export const Header = () => {
             }
             const dataLog = await request('/api/login/', 'POST', {...form})
 
-// console.log(dataAuth)
-// auth.login(dataAuth.token, form.username, dataAuth.is_star)
             auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
-            // message('Вы зарегистрированы!')
 
-// console.log(dataAuth.token.valueOf())
         } catch (e) {
             message(e);
         }
@@ -102,12 +103,37 @@ export const Header = () => {
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             height: 'auto',
-            width: '65%',
+            width: '60%',
             borderRadius: '25px',
             padding: '50px 60px',
             backgroundColor: `white`,
         }
     };
+
+    // For search input
+
+    const changeHandler1 = event => {
+        setForm1(({...form1, [event.target.name]: event.target.value}))
+    }
+
+    const searchHandler = () => {
+        setSearch(form1.search);
+        history.push('/search');
+    }
+
+
+    function determineAuth() {
+        if (userData) {
+            return (
+                <div onClick={() => history.push('/account-page/')}><span>Личный кабинет</span></div>
+            )
+        } else {
+            return (
+                <div onClick={showLoginModal}><span>Вход</span></div>
+            )
+        }
+        return null
+    }
 
     return (
         <div className="pc-header">
@@ -121,18 +147,26 @@ export const Header = () => {
                     </Col>
                     <Col lg={4} className={'customCol'}>
                         <div className="search">
-                            <input type="text" placeholder={'Поиск по звездам'}/>
-                            <img src={lupa} alt="Лупа"/>
+                            <input
+                                type="text"
+                                placeholder={'Поиск по звездам'}
+                                name={'search'}
+                                onChange={changeHandler1}
+                                value={form.search}
+                            />
+                            <img src={lupa} alt="Лупа" onClick={() => searchHandler()}/>
                         </div>
                     </Col>
                     <Col lg={3} className={'customCol'}>
                         <div className="auth">
-                            <div onClick={showLoginModal}><span>Вход</span></div>
+                            {determineAuth()}
+                            {/*<div onClick={showLoginModal}><span>Вход</span></div>*/}
                             <div onClick={showAuthModal}><span style={{color: 'white'}}>Регистрация</span></div>
                         </div>
                     </Col>
                 </Row>
             </Container>
+
             <Modal
                 isOpen={loginIsOpen}
                 onRequestClose={closeModal}
@@ -146,33 +180,50 @@ export const Header = () => {
                         />
                     </div>
                     <div className="header-text">
-                        <span>Логин</span>
+                        <span>Добро пожаловать!</span>
+                        <p>Войдите в свой аккаунт, чтобы общаться со звёздами!</p>
+                        <div className="mediaLogin-wrapper">
+                            <span>Через соцсети</span>
+                            <span><FontAwesomeIcon icon={['fab', 'vk']} size={'lg'}/></span>
+                            <span><FontAwesomeIcon icon={['fab', 'facebook-f']} size={'lg'}/></span>
+                        </div>
                     </div>
                 </div>
                 <div className="signInInputs spread">
-                    <input
-                        type="text"
-                        placeholder={'Почта'}
-                        onChange={changeHandler}
-                        name={'email'}
-                        value={form.email}
-                    />
-                    <input
-                        type="text"
-                        placeholder={'Пароль'}
-                        onChange={changeHandler}
-                        name={'password'}
-                        value={form.password}
-                    />
-                    <div
-                        className="pc-signInButton"
-                        onClick={loginHandler}
-                    >
-                        Войти
+                    <div className="single-input__wrapper">
+                        <span>Эл. почта</span>
+                        <input
+                            type="text"
+                            placeholder={'Почта'}
+                            onChange={changeHandler}
+                            name={'email'}
+                            value={form.email}
+                        />
                     </div>
-                    <p>Совершая заказ, вы соглашаетесь с условиями</p>
+                    <div className="single-input__wrapper">
+                        <span>Пароль</span>
+                        <input
+                            type="text"
+                            placeholder={'Пароль'}
+                            onChange={changeHandler}
+                            name={'password'}
+                            value={form.password}
+                        />
+                    </div>
+                    <div className="login__btn-wrapper">
+                        <div
+                            className="pc-signInButton"
+                            onClick={loginHandler}
+                        >
+                            Войти
+                        </div>
+                        <div className="pc-authButton" onClick={showAuthModal}>
+                            Регистрация
+                        </div>
+                    </div>
                 </div>
             </Modal>
+
             <Modal
                 isOpen={authIsOpen}
                 onRequestClose={closeModal}
@@ -186,59 +237,87 @@ export const Header = () => {
                         />
                     </div>
                     <div className="header-text">
-                        <span>Регистрация</span>
+                        <span>Добро пожаловать!</span>
+                        <p>Зарегистрируйтесь и общайтесь со звёздами!</p>
+                        <div className="mediaLogin-wrapper">
+                            <span>Через соцсети</span>
+                            <span><FontAwesomeIcon icon={['fab', 'vk']} size={'lg'}/></span>
+                            <span><FontAwesomeIcon icon={['fab', 'facebook-f']} size={'lg'}/></span>
+                        </div>
                     </div>
                 </div>
                 <div className="signInInputs spread">
-                    <input
-                        placeholder={'Логин'}
-                        type="text"
-                        name={'username'}
-                        value={form.username}
-                        onChange={changeHandler}
-                    />
-                    <input
-                        placeholder={'Пароль'}
-                        type="text"
-                        name={'password'}
-                        value={form.password}
-                        onChange={changeHandler}
-                    />
-                    <input
-                        placeholder={'Повтор пароля'}
-                        type="text"
-                        name={'passwordRepeat'}
-                    />
-                    <input
-                        placeholder={'E-mail'}
-                        type="text"
-                        name={'email'}
-                        value={form.email}
-                        onChange={changeHandler}
-                    />
-                    <MaskedInput
-                        mask={[/[1-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
-                        placeholder={'Телефон'}
-                        type="text"
-                        name={'phone'}
-                        value={form.phone}
-                        onChange={changeHandler}
-                    />
-                    <MaskedInput
-                        mask={[/[1-9]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
-                        placeholder={'Дата рождения'}
-                        type="text"
-                        name={'date_of_birth'}
-                        value={form.date_of_birth}
-                        onChange={changeHandler}
-                    />
-                    <div
-                        className="pc-signInButton"
-                        onClick={registerHandler}
-                    >
-                        Зарегистрироваться
+                    <div className="single-input__wrapper">
+                        <span>Ваш логин</span>
+                        <input
+                            placeholder={'Логин'}
+                            type="text"
+                            name={'username'}
+                            value={form.username}
+                            onChange={changeHandler}
+                        />
                     </div>
-                    <p>Совершая заказ, вы соглашаетесь с условиями</p>
+                    <div className="single-input__wrapper">
+                        <span>Пароль</span>
+                        <input
+                            placeholder={'Пароль'}
+                            type="text"
+                            name={'password'}
+                            value={form.password}
+                            onChange={changeHandler}
+                        />
+                    </div>
+                    <div className="single-input__wrapper">
+                        <span>Повторите пароль</span>
+                        <input
+                            placeholder={'Повтор пароля'}
+                            type="text"
+                            name={'passwordRepeat'}
+                        />
+                    </div>
+                    <div className="single-input__wrapper">
+                        <span>Эл. почта</span>
+                        <input
+                            placeholder={'E-mail'}
+                            type="text"
+                            name={'email'}
+                            value={form.email}
+                            onChange={changeHandler}
+                        />
+                    </div>
+                    <div className="single-input__wrapper">
+                        <span>Телефон</span>
+                        <MaskedInput
+                            mask={[/[1-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
+                            placeholder={'(999)999-99-99'}
+                            type="text"
+                            name={'phone'}
+                            value={form.phone}
+                            onChange={changeHandler}
+                        />
+                    </div>
+                    <div className="single-input__wrapper">
+                        <span>Дата рождения</span>
+                        <MaskedInput
+                            mask={[/[1-9]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+                            placeholder={'гггг-мм-дд'}
+                            type="text"
+                            name={'date_of_birth'}
+                            value={form.date_of_birth}
+                            onChange={changeHandler}
+                        />
+                    </div>
+
+                    <p>Нажимая на кнопку, я принимаю условия <a href="#">пользовательского соглашения.</a></p>
+
+                    <div className="login__btn-wrapper">
+                        <div
+                            className="pc-signInButton"
+                            onClick={registerHandler}
+                        >
+                            Зарегистрироваться
+                        </div>
+                    </div>
                 </div>
             </Modal>
         </div>

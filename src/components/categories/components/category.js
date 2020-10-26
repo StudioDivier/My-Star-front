@@ -19,7 +19,7 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
     const clickHandler = async () => {
         try {
             console.log('here0')
-            const starsFetch = await request(`/api/star/category/?id=${id}`, 'GET', 'cors' ,null, {Authorization: `Bearer ${authToken.token}`});
+            const starsFetch = await request(`/api/star/category/?id=${id}`, 'GET', null, {Authorization: `Bearer ${authToken.token}`}); //'cors' ,
             console.log('here1')
             setStarsList([...starsFetch])
             console.log('here2')
@@ -33,6 +33,7 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
     }
 
     const catPic = 'http://192.168.1.131:8080/' + catPhoto;
+    // const catPic = 'http://127.0.0.1:8080/' + catPhoto;
 
     console.log(starsList)
 
