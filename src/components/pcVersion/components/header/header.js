@@ -11,8 +11,9 @@ import {useHistory} from 'react-router-dom';
 import close from '../../../../img/close.png';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-export const Header = () => {
+export const Header = ({setSearch}) => {
 
+    const userData = JSON.parse(window.localStorage.getItem('userData'));
 
     const history = useHistory();
 
@@ -26,6 +27,9 @@ export const Header = () => {
     const [form, setForm] = useState({
         password: '', email: ''
     })
+
+    const [form1, setForm1] = useState({search: ''})
+
     /*
      * For Modals
     */
@@ -83,12 +87,8 @@ export const Header = () => {
             }
             const dataLog = await request('/api/login/', 'POST', {...form})
 
-// console.log(dataAuth)
-// auth.login(dataAuth.token, form.username, dataAuth.is_star)
             auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
-            // message('Вы зарегистрированы!')
 
-// console.log(dataAuth.token.valueOf())
         } catch (e) {
             message(e);
         }
@@ -110,6 +110,31 @@ export const Header = () => {
         }
     };
 
+    // For search input
+
+    const changeHandler1 = event => {
+        setForm1(({...form1, [event.target.name]: event.target.value}))
+    }
+
+    const searchHandler = () => {
+        setSearch(form1.search);
+        history.push('/search');
+    }
+
+
+    function determineAuth() {
+        if (userData) {
+            return (
+                <div onClick={() => history.push('/account-page/')}><span>Личный кабинет</span></div>
+            )
+        } else {
+            return (
+                <div onClick={showLoginModal}><span>Вход</span></div>
+            )
+        }
+        return null
+    }
+
     return (
         <div className="pc-header">
             <Container>
@@ -122,18 +147,26 @@ export const Header = () => {
                     </Col>
                     <Col lg={4} className={'customCol'}>
                         <div className="search">
-                            <input type="text" placeholder={'Поиск по звездам'}/>
-                            <img src={lupa} alt="Лупа"/>
+                            <input
+                                type="text"
+                                placeholder={'Поиск по звездам'}
+                                name={'search'}
+                                onChange={changeHandler1}
+                                value={form.search}
+                            />
+                            <img src={lupa} alt="Лупа" onClick={() => searchHandler()}/>
                         </div>
                     </Col>
                     <Col lg={3} className={'customCol'}>
                         <div className="auth">
-                            <div onClick={showLoginModal}><span>Вход</span></div>
+                            {determineAuth()}
+                            {/*<div onClick={showLoginModal}><span>Вход</span></div>*/}
                             <div onClick={showAuthModal}><span style={{color: 'white'}}>Регистрация</span></div>
                         </div>
                     </Col>
                 </Row>
             </Container>
+
             <Modal
                 isOpen={loginIsOpen}
                 onRequestClose={closeModal}
@@ -190,6 +223,7 @@ export const Header = () => {
                     </div>
                 </div>
             </Modal>
+
             <Modal
                 isOpen={authIsOpen}
                 onRequestClose={closeModal}

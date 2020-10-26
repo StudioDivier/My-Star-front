@@ -30,18 +30,20 @@ export const Confirm = () => {
         star_id: starInfo.starId,
         customer_id: auth.id
     })
-    const [orderId, setOrderId] = useState(1)
 
     const changeHandler = event => {
         setForm(({...form, [event.target.name]: event.target.value}))
     }
 
+    let orderId1;
+
     const submitHandler = async () => {
         try {
-            const dataLog = await request('/api/order/', 'POST',{...form}, {Authorization: `Bearer ${auth.token}`})// 'cors',
+            const dataLog = await request('/api/order/', 'POST', {...form}, {Authorization: `Bearer ${auth.token}`})// 'cors',
             console.log(dataLog.order_id)
             message(dataLog.message)
-            setOrderId(dataLog.order_id)
+            orderId1 = dataLog.order_id;
+            // setOrderId(dataLog.order_id)
             // makeOrder();
             // history.push('/categories');
         } catch (e) {
@@ -49,10 +51,11 @@ export const Confirm = () => {
     }
     const redirectHandler = async () => {
         try {
-            const makeOrder = await request(`/payments/?order_id=${orderId}`,'GET', null, {Authorization: `Bearer ${auth.token}`})// 'no-cors', , 'follow'
+            const makeOrder = await request(`/api/order/pay/?order_id=${orderId1}`, 'GET', null, {Authorization: `Bearer ${auth.token}`})// 'no-cors', , 'follow'
             //makeOrder();
             console.log(makeOrder)
-            //history.push(makeOrder)
+            // history.push(makeOrder.link)
+            window.open(`${makeOrder.link}`, "_blank").focus();
         } catch (e) {
         }
     }
@@ -70,8 +73,8 @@ export const Confirm = () => {
         }
     }
 
-    // const url = 'http://192.168.1.131:8080';
-    const url = 'http://127.0.0.1:8080';
+    const url = 'http://192.168.1.131:8080';
+    // const url = 'http://127.0.0.1:8080';
     const avatar = url + starInfo.starAvatar;
 
     const hashTagLink = '#';
@@ -79,6 +82,11 @@ export const Confirm = () => {
     const customFunction = async () => {
         await submitHandler()
         redirectHandler()
+    }
+
+    if (starInfo.starId === null) {
+        history.push('/')
+        window.location.reload()
     }
 
     return (
@@ -138,7 +146,7 @@ export const Confirm = () => {
                             {/*/>*/}
                             <MaskedInput
                                 mask={[/[1-9]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
-                                placeholder={'Дата'}
+                                placeholder={'гггг-мм-дд'}
                                 type="text"
                                 name={'by_date'}
                                 value={form.by_date}
@@ -148,7 +156,7 @@ export const Confirm = () => {
                                 name={'comment'}
                                 value={form.comment}
                                 onChange={changeHandler}
-                                placeholder={'Комментарии'}
+                                placeholder={'Текст поздравления'}
                             />
                         </div>
                         <div className="place-order">

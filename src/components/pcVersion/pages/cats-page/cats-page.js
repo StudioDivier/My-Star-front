@@ -9,7 +9,7 @@ import {Col} from "react-bootstrap";
 import {SingleCat} from "../../components/cat-row/cat-row";
 
 
-export const Categories = () => {
+export const Categories = ({chooseStar, chooseCat, nameCat}) => {
 
     const userData = JSON.parse(window.localStorage.getItem('userData'));
 
@@ -30,7 +30,7 @@ export const Categories = () => {
         fetchData();
     }, [userData.token, request])
 
-    console.log(data)
+    // console.log(data)
 
     return (
         <>
@@ -44,6 +44,9 @@ export const Categories = () => {
                                         key={key}
                                         catName={value.cat_name}
                                         id={value.id}
+                                        chooseCat={chooseCat}
+                                        nameCat={nameCat}
+                                        chooseStar={chooseStar}
                                     />
                                 )
                             })

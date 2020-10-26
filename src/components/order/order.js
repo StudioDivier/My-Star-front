@@ -36,7 +36,7 @@ export const Order = () => {
 
     const closeModal = () => {
         console.log('f u')
-        setIsOpen(false)
+        setIsOpen(!modalIsOpen);
     }
 
     const rateHandler = async () => {
@@ -93,6 +93,11 @@ export const Order = () => {
 
 
     Modal.setAppElement(document.querySelector('.App'))
+
+    if (starInfo.starId === null) {
+        history.push('/')
+        window.location.reload()
+    }
 
     return (
         <>
@@ -152,41 +157,40 @@ export const Order = () => {
                                     <Ratings.Widget/>
                                     <Ratings.Widget/>
                                 </Ratings>
-
-                                <Modal
-                                    isOpen={modalIsOpen}
-                                    onRequestClose={closeModal}
-                                    contentLabel="Example Modal"
-                                    style={customStyles}
-                                >
-                                    <div className="modal-header">
-                                        <button className={'close-btn'} onClick={closeModal}>
-                                            <img src={close}
-                                                 alt="Close"
-                                            />
-                                        </button>
-                                        <div className="header-text">
-                                            <span>Оценить звезду</span>
-                                        </div>
-                                    </div>
-                                    <div className="spread">
-                                        <Ratings
-                                            rating={newRating}
-                                            widgetRatedColors="orange"
-                                            widgetDimensions="14px"
-                                            widgetSpacings="3px"
-                                            changeRating={setNewRating}
-                                        >
-                                            <Ratings.Widget/>
-                                            <Ratings.Widget/>
-                                            <Ratings.Widget/>
-                                            <Ratings.Widget/>
-                                            <Ratings.Widget/>
-                                        </Ratings>
-                                        <button onClick={rateHandler}>Оценить</button>
-                                    </div>
-                                </Modal>
                             </div>
+                            <Modal
+                                isOpen={modalIsOpen}
+                                onRequestClose={closeModal}
+                                contentLabel="Example Modal"
+                                style={customStyles}
+                            >
+                                <div className="modal-header">
+                                    <button className={'close-btn'} onClick={closeModal}>
+                                        <img src={close}
+                                             alt="Close"
+                                        />
+                                    </button>
+                                    <div className="header-text">
+                                        <span>Оценить звезду</span>
+                                    </div>
+                                </div>
+                                <div className="spread">
+                                    <Ratings
+                                        rating={newRating}
+                                        widgetRatedColors="orange"
+                                        widgetDimensions="14px"
+                                        widgetSpacings="3px"
+                                        changeRating={setNewRating}
+                                    >
+                                        <Ratings.Widget/>
+                                        <Ratings.Widget/>
+                                        <Ratings.Widget/>
+                                        <Ratings.Widget/>
+                                        <Ratings.Widget/>
+                                    </Ratings>
+                                    <button onClick={rateHandler}>Оценить</button>
+                                </div>
+                            </Modal>
                         </div>
                         <hr/>
                         <div className="await-time">

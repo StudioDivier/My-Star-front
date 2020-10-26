@@ -1,8 +1,72 @@
 @import "src/scss/common/screen";
 
+.rating-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 35%;
+  padding-bottom: 20px;
+  .widget-ratings {
+    .widget-container {
+      background-color: #252525;
+      border-radius: 40px;
+      padding: 0 4px !important;
+      margin-right: 7.5px;
+
+      .widget-selected.widget-svg {
+        .widget {
+          fill: white !important;
+        }
+      }
+
+      .widget-svg {
+        .widget {
+          fill: #5b5b5b !important;
+        }
+
+        padding-bottom: 2px;
+      }
+    }
+
+    .widget-container:last-child {
+      margin-right: 0;
+    }
+
+  }
+}
+
 .star-card-pc {
   font-family: 'Montserrat', sans-serif;
   color: white;
+
+  .widget-ratings {
+    .widget-container {
+      background-color: #252525;
+      border-radius: 40px;
+      padding: 0 4px !important;
+      margin-right: 7.5px;
+
+      .widget-selected.widget-svg {
+        .widget {
+          fill: white !important;
+        }
+      }
+
+      .widget-svg {
+        .widget {
+          fill: #5b5b5b !important;
+        }
+
+        padding-bottom: 2px;
+      }
+    }
+
+    .widget-container:last-child {
+      margin-right: 0;
+    }
+
+  }
 
   .section-header {
     font-size: 28px;
@@ -22,21 +86,64 @@
   }
 
   .star-avatar {
-    img {
-      width: 100%;
-      border-radius: 25px;
+
+    .avatar-img {
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      width: 454px;
+      border-radius: 15px;
+      height: 448.44px;
     }
+
+    @media screen and (max-width: 1300px) {
+      .avatar-img {
+        width: 354px;
+        border-radius: 15px;
+        height: 298.44px;
+      }
+    }
+
+    @media screen and (min-width: 1301px) and (max-width: 1450px) {
+      .avatar-img {
+        width: 404px;
+        border-radius: 15px;
+        height: 398.44px;
+      }
+    }
+
+    //img {
+    //  width: 100%;
+    //  border-radius: 25px;
+    //}
   }
 
   .star-title {
     h3 {
       color: white;
       font-weight: 800;
+      margin-bottom: 0;
     }
   }
 
   .star-cat-and-rating {
+    padding: 30px 0;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     color: #bfbfbf;
+
+    .inner-wrapper {
+      padding-left: 25px;
+      display: flex;
+      align-items: center;
+
+      span {
+        padding-left: 10px;
+      }
+    }
   }
 
   .star-bio {

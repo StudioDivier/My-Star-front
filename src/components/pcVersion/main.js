@@ -13,8 +13,17 @@ import {AccountPage} from "./pages/account-page/account-page";
 import {StarCard} from "./pages/star-card/star-card";
 import {Breadcrumbs} from "./components/breadcrumbs/breadcrumbs";
 import {Categories} from "./pages/cats-page/cats-page";
+import {Category} from "./pages/category-page/category";
+import {Search} from "./pages/search-page/search-page";
+import {Reset} from "../auth-page/reset";
+import {Policy} from "./pages/privacy-policy/privacy-policy";
 
 export const DesktopMain = (isAuthenticated, isStar) => {
+
+    const [cat, setCat] = useState('')
+    const [name, setCatName] = useState('')
+    const [star, setStar] = useState([])
+    const [search, setSearch] = useState([])
 
     // const userData = JSON.parse(window.localStorage.getItem('userData'));
     //
@@ -41,7 +50,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     return (
         <div className="main">
             <Router>
-                <Header/>
+                <Header setSearch={setSearch}/>
 
                 <Switch>
 
@@ -50,7 +59,10 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                             {/*Filter*/}
                             <Row>
                                 <Col>
-                                    <FilterHead/>
+                                    <FilterHead
+                                        chooseCat={setCat}
+                                        nameCat={setCatName}
+                                    />
                                 </Col>
                             </Row>
                             {/*Top banner*/}
@@ -64,20 +76,30 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                                 <Col lg={12}>
                                     <SingleCat
                                         id={1}
-                                        catName={'Подарок'}
+                                        catName={'Классика'}
+                                        chooseCat={setCat}
+                                        nameCat={setCatName}
+                                        chooseStar={setStar}
                                     />
                                 </Col>
 
                                 <Col lg={12}>
                                     <SingleCat
                                         id={2}
-                                        catName={'Девушке'}
+                                        catName={'Хип-Хоп'}
+                                        chooseCat={setCat}
+                                        nameCat={setCatName}
+                                        chooseStar={setStar}
                                     />
                                 </Col>
                             </Row>
                             <Row>
                                 <Col>
-                                    <AllCats/>
+                                    <AllCats
+                                        chooseCat={setCat}
+                                        nameCat={setCatName}
+                                        chooseStar={setStar}
+                                    />
                                 </Col>
                             </Row>
                             {/*3 Ads row*/}
@@ -87,37 +109,23 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                                 </Col>
                             </Row>
                             {/*More categories*/}
-                            <Row>
-                                <Col lg={12}>
-                                    <SingleCat
-                                        catName={'Test'}
-                                    />
-                                </Col>
-
-                                <Col lg={12}>
-                                    <SingleCat
-                                        catName={'Test'}
-                                    />
-                                </Col>
-
-                                <Col lg={12}>
-                                    <SingleCat
-                                        catName={'Test'}
-                                    />
-                                </Col>
-
-                                <Col lg={12}>
-                                    <SingleCat
-                                        catName={'Test'}
-                                    />
-                                </Col>
-                            </Row>
+                            {/*<Row>*/}
+                            {/*    <Col lg={12}>*/}
+                            {/*        <SingleCat*/}
+                            {/*            catName={'Test'}*/}
+                            {/*        />*/}
+                            {/*    </Col>*/}
+                            {/*</Row>*/}
                         </Container>
                     </Route>
 
                     <Route exact path="/star-card">
-                        <Breadcrumbs secondItem={'Все категории'} thirdItem={'Звезда'}/>
-                        <StarCard/>
+                        <StarCard
+                            star={star}
+                            chooseCat={setCat}
+                            nameCat={setCatName}
+                            chooseStar={setStar}
+                        />
                     </Route>
 
                     <Route exact path="/account-page">
@@ -125,9 +133,49 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                         <AccountPage/>
                     </Route>
 
+                    <Route exact path="/category">
+                        <Category
+                            name={name}
+                            id={cat}
+                            chooseStar={setStar}
+                        />
+                    </Route>
+
                     <Route exact path="/categories">
                         <Breadcrumbs secondItem={'Все категории'}/>
-                        <Categories/>
+                        <Categories
+                            chooseCat={setCat}
+                            nameCat={setCatName}
+                            chooseStar={setStar}
+                        />
+                    </Route>
+
+                    <Route exact path="/search">
+                        <Breadcrumbs secondItem={'Поиск'}/>
+                        <Search
+                            search={search}
+                            chooseCat={setCat}
+                            nameCat={setCatName}
+                            chooseStar={setStar}
+                        />
+                    </Route>
+
+                    <Route exact path={'/privacy-policy'}>
+                        <Breadcrumbs secondItem={'Политика конфиденциальности'}/>
+                        <Policy />
+                    </Route>
+
+                    <Route exact path='/password-reset/confirm/'>
+                        <Breadcrumbs secondItem={'Сброс пароля'}/>
+                        <Container>
+                            <Row>
+                                <Col>
+                                    <div className={'pc-password-reset'}>
+                                        <Reset/>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Container>
                     </Route>
 
                 </Switch>

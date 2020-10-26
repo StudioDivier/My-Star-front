@@ -34,14 +34,25 @@
     .single-cat__star:first-child {
       padding-left: 0;
     }
+
     .single-cat__star:last-child {
       padding-right: 0;
     }
 
     .single-cat__star {
+      cursor: pointer;
       padding: 20px 12.5px;
       font-size: 16px;
       color: white;
+
+      .avatar-img {
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        width: 204px;
+        border-radius: 15px;
+        height: 198.44px;
+      }
 
       .star-description {
         padding-top: 20px;

@@ -8,3 +8,32 @@
     max-width: 1480px;
   }
 }
+
+.pc-password-reset {
+  padding-bottom: 40px;
+  //text-align: center;
+  color: white;
+  width: 75%;
+
+  .icon-container {
+    display: none;
+  }
+  .nav-header, .inputBox, .turnIn-data {
+    padding-top: 40px;
+  }
+
+  .inputBox {
+    //margin: 0 auto;
+    width: 45%;
+  }
+
+  .turnIn-data {
+    .signInButton {
+      margin: 20px 0;
+      background-color: #fcc808;
+      border: 0;
+      border-radius: 15px;
+      padding: 10px 60px;
+    }
+  }
+}

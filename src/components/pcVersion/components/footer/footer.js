@@ -14,7 +14,7 @@ export const Footer = () => {
                     <Col>
                         <div className="wrapper">
                             <div className="firstCol">
-                                <span>Условия использования &nbsp;&nbsp;| &nbsp;&nbsp;Политика конфиденциальности &nbsp;&nbsp;| &nbsp;&nbsp;Как это работает</span>
+                                <span>Условия использования &nbsp;&nbsp;| &nbsp;&nbsp;<a href="/privacy-policy">Политика конфиденциальности</a> &nbsp;&nbsp;| &nbsp;&nbsp;Как это работает</span>
                                 <span><a href="/#">Реквизиты компании</a></span>
                                 <span>© 2020 MyStar</span>
                             </div>

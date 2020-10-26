@@ -32,8 +32,8 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
         }
     }
 
-    // const catPic = 'http://192.168.1.131:8080/' + catPhoto;
-    const catPic = 'http://127.0.0.1:8080/' + catPhoto;
+    const catPic = 'http://192.168.1.131:8080/' + catPhoto;
+    // const catPic = 'http://127.0.0.1:8080/' + catPhoto;
 
     console.log(starsList)
 

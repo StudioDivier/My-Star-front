@@ -40,13 +40,17 @@ body {
   }
 
   top: -88%;
-  right: 50%;
+  right: 50% !important;
   transform: translateX(50%) translateY(50%);
 }
 
 .ReactModalPortal {
 
   font-family: 'Montserrat', sans-serif;
+
+  .ReactModal__Overlay {
+    background-color: rgba(0, 0, 0, 0.55) !important;
+  }
 
   p {
     color: white;
@@ -79,6 +83,10 @@ body {
         width: 15px;
       }
     }
+  }
+
+  .rating-header {
+    padding-bottom: 20px !important;
   }
 
   .pc-modal-header {
@@ -188,6 +196,7 @@ body {
         width: 70%;
         color: black;
       }
+
       input:focus {
         box-shadow: 0 0 0 0 !important;
         border-bottom: 1px solid #f3f3f3 !important;
@@ -199,6 +208,7 @@ body {
       display: flex;
       flex-direction: row;
       justify-content: center;
+
       .pc-signInButton {
         font-weight: 700;
         margin: 20px 10px;
@@ -208,6 +218,10 @@ body {
         background-color: #f3d14c;
         cursor: pointer;
         border: 1px solid #f3d14c;
+      }
+
+      .rateBtn {
+        padding: 10px 80px;
       }
 
       .pc-authButton {
@@ -260,6 +274,111 @@ body {
       }
     }
   }
+}
+
+.gradient__signUp {
+  height: 100%;
+  width: 100%;
+  background: $background-color;
+
+  h3 {
+    font-weight: 600;
+    margin: 0;
+    //padding: 0 0 20px;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+  }
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  .nav-header {
+    .icon-container {
+      position: absolute;
+      left: 25px;
+
+      img {
+        width: 38px;
+        height: 20px;
+      }
+    }
+  }
+
+  .inputBox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: -40px;
+
+    input {
+      background-color: transparent;
+      border-radius: 45px;
+      border: 1px solid #7f92cb;
+      width: 85%;
+      margin: 10px 0;
+      color: white;
+      font-size: 12px;
+      padding: 0 15px;
+      text-align: center;
+      box-sizing: border-box;
+      height: 53px;
+    }
+
+    input::placeholder {
+      color: #c8c8c8;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    input:focus {
+      border-bottom: 1px solid #7f92cb;
+      box-shadow: 0 0 0 0;
+    }
+  }
+
+
+  .turnIn-data {
+    padding-bottom: 15px;
+
+    .usersConsent {
+      text-align: center;
+      color: #a2a1b8;
+
+      input {
+        border-radius: 5px;
+        border: 1px solid #ffffff;
+        background-color: transparent;
+      }
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .signInButton {
+      margin-top: 15px;
+      font-weight: bold;
+      letter-spacing: 0.81px;
+      width: 85%;
+      background-color: white;
+      border-radius: 35px;
+      border: 1px solid #ffffff;
+      text-transform: uppercase;
+      padding: 15px 0;
+
+    }
+
+    p {
+      font-size: 14px;
+      color: #a2a1b8;
+      font-weight: 400;
+      padding-top: 15px;
+    }
+
+  }
+
 
 }
 
