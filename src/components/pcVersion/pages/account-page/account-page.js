@@ -43,8 +43,8 @@ export const AccountPage = () => {
 
         async function fetchOrders() {
             const orders = await request(`/api/order/list/?is_star=${userData.is_star}&user_id=${userData.userId}`, 'GET', null, {Authorization: `Bearer ${userData.token}`})
-            setOrders([...orders.orders])
-            setName(orders.data.customer)
+            setOrders(orders)
+            // setName(orders.data.customer)
         }
 
         // console.log('hello2')
@@ -183,10 +183,11 @@ export const AccountPage = () => {
     Modal.setAppElement(document.querySelector('.App'))
 
 
-    // console.log(orders)
-    if (!userData.token) {
+    console.log(orders)
+    if (Object.keys(userData).length === 0 || userData.email[0] === 'Введите корректный адрес электронной почты.') {
         history.push('/')
     }
+
 
     return (
         <section className="account-page">
@@ -236,7 +237,7 @@ export const AccountPage = () => {
                 <table className="table">
                     <thead>
                     <tr>
-                        <th scope="col">От кого</th>
+                        <th scope="col">Имя звезды</th>
                         <th scope="col">Время</th>
                         <th scope="col">Дата</th>
                         <th scope="col">Статус</th>
@@ -248,7 +249,7 @@ export const AccountPage = () => {
                         return (
                             <tbody key={key}>
                             <tr>
-                                <th>{name}</th>
+                                <th>{value.star}</th>
                                 <td>{value.by_time}</td>
                                 <td>{value.by_date}</td>
                                 <td className="order-status-new"
@@ -294,10 +295,10 @@ export const AccountPage = () => {
                 <div className="signInInputs spread">
                     <div className="name field">
                         <span className="field-name">
-Имя
+Имя звезды
                         </span>
                         <span className="field-value">
-                            {name}
+                            {currentOrder.star}
                         </span>
                     </div>
 

@@ -30,8 +30,8 @@ export const OrdersPage = () => {
             if (typeof (personal[0]) === 'string') {
                 setData(personal)
             } else {
-                setData([...personal.orders])
-                setName(personal.data.customer)
+                setData(personal)
+                // setName(personal.data.customer)
             }
             // console.log('hello1')
 

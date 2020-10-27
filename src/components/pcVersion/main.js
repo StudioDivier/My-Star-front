@@ -76,7 +76,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                                 <Col lg={12}>
                                     <SingleCat
                                         id={1}
-                                        catName={'Классика'}
+                                        catName={'На день рождения'}
                                         chooseCat={setCat}
                                         nameCat={setCatName}
                                         chooseStar={setStar}
@@ -86,7 +86,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                                 <Col lg={12}>
                                     <SingleCat
                                         id={2}
-                                        catName={'Хип-Хоп'}
+                                        catName={'Детям'}
                                         chooseCat={setCat}
                                         nameCat={setCatName}
                                         chooseStar={setStar}

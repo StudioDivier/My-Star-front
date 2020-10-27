@@ -68,6 +68,7 @@ export const Header = ({setSearch}) => {
             history.push('/account-page');
             closeModal();
         } catch (e) {
+            history.push('/');
             message(e);
         }
     }
@@ -93,6 +94,7 @@ export const Header = ({setSearch}) => {
             closeModal();
 
         } catch (e) {
+            history.push('/');
             message(e);
         }
     }
@@ -126,7 +128,7 @@ export const Header = ({setSearch}) => {
 
 
     function determineAuth() {
-        if (userData.token) {
+        if (userData && userData.token) {
             return (
                 <div onClick={() => history.push('/account-page/')}><span>Личный кабинет</span></div>
             )

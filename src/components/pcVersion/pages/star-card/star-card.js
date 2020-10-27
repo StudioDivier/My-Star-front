@@ -85,7 +85,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         }
     };
 
-    const catPic = 'http://192.168.1.131:8080' + star.avatar;
+    const catPic = 'http://exprome.ru:8080' + star.avatar;
 
     // Send order
 
@@ -141,7 +141,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         }
     }
 
-    console.log(userData)
+    console.log(catPic)
 
     return (
         <>
@@ -327,9 +327,9 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                 </p>
                                 <div className="vids-wrapper">
                                     <iframe width="560" height="405" src={url + star.video_hi}
-                                            frameborder="0"
+                                            frameBorder="0"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowfullscreen></iframe>
+                                            allowFullScreen></iframe>
                                 </div>
                             </div>
                         </div>
