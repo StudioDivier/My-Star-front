@@ -7,7 +7,7 @@ import {useHistory} from 'react-router-dom';
 
 export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
 
-    const catPic = 'http://192.168.1.131:8080';
+    const catPic = 'http://exprome.ru:8080';
 
     const userData = JSON.parse(window.localStorage.getItem('userData'));
 

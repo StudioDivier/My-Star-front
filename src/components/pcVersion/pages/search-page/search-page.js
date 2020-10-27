@@ -8,7 +8,7 @@ import {useHistory} from 'react-router-dom';
 
 export const Search = ({search, chooseStar}) => {
 
-    const catPic = 'http://192.168.1.131:8080';
+    const catPic = 'http://exprome.ru:8080';
 
     const {request} = useHttp()
     const [stars, setStars] = useState([])

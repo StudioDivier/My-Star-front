@@ -49,7 +49,7 @@ export const Star = ({id, price, name, rating, days, avatar, bgColor, likes}) =>
         // console.log(id)
     };
 
-    const bgUrl = 'http://192.168.1.131:8080' + avatar;
+    const bgUrl = 'http://exprome.ru:8080' + avatar;
 
     // const customStyles = {
     //     content: {

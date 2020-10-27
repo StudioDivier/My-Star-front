@@ -5,12 +5,14 @@ import {useMessage} from "../../../../hooks/message.hook";
 import {useHttp} from "../../../../hooks/http.hook";
 import Modal from 'react-modal';
 import close from '../../../../img/close.png';
+import {useHistory} from 'react-router-dom';
 
 export const AccountPage = () => {
 
     const userData = JSON.parse(window.localStorage.getItem('userData'));
 
     const authToken = useContext(AuthContext);
+    const history = useHistory();
     const message = useMessage();
     const {request} = useHttp();
     const [data, setData] = useState([]);
@@ -182,6 +184,9 @@ export const AccountPage = () => {
 
 
     // console.log(orders)
+    if (!userData.token) {
+        history.push('/')
+    }
 
     return (
         <section className="account-page">

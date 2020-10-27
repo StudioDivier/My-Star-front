@@ -89,6 +89,9 @@ export const Header = ({setSearch}) => {
 
             auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
 
+            history.push('/account-page');
+            closeModal();
+
         } catch (e) {
             message(e);
         }
@@ -123,16 +126,15 @@ export const Header = ({setSearch}) => {
 
 
     function determineAuth() {
-        if (userData) {
+        if (userData.token) {
             return (
                 <div onClick={() => history.push('/account-page/')}><span>Личный кабинет</span></div>
             )
-        } else {
-            return (
-                <div onClick={showLoginModal}><span>Вход</span></div>
-            )
         }
-        return null
+        return (
+            <div onClick={showLoginModal}><span>Вход</span></div>
+        )
+
     }
 
     return (

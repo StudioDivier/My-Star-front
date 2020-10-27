@@ -21,14 +21,14 @@ export const Categories = ({chooseStar, chooseCat, nameCat}) => {
 
     useEffect(() => {
         async function fetchData() {
-            const cats = await request('/api/categories/', 'GET', null, {Authorization: `Bearer ${userData.token}`}) //'cors' ,
+            const cats = await request('/api/categories/', 'GET') //'cors' ,
             if (!!cats.length) {
                 setData([...cats])
             }
         }
 
         fetchData();
-    }, [userData.token, request])
+    }, [request])
 
     // console.log(data)
 

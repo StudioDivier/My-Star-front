@@ -16,7 +16,7 @@ export const useHttp = () => {
 
             }
 
-            url = 'http://192.168.1.131:8080' + url
+            url = 'http://exprome.ru:8080' + url
             // url = 'http://127.0.0.1:8080' + url
             const response = await fetch(url, { method, body, headers});
             const data = await response.json()

@@ -177,7 +177,6 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                             </Row>
                         </Container>
                     </Route>
-
                 </Switch>
 
                 <Footer/>

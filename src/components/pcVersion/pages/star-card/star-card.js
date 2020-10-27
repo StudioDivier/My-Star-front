@@ -23,7 +23,7 @@ import {useHistory} from 'react-router-dom';
 
 export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
 
-    const url = 'http://192.168.1.131:8080';
+    const url = 'http://exprome.ru:8080';
 
     window.scrollTo(0, 0);
 
