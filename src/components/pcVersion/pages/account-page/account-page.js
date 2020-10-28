@@ -39,10 +39,15 @@ export const AccountPage = () => {
         try {
             const personal = await request(`/api/personal/?is_star=${userData.is_star}&user_id=${userData.userId}`, 'GET', null, {Authorization: `Bearer ${userData.token}`})
             setData(personal)
+        } catch (e) {
+            message(e)
+        }
+
+        try {
             const orders = await request(`/api/order/list/?is_star=${userData.is_star}&user_id=${userData.userId}`, 'GET', null, {Authorization: `Bearer ${userData.token}`})
             setOrders(orders)
         } catch (e) {
-            message(e)
+            message (e)
         }
 
         // console.log(personal)

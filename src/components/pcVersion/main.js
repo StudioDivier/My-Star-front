@@ -129,11 +129,6 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                         />
                     </Route>
 
-                    <Route exact path="/account-page">
-                        <Breadcrumbs secondItem={'Аккаунт'}/>
-                        <AccountPage/>
-                    </Route>
-
                     <Route exact path="/category">
                         <Category
                             name={name}
@@ -179,8 +174,8 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                         </Container>
                     </Route>
                     <Route path={'/api/mid-yandex/'}>
-                        <Redirect to={'/'}/>
                         <YaRedirect />
+                        <Redirect to={'/'}/>
                     </Route>
 
                     <Redirect to={'/'} />
