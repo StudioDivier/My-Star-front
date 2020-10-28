@@ -51,7 +51,7 @@ export const useRoutes = (isAuthenticated, isStar) => {
                                 <Reset/>
                             </div>
                         </Route>
-                        {/*<Redirect to={'/'}/>*/}
+                        <Redirect to={'/categories'}/>
                     </StarsProvider>
                 </Switch>
             )

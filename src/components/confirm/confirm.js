@@ -15,6 +15,7 @@ import {Link} from "react-router-dom";
 
 
 export const Confirm = () => {
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL1;
     const {request} = useHttp();
     const message = useMessage();
     const auth = useContext(AuthContext);
@@ -73,7 +74,7 @@ export const Confirm = () => {
         }
     }
 
-    const url = 'http://exprome.ru:8080';
+    const url = `${SERVER_URL}`;
     // const url = 'http://127.0.0.1:8080';
     const avatar = url + starInfo.starAvatar;
 

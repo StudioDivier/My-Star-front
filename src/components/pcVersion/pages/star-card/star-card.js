@@ -9,7 +9,7 @@ import step4 from '../../../../img/pc/step4.png';
 
 import excl from '../../../../img/pc/exclm-icon.png';
 
-import avatar1 from '../../../../img/pc/avatar.png';
+// import avatar1 from '../../../../img/pc/avatar.png';
 import Ratings from "react-ratings-declarative";
 import Modal from 'react-modal';
 import MaskedInput from "react-text-mask/dist/reactTextMask";
@@ -23,7 +23,9 @@ import {useHistory} from 'react-router-dom';
 
 export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
 
-    const url = 'http://exprome.ru:8080';
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL1;
+
+    // const url = 'http://exprome.ru:8080';
 
     window.scrollTo(0, 0);
 
@@ -85,7 +87,8 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         }
     };
 
-    const catPic = 'http://exprome.ru:8080' + star.avatar;
+
+    const catPic = `${SERVER_URL}` + star.avatar;
 
     // Send order
 
@@ -189,7 +192,10 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                         </Ratings>
 
                                         <span onClick={showRatingModal}
-                                              style={{cursor: 'pointer', textDecoration: 'underline'}}>({star.rating})</span>
+                                              style={{
+                                                  cursor: 'pointer',
+                                                  textDecoration: 'underline'
+                                              }}>({star.rating})</span>
                                     </div>
 
                                     {/*<div className="form-group">*/}
@@ -326,7 +332,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                     Примеры видеопоздравлений
                                 </p>
                                 <div className="vids-wrapper">
-                                    <iframe width="560" height="405" src={url + star.video_hi}
+                                    <iframe width="560" height="405" src={`${SERVER_URL}` + star.video_hi}
                                             frameBorder="0"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                             allowFullScreen></iframe>

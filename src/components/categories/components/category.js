@@ -9,6 +9,7 @@ import {useMessage} from "../../../hooks/message.hook";
 
 
 export const Category = ({id, name, bgColor, catPhoto}) => {
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL1;
     const history = useHistory();
     const {request} = useHttp();
     const [starsList, setStarsList] = useState();
@@ -32,7 +33,7 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
         }
     }
 
-    const catPic = 'http://exprome.ru:8080' + catPhoto;
+    const catPic = `${SERVER_URL}` + catPhoto;
     // const catPic = 'http://127.0.0.1:8080/' + catPhoto;
 
     console.log(starsList)

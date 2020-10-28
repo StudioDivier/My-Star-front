@@ -2,6 +2,7 @@ import {useState, useCallback} from 'react';
 
 export const useHttp = () => {
     // let boundary1 = String(Math.random()).slice(2);
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL1;
     const [error, setError] = useState(null);
     const request = useCallback(async (url, method = 'GET', body = null, headers = {}) => { // mode='no-cors', redirect = 'manual'
         try {
@@ -16,7 +17,7 @@ export const useHttp = () => {
 
             }
 
-            url = 'http://exprome.ru:8080' + url
+            url = SERVER_URL + url
             // url = 'http://127.0.0.1:8080' + url
             const response = await fetch(url, { method, body, headers});
             const data = await response.json()

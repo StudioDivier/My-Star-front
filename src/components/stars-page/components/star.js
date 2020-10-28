@@ -12,6 +12,8 @@ import {StarsContext} from "../../../context/StarsContext";
 import orders from '../../../img/orders_amount.svg'
 
 export const Star = ({id, price, name, rating, days, avatar, bgColor, likes}) => {
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL1;
+
     const history = useHistory();
     const star = useContext(StarsContext);
     // const authToken = useContext(AuthContext)
@@ -49,7 +51,7 @@ export const Star = ({id, price, name, rating, days, avatar, bgColor, likes}) =>
         // console.log(id)
     };
 
-    const bgUrl = 'http://exprome.ru:8080' + avatar;
+    const bgUrl = `${SERVER_URL}` + avatar;
 
     // const customStyles = {
     //     content: {

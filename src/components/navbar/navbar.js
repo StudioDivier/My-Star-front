@@ -7,6 +7,7 @@ import {Link} from "react-router-dom";
 
 
 export const NavBar = () => {
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL1;
     const authData = useContext(AuthContext);
     // console.log(authData)
 
@@ -15,7 +16,7 @@ export const NavBar = () => {
         M.Sidenav.init(sidenav, {});
     })
 
-    const bgUrl = 'http://exprome.ru:8080/' + authData.avatar;
+    const bgUrl = `${SERVER_URL}` + '/' + authData.avatar;
     // const bgUrl = 'http://127.0.0.1:8080/' + authData.avatar;
     // console.log(data)
 

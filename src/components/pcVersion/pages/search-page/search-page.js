@@ -8,7 +8,8 @@ import {useHistory} from 'react-router-dom';
 
 export const Search = ({search, chooseStar}) => {
 
-    const catPic = 'http://exprome.ru:8080';
+    // const catPic = 'http://exprome.ru:8080';
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL1;
 
     const {request} = useHttp()
     const [stars, setStars] = useState([])
@@ -47,7 +48,7 @@ export const Search = ({search, chooseStar}) => {
                                                 <div className="single-cat__star" key={key}
                                                      onClick={() => clickStar(value)}>
                                                     <div className="avatar-img"
-                                                         style={{backgroundImage: 'url(' + catPic + value.avatar + ')'}}>&nbsp;</div>
+                                                         style={{backgroundImage: 'url(' + `${SERVER_URL}` + value.avatar + ')'}}>&nbsp;</div>
                                                     {/*<img src={catPic + value.avatar} alt=""/>*/}
                                                     <div className="star-description">
                                                                     <span className="star-name">

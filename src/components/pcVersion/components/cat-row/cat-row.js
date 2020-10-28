@@ -6,8 +6,9 @@ import {AuthContext} from "../../../../context/AuthContext";
 import {useHistory} from 'react-router-dom';
 
 export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL1;
 
-    const catPic = 'http://exprome.ru:8080';
+    // const catPic = 'http://exprome.ru:8080';
 
     const userData = JSON.parse(window.localStorage.getItem('userData'));
 
@@ -53,7 +54,7 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
                         return (
                             <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
                                 <div className="avatar-img"
-                                     style={{backgroundImage: 'url(' + catPic + value.avatar + ')'}}>&nbsp;</div>
+                                     style={{backgroundImage: 'url(' + `${SERVER_URL}` + value.avatar + ')'}}>&nbsp;</div>
                                 {/*<img src={catPic + value.avatar} alt=""/>*/}
                                 <div className="star-description">
                                         <span className="star-name">
@@ -82,7 +83,7 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
                     return (
                         <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
                             <div className="avatar-img"
-                                 style={{backgroundImage: 'url(' + catPic + value.avatar + ')'}}>&nbsp;</div>
+                                 style={{backgroundImage: 'url(' + `${SERVER_URL}` + value.avatar + ')'}}>&nbsp;</div>
                             {/*<img src={catPic + value.avatar} alt=""/>*/}
                             <div className="star-description">
                                         <span className="star-name">

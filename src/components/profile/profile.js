@@ -38,9 +38,11 @@ export const Profile = () => {
 
     // Получить путь картинки
 
-    const url = 'http://exprome.ru:8080/';
+    // const url = 'http://exprome.ru:8080/';
     // const url = 'http://127.0.0.1:8080/';
-    const avatar = url + data.avatar;
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL1;
+
+    const avatar = `${SERVER_URL}` + data.avatar;
 
     // Высчитать сколько лет пользователю
 
