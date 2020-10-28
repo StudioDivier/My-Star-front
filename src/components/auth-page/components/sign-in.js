@@ -36,7 +36,7 @@ export const SignIn = () => {
             auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
             if (Object.keys(dataLog).length === 1 || Object.keys(dataLog).length === 2) {
                 for (let e in dataLog) {
-                    message(e +' : '+ dataLog[e][0]);
+                    message([e +' : '+ dataLog[e][0]]);
                 }
             }
             history.push('/categories');
@@ -54,7 +54,7 @@ export const SignIn = () => {
                     {/*<img src={logo} alt="logo"/>*/}
                     <div className="text-container">
                         <div>
-                            <p><span>MY</span> <span>STAR</span></p>
+                            <p>EXPROME</p>
                             <p>поздравление от звезды</p>
                         </div>
                     </div>

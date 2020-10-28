@@ -14,13 +14,13 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
     const {request} = useHttp();
     const [starsList, setStarsList] = useState();
     const list = useContext(StarsContext)
-    const authToken = useContext(AuthContext);
+    // const authToken = useContext(AuthContext);
     const message = useMessage();
 
     const clickHandler = async () => {
         try {
             console.log('here0')
-            const starsFetch = await request(`/api/star/category/?id=${id}`, 'GET', null, {Authorization: `Bearer ${authToken.token}`}); //'cors' ,
+            const starsFetch = await request(`/api/star/category/?id=${id}`, 'GET'); //'cors' ,
             console.log('here1')
             setStarsList([...starsFetch])
             console.log('here2')
@@ -36,7 +36,7 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
     const catPic = `${SERVER_URL}` + catPhoto;
     // const catPic = 'http://127.0.0.1:8080/' + catPhoto;
 
-    console.log(starsList)
+    // console.log(starsList)
 
     return (
         <>

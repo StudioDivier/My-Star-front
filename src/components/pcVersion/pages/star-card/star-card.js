@@ -40,6 +40,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
 
     // Record order data
 
+
     const [form, setForm] = useState({
         status_order: '0',
         for_whom: '',
@@ -47,7 +48,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         comment: '',
         order_price: star.price,
         star_id: star.id,
-        customer_id: userData.userId
+        customer_id: (userData ? userData.userId: '')
     })
 
     const changeHandler = event => {

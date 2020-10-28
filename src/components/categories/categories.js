@@ -40,7 +40,7 @@ export const Categories = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const cats = await request('/api/categories/', 'GET', null, {Authorization: `Bearer ${authToken.token}`}) //'cors' ,
+            const cats = await request('/api/categories/', 'GET') //'cors' ,
             if (!!cats.length) {
                 setData([...cats])
             }
@@ -52,7 +52,7 @@ export const Categories = () => {
         fetchData();
     }, [authToken.token, request]) // needed?
 
-    console.log(data)
+    // console.log(data)
 
     const getQuery = (query) => {
         setQuery(query)

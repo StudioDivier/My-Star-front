@@ -45,7 +45,7 @@ export const SignUp = () => {
                 if (Object.keys(dataAuth).length !== 1) {
                     setTimeout(() => {
                         for (let e in dataAuth) {
-                            message(e + ' : ' + dataAuth[e][0]);
+                            message([e + ' : ' + dataAuth[e][0]]);
                         }
                     }, 555)
 

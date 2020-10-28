@@ -22,7 +22,7 @@ export const Header = ({setSearch}) => {
 
     const message = useMessage();
     const auth = useContext(AuthContext);
-    const {request, error, clearError} = useHttp();
+    const {request} = useHttp();
 
     const [form, setForm] = useState({
         password: '', email: ''
@@ -62,13 +62,13 @@ export const Header = ({setSearch}) => {
             auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
             if (Object.keys(dataLog).length === 1 || Object.keys(dataLog).length === 2) {
                 for (let e in dataLog) {
-                    message(e + ' : ' + dataLog[e][0]);
+                    message([e + ' : ' + dataLog[e][0]]);
                 }
             }
-            history.push('/account-page');
+
             closeModal();
+
         } catch (e) {
-            history.push('/');
             message(e);
         }
     }
@@ -81,20 +81,19 @@ export const Header = ({setSearch}) => {
             if (Object.keys(dataAuth).length !== 1) {
                 setTimeout(() => {
                     for (let e in dataAuth) {
-                        message(e + ' : ' + dataAuth[e][0]);
+                        message([e + ' : ' + dataAuth[e][0]]);
                     }
                 }, 555)
 
             }
             const dataLog = await request('/api/login/', 'POST', {...form})
+            console.log(dataLog)
 
             auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
-
-            history.push('/account-page');
+            message('Вы зарегистрированы!')
             closeModal();
 
         } catch (e) {
-            history.push('/');
             message(e);
         }
     }
@@ -139,6 +138,48 @@ export const Header = ({setSearch}) => {
 
     }
 
+    function determineAuth1() {
+        if (userData && userData.token) {
+            return (
+                []
+            )
+        }
+        return (
+            <div onClick={showAuthModal}><span style={{color: 'white'}}>Регистрация</span></div>
+        )
+
+    }
+
+    const vkAuth = () => {
+
+    }
+    const yaAuth = async () => {
+        try {
+            const dataAuth = await request('/api/pre-yandex-oauth/', 'GET')
+            console.log(dataAuth)
+            window.open(`${dataAuth.link}`, "_blank").focus();
+
+            // if (Object.keys(dataAuth).length !== 1) {
+            //     setTimeout(() => {
+            //         for (let e in dataAuth) {
+            //             message([e + ' : ' + dataAuth[e][0]]);
+            //         }
+            //     }, 555)
+            //
+            // }
+            // const dataLog = await request('/api/login/', 'POST', {...form})
+            // console.log(dataLog)
+            //
+            // auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
+            //
+            // closeModal();
+
+        } catch (e) {
+            message(e);
+        }
+    }
+
+
     return (
         <div className="pc-header">
             <Container>
@@ -165,7 +206,7 @@ export const Header = ({setSearch}) => {
                         <div className="auth">
                             {determineAuth()}
                             {/*<div onClick={showLoginModal}><span>Вход</span></div>*/}
-                            <div onClick={showAuthModal}><span style={{color: 'white'}}>Регистрация</span></div>
+                            {determineAuth1()}
                         </div>
                     </Col>
                 </Row>
@@ -189,7 +230,7 @@ export const Header = ({setSearch}) => {
                         <div className="mediaLogin-wrapper">
                             <span>Через соцсети</span>
                             <span><FontAwesomeIcon icon={['fab', 'vk']} size={'lg'}/></span>
-                            <span><FontAwesomeIcon icon={['fab', 'facebook-f']} size={'lg'}/></span>
+                            <span><FontAwesomeIcon icon={['fab', 'yandex']} size={'lg'}/></span>
                         </div>
                     </div>
                 </div>
@@ -245,8 +286,8 @@ export const Header = ({setSearch}) => {
                         <p>Зарегистрируйтесь и общайтесь со звёздами!</p>
                         <div className="mediaLogin-wrapper">
                             <span>Через соцсети</span>
-                            <span><FontAwesomeIcon icon={['fab', 'vk']} size={'lg'}/></span>
-                            <span><FontAwesomeIcon icon={['fab', 'facebook-f']} size={'lg'}/></span>
+                            <span onClick={vkAuth}><FontAwesomeIcon icon={['fab', 'vk']} size={'lg'}/></span>
+                            <span onClick={yaAuth}><FontAwesomeIcon icon={['fab', 'yandex']} size={'lg'}/></span>
                         </div>
                     </div>
                 </div>

@@ -15,7 +15,7 @@ import {useHistory} from 'react-router-dom';
 
 export const AllCats = ({chooseCat, nameCat}) => {
 
-    const userData = JSON.parse(window.localStorage.getItem('userData'));
+    // const userData = JSON.parse(window.localStorage.getItem('userData'));
 
     const authToken = useContext(AuthContext)
     const {request} = useHttp()

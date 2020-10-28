@@ -17,8 +17,8 @@ export const AccountPage = () => {
     const {request} = useHttp();
     const [data, setData] = useState([]);
     const [orders, setOrders] = useState([])
-    const [name, setName] = useState([]);
-    const [selected, setSelected] = useState('');
+    // const [name, setName] = useState([]);
+    // const [selected, setSelected] = useState('');
     const [orderIsOpen, setOrderIsOpen] = useState(false)
     const [currentOrder, setCurrentOrder] = useState([])
 
@@ -30,27 +30,35 @@ export const AccountPage = () => {
 
     // Получить данные профиля и заказов профиля
 
-    useEffect(() => {
-        async function fetchData() {
+    if (Object.keys(userData).length === 0 || userData.email[0] === 'Введите корректный адрес электронной почты.' || userData.email[0] === 'Это поле не может быть пустым.') {
+        history.push('/')
+    }
+
+    useEffect(async () => {
+        // async function fetchData() {
+        try {
             const personal = await request(`/api/personal/?is_star=${userData.is_star}&user_id=${userData.userId}`, 'GET', null, {Authorization: `Bearer ${userData.token}`})
             setData(personal)
-
-            // console.log(personal)
-            // console.log(orders)
-            // setName(orders.data.customer)
-            // console.log('hello1')
-        }
-
-        async function fetchOrders() {
             const orders = await request(`/api/order/list/?is_star=${userData.is_star}&user_id=${userData.userId}`, 'GET', null, {Authorization: `Bearer ${userData.token}`})
             setOrders(orders)
-            // setName(orders.data.customer)
+        } catch (e) {
+            message(e)
         }
 
+        // console.log(personal)
+        // console.log(orders)
+        // setName(orders.data.customer)
+        // console.log('hello1')
+        // }
+
+        // async function fetchOrders() {
+        // setName(orders.data.customer)
+        // }
+
         // console.log('hello2')
-        fetchData();
-        fetchOrders();
-    }, [authToken.isStar, authToken.id, authToken.token, request])
+        // fetchData();
+        // fetchOrders();
+    }, [request])
 
     // Изменение персональных данных
 
@@ -182,12 +190,7 @@ export const AccountPage = () => {
 
     Modal.setAppElement(document.querySelector('.App'))
 
-
-    console.log(orders)
-    if (Object.keys(userData).length === 0 || userData.email[0] === 'Введите корректный адрес электронной почты.') {
-        history.push('/')
-    }
-
+    // console.log(orders)
 
     return (
         <section className="account-page">
@@ -199,7 +202,8 @@ export const AccountPage = () => {
                             <span>Имя пользователя</span>
                         </div>
                         <div className="list-item_content">
-                            <input type="text" name={'username'} className="form-control" onChange={changeHandler} value={data.username}/>
+                            <input type="text" name={'username'} className="form-control" onChange={changeHandler}
+                                   value={data.username}/>
                         </div>
                     </li>
                     <li className="list-group-item">
@@ -207,7 +211,8 @@ export const AccountPage = () => {
                             <span>Телефон</span>
                         </div>
                         <div className="list-item_content">
-                            <input type="text" name={'phone'} className="form-control" onChange={changeHandler} value={data.phone}/>
+                            <input type="text" name={'phone'} className="form-control" onChange={changeHandler}
+                                   value={data.phone}/>
                         </div>
                     </li>
                     <li className="list-group-item">
@@ -215,7 +220,8 @@ export const AccountPage = () => {
                             <span>Email</span>
                         </div>
                         <div className="list-item_content">
-                            <input type="text" name={'email'} className="form-control" onChange={changeHandler} value={data.email}/>
+                            <input type="text" name={'email'} className="form-control" onChange={changeHandler}
+                                   value={data.email}/>
                         </div>
                     </li>
                     <li className="list-group-item">
@@ -223,7 +229,8 @@ export const AccountPage = () => {
                             <span>Дата рождения</span>
                         </div>
                         <div className="list-item_content">
-                            <input type="text" name={'date_of_birth'} className="form-control" onChange={changeHandler} value={data.date_of_birth}/>
+                            <input type="text" name={'date_of_birth'} className="form-control" onChange={changeHandler}
+                                   value={data.date_of_birth}/>
                         </div>
                     </li>
                 </ul>

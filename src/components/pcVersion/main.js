@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './main.scss';
 import {Container, Row, Col} from 'react-bootstrap';
 import {Header} from "./components/header/header";
@@ -17,6 +17,8 @@ import {Category} from "./pages/category-page/category";
 import {Search} from "./pages/search-page/search-page";
 import {Reset} from "../auth-page/reset";
 import {Policy} from "./pages/privacy-policy/privacy-policy";
+import {Redirect} from "react-router-dom/";
+import {YaRedirect} from "./pages/ya-redirect/ya-redirect";
 
 export const DesktopMain = (isAuthenticated, isStar) => {
 
@@ -46,6 +48,12 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     // console.log(stars)
 
     // let list = stars;
+
+    function getYaData() {
+            let urlParams = new URLSearchParams(window.location.search);
+            let code = urlParams.get('code');
+            console.log(code)
+    }
 
     return (
         <div className="main">
@@ -108,14 +116,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                                     <AdsRow/>
                                 </Col>
                             </Row>
-                            {/*More categories*/}
-                            {/*<Row>*/}
-                            {/*    <Col lg={12}>*/}
-                            {/*        <SingleCat*/}
-                            {/*            catName={'Test'}*/}
-                            {/*        />*/}
-                            {/*    </Col>*/}
-                            {/*</Row>*/}
+
                         </Container>
                     </Route>
 
@@ -177,6 +178,12 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                             </Row>
                         </Container>
                     </Route>
+                    <Route path={'/api/mid-yandex/'}>
+                        <Redirect to={'/'}/>
+                        <YaRedirect />
+                    </Route>
+
+                    <Redirect to={'/'} />
                 </Switch>
 
                 <Footer/>

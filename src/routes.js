@@ -20,40 +20,36 @@ export const useRoutes = (isAuthenticated, isStar) => {
     if (isAuthenticated && !isStar) {
         if (window.screen.width <= 768) {
             return (
-                <Switch>
-                    <StarsProvider>
+                <StarsProvider>
+                    <Switch>
                         <Route exact path="/">
                             <Redirect to="/categories"/>
                         </Route>
-                        <Route exact path="/orders">
-                            <OrdersPage/>
-                        </Route>
-                        <Route exact path="/profile">
-                            <Profile/>
-                        </Route>
-                        <Route exact path="/policy">
-                            <Policy/>
-                        </Route>
-                        <Route exact path="/categories">
-                            <Categories/>
-                        </Route>
-                        <Route exact path="/categories/stars">
-                            <Stars/>
-                        </Route>
-                        <Route exact path="/categories/stars/order">
-                            <Order/>
-                        </Route>
-                        <Route exact path="/categories/stars/order/confirm">
-                            <Confirm/>
-                        </Route>
+                        <Route exact path="/orders" component={OrdersPage}/>
+
+                        <Route exact path="/profile" component={Profile}/>
+
+                        <Route exact path="/policy" component={Policy}/>
+
+                        <Route exact path="/categories" component={Categories}/>
+
+                        <Route exact path="/categories/stars" component={Stars}/>
+
+                        <Route exact path="/categories/stars/order" component={Order}/>
+
+                        <Route exact path="/categories/stars/order/confirm" component={Confirm}/>
+
                         <Route exact path='/password-reset/confirm/'>
                             <div className={'gradient__signUp'}>
                                 <Reset/>
                             </div>
                         </Route>
+
+                        {/*<Route render={() => <Redirect to="/categories"/>}/>*/}
+
                         <Redirect to={'/categories'}/>
-                    </StarsProvider>
-                </Switch>
+                    </Switch>
+                </StarsProvider>
             )
         }
         return (
@@ -137,8 +133,14 @@ export const useRoutes = (isAuthenticated, isStar) => {
         if (window.screen.width <= 768) {
             return (
                 <Switch>
-                    <Route path="/">
+                    <Route exact path="/">
                         <AuthPage/>
+                    </Route>
+                    <Route path="/categories" exact>
+                        <Categories/>
+                    </Route>
+                    <Route path="/categories/stars" exact>
+                        <Stars/>
                     </Route>
 
                     <Redirect to="/"/>

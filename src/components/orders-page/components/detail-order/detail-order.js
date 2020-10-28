@@ -1,7 +1,7 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './detail-order.scss';
-import {useHttp} from "../../../../hooks/http.hook";
-import {AuthContext} from "../../../../context/AuthContext";
+// import {useHttp} from "../../../../hooks/http.hook";
+// import {AuthContext} from "../../../../context/AuthContext";
 import menu from '../../../../img/order_icons/menu.svg';
 import like from '../../../../img/order_icons/icon_like.png';
 import {NavBar} from "../../../navbar/navbar";

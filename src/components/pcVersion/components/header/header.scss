@@ -72,6 +72,12 @@
       width: 20px;
     }
 
+    @media screen and (min-width: 989px) and (max-width: 1260px) {
+      img {
+        top: 31px
+      }
+    }
+
     svg {
       background-color: #b9b9b9;
     }
@@ -91,6 +97,33 @@
     span:first-child {
       color: #f3d14c;
       padding-right: 40px;
+    }
+  }
+
+  @media screen and (max-width: 990px) {
+    .text-container {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .search {
+      padding-top: 30px;
+
+      img {
+        top: 41px
+      }
+
+    }
+    .auth {
+      width: 100%;
+      padding-top: 30px;
+      justify-content: space-around;
+
+      div {
+        span {
+          padding-right: 0 !important;
+        }
+      }
     }
   }
 }

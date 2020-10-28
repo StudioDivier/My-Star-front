@@ -16,7 +16,7 @@ export const NavBar = () => {
         M.Sidenav.init(sidenav, {});
     })
 
-    const bgUrl = `${SERVER_URL}` + '/' + authData.avatar;
+    const bgUrl = `${SERVER_URL}/${authData.avatar}`;
     // const bgUrl = 'http://127.0.0.1:8080/' + authData.avatar;
     // console.log(data)
 
@@ -31,7 +31,7 @@ export const NavBar = () => {
                 <div className="account-info">
                     <div
                         className="avatar-img"
-                        style={{backgroundImage: "url(" + bgUrl + ")"}}
+                        style={{backgroundImage: `url(${bgUrl})`}}
                     />
                     <div className={'bio'}>
                         <h5>{authData.userName}</h5>

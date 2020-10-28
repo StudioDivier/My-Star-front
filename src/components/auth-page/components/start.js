@@ -10,7 +10,7 @@ export const Start = () => {
                 <div className={'header__wrapper'}>
                     {/*<img src={logo} alt="logo"/>*/}
                     <div className="text-container">
-                        <p><span>MY</span> <span>STAR</span></p>
+                        <p>EXPROME</p>
                         <p>поздравление от звезды</p>
                     </div>
                 </div>
