@@ -25,7 +25,7 @@
 
       .header-top {
         padding: 25px 15px 0;
-        color: white;
+        color: inherit;
 
         .closeOrder {
           position: absolute;
@@ -56,13 +56,13 @@
       .header-bottom {
         display: flex;
         flex-direction: column;
-        color: white;
         align-items: center;
         padding-top: 40px;
         padding-bottom: 35px;
+        color: inherit;
 
         span {
-          color: white;
+          color: inherit;
         }
 
         span:first-child {
@@ -77,7 +77,7 @@
           }
 
           span {
-            color: white;
+            color: inherit;
             font-size: 14px;
           }
         }

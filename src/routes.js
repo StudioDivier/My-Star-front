@@ -12,7 +12,6 @@ import {Policy} from "./components/docs/policy";
 import {DesktopMain} from "./components/pcVersion/main";
 import {AccountPage} from "./components/pcVersion/pages/account-page/account-page";
 import {Reset} from "./components/auth-page/reset";
-import {YaRedirect} from "./components/pcVersion/pages/ya-redirect/ya-redirect";
 
 export const useRoutes = (isAuthenticated, isStar) => {
 
@@ -23,10 +22,13 @@ export const useRoutes = (isAuthenticated, isStar) => {
             return (
                 <StarsProvider>
                     <Switch>
-                        <Route exact path="/">
-                            <Redirect to="/categories"/>
-                        </Route>
-                        <Route exact path="/orders" component={OrdersPage}/>
+                        {/*<Route exact path="/">*/}
+                        {/*    <Redirect to="/categories"/>*/}
+                        {/*</Route>*/}
+                        {/*<Route exact path='/orders' component={OrdersPage}>*/}
+                        {/*    <Redirect to={'/orders'}/>*/}
+                        {/*</Route>*/}
+                        <Route path="/orders" component={OrdersPage}/>
 
                         <Route exact path="/profile" component={Profile}/>
 
@@ -75,8 +77,8 @@ export const useRoutes = (isAuthenticated, isStar) => {
     if (isAuthenticated && isStar) {
         if (window.screen.width <= 768) {
             return (
-                <Switch>
-                    <StarsProvider>
+                <StarsProvider>
+                    <Switch>
                         <Route exact path="/">
                             <Redirect to="/categories"/>
                         </Route>
@@ -107,8 +109,8 @@ export const useRoutes = (isAuthenticated, isStar) => {
                             </div>
                         </Route>
                         {/*<Redirect to={'/'}/>*/}
-                    </StarsProvider>
-                </Switch>
+                    </Switch>
+                </StarsProvider>
             )
         }
         return (
@@ -137,10 +139,10 @@ export const useRoutes = (isAuthenticated, isStar) => {
                     <Route exact path="/">
                         <AuthPage/>
                     </Route>
-                    <Route path="/categories" exact>
+                    <Route exact path="/categories">
                         <Categories/>
                     </Route>
-                    <Route path="/categories/stars" exact>
+                    <Route exact path="/categories/stars">
                         <Stars/>
                     </Route>
 

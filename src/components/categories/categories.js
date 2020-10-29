@@ -88,7 +88,7 @@ export const Categories = () => {
                                             <Category
                                                 id={value.id}
                                                 name={value.cat_name}
-                                                catPhoto={value.cat_photo}
+                                                catPhoto={value.category_photo}
                                                 bgColor={bgColor}
                                             />
                                         </Col>
@@ -99,7 +99,7 @@ export const Categories = () => {
                                             <Category
                                                 id={value.id}
                                                 name={value.cat_name}
-                                                catPhoto={value.cat_photo}
+                                                catPhoto={value.category_photo}
                                                 bgColor={bgColor}
                                             />
                                         </Col>

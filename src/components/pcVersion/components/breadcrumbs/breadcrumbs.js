@@ -40,7 +40,7 @@ if (window.location.pathname === '/star-card') {
             <nav aria-label="breadcrumb">
                 <ol className="breadcrumb">
                     <li className="breadcrumb-item"><a href="/">Главная</a></li>
-                    <li className="breadcrumb-item" style={{cursor: 'pointer'}} onClick={() => clickHandler(data.id)}>{data.cat_name || data.cat_name_id}</li>
+                    {/*<li className="breadcrumb-item" style={{cursor: 'pointer'}} onClick={() => clickHandler(data.id)}>{data.cat_name || data.cat_name_id}</li>*/}
                     <li className="breadcrumb-item active" aria-current="page">{thirdItem}</li>
                 </ol>
             </nav>

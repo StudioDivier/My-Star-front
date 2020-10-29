@@ -7,36 +7,43 @@ import home from '../../img/home.svg'
 import cats from '../../img/categories.svg'
 import orders from '../../img/orders.svg'
 import account from '../../img/account.svg'
+import {useHistory} from 'react-router-dom';
 
 export const BottomMenu = () => {
+
+    const history = useHistory();
+
+    function homeA() {
+        history.push('/')
+    }
+
+    function ordersA() {
+        history.push('/orders')
+    }
+
+    function profileA() {
+        history.push('/profile')
+    }
 
     return (
         <div className={'bottom-menu'}>
             <Container>
                 <Row>
-                    <Col>
-                        <a href="/categories">
-                            <img src={home} alt="Home"/>
-                            <span>Главная</span>
-                        </a>
+                    <Col onClick={homeA}>
+                        <img src={home} alt="Home"/>
+                        <span>Главная</span>
                     </Col>
-                    <Col>
-                        <a href="/categories">
-                            <img src={cats} alt="Categories"/>
-                            <span>Категории</span>
-                        </a>
+                    <Col onClick={homeA}>
+                        <img src={cats} alt="Categories"/>
+                        <span>Категории</span>
                     </Col>
-                    <Col>
-                        <a href="/orders">
-                            <img src={orders} alt="Orders"/>
-                            <span>Мои заказы</span>
-                        </a>
+                    <Col onClick={ordersA}>
+                        <img src={orders} alt="Orders"/>
+                        <span>Мои заказы</span>
                     </Col>
-                    <Col>
-                        <a href="/profile">
-                            <img src={account} alt="Account"/>
-                            <span>Аккаунт</span>
-                        </a>
+                    <Col onClick={profileA}>
+                        <img src={account} alt="Account"/>
+                        <span>Аккаунт</span>
                     </Col>
                 </Row>
             </Container>

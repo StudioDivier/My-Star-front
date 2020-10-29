@@ -11,7 +11,7 @@ import {useHistory} from 'react-router-dom';
 import close from '../../../../img/close.png';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-export const Header = ({setSearch}) => {
+export const Header = ({setSearch, setPhone}) => {
 
     const userData = JSON.parse(window.localStorage.getItem('userData'));
 
@@ -19,6 +19,7 @@ export const Header = ({setSearch}) => {
 
     const [loginIsOpen, setLoginIsOpen] = useState(false);
     const [authIsOpen, setAuthIsOpen] = useState(false);
+    const [yaIsOpen, setYaIsOpen] = useState(false);
 
     const message = useMessage();
     const auth = useContext(AuthContext);
@@ -40,9 +41,13 @@ export const Header = ({setSearch}) => {
     const showLoginModal = () => {
         setLoginIsOpen(true)
     }
+    const showYaModal = () => {
+        setYaIsOpen(true)
+    }
     const closeModal = () => {
         setLoginIsOpen(false)
         setAuthIsOpen(false)
+        setYaIsOpen(false)
     }
 
     Modal.setAppElement(document.querySelector('.App'))
@@ -128,6 +133,7 @@ export const Header = ({setSearch}) => {
         }
     }
 
+    // Определить кнопки в зависимости от логина пользователя
 
     function determineAuth() {
         if (userData && userData.token) {
@@ -141,10 +147,6 @@ export const Header = ({setSearch}) => {
 
     }
 
-    function logout() {
-        auth.logout()
-    }
-
     function determineAuth1() {
         if (userData && userData.token) {
             return (
@@ -154,32 +156,66 @@ export const Header = ({setSearch}) => {
         return (
             <div onClick={showAuthModal}><span style={{color: 'white'}}>Регистрация</span></div>
         )
-
     }
 
-    const vkAuth = () => {
+    // Кнопка выхода
 
+    function logout() {
+        auth.logout()
     }
+
+    // VK Auth
+
+    const vkAuth = async () => {
+        try {
+            const dataAuth = await request('/api/pre-vk-oauth/', 'GET')
+            console.log(dataAuth)
+            window.open(`${dataAuth.link}`, "_blank").focus();
+
+        } catch (e) {
+            message(e);
+        }
+    }
+
+    // Yandex Auth
+
     const yaAuth = async () => {
         try {
             const dataAuth = await request('/api/pre-yandex-oauth/', 'GET')
             console.log(dataAuth)
             window.open(`${dataAuth.link}`, "_blank").focus();
 
-            // if (Object.keys(dataAuth).length !== 1) {
-            //     setTimeout(() => {
-            //         for (let e in dataAuth) {
-            //             message([e + ' : ' + dataAuth[e][0]]);
-            //         }
-            //     }, 555)
-            //
-            // }
-            // const dataLog = await request('/api/login/', 'POST', {...form})
-            // console.log(dataLog)
-            //
-            // auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
-            //
-            // closeModal();
+        } catch (e) {
+            message(e);
+        }
+    }
+
+    const yaAuthModal = () => {
+        setPhone(form.phone)
+        yaAuth()
+    }
+
+    // Yandex Login
+
+    const yaLogin = async () => {
+        try {
+            const dataAuth = await request('/api/yandex-login/', 'POST', {
+                access_token: userData.access_token,
+                expires_in: userData.expires_in,
+                refresh_token: userData.refresh_token
+            })
+            const dataLog = await request('/api/login/', 'POST', {
+                id: dataAuth.id,
+                username: dataAuth.username,
+                phone: dataAuth.phone,
+                is_star: dataAuth.is_star,
+                email: dataAuth.email,
+                avatar: dataAuth.avatar,
+                token: dataAuth.token
+            })
+
+            auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
+            history.push('/')
 
         } catch (e) {
             message(e);
@@ -238,7 +274,7 @@ export const Header = ({setSearch}) => {
                         <p>Войдите в свой аккаунт, чтобы общаться со звёздами!</p>
                         <div className="mediaLogin-wrapper">
                             <span>Через соцсети</span>
-                            <span><FontAwesomeIcon icon={['fab', 'vk']} size={'lg'}/></span>
+                            <span onClick={yaLogin}><FontAwesomeIcon icon={['fab', 'vk']} size={'lg'}/></span>
                             <span><FontAwesomeIcon icon={['fab', 'yandex']} size={'lg'}/></span>
                         </div>
                     </div>
@@ -296,7 +332,7 @@ export const Header = ({setSearch}) => {
                         <div className="mediaLogin-wrapper">
                             <span>Через соцсети</span>
                             <span onClick={vkAuth}><FontAwesomeIcon icon={['fab', 'vk']} size={'lg'}/></span>
-                            <span onClick={yaAuth}><FontAwesomeIcon icon={['fab', 'yandex']} size={'lg'}/></span>
+                            <span onClick={showYaModal}><FontAwesomeIcon icon={['fab', 'yandex']} size={'lg'}/></span>
                         </div>
                     </div>
                 </div>
@@ -368,6 +404,44 @@ export const Header = ({setSearch}) => {
                         <div
                             className="pc-signInButton"
                             onClick={registerHandler}
+                        >
+                            Зарегистрироваться
+                        </div>
+                    </div>
+                </div>
+            </Modal>
+            <Modal
+                isOpen={yaIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Example Modal"
+                style={customStyles}
+            >
+                <div className="pc-modal-header">
+                    <div className={'close-btn'} onClick={closeModal}>
+                        <img src={close}
+                             alt="Close"
+                        />
+                    </div>
+                    <div className="header-text">
+                        <span>Введите свой номер телефона</span>
+                    </div>
+                </div>
+                <div className="signInInputs spread">
+                    <div className="single-input__wrapper">
+                        <span>Телефон</span>
+                        <MaskedInput
+                            mask={[/[1-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
+                            placeholder={'(999)999-99-99'}
+                            type="text"
+                            name={'phone'}
+                            value={form.phone}
+                            onChange={changeHandler}
+                        />
+                    </div>
+                    <div className="login__btn-wrapper">
+                        <div
+                            className="pc-signInButton"
+                            onClick={yaAuthModal}
                         >
                             Зарегистрироваться
                         </div>

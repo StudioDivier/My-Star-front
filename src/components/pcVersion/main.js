@@ -26,6 +26,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     const [name, setCatName] = useState('')
     const [star, setStar] = useState([])
     const [search, setSearch] = useState([])
+    const [phone, setPhone] = useState('')
 
     // const userData = JSON.parse(window.localStorage.getItem('userData'));
     //
@@ -58,7 +59,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     return (
         <div className="main">
             <Router>
-                <Header setSearch={setSearch}/>
+                <Header setSearch={setSearch} setPhone={setPhone} phone={phone}/>
 
                 <Switch>
 
@@ -174,8 +175,8 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                         </Container>
                     </Route>
                     <Route path={'/api/mid-yandex/'}>
-                        <YaRedirect />
-                        {/*<Redirect to={'/'}/>*/}
+                        <YaRedirect phone={phone}/>
+                        <Redirect to={'/'}/>
                     </Route>
 
                     <Redirect to={'/'} />

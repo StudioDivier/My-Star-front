@@ -89,15 +89,15 @@ export const DetailOrder = ({isActive, details, setActive}) => {
                             </div>
 
                         </div>
-                        <div className="btn-wrapper">
-                            <button
-                                // onClick={}
-                                className={'submitButton'}
-                            >
-                                Связаться с исполнителем
-                            </button>
-                            <p>Совершая заказ, вы соглашаетесь с условиями</p>
-                        </div>
+                        {/*<div className="btn-wrapper">*/}
+                        {/*    <button*/}
+                        {/*        // onClick={}*/}
+                        {/*        className={'submitButton'}*/}
+                        {/*    >*/}
+                        {/*        Связаться с исполнителем*/}
+                        {/*    </button>*/}
+                        {/*    <p>Совершая заказ, вы соглашаетесь с условиями</p>*/}
+                        {/*</div>*/}
                     </div>
 
                 </div>

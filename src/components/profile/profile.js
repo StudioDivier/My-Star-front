@@ -16,7 +16,7 @@ export const Profile = () => {
     const [data, setData] = useState([]);
     // const [form, setForm] = useState({"user_id": authToken.id, "image": ''});
 
-    console.log(authToken)
+    // console.log(data)
 
     const changeHandler = event => {
         setData(({...data, [event.target.name]: event.target.value}))
@@ -38,10 +38,7 @@ export const Profile = () => {
 
     // Получить путь картинки
 
-    // const url = 'http://exprome.ru:8080/';
-    // const url = 'http://127.0.0.1:8080/';
     const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
-
     const avatar = `${SERVER_URL}` + data.avatar;
 
     // Высчитать сколько лет пользователю
@@ -91,23 +88,42 @@ export const Profile = () => {
 
     // Смена аватарки
 
-    const handleImageUpload = async (event) => {
-        const files = event.target.files
-        console.log(files[0])
-        const formData = new FormData()
-        formData.append('myFile', files)
-        console.log(formData)
+    // const handleImageUpload = async (event) => {
+    //     const files = event.target.files
+    //     console.log(files[0])
+    //     const formData = new FormData()
+    //     formData.append('myFile', files)
+    //     console.log(formData)
+    //
+    //     try {
+    //         const changeAvatar = await request('/api/upload/avatar/', 'POST', {
+    //             "user_id": authToken.id,
+    //             "image": formData
+    //         }, {Authorization: `Bearer ${authToken.token}`})
+    //         console.log(changeAvatar)
+    //     } catch (e) {
+    //         message(e)
+    //     }
+    //
+    // }
 
-        try {
-            const changeAvatar = await request('/api/upload/avatar/', 'POST', {
-                "user_id": authToken.id,
-                "image": formData
-            }, {Authorization: `Bearer ${authToken.token}`})
-            console.log(changeAvatar)
-        } catch (e) {
-            message(e)
+
+    function determineStar() {
+        if(authToken.isStar) {
+            return (
+                <div className="likes">
+                    <img src={like} alt=""/><span>&nbsp;&nbsp;{data.likes}</span>
+                </div>
+            )
         }
+        return []
+    }
 
+    function look4Avatar() {
+        if (data.avatar) {
+            return {background: 'linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)), url(' + avatar + ')', color: 'black'}
+        }
+        return {backgroundColor: 'white', color: 'black'}
     }
 
     return (
@@ -116,7 +132,7 @@ export const Profile = () => {
                 <div className="main-wrapper">
 
                     <div className="profile__info"
-                         style={{background: 'linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)), url(' + avatar + ')'}}>
+                         style={look4Avatar()}>
                         <div className="header">
                             <div className="header-top">
                                 <a href={hashTagLink} data-target="slide-out" className="sidenav-trigger show-on-large">
@@ -129,9 +145,7 @@ export const Profile = () => {
                                 <div>
                                     <span>Россия</span> <span>&nbsp; | &nbsp;</span> <span>{years} лет</span>
                                 </div>
-                                <div className="likes">
-                                    <img src={like} alt=""/><span>&nbsp;&nbsp;425</span>
-                                </div>
+                                {determineStar()}
                             </div>
                         </div>
                     </div>
@@ -210,17 +224,17 @@ export const Profile = () => {
                                 />
                             </div>
                         </div>
-                        <div className="avatar">
-                            <div className="wrapper">
-                                <span>Аватарка</span>
-                                <input
-                                    type="file"
-                                    name={'image'}
-                                    id="fileUpload"
-                                    onChange={(event) => handleImageUpload(event)}
-                                />
-                            </div>
-                        </div>
+                        {/*<div className="avatar">*/}
+                        {/*    <div className="wrapper">*/}
+                        {/*        <span>Аватарка</span>*/}
+                        {/*        <input*/}
+                        {/*            type="file"*/}
+                        {/*            name={'image'}*/}
+                        {/*            id="fileUpload"*/}
+                        {/*            onChange={(event) => handleImageUpload(event)}*/}
+                        {/*        />*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                     </div>
                     <div className="btn-wrapper">
                         <button

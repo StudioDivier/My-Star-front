@@ -65,13 +65,13 @@ export const OrdersPage = () => {
 
     const getId = (value) => {
         orderId = value;
-        console.log(orderId);
+        // console.log(orderId);
     }
 
     // Принять/отказать в заказе
 
     const rejectOrder = async () => {
-        console.log()
+        // console.log()
         try {
             const changePW = await request(
                 '/api/order/accept/',
