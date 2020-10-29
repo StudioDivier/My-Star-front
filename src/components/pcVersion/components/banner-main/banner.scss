@@ -22,6 +22,16 @@
       font-weight: 700;
       line-height: 58px;
     }
+
+    @media screen and (max-width: 900px) {
+      p:first-child {
+        font-size: 28px !important;
+      }
+      p {
+        font-size: 20px !important;
+      }
+    }
+
     @media screen and (max-width: 1250px) {
       p:first-child {
         font-size: 38px;

@@ -97,6 +97,13 @@ body {
     padding-bottom: 50px;
     border-bottom: 1.5px solid #e6e6e6;
 
+    @media screen and (max-width: 780px){
+      .close-btn {
+        right: -25px !important;
+        top: -25px;
+      }
+    }
+
 
     .header-text {
       span:first-child {
@@ -161,6 +168,12 @@ body {
 
   .signInInputs {
     padding-top: 40px;
+    @media screen and (max-width: 1200px){
+      p {
+        margin-top: 20px !important;
+        margin-left: 0 !important;
+      }
+    }
   }
 
   .spread {
@@ -190,6 +203,12 @@ body {
 
       span {
         font-size: 16px;
+      }
+
+      @media screen and (max-width: 1200px){
+        span {
+          width: 60%;
+        }
       }
 
       input {

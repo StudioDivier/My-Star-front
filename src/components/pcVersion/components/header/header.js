@@ -192,14 +192,16 @@ export const Header = ({setSearch}) => {
                     </Col>
                     <Col lg={4} className={'customCol'}>
                         <div className="search">
-                            <input
-                                type="text"
-                                placeholder={'Поиск по звездам'}
-                                name={'search'}
-                                onChange={changeHandler1}
-                                value={form.search}
-                            />
-                            <img src={lupa} alt="Лупа" onClick={() => searchHandler()}/>
+                            <form action="" onSubmit={() => searchHandler()}>
+                                <input
+                                    type="text"
+                                    placeholder={'Поиск по звездам'}
+                                    name={'search'}
+                                    onChange={changeHandler1}
+                                    value={form.search}
+                                />
+                                <img src={lupa} alt="Лупа"/>
+                            </form>
                         </div>
                     </Col>
                     <Col lg={3} className={'customCol'}>
