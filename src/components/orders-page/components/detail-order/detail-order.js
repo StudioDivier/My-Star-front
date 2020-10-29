@@ -1,19 +1,68 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import './detail-order.scss';
-// import {useHttp} from "../../../../hooks/http.hook";
-// import {AuthContext} from "../../../../context/AuthContext";
 import menu from '../../../../img/order_icons/menu.svg';
 import like from '../../../../img/order_icons/icon_like.png';
 import {NavBar} from "../../../navbar/navbar";
 import {useMessage} from "../../../../hooks/message.hook";
-// import MaskedInput from "react-text-mask";
+import {useHttp} from "../../../../hooks/http.hook";
+import {AuthContext} from "../../../../context/AuthContext";
+import Modal from 'react-modal';
+
 
 export const DetailOrder = ({isActive, details, setActive}) => {
 
+    const authToken = useContext(AuthContext);
     const message = useMessage();
     const [data, setData] = useState([]);
+    const {request} = useHttp();
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [form, setForm] = useState({
+        from_user: authToken.userId,
+        user_id: details.name,
+        message: ''
+    })
 
     const hashTagLink = '#';
+
+    const changeHandler1 = event => {
+        setForm(({...form, [event.target.name]: event.target.value}))
+    }
+
+    const writeMessage = async () => {
+        try {
+            const message = await request('/api/message/', 'POST', {...form}, {Authorization: `Bearer ${authToken.token}`})
+        } catch (e) {
+            message(e);
+        }
+    }
+
+    // Modal
+
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            height: 'auto',
+            width: '80%',
+            borderRadius: '25px',
+            padding: '30px'
+        }
+    };
+
+    const closeModal = () => {
+        setIsOpen(!modalIsOpen);
+    }
+
+    const showModal = () => {
+        setIsOpen(true)
+    }
+
+
+    Modal.setAppElement(document.querySelector('.App'))
 
     if (isActive) {
         return (
@@ -91,7 +140,7 @@ export const DetailOrder = ({isActive, details, setActive}) => {
                         </div>
                         {/*<div className="btn-wrapper">*/}
                         {/*    <button*/}
-                        {/*        // onClick={}*/}
+                        {/*        // onClick={showModal}*/}
                         {/*        className={'submitButton'}*/}
                         {/*    >*/}
                         {/*        Связаться с исполнителем*/}
@@ -101,6 +150,30 @@ export const DetailOrder = ({isActive, details, setActive}) => {
                     </div>
 
                 </div>
+                <Modal
+                    isOpen={modalIsOpen}
+                    onRequestClose={closeModal}
+                    contentLabel="Example Modal"
+                    style={customStyles}
+                >
+                    <div className="modal-header">
+                        <span>Оценить звезду</span>
+                        <button onClick={closeModal}>х</button>
+                    </div>
+                    <div className="spread">
+                        <div className="single-input__wrapper">
+                            <span>Пароль</span>
+                            <input
+                                type="text"
+                                placeholder={'Пароль'}
+                                onChange={changeHandler}
+                                name={'password'}
+                                value={form.password}
+                            />
+                        </div>
+                        <button onClick={rateHandler}>Отправить</button>
+                    </div>
+                </Modal>
                 <NavBar/>
             </>
         )
