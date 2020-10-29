@@ -24,7 +24,7 @@ export const DetailOrder = ({isActive, details, setActive}) => {
 
     const hashTagLink = '#';
 
-    const changeHandler1 = event => {
+    const changeHandler = event => {
         setForm(({...form, [event.target.name]: event.target.value}))
     }
 
@@ -171,7 +171,7 @@ export const DetailOrder = ({isActive, details, setActive}) => {
                                 value={form.password}
                             />
                         </div>
-                        <button onClick={rateHandler}>Отправить</button>
+                        <button onClick={writeMessage}>Отправить</button>
                     </div>
                 </Modal>
                 <NavBar/>
