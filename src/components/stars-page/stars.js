@@ -83,7 +83,7 @@ export const Stars = () => {
                     <Container>
                         <Row>
                             {fetchedList.array.map((value, key) => {
-                                console.log(value, key)
+                                // console.log(value, key)
 
                                 let randomNum = Math.floor(Math.random() * 6);
                                 let bgColor = colors[randomNum];

@@ -39,16 +39,19 @@ export const Confirm = () => {
     let orderId1;
 
     const submitHandler = async () => {
-        try {
-            const dataLog = await request('/api/order/', 'POST', {...form}, {Authorization: `Bearer ${auth.token}`})// 'cors',
-            console.log(dataLog.order_id)
-            message(dataLog.message)
-            orderId1 = dataLog.order_id;
-            // setOrderId(dataLog.order_id)
-            // makeOrder();
-            // history.push('/categories');
-        } catch (e) {
+        if (form.comment.length > 0) {
+            try {
+                const dataLog = await request('/api/order/', 'POST', {...form}, {Authorization: `Bearer ${auth.token}`})// 'cors',
+                console.log(dataLog.order_id)
+                message(dataLog.message)
+                orderId1 = dataLog.order_id;
+                // setOrderId(dataLog.order_id)
+                // makeOrder();
+                // history.push('/categories');
+            } catch (e) {
+            }
         }
+        message(['Введите комментарий к заказу!'])
     }
     const redirectHandler = async () => {
         try {

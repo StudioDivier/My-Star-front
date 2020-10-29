@@ -21,6 +21,7 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
     useEffect(() => {
         async function fetchData() {
             const starsFetch = await request(`/api/star/category/?id=${id}`, 'GET'); //'cors' , //, null, {Authorization: `Bearer ${userData.token}`}
+            // console.log(starsFetch)
             if (!!starsFetch.length) {
                 setStars([...starsFetch])
             }

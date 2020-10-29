@@ -38,7 +38,7 @@ export const FilterHead = ({chooseCat, nameCat}) => {
 
     const clickHandler = async (id, name) => {
         try {
-            const starsFetch = await request(`/api/star/category/?id=${id}`, 'GET', null, {Authorization: `Bearer ${userData.token}`}); //'cors' ,
+            const starsFetch = await request(`/api/star/category/?id=${id}`, 'GET'); //'cors' ,
             setStarsList([...starsFetch])
             history.push(`/category`)
 

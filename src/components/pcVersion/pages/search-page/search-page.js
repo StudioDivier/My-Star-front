@@ -31,7 +31,7 @@ export const Search = ({search, chooseStar}) => {
         history.push('/star-card')
     }
 
-    // console.log(stars)
+    console.log(stars)
 
     if (search.length > 0) {
         return (
@@ -43,7 +43,7 @@ export const Search = ({search, chooseStar}) => {
                                 <div className="single-cat__stars">
                                     {
                                         stars.filter(value => value.username.toLowerCase() === search.toLowerCase()).map((value, key) => {
-                                            // console.log(value)
+                                            // console.log(value.avatar)
                                             return (
                                                 <div className="single-cat__star" key={key}
                                                      onClick={() => clickStar(value)}>
@@ -51,12 +51,12 @@ export const Search = ({search, chooseStar}) => {
                                                          style={{backgroundImage: 'url(' + `${SERVER_URL}` + value.avatar + ')'}}>&nbsp;</div>
                                                     {/*<img src={catPic + value.avatar} alt=""/>*/}
                                                     <div className="star-description">
-                                                                    <span className="star-name">
-                                                                        {value.first_name}&nbsp;{value.last_name}
-                                                                    </span>
+                                                                        <span className="star-name">
+                                                                            {value.first_name}&nbsp;{value.last_name}
+                                                                        </span>
                                                         <span className="star-style">
-                                                                        {value.profession}
-                                                                    </span>
+                                                                            {value.profession}
+                                                                        </span>
                                                     </div>
                                                 </div>
 

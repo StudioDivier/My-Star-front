@@ -27,7 +27,7 @@ export const Order = () => {
     const {request} = useHttp();
     const message = useMessage();
 
-    console.log(starInfo)
+    // console.log(starInfo)
     // console.log(starInfo.starRating)
     // console.log(userInfo.id)
     const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
@@ -35,7 +35,7 @@ export const Order = () => {
     const avatar = `${SERVER_URL}` + starInfo.starAvatar;
 
     const closeModal = () => {
-        console.log('f u')
+        // console.log('f u')
         setIsOpen(!modalIsOpen);
     }
 

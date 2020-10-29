@@ -87,7 +87,7 @@ export const Header = ({setSearch}) => {
 
             }
             const dataLog = await request('/api/login/', 'POST', {...form})
-            console.log(dataLog)
+            // console.log(dataLog)
 
             auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
             message('Вы зарегистрированы!')
@@ -120,9 +120,12 @@ export const Header = ({setSearch}) => {
         setForm1(({...form1, [event.target.name]: event.target.value}))
     }
 
-    const searchHandler = () => {
+    const searchHandler = (e) => {
+        e.preventDefault();
         setSearch(form1.search);
-        history.push('/search');
+        if (form1.search) {
+            history.push('/search');
+        }
     }
 
 
@@ -138,10 +141,14 @@ export const Header = ({setSearch}) => {
 
     }
 
+    function logout() {
+        auth.logout()
+    }
+
     function determineAuth1() {
         if (userData && userData.token) {
             return (
-                []
+                <div onClick={logout}><span style={{color: 'white'}}>Выйти</span></div>
             )
         }
         return (
@@ -192,7 +199,7 @@ export const Header = ({setSearch}) => {
                     </Col>
                     <Col lg={4} className={'customCol'}>
                         <div className="search">
-                            <form action="" onSubmit={() => searchHandler()}>
+                            <form onSubmit={(e) => searchHandler(e)}>
                                 <input
                                     type="text"
                                     placeholder={'Поиск по звездам'}

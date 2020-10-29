@@ -35,5 +35,6 @@ export const YaRedirect = () => {
         }
 
     })
+    return []
 
 }

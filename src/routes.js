@@ -12,6 +12,7 @@ import {Policy} from "./components/docs/policy";
 import {DesktopMain} from "./components/pcVersion/main";
 import {AccountPage} from "./components/pcVersion/pages/account-page/account-page";
 import {Reset} from "./components/auth-page/reset";
+import {YaRedirect} from "./components/pcVersion/pages/ya-redirect/ya-redirect";
 
 export const useRoutes = (isAuthenticated, isStar) => {
 

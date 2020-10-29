@@ -19,13 +19,13 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
 
     const clickHandler = async () => {
         try {
-            console.log('here0')
+            // console.log('here0')
             const starsFetch = await request(`/api/star/category/?id=${id}`, 'GET'); //'cors' ,
-            console.log('here1')
+            // console.log('here1')
             setStarsList([...starsFetch])
-            console.log('here2')
+            // console.log('here2')
             list.setArray([...starsFetch])
-            console.log('here3')
+            // console.log('here3')
             history.push(`/categories/stars`)
 
         } catch (e) {

@@ -145,7 +145,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         }
     }
 
-    console.log(catPic)
+    // console.log(star)
 
     return (
         <>
@@ -333,7 +333,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                     Примеры видеопоздравлений
                                 </p>
                                 <div className="vids-wrapper">
-                                    <iframe width="560" height="405" src={`${SERVER_URL}` + star.video_hi}
+                                    <iframe width="560" height="405" src={`${SERVER_URL}/media/${star.video}`}
                                             frameBorder="0"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                             allowFullScreen></iframe>
