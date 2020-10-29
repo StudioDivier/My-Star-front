@@ -9,7 +9,7 @@ import {useMessage} from "../../../hooks/message.hook";
 
 
 export const Category = ({id, name, bgColor, catPhoto}) => {
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL1;
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
     const history = useHistory();
     const {request} = useHttp();
     const [starsList, setStarsList] = useState();

@@ -12,7 +12,7 @@ import {StarsContext} from "../../../context/StarsContext";
 import orders from '../../../img/orders_amount.svg'
 
 export const Star = ({id, price, name, rating, days, avatar, bgColor, likes}) => {
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL1;
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
 
     const history = useHistory();
     const star = useContext(StarsContext);

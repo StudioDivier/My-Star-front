@@ -30,7 +30,7 @@ export const Order = () => {
     console.log(starInfo)
     // console.log(starInfo.starRating)
     // console.log(userInfo.id)
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL1;
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
     // const url = 'http://exprome.ru:8080';
     const avatar = `${SERVER_URL}` + starInfo.starAvatar;
 

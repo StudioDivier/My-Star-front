@@ -40,7 +40,7 @@ export const Profile = () => {
 
     // const url = 'http://exprome.ru:8080/';
     // const url = 'http://127.0.0.1:8080/';
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL1;
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
 
     const avatar = `${SERVER_URL}` + data.avatar;
 

@@ -9,7 +9,7 @@ import {useHistory} from 'react-router-dom';
 export const Search = ({search, chooseStar}) => {
 
     // const catPic = 'http://exprome.ru:8080';
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL1;
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
 
     const {request} = useHttp()
     const [stars, setStars] = useState([])

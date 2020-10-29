@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 
 
 export const NavBar = () => {
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL1;
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
     const authData = useContext(AuthContext);
     // console.log(authData)
 

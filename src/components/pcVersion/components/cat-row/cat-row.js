@@ -6,7 +6,7 @@ import {AuthContext} from "../../../../context/AuthContext";
 import {useHistory} from 'react-router-dom';
 
 export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL1;
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
 
     // const catPic = 'http://exprome.ru:8080';
 

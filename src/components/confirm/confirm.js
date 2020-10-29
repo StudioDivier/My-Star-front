@@ -15,7 +15,7 @@ import {Link} from "react-router-dom";
 
 
 export const Confirm = () => {
-    const SERVER_URL = process.env.REACT_APP_SERVER_URL1;
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
     const {request} = useHttp();
     const message = useMessage();
     const auth = useContext(AuthContext);
