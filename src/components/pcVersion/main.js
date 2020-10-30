@@ -22,6 +22,8 @@ import {YaRedirect} from "./pages/ya-redirect/ya-redirect";
 
 export const DesktopMain = (isAuthenticated, isStar) => {
 
+    // const userData = JSON.parse(window.localStorage.getItem('userData'));
+
     const [cat, setCat] = useState('')
     const [name, setCatName] = useState('')
     const [star, setStar] = useState([])
@@ -50,11 +52,24 @@ export const DesktopMain = (isAuthenticated, isStar) => {
 
     // let list = stars;
 
-    function getYaData() {
-            let urlParams = new URLSearchParams(window.location.search);
-            let code = urlParams.get('code');
-            console.log(code)
-    }
+    // function getYaData() {
+    //     let urlParams = new URLSearchParams(window.location.search);
+    //     let code = urlParams.get('code');
+    //     console.log(code)
+    // }
+
+    // function determineAuth() {
+    //     if (userData && userData.hasOwnProperty('token')) {
+    //         return (
+    //             <Route path={'/account-page'}>
+    //                 <AccountPage/>
+    //                 <Redirect to="/account-page"/>
+    //             </Route>
+    //         )
+    //     } else {
+    //         return []
+    //     }
+    // }
 
     return (
         <div className="main">
@@ -159,7 +174,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
 
                     <Route exact path={'/privacy-policy'}>
                         <Breadcrumbs secondItem={'Политика конфиденциальности'}/>
-                        <Policy />
+                        <Policy/>
                     </Route>
 
                     <Route exact path='/password-reset/confirm/'>
@@ -174,12 +189,18 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                             </Row>
                         </Container>
                     </Route>
+
                     <Route path={'/api/mid-yandex/'}>
                         <YaRedirect phone={phone}/>
                         <Redirect to={'/'}/>
                     </Route>
 
-                    <Redirect to={'/'} />
+                    <Route exact path={'/account-page'}>
+                        <AccountPage/>
+                        <Redirect to="/account-page"/>
+                    </Route>
+
+                    <Redirect to={'/'}/>
                 </Switch>
 
                 <Footer/>

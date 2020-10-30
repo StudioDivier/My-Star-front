@@ -70,8 +70,8 @@ export const Header = ({setSearch, setPhone}) => {
                     message([e + ' : ' + dataLog[e][0]]);
                 }
             }
-
             closeModal();
+            // window.location.reload();
 
         } catch (e) {
             message(e);
@@ -95,10 +95,11 @@ export const Header = ({setSearch, setPhone}) => {
             // console.log(dataLog)
 
             auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
-            message('Вы зарегистрированы!')
+            // message('Вы зарегистрированы!')
             closeModal();
 
         } catch (e) {
+            // showAuthModal();
             message(e);
         }
     }
@@ -138,7 +139,7 @@ export const Header = ({setSearch, setPhone}) => {
     function determineAuth() {
         if (userData && userData.token) {
             return (
-                <div onClick={() => history.push('/account-page/')}><span>Личный кабинет</span></div>
+                <div onClick={() => history.push('/account-page')}><span>Личный кабинет</span></div>
             )
         }
         return (
@@ -162,6 +163,7 @@ export const Header = ({setSearch, setPhone}) => {
 
     function logout() {
         auth.logout()
+        history.push('/')
     }
 
     // VK Auth
@@ -398,7 +400,7 @@ export const Header = ({setSearch, setPhone}) => {
                         />
                     </div>
 
-                    <p>Нажимая на кнопку, я принимаю условия <a href="#">пользовательского соглашения.</a></p>
+                    <p>Нажимая на кнопку, я принимаю условия <a href="/privacy-policy">пользовательского соглашения.</a></p>
 
                     <div className="login__btn-wrapper">
                         <div

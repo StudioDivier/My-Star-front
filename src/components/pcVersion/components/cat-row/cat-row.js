@@ -1,20 +1,16 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './cat-row.scss';
-import avatar from '../../../../img/pc/avatar.png';
+// import avatar from '../../../../img/pc/avatar.png';
 import {useHttp} from "../../../../hooks/http.hook";
-import {AuthContext} from "../../../../context/AuthContext";
 import {useHistory} from 'react-router-dom';
 
 export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
     const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
 
-    // const catPic = 'http://exprome.ru:8080';
-
-    const userData = JSON.parse(window.localStorage.getItem('userData'));
+    // const userData = JSON.parse(window.localStorage.getItem('userData'));
 
     const [stars, setStars] = useState([]);
 
-    const authToken = useContext(AuthContext)
     const {request} = useHttp()
     const history = useHistory();
 
@@ -28,7 +24,7 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
         }
 
         fetchData();
-    }, [authToken.token, request]) // needed?
+    }, [id, request]) // needed?
 
     const clickHandler = () => {
         chooseCat(id)
@@ -55,7 +51,7 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
                         return (
                             <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
                                 <div className="avatar-img"
-                                     style={{backgroundImage: 'url(' + `${SERVER_URL}` + value.avatar + ')'}}>&nbsp;</div>
+                                     style={{backgroundImage: `url(${SERVER_URL}${value.avatar})`}}>&nbsp;</div>
                                 {/*<img src={catPic + value.avatar} alt=""/>*/}
                                 <div className="star-description">
                                         <span className="star-name">
@@ -84,7 +80,7 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
                     return (
                         <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
                             <div className="avatar-img"
-                                 style={{backgroundImage: 'url(' + `${SERVER_URL}` + value.avatar + ')'}}>&nbsp;</div>
+                                 style={{backgroundImage: `url(${SERVER_URL}${value.avatar})`}}>&nbsp;</div>
                             {/*<img src={catPic + value.avatar} alt=""/>*/}
                             <div className="star-description">
                                         <span className="star-name">

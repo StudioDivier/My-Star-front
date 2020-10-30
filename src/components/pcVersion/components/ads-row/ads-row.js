@@ -19,7 +19,7 @@ export const AdsRow = () => {
                         ценит эмоции и уже устал от привычных презентов
                     </span>
                     <div className="see-more">
-                        <a href="#">
+                        <a href="/#">
                             <span className="more-link">
                                     Подробнее >
                             </span>
@@ -39,7 +39,7 @@ export const AdsRow = () => {
                         ценит эмоции и уже устал от привычных презентов
                     </span>
                     <div className="see-more">
-                        <a href="#">
+                        <a href="/#">
                             <span className="more-link">
                                     Подробнее >
                             </span>
@@ -59,7 +59,7 @@ export const AdsRow = () => {
                         ценит эмоции и уже устал от привычных презентов
                     </span>
                     <div className="see-more">
-                        <a href="#">
+                        <a href="/#">
                             <span className="more-link">
                                     Подробнее >
                             </span>

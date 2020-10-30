@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from "react";
+import React, {useState, useContext} from "react";
 import '../auth-page.scss';
 import {AuthContext} from "../../../context/AuthContext";
 import {useHttp} from "../../../hooks/http.hook";
@@ -11,7 +11,7 @@ export const SignUp = () => {
     const history = useHistory();
     const auth = useContext(AuthContext);
     const message = useMessage();
-    const {request, error, clearError} = useHttp();
+    const {request} = useHttp();
 
     const [form, setForm] = useState({
         email: '', password: '', phone: '', username: '', date_of_birth: ''
@@ -24,10 +24,10 @@ export const SignUp = () => {
     // })
 
 
-    useEffect(() => {
-        message(error);
-        clearError();
-    }, [error, message, clearError])
+    // useEffect(() => {
+    //     message(error);
+    //     clearError();
+    // }, [error, message, clearError])
 
     const changeHandler = event => {
         setForm(({...form, [event.target.name]: event.target.value}))

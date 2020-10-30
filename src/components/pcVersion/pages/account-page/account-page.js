@@ -22,48 +22,57 @@ export const AccountPage = () => {
     const [orderIsOpen, setOrderIsOpen] = useState(false)
     const [currentOrder, setCurrentOrder] = useState([])
 
+    // Получить данные профиля и заказов профиля
+
+    if (!userData) {
+        history.push('/')
+        window.location.reload()
+    }
+
     // console.log(authToken)
 
     const changeHandler = event => {
         setData(({...data, [event.target.name]: event.target.value}))
     }
 
-    // Получить данные профиля и заказов профиля
+    // console.log(data)
 
-    if (Object.keys(userData).length === 0 || userData.email[0] === 'Введите корректный адрес электронной почты.' || userData.email[0] === 'Это поле не может быть пустым.') {
-        history.push('/')
-    }
-
-    useEffect(async () => {
-        // async function fetchData() {
-        try {
+    useEffect(() => {
+        async function fetchData() {
+            // try {
             const personal = await request(`/api/personal/?is_star=${userData.is_star}&user_id=${userData.userId}`, 'GET', null, {Authorization: `Bearer ${userData.token}`})
             setData(personal)
-        } catch (e) {
-            message(e)
+            // } catch (e) {
+            //     message(e)
+            // }
+
+            // try {
+
+            // } catch (e) {
+            //     message (e)
+            // }
+
+            // setName(orders.data.customer)
+            // }
+
+            // async function fetchOrders() {
+            // setName(orders.data.customer)
+            // }
+
+            // fetchData();
+            // fetchOrders();
         }
 
-        try {
+        async function fetchOrders() {
             const orders = await request(`/api/order/list/?is_star=${userData.is_star}&user_id=${userData.userId}`, 'GET', null, {Authorization: `Bearer ${userData.token}`})
-            setOrders(orders)
-        } catch (e) {
-            message (e)
+            if (Object.keys(orders).length > 0) {
+                setOrders(orders)
+            }
         }
 
-        // console.log(personal)
-        // console.log(orders)
-        // setName(orders.data.customer)
-        // console.log('hello1')
-        // }
-
-        // async function fetchOrders() {
-        // setName(orders.data.customer)
-        // }
-
-        // console.log('hello2')
-        // fetchData();
-        // fetchOrders();
-    }, [request])
+        fetchData();
+        fetchOrders();
+    }, [request, userData.is_star, userData.userId, userData.token])
 
     // Изменение персональных данных
 
@@ -84,7 +93,7 @@ export const AccountPage = () => {
         }
     }
 
-    const hashTagLink = '#';
+    // const hashTagLink = '#';
 
     // Запросить смену пароля
 
@@ -92,6 +101,8 @@ export const AccountPage = () => {
         try {
             const changePW = await request('/password-reset/', 'POST', {"email": authToken.email}, {Authorization: `Bearer ${authToken.token}`})
             message('Вам на почту отправлена ссылка для смены пароля');
+            // console.log(changePW)
+            // message(changePW)
         } catch (e) {
             message(e)
         }
@@ -143,11 +154,12 @@ export const AccountPage = () => {
                 {order_id: value, accept: 'reject'},
                 {Authorization: `Bearer ${authToken.token}`}
             )
+            message([changePW])
             // setSelected(value)
         } catch (e) {
             message(e)
         }
-        message(['Заказ отклонен'])
+        // message(['Заказ отклонен'])
     }
 
     const acceptOrder = async (value) => {
@@ -159,11 +171,12 @@ export const AccountPage = () => {
                 {order_id: value, accept: 'accept'},
                 {Authorization: `Bearer ${authToken.token}`}
             )
+            message(changePW)
             // setSelected(value)
         } catch (e) {
             message(e)
         }
-        message('Заказ принят')
+        // message('Заказ принят')
     }
 
     //  Стили и методы модального окна
@@ -196,6 +209,42 @@ export const AccountPage = () => {
     Modal.setAppElement(document.querySelector('.App'))
 
     // console.log(orders)
+
+    // Determine is_star
+
+    function checkStar() {
+        if (userData.is_star) {
+            return (
+                <div className="btn-wrapper">
+                    <button className={'accept'} onClick={() => acceptOrder(currentOrder.id)}>
+                        Принять
+                    </button>
+                    <button className={'decline'} onClick={() => rejectOrder(currentOrder.id)}>
+                        Отклонить
+                    </button>
+                </div>
+            )
+        } else {
+            return []
+        }
+    }
+
+    function checkStar1(value) {
+        if (userData.is_star) {
+            return (
+                <td>
+                    <button
+                        className="btn btn-decline"
+                        onClick={() => rejectOrder(value.id)}
+                    >Отклонить
+                    </button>
+                </td>
+            )
+        } else {
+            return <td/>
+        }
+    }
+
 
     return (
         <section className="account-page">
@@ -274,13 +323,7 @@ export const AccountPage = () => {
                                 </th>
                                 <td/>
                                 <td/>
-                                <td>
-                                    <button
-                                        className="btn btn-decline"
-                                        onClick={() => rejectOrder(value.id)}
-                                    >Отклонить
-                                    </button>
-                                </td>
+                                {checkStar1(value)}
                             </tr>
                             </tbody>
 
@@ -307,7 +350,7 @@ export const AccountPage = () => {
                 <div className="signInInputs spread">
                     <div className="name field">
                         <span className="field-name">
-Имя звезды
+Имя исполнителя
                         </span>
                         <span className="field-value">
                             {currentOrder.star}
@@ -358,14 +401,7 @@ export const AccountPage = () => {
                             {currentOrder.order_price}
                         </span>
                     </div>
-                    <div className="btn-wrapper">
-                        <button className={'accept'} onClick={() => acceptOrder(currentOrder.id)}>
-                            Принять
-                        </button>
-                        <button className={'decline'} onClick={() => rejectOrder(currentOrder.id)}>
-                            Отклонить
-                        </button>
-                    </div>
+                    {checkStar()}
 
                 </div>
             </Modal>

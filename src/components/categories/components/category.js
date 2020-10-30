@@ -1,10 +1,10 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import './category.scss';
 // import icon from '../../../img/icon1.svg';
 import {useHistory} from 'react-router-dom';
 import {useHttp} from "../../../hooks/http.hook";
 import {StarsContext} from "../../../context/StarsContext";
-import {AuthContext} from "../../../context/AuthContext";
+// import {AuthContext} from "../../../context/AuthContext";
 import {useMessage} from "../../../hooks/message.hook";
 
 
@@ -12,7 +12,7 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
     const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
     const history = useHistory();
     const {request} = useHttp();
-    const [starsList, setStarsList] = useState();
+    // const [starsList, setStarsList] = useState();
     const list = useContext(StarsContext)
     // const authToken = useContext(AuthContext);
     const message = useMessage();
@@ -22,7 +22,7 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
             // console.log('here0')
             const starsFetch = await request(`/api/star/category/?id=${id}`, 'GET'); //'cors' ,
             // console.log('here1')
-            setStarsList([...starsFetch])
+            // setStarsList([...starsFetch])
             // console.log('here2')
             list.setArray([...starsFetch])
             // console.log('here3')
@@ -33,7 +33,7 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
         }
     }
 
-    const catPic = `${SERVER_URL}` + catPhoto;
+    const catPic = `${SERVER_URL}/media/${catPhoto}`;
     // const catPic = 'http://127.0.0.1:8080/' + catPhoto;
 
     // console.log(starsList)

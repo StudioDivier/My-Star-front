@@ -48,7 +48,7 @@ export const Search = ({search, chooseStar}) => {
                                                 <div className="single-cat__star" key={key}
                                                      onClick={() => clickStar(value)}>
                                                     <div className="avatar-img"
-                                                         style={{backgroundImage: 'url(' + `${SERVER_URL}` + value.avatar + ')'}}>&nbsp;</div>
+                                                         style={{backgroundImage: `url(${SERVER_URL}${value.avatar})`}}>&nbsp;</div>
                                                     {/*<img src={catPic + value.avatar} alt=""/>*/}
                                                     <div className="star-description">
                                                                         <span className="star-name">

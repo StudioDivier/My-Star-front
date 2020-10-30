@@ -42,7 +42,7 @@ export const useHttp = () => {
             // setError(e.message)
             throw e
         }
-    }, [])
+    }, [SERVER_URL])
 
     const clearError = useCallback(() => {
         setError(null)

@@ -27,7 +27,7 @@ export const Profile = () => {
     useEffect(() => {
         async function fetchData() {
             const personal = await request(`/api/personal/?is_star=${authToken.isStar}&user_id=${authToken.id}`, 'GET', null, {Authorization: `Bearer ${authToken.token}`})
-            console.log(personal)
+            // console.log(personal)
             setData(personal)
             // console.log('hello1')
         }
@@ -109,7 +109,7 @@ export const Profile = () => {
 
 
     function determineStar() {
-        if(authToken.isStar) {
+        if (authToken.isStar) {
             return (
                 <div className="likes">
                     <img src={like} alt=""/><span>&nbsp;&nbsp;{data.likes}</span>
@@ -121,9 +121,28 @@ export const Profile = () => {
 
     function look4Avatar() {
         if (data.avatar) {
-            return {background: 'linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)), url(' + avatar + ')', color: 'black'}
+            return {
+                background: 'linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)), url(' + avatar + ')',
+                color: 'black'
+            }
         }
         return {backgroundColor: 'white', color: 'black'}
+    }
+
+    function look4Avatar2() {
+        if (data.avatar) {
+            return {
+                position: 'absolute',
+                left: '15px',
+            }
+        }
+        return {
+            position: 'absolute',
+            left: '15px',
+            background: 'rgba(0, 0, 0, 0.2)',
+            padding: '10px',
+            borderRadius: '35px'
+        }
     }
 
     return (
@@ -135,7 +154,8 @@ export const Profile = () => {
                          style={look4Avatar()}>
                         <div className="header">
                             <div className="header-top">
-                                <a href={hashTagLink} data-target="slide-out" className="sidenav-trigger show-on-large">
+                                <a href={hashTagLink} data-target="slide-out" className="sidenav-trigger show-on-large"
+                                   style={look4Avatar2()}>
                                     <img src={menu} alt=""/>
                                 </a>
                                 <span>Профиль</span>

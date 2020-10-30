@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import './cats-page.scss';
-import {useMessage} from "../../../../hooks/message.hook";
+// import {useMessage} from "../../../../hooks/message.hook";
 import {useHttp} from "../../../../hooks/http.hook";
-import avatar from '../../../../img/pc/avatar.png';
+// import avatar from '../../../../img/pc/avatar.png';
 import {Container} from "react-bootstrap";
 import {Row} from "react-bootstrap";
 import {Col} from "react-bootstrap";
@@ -11,13 +11,13 @@ import {SingleCat} from "../../components/cat-row/cat-row";
 
 export const Categories = ({chooseStar, chooseCat, nameCat}) => {
 
-    const userData = JSON.parse(window.localStorage.getItem('userData'));
+    // const userData = JSON.parse(window.localStorage.getItem('userData'));
 
     const {request} = useHttp()
     const [data, setData] = useState([]);
-    const [stars, setStars] = useState([]);
-    const message = useMessage();
-    const [starsList, setStarsList] = useState();
+    // const [stars, setStars] = useState([]);
+    // const message = useMessage();
+    // const [starsList, setStarsList] = useState();
 
     useEffect(() => {
         async function fetchData() {

@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from "react";
+import React, {useState, useContext} from "react";
 import '../auth-page.scss';
 // import logo from '../../../img/logo.png';
 import {AuthContext} from "../../../context/AuthContext";
@@ -7,22 +7,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {useHistory} from 'react-router-dom';
 import {useMessage} from "../../../hooks/message.hook";
 
-//
+
 export const SignIn = () => {
     const history = useHistory();
     const message = useMessage();
     const auth = useContext(AuthContext);
-    const {request, error, clearError} = useHttp();
+    const {request} = useHttp();
 
 
     const [form, setForm] = useState({
         password: '', email: ''
     })
 
-    useEffect(() => {
-        message(error);
-        clearError();
-    }, [error, message, clearError])
+    // useEffect(() => {
+    //     message(error);
+    //     clearError();
+    // }, [error, message, clearError])
 
     const changeHandler = event => {
         setForm(({...form, [event.target.name]: event.target.value}))

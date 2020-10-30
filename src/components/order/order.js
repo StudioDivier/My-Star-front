@@ -87,7 +87,7 @@ export const Order = () => {
     };
 
     const showModal = () => {
-        console.log('f u')
+        // console.log('f u')
         setIsOpen(true)
     }
 

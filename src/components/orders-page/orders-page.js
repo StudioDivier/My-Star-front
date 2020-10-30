@@ -3,7 +3,7 @@ import './orders-page.scss';
 import {Filter} from "../filter/filter";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+// import Col from "react-bootstrap/Col";
 import {BottomMenu} from "../bottom-menu/bottom-menu";
 import backBlueArrow from '../../img/back-blue.svg';
 import {useHttp} from "../../hooks/http.hook";
@@ -17,7 +17,7 @@ export const OrdersPage = () => {
     const authToken = useContext(AuthContext);
     const {request} = useHttp();
     const [data, setData] = useState([]);
-    const [name, setName] = useState([]);
+    // const [name, setName] = useState([]);
     const [order, setOrder] = useState([]);
     const message = useMessage();
     const [detailActive, setDetailActive] = useState(false)
@@ -26,7 +26,7 @@ export const OrdersPage = () => {
     useEffect(() => {
         async function fetchData() {
             const personal = await request(`/api/order/list/?is_star=${authToken.isStar}&user_id=${authToken.id}`, 'GET', null, {Authorization: `Bearer ${authToken.token}`})
-            console.log(personal)
+            // console.log(personal)
             if (typeof (personal[0]) === 'string') {
                 setData(personal)
             } else {
@@ -41,7 +41,7 @@ export const OrdersPage = () => {
         fetchData();
     }, [authToken.isStar, authToken.id, authToken.token, request]) // needed?
 
-    console.log(data)
+    // console.log(data)
 
     const colors = [
         'linear-gradient(to top, #f76364 0%, #f76665 26%, #f76665 51%, #f76665 76%, #f56664 100%)',
@@ -56,7 +56,7 @@ export const OrdersPage = () => {
 
     const passData = (value) => {
         setOrder(value)
-        console.log(order)
+        // console.log(order)
     }
 
     // Получить ID выбранного заказа
@@ -79,15 +79,16 @@ export const OrdersPage = () => {
                 {order_id: orderId, accept: 'reject'},
                 {Authorization: `Bearer ${authToken.token}`}
             )
+            message([changePW])
             // setSelected(value)
         } catch (e) {
             message(e)
         }
-        message(['Заказ отклонен'])
+        // message(['Заказ отклонен'])
     }
 
     const acceptOrder = async () => {
-        console.log()
+        // console.log()
         try {
             const changePW = await request(
                 '/api/order/accept/',
@@ -95,16 +96,19 @@ export const OrdersPage = () => {
                 {order_id: orderId, accept: 'accept'},
                 {Authorization: `Bearer ${authToken.token}`}
             )
+            message(changePW.toString())
             // setSelected(value)
         } catch (e) {
             message(e)
         }
-        message('Заказ принят')
+        // message('Заказ принят')
     }
 
     // Если заказов нет у звезды/юзера
 
-    if (typeof (data[0]) === 'string' && authToken.isStar || authToken.isStar) {
+    console.log(data)
+
+    if (data.length === 0) { //typeof (data[0]) === 'string' && authToken.isStar || authToken.isStar
         return (
             <>
                 <div className="orders">
@@ -124,7 +128,7 @@ export const OrdersPage = () => {
                             <Row>
                                 <div className="orders-wrapper"
                                      style={{textAlign: 'center', color: "grey", marginTop: '20px'}}>
-                                    <h3>{data}</h3>
+                                    <h3>Заказов нет</h3>
                                 </div>
                             </Row>
                         </Container>
@@ -166,7 +170,7 @@ export const OrdersPage = () => {
                                         return (
                                             <div className="orders-wrapper" key={key}>
                                                 <SingleOrder
-                                                    name={name}
+                                                    // name={name}
                                                     date={value.by_date}
                                                     time={value.by_time}
                                                     comment={value.comment}
@@ -177,7 +181,11 @@ export const OrdersPage = () => {
                                                     id={value.id}
                                                     starId={value.star_id}
                                                     turnOnDetail={setDetailActive}
+                                                    username={value.username}
                                                     watchOrder={passData}
+                                                    customerAvatar={value.customer_avatar}
+                                                    customer={value.customer_username}
+                                                    video={value.video}
                                                     getId={getId}
                                                 />
                                             </div>
@@ -236,7 +244,7 @@ export const OrdersPage = () => {
                                     return (
                                         <div className="orders-wrapper" key={key}>
                                             <SingleOrder
-                                                name={name}
+                                                // name={name}
                                                 date={value.by_date}
                                                 time={value.by_time}
                                                 comment={value.comment}
@@ -246,9 +254,14 @@ export const OrdersPage = () => {
                                                 bgColor={bgColor}
                                                 id={value.id}
                                                 starId={value.star_id}
+                                                starAvatar={value.star_avatar}
                                                 turnOnDetail={setDetailActive}
                                                 watchOrder={passData}
+                                                username={value.username}
+                                                star={value.star}
+                                                video={value.video}
                                                 getId={getId}
+                                                profession={value.profession}
                                             />
                                         </div>
                                     )

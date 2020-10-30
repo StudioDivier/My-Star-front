@@ -48,7 +48,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         comment: '',
         order_price: star.price,
         star_id: star.id,
-        customer_id: (userData ? userData.userId: '')
+        customer_id: (userData ? userData.userId : '')
     })
 
     const changeHandler = event => {
@@ -333,10 +333,18 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                     Примеры видеопоздравлений
                                 </p>
                                 <div className="vids-wrapper">
-                                    <iframe width="560" height="405" src={`${SERVER_URL}/media/${star.video}`}
-                                            frameBorder="0"
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                            allowFullScreen></iframe>
+                                    <video
+                                        width="560"
+                                        controls
+                                        height="405"
+                                        // frameBorder="0"
+                                        // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        // allowFullScreen
+                                        title={"Video Hi"}
+                                        // X-Frame-Options={'SAMEORIGIN'}
+                                    >
+                                        <source src={`${SERVER_URL}${star.video}`} type={"video/mp4"}/>
+                                    </video>
                                 </div>
                             </div>
                         </div>
@@ -407,7 +415,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                             />
                         </div>
 
-                        <p>Нажимая на кнопку, я принимаю условия <a href="#">пользовательского соглашения.</a></p>
+                        <p>Нажимая на кнопку, я принимаю условия <a href="/#">пользовательского соглашения.</a></p>
 
                         <div className="login__btn-wrapper">
                             <div

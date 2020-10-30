@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './all-cats.scss';
 import cat1 from '../../../../img/pc/cat1.png';
 import cat2 from '../../../../img/pc/cat2.png';
@@ -9,7 +9,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import {useHttp} from "../../../../hooks/http.hook";
-import {AuthContext} from "../../../../context/AuthContext";
+// import {AuthContext} from "../../../../context/AuthContext";
 import {useHistory} from 'react-router-dom';
 
 
@@ -17,7 +17,7 @@ export const AllCats = ({chooseCat, nameCat}) => {
 
     // const userData = JSON.parse(window.localStorage.getItem('userData'));
 
-    const authToken = useContext(AuthContext)
+    // const authToken = useContext(AuthContext)
     const {request} = useHttp()
     const history = useHistory();
     const [data, setData] = useState([]);
@@ -39,7 +39,7 @@ export const AllCats = ({chooseCat, nameCat}) => {
 
         // console.log('hello2')
         fetchData();
-    }, [authToken.token, request]) // needed?
+    }, [request]) // needed?
 
     // console.log(data)
 

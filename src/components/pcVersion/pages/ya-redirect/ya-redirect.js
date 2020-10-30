@@ -1,6 +1,6 @@
-import React, {useContext, useEffect} from 'react';
+import {useContext, useEffect} from 'react';
 import {useHttp} from "../../../../hooks/http.hook";
-import {useMessage} from "../../../../hooks/message.hook";
+// import {useMessage} from "../../../../hooks/message.hook";
 import {AuthContext} from "../../../../context/AuthContext";
 import {useHistory} from 'react-router-dom';
 
@@ -9,12 +9,13 @@ export const YaRedirect = ({phone}) => {
     let code = urlParams.get('code');
     const auth = useContext(AuthContext);
 
-    const message = useMessage();
+    // const message = useMessage();
     const history = useHistory();
     const {request} = useHttp();
 
-    useEffect(async () => {
-        try {
+    useEffect(() => {
+        // try {
+        async function fetchData() {
             const dataAuth = await request(`/api/mid-yandex/?code=${code}`, 'GET')
             console.log(dataAuth)
 
@@ -37,17 +38,18 @@ export const YaRedirect = ({phone}) => {
 
             auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
             history.push('/')
-
-        } catch (e) {
-            message(e);
         }
-        try {
-
-        } catch (e) {
-            message(e);
-        }
-
-    })
+        //
+        // } catch (e) {
+        //     message(e);
+        // }
+        // try {
+        //
+        // } catch (e) {
+        //     message(e);
+        // }
+        fetchData();
+    }, [auth, code, history, phone, request])
     return []
 
 }

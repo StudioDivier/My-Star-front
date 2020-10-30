@@ -5,7 +5,7 @@ export const useMessage = () => {
         if (window.M && typeof text === 'string') {
             window.M.toast({html: text, displayLength: 4000, classes: 'success'})
         }
-        if (window.M && text) {
+        if (window.M && typeof text !== 'string') {
             window.M.toast({html: text, displayLength: 4000})
         }
     }, [])

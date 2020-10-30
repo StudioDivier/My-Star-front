@@ -36,34 +36,39 @@ export const Confirm = () => {
         setForm(({...form, [event.target.name]: event.target.value}))
     }
 
+
     let orderId1;
 
-    const submitHandler = async () => {
-        if (form.comment.length > 0) {
-            try {
-                const dataLog = await request('/api/order/', 'POST', {...form}, {Authorization: `Bearer ${auth.token}`})// 'cors',
-                console.log(dataLog.order_id)
-                message(dataLog.message)
-                orderId1 = dataLog.order_id;
-                // setOrderId(dataLog.order_id)
-                // makeOrder();
-                // history.push('/categories');
-            } catch (e) {
-            }
-        }
-        message(['Введите комментарий к заказу!'])
-    }
     const redirectHandler = async () => {
         try {
             const makeOrder = await request(`/api/order/pay/?order_id=${orderId1}`, 'GET', null, {Authorization: `Bearer ${auth.token}`})// 'no-cors', , 'follow'
             //makeOrder();
-            console.log(makeOrder)
+            // console.log(makeOrder)
             // history.push(makeOrder.link)
             window.open(`${makeOrder.link}`, "_blank").focus();
         } catch (e) {
         }
     }
 
+
+    const submitHandler = async () => {
+        if (form.comment.length > 0 && form.by_date.length && form.for_whom.length) {
+            try {
+                const dataLog = await request('/api/order/', 'POST', {...form}, {Authorization: `Bearer ${auth.token}`})// 'cors',
+                // console.log(dataLog)
+                message(dataLog.message)
+                orderId1 = dataLog.order_id;
+                // setOrderId(dataLog.order_id)
+                // makeOrder();
+                // history.push('/categories');
+                // if (dataLog)
+                redirectHandler()
+            } catch (e) {
+            }
+        } else {
+            message(['Заполните все необходимые поля!'])
+        }
+    }
 
     const likeHandler = async () => {
         try {
@@ -83,10 +88,10 @@ export const Confirm = () => {
 
     const hashTagLink = '#';
 
-    const customFunction = async () => {
-        await submitHandler()
-        redirectHandler()
-    }
+    // const customFunction = async () => {
+    //     submitHandler()
+    //     await redirectHandler()
+    // }
 
     if (starInfo.starId === null) {
         history.push('/')
@@ -164,7 +169,7 @@ export const Confirm = () => {
                             />
                         </div>
                         <div className="place-order">
-                            <button onClick={customFunction}>
+                            <button onClick={submitHandler}>
                                 Заказать
                             </button>
                             <p>Совершая заказ, вы соглашаетесь с условиями</p>

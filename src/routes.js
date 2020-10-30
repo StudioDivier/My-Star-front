@@ -10,8 +10,9 @@ import {OrdersPage} from "./components/orders-page/orders-page";
 import {Profile} from "./components/profile/profile"
 import {Policy} from "./components/docs/policy";
 import {DesktopMain} from "./components/pcVersion/main";
-import {AccountPage} from "./components/pcVersion/pages/account-page/account-page";
+// import {AccountPage} from "./components/pcVersion/pages/account-page/account-page";
 import {Reset} from "./components/auth-page/reset";
+import {SeeVideo} from "./components/see-video/SeeVideo";
 
 export const useRoutes = (isAuthenticated, isStar) => {
 
@@ -22,13 +23,13 @@ export const useRoutes = (isAuthenticated, isStar) => {
             return (
                 <StarsProvider>
                     <Switch>
-                        {/*<Route exact path="/">*/}
-                        {/*    <Redirect to="/categories"/>*/}
-                        {/*</Route>*/}
+                        <Route exact path="/">
+                            <Redirect to="/categories"/>
+                        </Route>
                         {/*<Route exact path='/orders' component={OrdersPage}>*/}
                         {/*    <Redirect to={'/orders'}/>*/}
                         {/*</Route>*/}
-                        <Route path="/orders" component={OrdersPage}/>
+                        <Route exact path="/orders" component={OrdersPage}/>
 
                         <Route exact path="/profile" component={Profile}/>
 
@@ -48,24 +49,26 @@ export const useRoutes = (isAuthenticated, isStar) => {
                             </div>
                         </Route>
 
+                        <Route exact path={'/media/congratulation'}>
+                            <SeeVideo/>
+                        </Route>
+
                         {/*<Route render={() => <Redirect to="/categories"/>}/>*/}
 
-                        <Redirect to={'/categories'}/>
+
+                        {/*<Redirect to={'/categories'}/>*/}
                     </Switch>
                 </StarsProvider>
             )
         }
         return (
             <Switch>
+
                 <Route path="/">
                     <DesktopMain
                         isAuth={isAuthenticated}
                         isStar={isStar}
                     />
-                </Route>
-                <Route path={'/account-page'}>
-                    <AccountPage/>
-                    <Redirect to="/account-page"/>
                 </Route>
 
             </Switch>
@@ -115,15 +118,12 @@ export const useRoutes = (isAuthenticated, isStar) => {
         }
         return (
             <Switch>
+
                 <Route path="/">
                     <DesktopMain
                         isAuth={isAuthenticated}
                         isStar={isStar}
                     />
-                </Route>
-                <Route path={'/account-page'}>
-                    <AccountPage/>
-                    <Redirect to="/account-page"/>
                 </Route>
 
             </Switch>
@@ -135,23 +135,26 @@ export const useRoutes = (isAuthenticated, isStar) => {
     if (!isAuthenticated && !isStar) {
         if (window.screen.width <= 768) {
             return (
-                <Switch>
-                    <Route exact path="/">
-                        <AuthPage/>
-                    </Route>
-                    <Route exact path="/categories">
-                        <Categories/>
-                    </Route>
-                    <Route exact path="/categories/stars">
-                        <Stars/>
-                    </Route>
+                <StarsProvider>
+                    <Switch>
+                        <Route exact path="/">
+                            <AuthPage/>
+                        </Route>
+                        <Route exact path="/categories">
+                            <Categories/>
+                        </Route>
+                        <Route exact path="/categories/stars">
+                            <Stars/>
+                        </Route>
 
-                    <Redirect to="/"/>
-                </Switch>
+                        <Redirect to="/"/>
+                    </Switch>
+                </StarsProvider>
             )
         }
         return (
             <Switch>
+
                 <Route path="/">
                     <DesktopMain
                         isAuth={isAuthenticated}

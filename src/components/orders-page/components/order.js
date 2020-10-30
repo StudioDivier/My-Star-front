@@ -8,13 +8,13 @@ import {AuthContext} from "../../../context/AuthContext";
 // import {useMessage} from "../../../hooks/message.hook";
 // import {AuthContext} from "../../../context/AuthContext";
 
-export const SingleOrder = ({getId, watchOrder, turnOnDetail, bgColor, date, time, comment, forWhom, price, status, name, key, id}) => {
+export const SingleOrder = ({customer, customerAvatar, getId, starId, watchOrder, username, starAvatar, turnOnDetail, bgColor, date, star, time, comment, profession, forWhom, price, status, name, id, video}) => {
 
     const authToken = useContext(AuthContext);
 
     const [selected, setSelected] = useState(false)
 
-    const orderDetails = {date: date, time: time, comment: comment, forWhom: forWhom, price: price, name: name}
+    const orderDetails = {customer: customer, customerAvatar: customerAvatar, date: date, time: time, comment: comment, username: username, forWhom: forWhom, price: price, profession: profession, star: star, status: status, starId: starId, starAvatar: starAvatar, video: video}
 
     const parsedStatus = (status) => {
         switch (status) {
@@ -51,6 +51,7 @@ export const SingleOrder = ({getId, watchOrder, turnOnDetail, bgColor, date, tim
 
     function multipleHandler(value) {
         turnOnDetail(value)
+        // console.log(orderDetails)
         watchOrder(orderDetails)
     }
 
@@ -98,7 +99,7 @@ export const SingleOrder = ({getId, watchOrder, turnOnDetail, bgColor, date, tim
                     </div>
                     <div className="main-info">
                         <div className="wrapper">
-                            <span>Заказчик: <span style={{fontWeight: 700}}>{name}</span></span>
+                            <span>Заказчик: <span style={{fontWeight: 700}}>{customer}</span></span>
                             <span>Дата: <span style={{fontWeight: 700}}>{date}</span></span>
                         </div>
                         <button onClick={() => multipleHandler(true)}>Перейти к заказу</button>
@@ -118,7 +119,7 @@ export const SingleOrder = ({getId, watchOrder, turnOnDetail, bgColor, date, tim
                 </div>
                 <div className="main-info">
                     <div className="wrapper">
-                        <span>Заказчик: <span style={{fontWeight: 700}}>{name}</span></span>
+                        <span>Исполнитель: <span style={{fontWeight: 700}}>{star}</span></span>
                         <span>Дата: <span style={{fontWeight: 700}}>{date}</span></span>
                     </div>
                     <button onClick={() => multipleHandler(true)}>Перейти к заказу</button>
