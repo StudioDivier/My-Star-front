@@ -245,6 +245,18 @@ export const AccountPage = () => {
         }
     }
 
+    function checkStar2() {
+        if (userData.is_star) {
+            return (
+                <th scope="col">Имя заказчика</th>
+            )
+        } else {
+            return (
+                <th scope="col">Имя звезды</th>
+            )
+        }
+    }
+
 
     return (
         <section className="account-page">
@@ -298,7 +310,7 @@ export const AccountPage = () => {
                 <table className="table">
                     <thead>
                     <tr>
-                        <th scope="col">Имя звезды</th>
+                        {checkStar2()}
                         <th scope="col">Время</th>
                         <th scope="col">Дата</th>
                         <th scope="col">Статус</th>
@@ -310,7 +322,7 @@ export const AccountPage = () => {
                         return (
                             <tbody key={key}>
                             <tr>
-                                <th>{value.star}</th>
+                                <th>{value.star || value.customer_username}</th>
                                 <td>{value.by_time}</td>
                                 <td>{value.by_date}</td>
                                 <td className="order-status-new"

@@ -95,18 +95,6 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
 
     let orderId1;
 
-    const submitHandler = async () => {
-        try {
-            const dataLog = await request('/api/order/', 'POST', {...form}, {Authorization: `Bearer ${userData.token}`})// 'cors',
-            // console.log(dataLog.order_id)
-            // message(dataLog.message)
-            orderId1 = dataLog.order_id;
-            // setOrderId(dataLog.order_id)
-            // makeOrder();
-            // history.push('/categories');
-        } catch (e) {
-        }
-    }
     const redirectHandler = async () => {
         try {
             const makeOrder = await request(`/api/order/pay/?order_id=${orderId1}`, 'GET', null, {Authorization: `Bearer ${userData.token}`})// 'no-cors', , 'follow'
@@ -118,10 +106,29 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         }
     }
 
-    const customFunction = async () => {
-        await submitHandler()
-        redirectHandler()
+    const submitHandler = async () => {
+        if (form.comment.length > 0 && form.by_date.length && form.for_whom.length) {
+            try {
+                const dataLog = await request('/api/order/', 'POST', {...form}, {Authorization: `Bearer ${userData.token}`})// 'cors',
+                // console.log(dataLog)
+                message(dataLog.message)
+                orderId1 = dataLog.order_id;
+                // setOrderId(dataLog.order_id)
+                // makeOrder();
+                // history.push('/categories');
+                // if (dataLog)
+                redirectHandler()
+            } catch (e) {
+            }
+        } else {
+            message(['Заполните все необходимые поля!'])
+        }
     }
+
+    // const customFunction = async () => {
+    //     await submitHandler()
+    //     redirectHandler()
+    // }
 
     if (star.length === 0) {
         history.push('/')
@@ -420,7 +427,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                         <div className="login__btn-wrapper">
                             <div
                                 className="pc-signInButton"
-                                onClick={customFunction}
+                                onClick={submitHandler}
                             >
                                 Оставить заявку
                             </div>
