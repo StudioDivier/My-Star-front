@@ -154,6 +154,22 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
 
     // console.log(star)
 
+    function determineAuth() {
+        if (userData && userData.token) {
+            return (
+                <div className="order-btn">
+                    <button onClick={showOrderModal}>Заказать</button>
+                </div>
+            )
+        } else {
+            return (
+                <div className="order-btn">
+                    <button onClick={() => alert('Войдите или зарегистрируйтесь!')}>Заказать</button>
+                </div>
+            )
+        }
+    }
+
     return (
         <>
             <Breadcrumbs secondItem={star.cat_name_id || star.cat_name_id_id} thirdItem={star.username}/>
@@ -222,9 +238,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                 <div className="star-daysForOrder">
                                     <span>Исполнение заказа через {star.days} дней</span>
                                 </div>
-                                <div className="order-btn">
-                                    <button onClick={showOrderModal}>Заказать</button>
-                                </div>
+                                {determineAuth()}
                             </div>
                         </div>
                     </div>

@@ -24,7 +24,7 @@ export const AccountPage = () => {
 
     // Получить данные профиля и заказов профиля
 
-    if (!userData) {
+    if (!userData || !userData.token) {
         history.push('/')
         window.location.reload()
     }

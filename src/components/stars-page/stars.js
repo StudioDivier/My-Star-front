@@ -81,7 +81,7 @@ export const Stars = () => {
                         getQuery={getQuery}
                     />
                     <Container>
-                        <Row>
+                        <Row style={{marginBottom: '75px'}}>
                             {fetchedList.array.map((value, key) => {
                                 // console.log(value, key)
 
