@@ -304,7 +304,7 @@ export const Header = ({setSearch, setPhone}) => {
                     <div className="single-input__wrapper">
                         <span>Пароль</span>
                         <input
-                            type="text"
+                            type="password"
                             placeholder={'Пароль'}
                             onChange={changeHandler}
                             name={'password'}
@@ -362,7 +362,7 @@ export const Header = ({setSearch, setPhone}) => {
                         <span>Пароль</span>
                         <input
                             placeholder={'Пароль'}
-                            type="text"
+                            type="password"
                             name={'password'}
                             value={form.password}
                             onChange={changeHandler}
@@ -372,7 +372,7 @@ export const Header = ({setSearch, setPhone}) => {
                         <span>Повторите пароль</span>
                         <input
                             placeholder={'Повтор пароля'}
-                            type="text"
+                            type="password"
                             name={'passwordRepeat'}
                         />
                     </div>

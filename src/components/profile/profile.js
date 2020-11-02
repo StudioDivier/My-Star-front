@@ -83,7 +83,7 @@ export const Profile = () => {
     const makeRequest = async () => {
         try {
             const changePW = await request('/password-reset/', 'POST', {"email": authToken.email}, {Authorization: `Bearer ${authToken.token}`})
-            message('Вам на почту отправлена ссылка для смены пароля');
+            alert('Вам на почту отправлена ссылка для смены пароля');
         } catch (e) {
             message(e)
         }

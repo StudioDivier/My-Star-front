@@ -29,7 +29,6 @@ body {
     //text-align: center;
     color: white;
     border-radius: 24px;
-    width: 75%;
     background-color: tomato;
     font-weight: bold;
     padding: 18px 25px;
@@ -39,9 +38,19 @@ body {
     background-color: limegreen;
   }
 
-  top: -88%;
+  left: auto !important;
+  bottom: auto !important;
+  top: 0 !important;
   right: 50% !important;
   transform: translateX(50%) translateY(50%);
+}
+
+@media screen and (max-width: 768px) {
+  #toast-container {
+    .toast {
+      width: 75%;
+    }
+  }
 }
 
 .ReactModalPortal {
