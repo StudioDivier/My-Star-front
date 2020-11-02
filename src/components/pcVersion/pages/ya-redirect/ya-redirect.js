@@ -20,7 +20,7 @@ export const YaRedirect = ({phone}) => {
             console.log(dataAuth)
 
             const dataSend = await request(`/api/yandex-oauth/`, 'POST', {
-                access_token: dataAuth.token,
+                access_token: dataAuth.access_token,
                 expires_in: dataAuth.expires_in,
                 refresh_token: dataAuth.refresh_token
             })

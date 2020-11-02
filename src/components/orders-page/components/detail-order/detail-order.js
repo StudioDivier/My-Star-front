@@ -204,6 +204,8 @@ export const DetailOrder = ({isActive, details, setActive}) => {
                                     name={'message'}
                                     value={form.message}
                                     className={'contactTextArea'}
+                                    rows={10}
+                                    style={{borderRadius: '10px'}}
                                 />
                             </div>
                             <button onClick={writeMessage}>Отправить</button>

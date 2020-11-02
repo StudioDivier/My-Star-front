@@ -75,7 +75,7 @@ export const Confirm = () => {
                 // history.push('/categories');
                 // if (dataLog)
                 history.push('/orders')
-                // redirectHandler()
+                redirectHandler()
             } catch (e) {
             }
         } else {
@@ -101,10 +101,10 @@ export const Confirm = () => {
 
     const hashTagLink = '#';
 
-    const customFunction = async () => {
-        await submitHandler()
-        redirectHandler()
-    }
+    // const customFunction = async () => {
+    //     submitHandler()
+    //     await redirectHandler()
+    // }
 
     if (starInfo.starId === null) {
         history.push('/')
@@ -167,7 +167,7 @@ export const Confirm = () => {
                             {/*    placeholder={'Дата'}*/}
                             {/*/>*/}
                             <MaskedInput
-                                mask={[/[0-3]/, /[0-9]/, '-', /[0-1]/, /[0-2]/, '-', /\d/, /\d/, /\d/, /\d/]}
+                                mask={[/[0-3]/, /[0-9]/, '-', /[0-1]/, /[0-9]/, '-', /\d/, /\d/, /\d/, /\d/]}
                                 placeholder={'дд-мм-гггг'}
                                 type="text"
                                 name={'by_date'}
@@ -182,7 +182,7 @@ export const Confirm = () => {
                             />
                         </div>
                         <div className="place-order">
-                            <button onClick={() => customFunction()}>
+                            <button onClick={submitHandler}>
                                 Заказать
                             </button>
                             <p>Совершая заказ, вы соглашаетесь с условиями</p>

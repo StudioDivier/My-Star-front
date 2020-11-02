@@ -7,6 +7,7 @@ export const useHttp = () => {
     const [error, setError] = useState(null);
     const request = useCallback(async (url, method = 'GET', body = null, headers = {}) => { // mode='no-cors', redirect = 'manual'
         try {
+            console.log(method)
             if (body) {
                 body = JSON.stringify(body);
                 // if (!(headers['Content-Type'] = 'multipart/form-data')) {
