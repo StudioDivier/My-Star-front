@@ -26,7 +26,7 @@ export const OrdersPage = () => {
     useEffect(() => {
         async function fetchData() {
             const personal = await request(`/api/order/list/?is_star=${authToken.isStar}&user_id=${authToken.id}`, 'GET', null, {Authorization: `Bearer ${authToken.token}`})
-            // console.log(personal)
+            console.log(personal)
             if (typeof (personal[0]) === 'string') {
                 setData(personal)
             } else {

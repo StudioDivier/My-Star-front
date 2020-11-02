@@ -4,7 +4,7 @@ import './navbar.scss';
 import close from '../../img/order_icons/close.svg';
 import {AuthContext} from "../../context/AuthContext";
 import {Link} from "react-router-dom";
-
+import placeholder from '../../img/userBck.png';
 
 export const NavBar = () => {
     const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
@@ -16,7 +16,17 @@ export const NavBar = () => {
         M.Sidenav.init(sidenav, {});
     })
 
-    const bgUrl = `${SERVER_URL}/${authData.avatar}`;
+    // Look for photo
+
+    const bgUrl = `${SERVER_URL}${authData.avatar}`;
+
+    function determineStar() {
+        if (authData.isStar) {
+            return `url(${bgUrl})`
+        }
+        return `url(${placeholder})`
+    }
+
     // const bgUrl = 'http://127.0.0.1:8080/' + authData.avatar;
     // console.log(data)
 
@@ -31,7 +41,7 @@ export const NavBar = () => {
                 <div className="account-info">
                     <div
                         className="avatar-img"
-                        style={{backgroundImage: `url(${bgUrl})`}}
+                        style={{backgroundImage: determineStar()}}
                     />
                     <div className={'bio'}>
                         <h5>{authData.userName}</h5>

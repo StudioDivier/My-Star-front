@@ -6,6 +6,8 @@ import menu from '../../img/order_icons/menu.svg';
 import like from '../../img/order_icons/icon_like.png';
 import {NavBar} from "../navbar/navbar";
 import {useMessage} from "../../hooks/message.hook";
+import placeholder from '../../img/userBck.png';
+import {BottomMenu} from "../bottom-menu/bottom-menu";
 // import MaskedInput from "react-text-mask";
 
 export const Profile = () => {
@@ -40,6 +42,7 @@ export const Profile = () => {
 
     const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
     const avatar = `${SERVER_URL}` + data.avatar;
+    // const placeholderAvatar = `${SERVER_URL}` + placeholder;
 
     // Высчитать сколько лет пользователю
 
@@ -122,28 +125,31 @@ export const Profile = () => {
     function look4Avatar() {
         if (data.avatar) {
             return {
-                background: 'linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)), url(' + avatar + ')',
-                color: 'black'
-            }
-        }
-        return {backgroundColor: 'white', color: 'black'}
-    }
-
-    function look4Avatar2() {
-        if (data.avatar) {
-            return {
-                position: 'absolute',
-                left: '15px',
+                background: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${avatar})`,
+                color: 'white'
             }
         }
         return {
-            position: 'absolute',
-            left: '15px',
-            background: 'rgba(0, 0, 0, 0.2)',
-            padding: '10px',
-            borderRadius: '35px'
+            background: `url(${placeholder})`,
+            color: 'white'
         }
     }
+
+    // function look4Avatar2() {
+    //     if (data.avatar) {
+    //         return {
+    //             position: 'absolute',
+    //             left: '15px',
+    //         }
+    //     }
+    //     return {
+    //         position: 'absolute',
+    //         left: '15px',
+    //         background: 'rgba(0, 0, 0, 0.2)',
+    //         padding: '10px',
+    //         borderRadius: '35px'
+    //     }
+    // }
 
     return (
         <>
@@ -154,8 +160,7 @@ export const Profile = () => {
                          style={look4Avatar()}>
                         <div className="header">
                             <div className="header-top">
-                                <a href={hashTagLink} data-target="slide-out" className="sidenav-trigger show-on-large"
-                                   style={look4Avatar2()}>
+                                <a href={hashTagLink} data-target="slide-out" className="sidenav-trigger show-on-large">
                                     <img src={menu} alt=""/>
                                 </a>
                                 <span>Профиль</span>
@@ -275,6 +280,7 @@ export const Profile = () => {
 
             </div>
             <NavBar/>
+            <BottomMenu/>
         </>
     )
 }

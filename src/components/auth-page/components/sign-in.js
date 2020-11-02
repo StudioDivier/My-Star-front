@@ -25,7 +25,7 @@ export const SignIn = () => {
     // }, [error, message, clearError])
 
     const changeHandler = event => {
-        setForm(({...form, [event.target.name]: event.target.value}))
+        setForm(({...form, [event.target.name]: event.target.value.toLowerCase()}))
     }
 
 
@@ -69,7 +69,7 @@ export const SignIn = () => {
                     value={form.email}
                 />
                 <input
-                    type="text"
+                    type="password"
                     placeholder={'Пароль'}
                     onChange={changeHandler}
                     name={'password'}

@@ -95,7 +95,9 @@ export const DetailOrder = ({isActive, details, setActive}) => {
 
     // Parse avatar
 
-    const starAv = `${SERVER_URL}/media/${details.starAvatar}`
+    const starAv = `${SERVER_URL}${details.starAvatar}`
+    const custAv = `${SERVER_URL}${details.customerAvatar}`
+    console.log(starAv)
 
     if (isActive) {
         if (!userData.is_star) {
@@ -217,7 +219,7 @@ export const DetailOrder = ({isActive, details, setActive}) => {
                     <div className="main-wrapper">
 
                         <div className="profile__info"
-                             style={{background: `linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)), url(${starAv})`}}>
+                             style={{background: `linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)), url(${custAv})`}}>
                             <div className="header">
                                 <div className="header-top">
                                     <a href={hashTagLink} data-target="slide-out"

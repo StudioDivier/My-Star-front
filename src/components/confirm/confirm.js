@@ -36,6 +36,10 @@ export const Confirm = () => {
         setForm(({...form, [event.target.name]: event.target.value}))
     }
 
+    // Transform birth year
+    function reverseDate(str) {
+        return str.split('-').reverse().join('-')
+    }
 
     let orderId1;
 
@@ -54,7 +58,15 @@ export const Confirm = () => {
     const submitHandler = async () => {
         if (form.comment.length > 0 && form.by_date.length && form.for_whom.length) {
             try {
-                const dataLog = await request('/api/order/', 'POST', {...form}, {Authorization: `Bearer ${auth.token}`})// 'cors',
+                const dataLog = await request('/api/order/', 'POST', {
+                    status_order: form.status_order,
+                    for_whom: form.for_whom,
+                    by_date: reverseDate(form.by_date),
+                    comment: form.comment,
+                    order_price: starInfo.starPrice,
+                    star_id: starInfo.starId,
+                    customer_id: auth.id
+                }, {Authorization: `Bearer ${auth.token}`})// 'cors',
                 // console.log(dataLog)
                 message(dataLog.message)
                 orderId1 = dataLog.order_id;
@@ -62,6 +74,7 @@ export const Confirm = () => {
                 // makeOrder();
                 // history.push('/categories');
                 // if (dataLog)
+                history.push('/orders')
                 redirectHandler()
             } catch (e) {
             }
@@ -154,8 +167,8 @@ export const Confirm = () => {
                             {/*    placeholder={'Дата'}*/}
                             {/*/>*/}
                             <MaskedInput
-                                mask={[/[1-9]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
-                                placeholder={'гггг-мм-дд'}
+                                mask={[/[0-3]/, /[0-9]/, '-', /[0-1]/, /[0-2]/, '-', /\d/, /\d/, /\d/, /\d/]}
+                                placeholder={'дд-мм-гггг'}
                                 type="text"
                                 name={'by_date'}
                                 value={form.by_date}

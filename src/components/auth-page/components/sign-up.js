@@ -30,17 +30,25 @@ export const SignUp = () => {
     // }, [error, message, clearError])
 
     const changeHandler = event => {
-        setForm(({...form, [event.target.name]: event.target.value}))
+        setForm(({...form, [event.target.name]: event.target.value.toLowerCase()}))
     }
+
+    // Transform birth year
+    function reverseDate(str) {
+        return str.split('-').reverse().join('-')
+    }
+    // Transform phone
+    // function transformPhone(str) {
+    //     return str.slice();
+    // }
 
 
     const registerHandler = async () => {
         try {
             if (consent) {
                 const dataAuth = await request('/api/registration/', 'POST', {
-                    ...form
-//'username': form.username,
-//'date_of_birth': `${date.year}-${dat}`
+                    // ...form
+                    email: form.email, password: form.password, phone: form.phone.replace(/[^0-9]/g, ''), username: form.username, date_of_birth: reverseDate(form.date_of_birth)
                 })
                 if (Object.keys(dataAuth).length !== 1) {
                     setTimeout(() => {
@@ -99,14 +107,14 @@ export const SignUp = () => {
                 />
                 <input
                     placeholder={'Пароль'}
-                    type="text"
+                    type="password"
                     name={'password'}
                     value={form.password}
                     onChange={changeHandler}
                 />
                 <input
                     placeholder={'Повтор пароля'}
-                    type="text"
+                    type="password"
                     name={'passwordRepeat'}
                 />
                 <input
@@ -117,16 +125,16 @@ export const SignUp = () => {
                     onChange={changeHandler}
                 />
                 <MaskedInput
-                    mask={[/[1-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
-                    placeholder={'Телефон'}
+                    mask={['+', /[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+                    placeholder={'+7(999)999-99-99'}
                     type="text"
                     name={'phone'}
                     value={form.phone}
                     onChange={changeHandler}
                 />
                 <MaskedInput
-                    mask={[/[1-9]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
-                    placeholder={'Дата рождения'}
+                    mask={[/[0-3]/, /[0-9]/, '-', /[0-1]/, /[0-2]/, '-', /\d/, /\d/, /\d/, /\d/]}
+                    placeholder={'дд-мм-гггг'}
                     type="text"
                     name={'date_of_birth'}
                     value={form.date_of_birth}
