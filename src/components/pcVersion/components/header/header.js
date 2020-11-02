@@ -78,10 +78,19 @@ export const Header = ({setSearch, setPhone}) => {
         }
     }
 
+    // Transform birth year
+    function reverseDate(str) {
+        return str.split('-').reverse().join('-')
+    }
+
     const registerHandler = async () => {
         try {
             const dataAuth = await request('/api/registration/', 'POST', {
-                ...form
+                email: form.email,
+                password: form.password,
+                phone: form.phone.replace(/[^0-9]/g, ''),
+                username: form.username,
+                date_of_birth: reverseDate(form.date_of_birth)
             })
             if (Object.keys(dataAuth).length !== 1) {
                 setTimeout(() => {
@@ -309,7 +318,7 @@ export const Header = ({setSearch, setPhone}) => {
                         >
                             Войти
                         </div>
-                        <div className="pc-authButton" onClick={showAuthModal}>
+                        <div className="pc-authButton" onClick={showAuthModal} style={{cursor: 'pointer'}}>
                             Регистрация
                         </div>
                     </div>
@@ -380,8 +389,8 @@ export const Header = ({setSearch, setPhone}) => {
                     <div className="single-input__wrapper">
                         <span>Телефон</span>
                         <MaskedInput
-                            mask={[/[1-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
-                            placeholder={'(999)999-99-99'}
+                            mask={['+', /[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+                            placeholder={'+7(999)999-99-99'}
                             type="text"
                             name={'phone'}
                             value={form.phone}
@@ -391,8 +400,8 @@ export const Header = ({setSearch, setPhone}) => {
                     <div className="single-input__wrapper">
                         <span>Дата рождения</span>
                         <MaskedInput
-                            mask={[/[1-9]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
-                            placeholder={'гггг-мм-дд'}
+                            mask={[/[0-3]/, /[0-9]/, '-', /[0-1]/, /[0-2]/, '-', /\d/, /\d/, /\d/, /\d/]}
+                            placeholder={'дд-мм-гггг'}
                             type="text"
                             name={'date_of_birth'}
                             value={form.date_of_birth}
@@ -400,7 +409,8 @@ export const Header = ({setSearch, setPhone}) => {
                         />
                     </div>
 
-                    <p>Нажимая на кнопку, я принимаю условия <a href="/privacy-policy">пользовательского соглашения.</a></p>
+                    <p>Нажимая на кнопку, я принимаю условия <a href="/privacy-policy">пользовательского соглашения.</a>
+                    </p>
 
                     <div className="login__btn-wrapper">
                         <div
@@ -432,8 +442,8 @@ export const Header = ({setSearch, setPhone}) => {
                     <div className="single-input__wrapper">
                         <span>Телефон</span>
                         <MaskedInput
-                            mask={[/[1-9]/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
-                            placeholder={'(999)999-99-99'}
+                            mask={['+', /[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+                            placeholder={'+7(999)999-99-99'}
                             type="text"
                             name={'phone'}
                             value={form.phone}

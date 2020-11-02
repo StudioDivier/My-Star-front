@@ -192,7 +192,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
 
                     <Route path={'/api/mid-yandex/'}>
                         <YaRedirect phone={phone}/>
-                        <Redirect to={'/'}/>
+                        {/*<Redirect to={'/'}/>*/}
                     </Route>
 
                     <Route exact path={'/account-page'}>

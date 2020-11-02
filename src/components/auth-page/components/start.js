@@ -2,8 +2,16 @@ import React from "react";
 // import logo from '../../../img/logo.png';
 import '../auth-page.scss';
 import {Link} from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 export const Start = () => {
+
+    const history = useHistory();
+
+    function redirect() {
+        history.push('/categories')
+    }
+
     return (
         <>
             <div className={'header'}>
@@ -18,11 +26,20 @@ export const Start = () => {
             <div className="authButtons">
                 <div>
                     <Link to={'/sign-in'}>
-                        <button style={{backgroundColor: 'white', color: '#070C3A', fontWeight: '700', fontSize: '18px' }}>Войти</button>
+                        <button style={{
+                            backgroundColor: 'white',
+                            color: '#070C3A',
+                            fontWeight: '700',
+                            fontSize: '18px'
+                        }}>Войти
+                        </button>
                     </Link>
                     <Link to={'/sign-up'}>
                         <button>Зарегистрироваться</button>
                     </Link>
+                    <a href={'/categories'}>
+                        <button>Войти без регистрации</button>
+                    </a>
                 </div>
             </div>
             <div className={'authPage__footer'}>

@@ -75,7 +75,7 @@ export const Confirm = () => {
                 // history.push('/categories');
                 // if (dataLog)
                 history.push('/orders')
-                redirectHandler()
+                // redirectHandler()
             } catch (e) {
             }
         } else {
@@ -101,10 +101,10 @@ export const Confirm = () => {
 
     const hashTagLink = '#';
 
-    // const customFunction = async () => {
-    //     submitHandler()
-    //     await redirectHandler()
-    // }
+    const customFunction = async () => {
+        await submitHandler()
+        redirectHandler()
+    }
 
     if (starInfo.starId === null) {
         history.push('/')
@@ -182,7 +182,7 @@ export const Confirm = () => {
                             />
                         </div>
                         <div className="place-order">
-                            <button onClick={submitHandler}>
+                            <button onClick={() => customFunction()}>
                                 Заказать
                             </button>
                             <p>Совершая заказ, вы соглашаетесь с условиями</p>
