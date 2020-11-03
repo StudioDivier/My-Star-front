@@ -27,8 +27,6 @@ export const YaRedirect = () => {
                 phone: form.phone.replace(/[^0-9]/g, '')
             })
 
-            localStorage.removeItem(storageName)
-
             auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id);
             history.push('/')
             window.location.reload()
