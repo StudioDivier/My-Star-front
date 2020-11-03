@@ -32,16 +32,15 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     const [phone, setPhone] = useState('')
     console.log(phone)
 
-    useEffect(() => {
-            renderOnStateUpdate();
-            renderOnStateUpdate1();
-        }
-    )
-
     function renderOnStateUpdate() {
         return (
             <Route path={'/api/mid-yandex/'}>
-                <YaRedirect phone={phone}/>
+                {useEffect(() => {
+                        return (
+                            <YaRedirect phone={phone}/>
+                        )
+                    }
+                )}
                 {/*<Redirect to={'/'}/>*/}
             </Route>
         )
@@ -50,7 +49,12 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     function renderOnStateUpdate1() {
         return (
             <Route path={'/api/mid-vk/'}>
-                <VkRedirect phone={phone}/>
+                {useEffect(() => {
+                        return (
+                            <VkRedirect phone={phone}/>
+                        )
+                    }
+                )}
                 {/*<Redirect to={'/'}/>*/}
             </Route>
         )
@@ -225,8 +229,8 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                     {/*    <VkRedirect phone={newPhone}/>*/}
                     {/*    /!*<Redirect to={'/'}/>*!/*/}
                     {/*</Route>*/}
-                    {/*{renderOnStateUpdate()}*/}
-                    {/*{renderOnStateUpdate1()}*/}
+                    {renderOnStateUpdate()}
+                    {renderOnStateUpdate1()}
 
                     <Route exact path={'/account-page'}>
                         <AccountPage/>
