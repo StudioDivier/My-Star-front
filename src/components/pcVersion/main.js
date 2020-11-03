@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './main.scss';
 import {Container, Row, Col} from 'react-bootstrap';
 import {Header} from "./components/header/header";
@@ -29,7 +29,18 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     const [name, setCatName] = useState('')
     const [star, setStar] = useState([])
     const [search, setSearch] = useState([])
-    const [phone, setPhone] = useState('changed?')
+    const [phone, setPhone] = useState('')
+    console.log(phone)
+
+    useEffect(() => {
+            return (
+                <Route path={'/api/mid-yandex/'}>
+                    <YaRedirect phone={newPhone}/>
+                    {/*<Redirect to={'/'}/>*/}
+                </Route>
+            )
+        }
+    )
 
     // const userData = JSON.parse(window.localStorage.getItem('userData'));
     //
@@ -193,10 +204,10 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                         </Container>
                     </Route>
 
-                    <Route path={'/api/mid-yandex/'}>
-                        <YaRedirect phone={newPhone}/>
-                        {/*<Redirect to={'/'}/>*/}
-                    </Route>
+                    {/*<Route path={'/api/mid-yandex/'}>*/}
+                    {/*    <YaRedirect phone={newPhone}/>*/}
+                    {/*    /!*<Redirect to={'/'}/>*!/*/}
+                    {/*</Route>*/}
 
                     <Route path={'/api/mid-vk/'}>
                         <VkRedirect phone={newPhone}/>
