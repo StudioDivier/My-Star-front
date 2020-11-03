@@ -74,7 +74,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     return (
         <div className="main">
             <Router>
-                <Header setSearch={setSearch} phone={phone}/>
+                <Header setSearch={setSearch} />
 
                 <Switch>
 
