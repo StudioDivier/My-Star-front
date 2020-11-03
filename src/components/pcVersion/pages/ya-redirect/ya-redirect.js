@@ -29,7 +29,8 @@ export const YaRedirect = ({phone}) => {
             }))
 
         }
-
+        console.log(phone)
+        console.log(tempUserData.access_token)
         async function fetchData1() {
             const dataSend = await request(`/api/yandex-oauth/`, 'POST', {
                 access_token: tempUserData.access_token,

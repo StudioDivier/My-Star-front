@@ -30,7 +30,7 @@ export const VkRedirect = ({phone}) => {
             }))
 
         }
-
+        console.log(phone)
         async function fetchData1() {
             const dataSend = await request(`/api/vk-oauth/`, 'POST', {
                 access_token: tempUserData.access_token,

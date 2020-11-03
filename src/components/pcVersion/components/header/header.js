@@ -237,8 +237,8 @@ export const Header = ({setSearch, setPhone}) => {
         }
     }
 
-    const yaAuthModal = () => {
-        setPhone(form.phone)
+    const yaAuthModal = async () => {
+        await setPhone(form.phone)
         yaAuth()
     }
 
