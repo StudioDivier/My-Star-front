@@ -7,16 +7,18 @@ import MaskedInput from "react-text-mask";
 import backArrow from '../../../../img/back-arrow.svg';
 import {useMessage} from "../../../../hooks/message.hook";
 
-export const YaRedirect = ({phone}) => {
+export const YaRedirect = () => {
     let urlParams = new URLSearchParams(window.location.search);
     let code = urlParams.get('code');
     const auth = useContext(AuthContext);
-    console.log(phone)
+    // console.log(phone)
 
     // const message = useMessage();
     const history = useHistory();
     const message = useMessage();
-    const [form, setForm] = useState({});
+    const [form, setForm] = useState({
+
+    });
     const {request} = useHttp();
 
     const storageName = 'tempUserData';
@@ -36,11 +38,13 @@ export const YaRedirect = ({phone}) => {
             // console.log(phone)
             // console.log(dataAuth.access_token)
 
+            console.log(form.phone.replace(/[^0-9]/g, ''))
+
             const dataSend = await request(`/api/yandex-oauth/`, 'POST', {
                 access_token: dataAuth.access_token,
                 expires_in: dataAuth.expires_in,
                 refresh_token: dataAuth.refresh_token,
-                phone: form.phone
+                phone: form.phone.replace(/[^0-9]/g, '')
             })
 
             console.log(dataSend)

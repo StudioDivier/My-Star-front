@@ -29,36 +29,6 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     const [name, setCatName] = useState('')
     const [star, setStar] = useState([])
     const [search, setSearch] = useState([])
-    const [phone, setPhone] = useState('')
-    console.log(phone)
-
-    // function renderOnStateUpdate() {
-    //     return (
-    //         <Route path={'/api/mid-yandex/'}>
-    //             {useEffect(() => {
-    //                     return (
-    //                         <YaRedirect phone={phone}/>
-    //                     )
-    //                 }
-    //             )}
-    //             {/*<Redirect to={'/'}/>*/}
-    //         </Route>
-    //     )
-    // }
-
-    // function renderOnStateUpdate1() {
-    //     return (
-    //         <Route path={'/api/mid-vk/'}>
-    //             {useEffect(() => {
-    //                     return (
-    //                         <VkRedirect phone={phone}/>
-    //                     )
-    //                 }
-    //             )}
-    //             {/*<Redirect to={'/'}/>*/}
-    //         </Route>
-    //     )
-    // }
 
     // const userData = JSON.parse(window.localStorage.getItem('userData'));
     //
@@ -236,7 +206,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                             <Row>
                                 <Col>
                                     <div className={'pc-password-reset'}>
-                                        <YaRedirect phone={phone}/>
+                                        <YaRedirect/>
                                     </div>
                                 </Col>
                             </Row>
@@ -250,7 +220,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                             <Row>
                                 <Col>
                                     <div className={'pc-password-reset'}>
-                                        <VkRedirect phone={phone}/>
+                                        <VkRedirect/>
                                     </div>
                                 </Col>
                             </Row>

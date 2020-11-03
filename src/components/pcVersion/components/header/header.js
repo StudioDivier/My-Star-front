@@ -19,8 +19,8 @@ export const Header = ({setSearch, setPhone}) => {
 
     const [loginIsOpen, setLoginIsOpen] = useState(false);
     const [authIsOpen, setAuthIsOpen] = useState(false);
-    const [yaIsOpen, setYaIsOpen] = useState(false);
-    const [vkIsOpen, setVkIsOpen] = useState(false);
+    // const [yaIsOpen, setYaIsOpen] = useState(false);
+    // const [vkIsOpen, setVkIsOpen] = useState(false);
 
     const message = useMessage();
     const auth = useContext(AuthContext);
@@ -55,7 +55,7 @@ export const Header = ({setSearch, setPhone}) => {
     const closeModal = () => {
         setLoginIsOpen(false)
         setAuthIsOpen(false)
-        setYaIsOpen(false)
+        // setYaIsOpen(false)
     }
 
     Modal.setAppElement(document.querySelector('.App'))
