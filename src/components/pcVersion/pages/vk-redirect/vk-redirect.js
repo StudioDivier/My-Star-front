@@ -4,7 +4,7 @@ import {useHttp} from "../../../../hooks/http.hook";
 import {AuthContext} from "../../../../context/AuthContext";
 import {useHistory} from 'react-router-dom';
 
-export const YaRedirect = ({phone}) => {
+export const VkRedirect = ({phone}) => {
     let urlParams = new URLSearchParams(window.location.search);
     let code = urlParams.get('code');
     const auth = useContext(AuthContext);
@@ -19,23 +19,23 @@ export const YaRedirect = ({phone}) => {
     useEffect(() => {
         // try {
         async function fetchData() {
-            const dataAuth = await request(`/api/mid-yandex/?code=${code}`, 'GET')
+            const dataAuth = await request(`/api/mid-vk/?code=${code}`, 'GET')
             console.log(dataAuth)
 
             localStorage.setItem(storageName, JSON.stringify({
                 access_token: dataAuth.access_token,
                 expires_in: dataAuth.expires_in,
-                refresh_token: dataAuth.refresh_token
+                user_id: dataAuth.user_id,
+                email: dataAuth.email
             }))
 
         }
 
         async function fetchData1() {
-            const dataSend = await request(`/api/yandex-oauth/`, 'POST', {
+            const dataSend = await request(`/api/vk-oauth/`, 'POST', {
                 access_token: tempUserData.access_token,
-                expires_in: tempUserData.expires_in,
-                refresh_token: tempUserData.refresh_token,
-                phone: phone
+                phone: phone,
+                email: tempUserData.email
             })
             console.log(dataSend)
 

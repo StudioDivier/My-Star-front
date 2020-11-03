@@ -19,6 +19,7 @@ import {Reset} from "../auth-page/reset";
 import {Policy} from "./pages/privacy-policy/privacy-policy";
 import {Redirect} from "react-router-dom/";
 import {YaRedirect} from "./pages/ya-redirect/ya-redirect";
+import {VkRedirect} from "./pages/vk-redirect/vk-redirect";
 
 export const DesktopMain = (isAuthenticated, isStar) => {
 
@@ -192,6 +193,11 @@ export const DesktopMain = (isAuthenticated, isStar) => {
 
                     <Route path={'/api/mid-yandex/'}>
                         <YaRedirect phone={phone}/>
+                        {/*<Redirect to={'/'}/>*/}
+                    </Route>
+
+                    <Route path={'/api/mid-vk/'}>
+                        <VkRedirect phone={phone}/>
                         {/*<Redirect to={'/'}/>*/}
                     </Route>
 
