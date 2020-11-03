@@ -32,33 +32,33 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     const [phone, setPhone] = useState('')
     console.log(phone)
 
-    function renderOnStateUpdate() {
-        return (
-            <Route path={'/api/mid-yandex/'}>
-                {useEffect(() => {
-                        return (
-                            <YaRedirect phone={phone}/>
-                        )
-                    }
-                )}
-                {/*<Redirect to={'/'}/>*/}
-            </Route>
-        )
-    }
+    // function renderOnStateUpdate() {
+    //     return (
+    //         <Route path={'/api/mid-yandex/'}>
+    //             {useEffect(() => {
+    //                     return (
+    //                         <YaRedirect phone={phone}/>
+    //                     )
+    //                 }
+    //             )}
+    //             {/*<Redirect to={'/'}/>*/}
+    //         </Route>
+    //     )
+    // }
 
-    function renderOnStateUpdate1() {
-        return (
-            <Route path={'/api/mid-vk/'}>
-                {useEffect(() => {
-                        return (
-                            <VkRedirect phone={phone}/>
-                        )
-                    }
-                )}
-                {/*<Redirect to={'/'}/>*/}
-            </Route>
-        )
-    }
+    // function renderOnStateUpdate1() {
+    //     return (
+    //         <Route path={'/api/mid-vk/'}>
+    //             {useEffect(() => {
+    //                     return (
+    //                         <VkRedirect phone={phone}/>
+    //                     )
+    //                 }
+    //             )}
+    //             {/*<Redirect to={'/'}/>*/}
+    //         </Route>
+    //     )
+    // }
 
     // const userData = JSON.parse(window.localStorage.getItem('userData'));
     //
@@ -229,8 +229,26 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                     {/*    <VkRedirect phone={newPhone}/>*/}
                     {/*    /!*<Redirect to={'/'}/>*!/*/}
                     {/*</Route>*/}
-                    {renderOnStateUpdate()}
-                    {renderOnStateUpdate1()}
+
+                    <Route path={'/api/mid-yandex/'}>
+                        {useEffect(() => {
+                                return (
+                                    <YaRedirect phone={phone}/>
+                                )
+                            }
+                        )}
+                        {/*<Redirect to={'/'}/>*/}
+                    </Route>
+
+                    <Route path={'/api/mid-vk/'}>
+                        {useEffect(() => {
+                                return (
+                                    <VkRedirect phone={phone}/>
+                                )
+                            }
+                        )}
+                        {/*<Redirect to={'/'}/>*/}
+                    </Route>
 
                     <Route exact path={'/account-page'}>
                         <AccountPage/>
