@@ -28,6 +28,9 @@ export const YaRedirect = () => {
             })
 
             auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id);
+            if (dataSend.username === ["Это поле должно быть уникально."]) {
+                message(['Вы уж зарегистрированы!'])
+            }
             history.push('/')
             window.location.reload()
         } catch (e) {

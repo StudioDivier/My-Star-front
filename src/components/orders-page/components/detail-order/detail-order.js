@@ -137,12 +137,12 @@ export const DetailOrder = ({isActive, details, setActive}) => {
                                     </div>
                                 </div>
 
-                                <div className="info-row">
-                                    <div className="wrapper">
-                                        <span>Время</span>
-                                        <span>{details.time}</span>
-                                    </div>
-                                </div>
+                                {/*<div className="info-row">*/}
+                                {/*    <div className="wrapper">*/}
+                                {/*        <span>Время</span>*/}
+                                {/*        <span>{details.time}</span>*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
 
                                 <div className="info-row">
                                     <div className="wrapper">

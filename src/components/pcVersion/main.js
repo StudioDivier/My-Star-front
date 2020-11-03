@@ -30,47 +30,6 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     const [star, setStar] = useState([])
     const [search, setSearch] = useState([])
 
-    // const userData = JSON.parse(window.localStorage.getItem('userData'));
-    //
-    // const [stars, setStars] = useState([]);
-    //
-    // const authToken = useContext(AuthContext)
-    // const {request} = useHttp()
-    //
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         const stars = await request('/api/star/getlist/', 'GET', null, {Authorization: `Bearer ${userData.token}`})
-    //         if (!!stars.length) {
-    //             setStars([...stars])
-    //         }
-    //     }
-    //
-    //     fetchData();
-    // }, [authToken.token, request]) // needed?
-
-    // console.log(stars)
-
-    // let list = stars;
-
-    // function getYaData() {
-    //     let urlParams = new URLSearchParams(window.location.search);
-    //     let code = urlParams.get('code');
-    //     console.log(code)
-    // }
-
-    // function determineAuth() {
-    //     if (userData && userData.hasOwnProperty('token')) {
-    //         return (
-    //             <Route path={'/account-page'}>
-    //                 <AccountPage/>
-    //                 <Redirect to="/account-page"/>
-    //             </Route>
-    //         )
-    //     } else {
-    //         return []
-    //     }
-    // }
-
     return (
         <div className="main">
             <Router>
@@ -190,16 +149,6 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                         </Container>
                     </Route>
 
-                    {/*<Route path={'/api/mid-yandex/'}>*/}
-                    {/*    <YaRedirect phone={newPhone}/>*/}
-                    {/*    /!*<Redirect to={'/'}/>*!/*/}
-                    {/*</Route>*/}
-
-                    {/*<Route path={'/api/mid-vk/'}>*/}
-                    {/*    <VkRedirect phone={newPhone}/>*/}
-                    {/*    /!*<Redirect to={'/'}/>*!/*/}
-                    {/*</Route>*/}
-
                     <Route path={'/api/mid-yandex/'}>
                         <Breadcrumbs secondItem={'Регистрация через Яндекс'}/>
                         <Container style={{paddingBottom: '100px'}}>
@@ -211,7 +160,6 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                                 </Col>
                             </Row>
                         </Container>
-                        {/*<Redirect to={'/'}/>*/}
                     </Route>
 
                     <Route path={'/api/mid-vk/'}>
@@ -225,7 +173,6 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                                 </Col>
                             </Row>
                         </Container>
-                        {/*<Redirect to={'/'}/>*/}
                     </Route>
 
                     <Route exact path={'/account-page'}>

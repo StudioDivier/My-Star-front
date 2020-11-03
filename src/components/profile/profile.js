@@ -151,6 +151,22 @@ export const Profile = () => {
     //     }
     // }
 
+    function handleYears() {
+        const count = years % 10
+        if (count) {
+            let idk;
+            if (count === 1) {
+                idk = 'год'
+            } else if (count === 2 || count === 3 || count === 4) {
+                idk = 'года'
+            } else {
+                idk = 'лет'
+            }
+
+            return idk;
+        }
+    }
+
     return (
         <>
             <div className="profile">
@@ -168,7 +184,8 @@ export const Profile = () => {
                             <div className="header-bottom">
                                 <h3>{data.username}</h3>
                                 <div>
-                                    <span>Россия</span> <span>&nbsp; | &nbsp;</span> <span>{years} лет</span>
+                                    <span>Россия</span> <span>&nbsp; | &nbsp;</span>
+                                    <span>{years} {handleYears()}</span>
                                 </div>
                                 {determineStar()}
                             </div>

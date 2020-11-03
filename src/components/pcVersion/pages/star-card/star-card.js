@@ -40,7 +40,6 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
 
     // Record order data
 
-
     const [form, setForm] = useState({
         status_order: '0',
         for_whom: '',
@@ -106,11 +105,26 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         }
     }
 
+
+    // Handle date
+
+    function reverseDate(str) {
+        return str.split('-').reverse().join('-')
+    }
+
+
     const submitHandler = async () => {
         if (form.comment.length > 0 && form.by_date.length && form.for_whom.length) {
             try {
-                const dataLog = await request('/api/order/', 'POST', {...form}, {Authorization: `Bearer ${userData.token}`})// 'cors',
-                // console.log(dataLog)
+                const dataLog = await request('/api/order/', 'POST', {
+                    status_order: form.status_order,
+                    for_whom: form.for_whom,
+                    by_date: reverseDate(form.by_date),
+                    comment: form.comment,
+                    order_price: star.price,
+                    star_id: star.id,
+                    customer_id: (userData ? userData.userId : '')
+                }, {Authorization: `Bearer ${userData.token}`})// 'cors',
                 message(dataLog.message)
                 orderId1 = dataLog.order_id;
                 // setOrderId(dataLog.order_id)
@@ -119,6 +133,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                 // if (dataLog)
                 redirectHandler()
             } catch (e) {
+                message(e)
             }
         } else {
             message(['Заполните все необходимые поля!'])
@@ -418,8 +433,8 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                         <div className="single-input__wrapper">
                             <span>Дата поздравления</span>
                             <MaskedInput
-                                mask={[/[1-9]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
-                                placeholder={'гггг-мм-дд'}
+                                mask={[/[0-3]/, /[0-9]/, '-', /[0-1]/, /[0-9]/, '-', /\d/, /\d/, /\d/, /\d/]}
+                                placeholder={'дд-мм-гггг'}
                                 type="text"
                                 name={'by_date'}
                                 value={form.by_date}

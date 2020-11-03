@@ -23,7 +23,9 @@ export const VkRedirect = () => {
             const dataSend = await request(`/api/vk-oauth/`, 'POST', {
                 access_token: dataAuth.access_token,
                 phone: form.phone.replace(/[^0-9]/g, ''),
-                email: dataAuth.email
+                email: dataAuth.email,
+                user_id: dataAuth.user_id,
+                expires_in: dataAuth.expires_in
             })
 
             auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id);

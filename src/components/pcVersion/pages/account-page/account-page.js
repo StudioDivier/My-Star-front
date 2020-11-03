@@ -311,8 +311,9 @@ export const AccountPage = () => {
                     <thead>
                     <tr>
                         {checkStar2()}
-                        <th scope="col">Время</th>
-                        <th scope="col">Дата</th>
+                        {/*<th scope="col">Время</th>*/}
+                        <th scope="col"></th>
+                        <th scope="col">Дата (* - по МСК)</th>
                         <th scope="col">Статус</th>
                     </tr>
                     </thead>
@@ -323,7 +324,8 @@ export const AccountPage = () => {
                             <tbody key={key}>
                             <tr>
                                 <th>{value.star || value.customer_username}</th>
-                                <td>{value.by_time}</td>
+                                {/*<td>{value.by_time}</td>*/}
+                                <td></td>
                                 <td>{value.by_date}</td>
                                 <td className="order-status-new"
                                     style={{color: statusColor(value.status_order)}}>{parsedStatus(value.status_order)}</td>
@@ -369,14 +371,14 @@ export const AccountPage = () => {
                         </span>
                     </div>
 
-                    <div className="time field">
-                        <span className="field-name">
-Время
-                        </span>
-                        <span className="field-value">
-                            {currentOrder.by_time}
-                        </span>
-                    </div>
+{/*                    <div className="time field">*/}
+{/*                        <span className="field-name">*/}
+{/*Время*/}
+{/*                        </span>*/}
+{/*                        <span className="field-value">*/}
+{/*                            {currentOrder.by_time}*/}
+{/*                        </span>*/}
+{/*                    </div>*/}
 
                     <div className="date field">
                         <span className="field-name">
