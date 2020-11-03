@@ -3,7 +3,7 @@ import '../auth-page.scss';
 // import logo from '../../../img/logo.png';
 import {AuthContext} from "../../../context/AuthContext";
 import {useHttp} from "../../../hooks/http.hook";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useHistory} from 'react-router-dom';
 import {useMessage} from "../../../hooks/message.hook";
 
@@ -30,20 +30,27 @@ export const SignIn = () => {
 
 
     const loginHandler = async () => {
-        try {
-            const dataLog = await request('/api/login/', 'POST', {...form})
-            // console.log(dataLog)
-            auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
-            if (Object.keys(dataLog).length === 1 || Object.keys(dataLog).length === 2) {
-                for (let e in dataLog) {
-                    message([e +' : '+ dataLog[e][0]]);
+        if (!(form.password.length === 0) && !(form.email.length === 0)) {
+            try {
+                const dataLog = await request('/api/login/', 'POST', {...form})
+                // console.log(dataLog)
+                auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
+                if (Object.keys(dataLog).length === 1 || Object.keys(dataLog).length === 2) {
+                    for (let e in dataLog) {
+                        message([e + ' : ' + dataLog[e][0]]);
+                    }
                 }
+                if (dataLog.token) {
+                    message('Добро пожаловать!')
+                }
+                history.push('/categories');
+            } catch (e) {
+                message(e);
+                history.push('/sign-in');
+                // console.log(e);
             }
-            history.push('/categories');
-        } catch (e) {
-            message(e);
-            history.push('/sign-in');
-            // console.log(e);
+        } else {
+            message(['Заполните все поля!'])
         }
     }
 
@@ -84,13 +91,13 @@ export const SignIn = () => {
                 <p>Совершая заказ, вы соглашаетесь с условиями</p>
             </div>
             <div className="socialMediaLogin">
-            <hr/>
+                <hr/>
                 <div className={'buttonContainer'}>
                     <button>
-                         <FontAwesomeIcon size='lg' icon={['fab', 'google']} />&nbsp;&nbsp;google
+                        <FontAwesomeIcon size='lg' icon={['fab', 'google']}/>&nbsp;&nbsp;google
                     </button>
                     <button>
-                        <FontAwesomeIcon size='lg' icon={['fab', 'vk']} />&nbsp;&nbsp;вконтакте
+                        <FontAwesomeIcon size='lg' icon={['fab', 'vk']}/>&nbsp;&nbsp;вконтакте
                     </button>
                 </div>
             </div>

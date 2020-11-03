@@ -69,20 +69,27 @@ export const Header = ({setSearch, setPhone}) => {
     // }
 
     const loginHandler = async () => {
-        try {
-            const dataLog = await request('/api/login/', 'POST', {...form})
-            // console.log(dataLog)
-            auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
-            if (Object.keys(dataLog).length === 1 || Object.keys(dataLog).length === 2) {
-                for (let e in dataLog) {
-                    message([e + ' : ' + dataLog[e][0]]);
+        if (!(form.password.length === 0) && !(form.email.length === 0)) {
+            try {
+                const dataLog = await request('/api/login/', 'POST', {...form})
+                // console.log(dataLog)
+                auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
+                if (Object.keys(dataLog).length === 1 || Object.keys(dataLog).length === 2) {
+                    for (let e in dataLog) {
+                        message([e + ' : ' + dataLog[e][0]]);
+                    }
                 }
-            }
-            closeModal();
-            // window.location.reload();
+                if (dataLog.token) {
+                    message('Добро пожаловать!')
+                }
+                closeModal();
+                // window.location.reload();
 
-        } catch (e) {
-            message(e);
+            } catch (e) {
+                message(e);
+            }
+        } else {
+            message(['Заполните все необходимые поля!'])
         }
     }
 
@@ -92,32 +99,38 @@ export const Header = ({setSearch, setPhone}) => {
     }
 
     const registerHandler = async () => {
-        try {
-            const dataAuth = await request('/api/registration/', 'POST', {
-                email: form.email,
-                password: form.password,
-                phone: form.phone.replace(/[^0-9]/g, ''),
-                username: form.username,
-                date_of_birth: reverseDate(form.date_of_birth)
-            })
-            if (Object.keys(dataAuth).length !== 1) {
-                setTimeout(() => {
-                    for (let e in dataAuth) {
-                        message([e + ' : ' + dataAuth[e][0]]);
-                    }
-                }, 555)
+        if (!(form.password.length === 0) && !(form.email.length === 0) && !(form.phone.length === 0) && !(form.username.length === 0) && !(form.date_of_birth.length === 0)) {
+            try {
+                const dataAuth = await request('/api/registration/', 'POST', {
+                    email: form.email,
+                    password: form.password,
+                    phone: form.phone.replace(/[^0-9]/g, ''),
+                    username: form.username,
+                    date_of_birth: reverseDate(form.date_of_birth)
+                })
+                if (Object.keys(dataAuth).length !== 1) {
+                    setTimeout(() => {
+                        for (let e in dataAuth) {
+                            message([e + ' : ' + dataAuth[e][0]]);
+                        }
+                    }, 555)
 
+                }
+                const dataLog = await request('/api/login/', 'POST', {...form})
+                // console.log(dataLog)
+
+                auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
+                if (dataLog.token) {
+                    message('Вы зарегистрированы!')
+                }
+                closeModal();
+
+            } catch (e) {
+                // showAuthModal();
+                message(e);
             }
-            const dataLog = await request('/api/login/', 'POST', {...form})
-            // console.log(dataLog)
-
-            auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
-            // message('Вы зарегистрированы!')
-            closeModal();
-
-        } catch (e) {
-            // showAuthModal();
-            message(e);
+        } else {
+            message(['Заполните все необходимые поля!'])
         }
     }
 

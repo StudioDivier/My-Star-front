@@ -10,8 +10,10 @@ import menu from '../../img/order_icons/menu.svg';
 import account from '../../img/order_icons/account.svg';
 import like from '../../img/order_icons/icon_like.png';
 import priceTag from '../../img/order_icons/priceTag.svg';
+import close from '../../img/close.png';
 import {NavBar} from "../navbar/navbar";
 import {Link} from "react-router-dom";
+import Modal from 'react-modal';
 
 
 export const Confirm = () => {
@@ -22,6 +24,8 @@ export const Confirm = () => {
     const userInfo = useContext(AuthContext);
     const history = useHistory();
     const starInfo = useContext(StarsContext);
+    const [order, setOrder] = useState('');
+    const [modalIsOpen, setIsOpen] = useState(false)
     const [form, setForm] = useState({
         status_order: '0',
         for_whom: '',
@@ -32,28 +36,47 @@ export const Confirm = () => {
         customer_id: auth.id
     })
 
+    // For modal
+
+    const closeModal = () => {
+        setIsOpen(!modalIsOpen);
+    }
+
+    const showModal = () => {
+        setIsOpen(true)
+    }
+
+    Modal.setAppElement(document.querySelector('.App'))
+
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            height: 'auto',
+            width: '80%',
+            borderRadius: '25px',
+            padding: '30px'
+        }
+    };
+
+    //--------------------------------------------------------------------------------
+
     const changeHandler = event => {
         setForm(({...form, [event.target.name]: event.target.value}))
     }
 
     // Transform birth year
+
     function reverseDate(str) {
         return str.split('-').reverse().join('-')
     }
 
-    let orderId1;
 
-    const redirectHandler = async () => {
-        try {
-            const makeOrder = await request(`/api/order/pay/?order_id=${orderId1}`, 'GET', null, {Authorization: `Bearer ${auth.token}`})// 'no-cors', , 'follow'
-            //makeOrder();
-            // console.log(makeOrder)
-            // history.push(makeOrder.link)
-            window.open(`${makeOrder.link}`, "_blank").focus();
-        } catch (e) {
-        }
-    }
-
+    // let orderId1;
 
     const submitHandler = async () => {
         if (form.comment.length > 0 && form.by_date.length && form.for_whom.length) {
@@ -69,17 +92,29 @@ export const Confirm = () => {
                 }, {Authorization: `Bearer ${auth.token}`})// 'cors',
                 // console.log(dataLog)
                 message(dataLog.message)
-                orderId1 = dataLog.order_id;
-                // setOrderId(dataLog.order_id)
+                // orderId1 = dataLog.order_id;
+                setOrder(dataLog.order_id)
                 // makeOrder();
                 // history.push('/categories');
                 // if (dataLog)
-                history.push('/orders')
-                redirectHandler()
+                // history.push('/orders')
+                showModal()
             } catch (e) {
             }
         } else {
             message(['Заполните все необходимые поля!'])
+        }
+    }
+
+    const redirectHandler = async () => {
+        try {
+            const makeOrder = await request(`/api/order/pay/?order_id=${order}`, 'GET', null, {Authorization: `Bearer ${auth.token}`})// 'no-cors', , 'follow'
+            //makeOrder();
+            console.log(makeOrder)
+            // history.push(makeOrder.link)
+            window.open(`${makeOrder.link}`, "_blank").focus();
+            history.push('/orders')
+        } catch (e) {
         }
     }
 
@@ -190,6 +225,26 @@ export const Confirm = () => {
                     </div>
                 </div>
             </div>
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Example Modal"
+                style={customStyles}
+            >
+                <div className="modal-header">
+                    <button className={'close-btn'} onClick={closeModal}>
+                        <img src={close}
+                             alt="Close"
+                        />
+                    </button>
+                    <div className="header-text">
+                        <span>Завершение заказа</span>
+                    </div>
+                </div>
+                <div className="spread">
+                    <button onClick={redirectHandler}>Перейти к оплате</button>
+                </div>
+            </Modal>
             <NavBar/>
         </>
     )

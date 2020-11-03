@@ -37,6 +37,7 @@ export const SignUp = () => {
     function reverseDate(str) {
         return str.split('-').reverse().join('-')
     }
+
     // Transform phone
     // function transformPhone(str) {
     //     return str.slice();
@@ -48,7 +49,11 @@ export const SignUp = () => {
             if (consent) {
                 const dataAuth = await request('/api/registration/', 'POST', {
                     // ...form
-                    email: form.email, password: form.password, phone: form.phone.replace(/[^0-9]/g, ''), username: form.username, date_of_birth: reverseDate(form.date_of_birth)
+                    email: form.email,
+                    password: form.password,
+                    phone: form.phone.replace(/[^0-9]/g, ''),
+                    username: form.username,
+                    date_of_birth: reverseDate(form.date_of_birth)
                 })
                 if (Object.keys(dataAuth).length !== 1) {
                     setTimeout(() => {
@@ -63,7 +68,9 @@ export const SignUp = () => {
 // console.log(dataAuth)
 // auth.login(dataAuth.token, form.username, dataAuth.is_star)
                 auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
-                // message('Вы зарегистрированы!')
+                if (dataLog.token) {
+                    message('Вы зарегистрированы!')
+                }
                 history.push('/categories')
             } else {
                 let customMessage = 'Необходимо согласие на обработку данных';

@@ -155,6 +155,36 @@
     }
   }
 
+  .star-pc-price {
+    padding: 15px 0;
+    .star-pc-price-wrapper {
+      background-color: #ffffff;
+      padding: 10px 30px;
+      display: flex;
+      border-radius: 10px;
+      flex-direction: row;
+      color: black;
+      align-items: center;
+
+      img {
+        width: 25px;
+        height: 25px;
+        margin-right: 15px;
+        margin-left: -10px;
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .star-pc-price__price {
+        font-weight: 800;
+        font-size: 20px;
+      }
+    }
+  }
+
   .star-daysForOrder {
     span {
       font-weight: 700;
@@ -173,6 +203,7 @@
       padding: 15px 70px;
       font-weight: 700;
       font-size: 20px;
+      border: 0;
     }
   }
 

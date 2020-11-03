@@ -7,6 +7,8 @@ import step2 from '../../../../img/pc/step2.png';
 import step3 from '../../../../img/pc/step3.png';
 import step4 from '../../../../img/pc/step4.png';
 
+import circle from '../../../../img/circle.png';
+
 import excl from '../../../../img/pc/exclm-icon.png';
 
 // import avatar1 from '../../../../img/pc/avatar.png';
@@ -33,6 +35,8 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
 
     const [orderIsOpen, setOrderIsOpen] = useState(false);
     const [ratingIsOpen, setRatingIsOpen] = useState(false);
+    const [finalStep, setFinalStep] = useState(false);
+    const [order, setOrder] = useState('');
     const [newRating, setNewRating] = useState();
     const {request} = useHttp();
     const message = useMessage();
@@ -64,9 +68,13 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
     const showRatingModal = () => {
         setRatingIsOpen(true)
     }
+    const showFinalModal = () => {
+        setFinalStep(true)
+    }
     const closeModal = () => {
         setOrderIsOpen(false)
         setRatingIsOpen(false)
+        setFinalStep(false)
     }
 
     Modal.setAppElement(document.querySelector('.App'))
@@ -90,27 +98,15 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
 
     const catPic = `${SERVER_URL}` + star.avatar;
 
-    // Send order
-
-    let orderId1;
-
-    const redirectHandler = async () => {
-        try {
-            const makeOrder = await request(`/api/order/pay/?order_id=${orderId1}`, 'GET', null, {Authorization: `Bearer ${userData.token}`})// 'no-cors', , 'follow'
-            //makeOrder();
-            // console.log(makeOrder)
-            // history.push(makeOrder.link)
-            window.open(`${makeOrder.link}`, "_blank").focus();
-        } catch (e) {
-        }
-    }
-
-
     // Handle date
 
     function reverseDate(str) {
         return str.split('-').reverse().join('-')
     }
+
+    // Send order
+
+    // let orderId1;
 
 
     const submitHandler = async () => {
@@ -126,17 +122,28 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                     customer_id: (userData ? userData.userId : '')
                 }, {Authorization: `Bearer ${userData.token}`})// 'cors',
                 message(dataLog.message)
-                orderId1 = dataLog.order_id;
-                // setOrderId(dataLog.order_id)
+                // orderId1 = dataLog.order_id;
+                setOrder(dataLog.order_id)
                 // makeOrder();
                 // history.push('/categories');
                 // if (dataLog)
-                redirectHandler()
+                showFinalModal()
             } catch (e) {
                 message(e)
             }
         } else {
             message(['Заполните все необходимые поля!'])
+        }
+    }
+
+    const redirectHandler = async () => {
+        try {
+            const makeOrder = await request(`/api/order/pay/?order_id=${order}`, 'GET', null, {Authorization: `Bearer ${userData.token}`})// 'no-cors', , 'follow'
+            //makeOrder();
+            console.log(makeOrder)
+            // history.push(makeOrder.link)
+            window.open(`${makeOrder.link}`, "_blank").focus();
+        } catch (e) {
         }
     }
 
@@ -249,6 +256,15 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                 </div>
                                 <div className="star-bio">
                                     <p>{star.description}</p>
+                                </div>
+                                <div className="star-pc-price">
+                                    <div className="star-pc-price-wrapper">
+                                        <img src={circle} alt="Pointer"/>
+                                        <div>
+                                            <span>Поздравление</span>
+                                            <span className={'star-pc-price__price'}>{star.price} &#8381;</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="star-daysForOrder">
                                     <span>Исполнение заказа через {star.days} дней</span>
@@ -412,11 +428,11 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                         <div className="header-text">
                             <span>Ваше поздравление</span>
                             <p>Расскажите в свободной форме, что вы хотите услышать в поздравлении</p>
-                            <div className="mediaLogin-wrapper">
-                                <span>Через соцсети</span>
-                                <span><FontAwesomeIcon icon={['fab', 'vk']} size={'lg'}/></span>
-                                <span><FontAwesomeIcon icon={['fab', 'facebook-f']} size={'lg'}/></span>
-                            </div>
+                            {/*<div className="mediaLogin-wrapper">*/}
+                            {/*    <span>Через соцсети</span>*/}
+                            {/*    <span><FontAwesomeIcon icon={['fab', 'vk']} size={'lg'}/></span>*/}
+                            {/*    <span><FontAwesomeIcon icon={['fab', 'facebook-f']} size={'lg'}/></span>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                     <div className="signInInputs spread">
@@ -506,6 +522,38 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                 onClick={rateHandler}
                             >
                                 Оценить
+                            </div>
+                        </div>
+                    </div>
+                </Modal>
+                <Modal
+                    isOpen={finalStep}
+                    onRequestClose={closeModal}
+                    contentLabel="Example Modal"
+                    style={customStyles}
+                >
+                    <div className="pc-modal-header rating-header">
+                        <div className={'close-btn'} onClick={closeModal}>
+                            <img src={close}
+                                 alt="Close"
+                            />
+                        </div>
+                        <div className="header-text">
+                            <span>Завершите оплату</span>
+                            <p>Вы сделали заказ поздравления от звезды<span></span> <span
+                                style={{fontWeight: 700}}>"{star.first_name}&nbsp;{star.last_name}"</span> на сумму <span
+                                style={{fontWeight: 800}}>{star.price} &#8381;</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div className="signInInputs spread">
+
+                        <div className="login__btn-wrapper">
+                            <div
+                                className="pc-signInButton rateBtn"
+                                onClick={redirectHandler}
+                            >
+                                Оплатить
                             </div>
                         </div>
                     </div>
