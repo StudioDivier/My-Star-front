@@ -184,7 +184,8 @@ export const Header = ({setSearch, setPhone}) => {
     const vkAuth = async () => {
         try {
             const dataAuth = await request('/api/pre-vk-oauth/', 'GET')
-            console.log(dataAuth)
+            // console.log(dataAuth)
+            setPhone(form.phone)
             window.open(`${dataAuth.link}`, "_blank").focus();
 
         } catch (e) {
@@ -192,12 +193,10 @@ export const Header = ({setSearch, setPhone}) => {
         }
     }
 
-    const vkAuthModal = () => {
-        setPhone(form.phone)
-        setTimeout(() => {
-            vkAuth()
-        }, 1500)
-    }
+    // const vkAuthModal = async () => {
+    //     await setPhone(form.phone)
+    //     vkAuth()
+    // }
 
     // VK Login
 
@@ -231,7 +230,8 @@ export const Header = ({setSearch, setPhone}) => {
     const yaAuth = async () => {
         try {
             const dataAuth = await request('/api/pre-yandex-oauth/', 'GET')
-            console.log(dataAuth)
+            // console.log(dataAuth)
+            setPhone(form.phone)
             window.open(`${dataAuth.link}`, "_blank").focus();
 
         } catch (e) {
@@ -239,12 +239,10 @@ export const Header = ({setSearch, setPhone}) => {
         }
     }
 
-    const yaAuthModal = () => {
-        setPhone(form.phone)
-        setTimeout(() => {
-            yaAuth()
-        }, 1500)
-    }
+    // const yaAuthModal = async () => {
+    //     await setPhone(form.phone)
+    //     yaAuth()
+    // }
 
     // Yandex Login
 
@@ -493,7 +491,7 @@ export const Header = ({setSearch, setPhone}) => {
                     <div className="login__btn-wrapper">
                         <div
                             className="pc-signInButton"
-                            onClick={yaAuthModal}
+                            onClick={yaAuth}
                         >
                             Зарегистрироваться
                         </div>
@@ -531,7 +529,7 @@ export const Header = ({setSearch, setPhone}) => {
                     <div className="login__btn-wrapper">
                         <div
                             className="pc-signInButton"
-                            onClick={vkAuthModal}
+                            onClick={vkAuth}
                         >
                             Зарегистрироваться
                         </div>

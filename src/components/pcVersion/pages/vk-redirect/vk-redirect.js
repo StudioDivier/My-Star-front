@@ -13,8 +13,10 @@ export const VkRedirect = ({phone}) => {
     const history = useHistory();
     const {request} = useHttp();
 
+    console.log(phone)
+
     const storageName = 'tempUserData';
-    const tempUserData = JSON.parse(window.localStorage.getItem('tempUserData'));
+    // const tempUserData = JSON.parse(window.localStorage.getItem('tempUserData'));
 
     useEffect(() => {
         // try {
@@ -22,12 +24,12 @@ export const VkRedirect = ({phone}) => {
             const dataAuth = await request(`/api/mid-vk/?code=${code}`, 'GET')
             console.log(dataAuth)
 
-            localStorage.setItem(storageName, JSON.stringify({
-                access_token: dataAuth.access_token,
-                expires_in: dataAuth.expires_in,
-                user_id: dataAuth.user_id,
-                email: dataAuth.email
-            }))
+            // localStorage.setItem(storageName, JSON.stringify({
+            //     access_token: dataAuth.access_token,
+            //     expires_in: dataAuth.expires_in,
+            //     user_id: dataAuth.user_id,
+            //     email: dataAuth.email
+            // }))
 
             console.log(phone)
 

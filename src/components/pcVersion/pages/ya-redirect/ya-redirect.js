@@ -8,28 +8,30 @@ export const YaRedirect = ({phone}) => {
     let urlParams = new URLSearchParams(window.location.search);
     let code = urlParams.get('code');
     const auth = useContext(AuthContext);
-
+    console.log(phone)
     // const message = useMessage();
     const history = useHistory();
     const {request} = useHttp();
 
     const storageName = 'tempUserData';
-    const tempUserData = JSON.parse(window.localStorage.getItem('tempUserData'));
+
+
+    // const tempUserData = JSON.parse(window.localStorage.getItem('tempUserData'));
 
     useEffect(() => {
         // try {
         async function fetchData() {
             const dataAuth = await request(`/api/mid-yandex/?code=${code}`, 'GET')
-            console.log(dataAuth)
+            // console.log(dataAuth)
 
-            localStorage.setItem(storageName, JSON.stringify({
-                access_token: dataAuth.access_token,
-                expires_in: dataAuth.expires_in,
-                refresh_token: dataAuth.refresh_token
-            }))
+            // localStorage.setItem(storageName, JSON.stringify({
+            //     access_token: dataAuth.access_token,
+            //     expires_in: dataAuth.expires_in,
+            //     refresh_token: dataAuth.refresh_token
+            // }))
 
-            console.log(phone)
-            console.log(dataAuth.access_token)
+            // console.log(phone)
+            // console.log(dataAuth.access_token)
 
             const dataSend = await request(`/api/yandex-oauth/`, 'POST', {
                 access_token: dataAuth.access_token,
@@ -38,7 +40,7 @@ export const YaRedirect = ({phone}) => {
                 phone: phone
             })
 
-            console.log(dataSend)
+            // console.log(dataSend)
 
             localStorage.removeItem(storageName)
 
