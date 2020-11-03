@@ -194,7 +194,9 @@ export const Header = ({setSearch, setPhone}) => {
 
     const vkAuthModal = () => {
         setPhone(form.phone)
-        vkAuth()
+        setTimeout(() => {
+            vkAuth()
+        }, 1500)
     }
 
     // VK Login
@@ -237,9 +239,11 @@ export const Header = ({setSearch, setPhone}) => {
         }
     }
 
-    const yaAuthModal = async () => {
-        await setPhone(form.phone)
-        yaAuth()
+    const yaAuthModal = () => {
+        setPhone(form.phone)
+        setTimeout(() => {
+            yaAuth()
+        }, 1500)
     }
 
     // Yandex Login
