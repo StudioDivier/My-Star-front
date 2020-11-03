@@ -231,22 +231,12 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                     {/*</Route>*/}
 
                     <Route path={'/api/mid-yandex/'}>
-                        {useEffect(() => {
-                                return (
-                                    <YaRedirect phone={phone}/>
-                                )
-                            }
-                        )}
+                        <YaRedirect phone={phone}/>
                         {/*<Redirect to={'/'}/>*/}
                     </Route>
 
                     <Route path={'/api/mid-vk/'}>
-                        {useEffect(() => {
-                                return (
-                                    <VkRedirect phone={phone}/>
-                                )
-                            }
-                        )}
+                        <VkRedirect phone={phone}/>
                         {/*<Redirect to={'/'}/>*/}
                     </Route>
 

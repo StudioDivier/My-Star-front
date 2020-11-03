@@ -186,7 +186,8 @@ export const Header = ({setSearch, setPhone}) => {
             const dataAuth = await request('/api/pre-vk-oauth/', 'GET')
             // console.log(dataAuth)
             setPhone(form.phone)
-            window.open(`${dataAuth.link}`, "_blank").focus();
+            window.open(`${dataAuth.link}`).focus();
+            setPhone(form.phone)
 
         } catch (e) {
             message(e);
@@ -232,7 +233,8 @@ export const Header = ({setSearch, setPhone}) => {
             const dataAuth = await request('/api/pre-yandex-oauth/', 'GET')
             // console.log(dataAuth)
             setPhone(form.phone)
-            window.open(`${dataAuth.link}`, "_blank").focus();
+            window.open(`${dataAuth.link}`).focus();
+            setPhone(form.phone)
 
         } catch (e) {
             message(e);
