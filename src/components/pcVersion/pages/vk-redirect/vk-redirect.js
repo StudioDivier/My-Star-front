@@ -1,64 +1,80 @@
-import {useContext, useEffect} from 'react';
+import React, {useContext, useState} from 'react';
 import {useHttp} from "../../../../hooks/http.hook";
-// import {useMessage} from "../../../../hooks/message.hook";
 import {AuthContext} from "../../../../context/AuthContext";
 import {useHistory} from 'react-router-dom';
+import MaskedInput from "react-text-mask";
+import backArrow from '../../../../img/back-arrow.svg';
+import {useMessage} from "../../../../hooks/message.hook";
 
-export const VkRedirect = ({phone}) => {
+export const VkRedirect = () => {
+
     let urlParams = new URLSearchParams(window.location.search);
     let code = urlParams.get('code');
     const auth = useContext(AuthContext);
-    console.log(phone)
-
-    // const message = useMessage();
     const history = useHistory();
+    const message = useMessage();
+    const [form, setForm] = useState({});
     const {request} = useHttp();
 
-    const storageName = 'tempUserData';
-    // const tempUserData = JSON.parse(window.localStorage.getItem('tempUserData'));
-
-    useEffect(() => {
-        // try {
-        async function fetchData() {
+    const proceedAuth = async () => {
+        try {
             const dataAuth = await request(`/api/mid-vk/?code=${code}`, 'GET')
-            console.log(dataAuth)
-
-            // localStorage.setItem(storageName, JSON.stringify({
-            //     access_token: dataAuth.access_token,
-            //     expires_in: dataAuth.expires_in,
-            //     user_id: dataAuth.user_id,
-            //     email: dataAuth.email
-            // }))
-
-            console.log(phone)
 
             const dataSend = await request(`/api/vk-oauth/`, 'POST', {
                 access_token: dataAuth.access_token,
                 phone: phone,
                 email: dataAuth.email
             })
-            console.log(dataSend)
 
             localStorage.removeItem(storageName)
 
-            // const dataLog = await request('/api/login/', 'POST', {
-            //     id: dataSend.id,
-            //     username: dataSend.username,
-            //     is_star: dataSend.is_star,
-            //     email: dataSend.email,
-            //     avatar: dataSend.avatar,
-            //     token: dataSend.token
-            // })
-
             auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id);
-            // history.push('/')
+            history.push('/')
+            window.location.reload()
+        } catch (e) {
+            message(e);
         }
-        // async function fetchData1() {
-        // }
+    }
 
-        fetchData();
-        // fetchData1();
-    }, [auth, code, history, phone, request])
-    return []
+    const changeHandler = event => {
+        setForm(({...form, [event.target.name]: event.target.value}))
+    }
+
+    return (
+        <>
+            <div className="nav-header">
+                <div className={'icon-container'}>
+                    <a href={'/'}>
+                        <img src={backArrow} alt="Back button"/>
+                    </a>
+                </div>
+                <div>
+                    <h3>Введите свой номер телефона</h3>
+                </div>
+            </div>
+            <div className={'inputBox'}>
+
+                <MaskedInput
+                    mask={['+', /[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+                    placeholder={'+7(999)999-99-99'}
+                    type="text"
+                    name={'phone'}
+                    value={form.phone}
+                    onChange={changeHandler}
+                    style={{color: 'white'}}
+                />
+            </div>
+            <div className="turnIn-data">
+                <button
+                    className={"signInButton"}
+                    type={'button'}
+                    onClick={proceedAuth}
+                >
+                    Продолжить регистрацию
+                </button>
+                <p>Совершая заказ, вы соглашаетесь с условиями</p>
+            </div>
+        </>
+    )
 
 }

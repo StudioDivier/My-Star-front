@@ -1,6 +1,5 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {useHttp} from "../../../../hooks/http.hook";
-// import {useMessage} from "../../../../hooks/message.hook";
 import {AuthContext} from "../../../../context/AuthContext";
 import {useHistory} from 'react-router-dom';
 import MaskedInput from "react-text-mask";
@@ -8,37 +7,18 @@ import backArrow from '../../../../img/back-arrow.svg';
 import {useMessage} from "../../../../hooks/message.hook";
 
 export const YaRedirect = () => {
+
     let urlParams = new URLSearchParams(window.location.search);
     let code = urlParams.get('code');
     const auth = useContext(AuthContext);
-    // console.log(phone)
-
-    // const message = useMessage();
     const history = useHistory();
     const message = useMessage();
-    const [form, setForm] = useState({
-
-    });
+    const [form, setForm] = useState({});
     const {request} = useHttp();
-
-    const storageName = 'tempUserData';
-    // const tempUserData = JSON.parse(window.localStorage.getItem('tempUserData'));
 
     const proceedAuth = async () => {
         try {
             const dataAuth = await request(`/api/mid-yandex/?code=${code}`, 'GET')
-            console.log(dataAuth)
-
-            // localStorage.setItem(storageName, JSON.stringify({
-            //     access_token: dataAuth.access_token,
-            //     expires_in: dataAuth.expires_in,
-            //     refresh_token: dataAuth.refresh_token
-            // }))
-
-            // console.log(phone)
-            // console.log(dataAuth.access_token)
-
-            console.log(form.phone.replace(/[^0-9]/g, ''))
 
             const dataSend = await request(`/api/yandex-oauth/`, 'POST', {
                 access_token: dataAuth.access_token,
@@ -47,22 +27,11 @@ export const YaRedirect = () => {
                 phone: form.phone.replace(/[^0-9]/g, '')
             })
 
-            console.log(dataSend)
-
             localStorage.removeItem(storageName)
-
-            // const dataLog = await request('/api/login/', 'POST', {
-            //     id: dataSend.id,
-            //     username: dataSend.username,
-            //     is_star: dataSend.is_star,
-            //     email: dataSend.email,
-            //     avatar: dataSend.avatar,
-            //     token: dataSend.token
-            // })
 
             auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id);
             history.push('/')
-
+            window.location.reload()
         } catch (e) {
             message(e);
         }
