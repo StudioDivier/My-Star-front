@@ -32,6 +32,10 @@ export const Header = ({setSearch, setPhone}) => {
 
     const [form1, setForm1] = useState({search: ''})
 
+    const changeHandler = event => {
+        setForm(({...form, [event.target.name]: event.target.value}))
+    }
+
     /*
      * For Modals
     */
@@ -42,12 +46,12 @@ export const Header = ({setSearch, setPhone}) => {
     const showLoginModal = () => {
         setLoginIsOpen(true)
     }
-    const showYaModal = () => {
-        setYaIsOpen(true)
-    }
-    const showVkModal = () => {
-        setVkIsOpen(true)
-    }
+    // const showYaModal = () => {
+    //     setYaIsOpen(true)
+    // }
+    // const showVkModal = () => {
+    //     setVkIsOpen(true)
+    // }
     const closeModal = () => {
         setLoginIsOpen(false)
         setAuthIsOpen(false)
@@ -60,9 +64,9 @@ export const Header = ({setSearch, setPhone}) => {
     *  For login
     * */
 
-    const changeHandler = event => {
-        setForm(({...form, [event.target.name]: event.target.value}))
-    }
+    // const changeHandler = event => {
+    //     setForm(({...form, [event.target.name]: event.target.value}))
+    // }
 
     const loginHandler = async () => {
         try {
@@ -185,19 +189,12 @@ export const Header = ({setSearch, setPhone}) => {
         try {
             const dataAuth = await request('/api/pre-vk-oauth/', 'GET')
             // console.log(dataAuth)
-            setPhone(form.phone)
             window.open(`${dataAuth.link}`).focus();
-            setPhone(form.phone)
 
         } catch (e) {
             message(e);
         }
     }
-
-    // const vkAuthModal = async () => {
-    //     await setPhone(form.phone)
-    //     vkAuth()
-    // }
 
     // VK Login
 
@@ -232,19 +229,12 @@ export const Header = ({setSearch, setPhone}) => {
         try {
             const dataAuth = await request('/api/pre-yandex-oauth/', 'GET')
             // console.log(dataAuth)
-            setPhone(form.phone)
             window.open(`${dataAuth.link}`).focus();
-            setPhone(form.phone)
 
         } catch (e) {
             message(e);
         }
     }
-
-    // const yaAuthModal = async () => {
-    //     await setPhone(form.phone)
-    //     yaAuth()
-    // }
 
     // Yandex Login
 
@@ -325,7 +315,7 @@ export const Header = ({setSearch, setPhone}) => {
                         <p>Войдите в свой аккаунт, чтобы общаться со звёздами!</p>
                         <div className="mediaLogin-wrapper">
                             <span>Через соцсети</span>
-                            <span onClick={yaLogin}><FontAwesomeIcon icon={['fab', 'vk']} size={'lg'}/></span>
+                            <span onClick={vkLogin}><FontAwesomeIcon icon={['fab', 'vk']} size={'lg'}/></span>
                             <span onClick={yaLogin}><FontAwesomeIcon icon={['fab', 'yandex']} size={'lg'}/></span>
                         </div>
                     </div>
@@ -382,8 +372,8 @@ export const Header = ({setSearch, setPhone}) => {
                         <p>Зарегистрируйтесь и общайтесь со звёздами!</p>
                         <div className="mediaLogin-wrapper">
                             <span>Через соцсети</span>
-                            <span onClick={showVkModal}><FontAwesomeIcon icon={['fab', 'vk']} size={'lg'}/></span>
-                            <span onClick={showYaModal}><FontAwesomeIcon icon={['fab', 'yandex']} size={'lg'}/></span>
+                            <span onClick={vkAuth}><FontAwesomeIcon icon={['fab', 'vk']} size={'lg'}/></span>
+                            <span onClick={yaAuth}><FontAwesomeIcon icon={['fab', 'yandex']} size={'lg'}/></span>
                         </div>
                     </div>
                 </div>
@@ -462,82 +452,82 @@ export const Header = ({setSearch, setPhone}) => {
                     </div>
                 </div>
             </Modal>
-            <Modal
-                isOpen={yaIsOpen}
-                onRequestClose={closeModal}
-                contentLabel="Example Modal"
-                style={customStyles}
-            >
-                <div className="pc-modal-header">
-                    <div className={'close-btn'} onClick={closeModal}>
-                        <img src={close}
-                             alt="Close"
-                        />
-                    </div>
-                    <div className="header-text">
-                        <span>Введите свой номер телефона</span>
-                    </div>
-                </div>
-                <div className="signInInputs spread">
-                    <div className="single-input__wrapper">
-                        <span>Телефон</span>
-                        <MaskedInput
-                            mask={['+', /[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
-                            placeholder={'+7(999)999-99-99'}
-                            type="text"
-                            name={'phone'}
-                            value={form.phone}
-                            onChange={changeHandler}
-                        />
-                    </div>
-                    <div className="login__btn-wrapper">
-                        <div
-                            className="pc-signInButton"
-                            onClick={yaAuth}
-                        >
-                            Зарегистрироваться
-                        </div>
-                    </div>
-                </div>
-            </Modal>
-            <Modal
-                isOpen={vkIsOpen}
-                onRequestClose={closeModal}
-                contentLabel="Example Modal"
-                style={customStyles}
-            >
-                <div className="pc-modal-header">
-                    <div className={'close-btn'} onClick={closeModal}>
-                        <img src={close}
-                             alt="Close"
-                        />
-                    </div>
-                    <div className="header-text">
-                        <span>Введите свой номер телефона</span>
-                    </div>
-                </div>
-                <div className="signInInputs spread">
-                    <div className="single-input__wrapper">
-                        <span>Телефон</span>
-                        <MaskedInput
-                            mask={['+', /[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
-                            placeholder={'+7(999)999-99-99'}
-                            type="text"
-                            name={'phone'}
-                            value={form.phone}
-                            onChange={changeHandler}
-                        />
-                    </div>
-                    <div className="login__btn-wrapper">
-                        <div
-                            className="pc-signInButton"
-                            onClick={vkAuth}
-                        >
-                            Зарегистрироваться
-                        </div>
-                    </div>
-                </div>
-            </Modal>
+            {/*<Modal*/}
+            {/*    isOpen={yaIsOpen}*/}
+            {/*    onRequestClose={closeModal}*/}
+            {/*    contentLabel="Example Modal"*/}
+            {/*    style={customStyles}*/}
+            {/*>*/}
+            {/*    <div className="pc-modal-header">*/}
+            {/*        <div className={'close-btn'} onClick={closeModal}>*/}
+            {/*            <img src={close}*/}
+            {/*                 alt="Close"*/}
+            {/*            />*/}
+            {/*        </div>*/}
+            {/*        <div className="header-text">*/}
+            {/*            <span>Введите свой номер телефона</span>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*    <div className="signInInputs spread">*/}
+            {/*        <div className="single-input__wrapper">*/}
+            {/*            <span>Телефон</span>*/}
+            {/*            <MaskedInput*/}
+            {/*                mask={['+', /[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}*/}
+            {/*                placeholder={'+7(999)999-99-99'}*/}
+            {/*                type="text"*/}
+            {/*                name={'phone'}*/}
+            {/*                value={form.phone}*/}
+            {/*                onChange={changeHandler}*/}
+            {/*            />*/}
+            {/*        </div>*/}
+            {/*        <div className="login__btn-wrapper">*/}
+            {/*            <div*/}
+            {/*                className="pc-signInButton"*/}
+            {/*                onClick={yaAuth}*/}
+            {/*            >*/}
+            {/*                Зарегистрироваться*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</Modal>*/}
+            {/*<Modal*/}
+            {/*    isOpen={vkIsOpen}*/}
+            {/*    onRequestClose={closeModal}*/}
+            {/*    contentLabel="Example Modal"*/}
+            {/*    style={customStyles}*/}
+            {/*>*/}
+            {/*    <div className="pc-modal-header">*/}
+            {/*        <div className={'close-btn'} onClick={closeModal}>*/}
+            {/*            <img src={close}*/}
+            {/*                 alt="Close"*/}
+            {/*            />*/}
+            {/*        </div>*/}
+            {/*        <div className="header-text">*/}
+            {/*            <span>Введите свой номер телефона</span>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*    <div className="signInInputs spread">*/}
+            {/*        <div className="single-input__wrapper">*/}
+            {/*            <span>Телефон</span>*/}
+            {/*            <MaskedInput*/}
+            {/*                mask={['+', /[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}*/}
+            {/*                placeholder={'+7(999)999-99-99'}*/}
+            {/*                type="text"*/}
+            {/*                name={'phone'}*/}
+            {/*                value={form.phone}*/}
+            {/*                onChange={changeHandler}*/}
+            {/*            />*/}
+            {/*        </div>*/}
+            {/*        <div className="login__btn-wrapper">*/}
+            {/*            <div*/}
+            {/*                className="pc-signInButton"*/}
+            {/*                onClick={vkAuth}*/}
+            {/*            >*/}
+            {/*                Зарегистрироваться*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</Modal>*/}
         </div>
     )
 }

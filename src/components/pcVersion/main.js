@@ -104,7 +104,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     return (
         <div className="main">
             <Router>
-                <Header setSearch={setSearch} setPhone={setPhone} phone={phone}/>
+                <Header setSearch={setSearch} phone={phone}/>
 
                 <Switch>
 
@@ -231,12 +231,30 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                     {/*</Route>*/}
 
                     <Route path={'/api/mid-yandex/'}>
-                        <YaRedirect phone={phone}/>
+                        <Breadcrumbs secondItem={'Регистрация через Яндекс'}/>
+                        <Container style={{paddingBottom: '100px'}}>
+                            <Row>
+                                <Col>
+                                    <div className={'pc-password-reset'}>
+                                        <YaRedirect phone={phone}/>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Container>
                         {/*<Redirect to={'/'}/>*/}
                     </Route>
 
                     <Route path={'/api/mid-vk/'}>
-                        <VkRedirect phone={phone}/>
+                        <Breadcrumbs secondItem={'Регистрация через ВКонтакте'}/>
+                        <Container style={{paddingBottom: '100px'}}>
+                            <Row>
+                                <Col>
+                                    <div className={'pc-password-reset'}>
+                                        <VkRedirect phone={phone}/>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Container>
                         {/*<Redirect to={'/'}/>*/}
                     </Route>
 

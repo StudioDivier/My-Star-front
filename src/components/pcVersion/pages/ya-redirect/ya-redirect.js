@@ -1,8 +1,10 @@
-import {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useHttp} from "../../../../hooks/http.hook";
 // import {useMessage} from "../../../../hooks/message.hook";
 import {AuthContext} from "../../../../context/AuthContext";
 import {useHistory} from 'react-router-dom';
+import MaskedInput from "react-text-mask";
+import backArrow from '../../../../img/back-arrow.svg'
 
 export const YaRedirect = ({phone}) => {
     let urlParams = new URLSearchParams(window.location.search);
@@ -12,12 +14,13 @@ export const YaRedirect = ({phone}) => {
 
     // const message = useMessage();
     const history = useHistory();
+    const [form, setForm] = useState({});
     const {request} = useHttp();
 
     const storageName = 'tempUserData';
     // const tempUserData = JSON.parse(window.localStorage.getItem('tempUserData'));
 
-    useEffect(() => {
+    const proceedAuth = () => {
         // try {
         async function fetchData() {
             const dataAuth = await request(`/api/mid-yandex/?code=${code}`, 'GET')
@@ -83,7 +86,46 @@ export const YaRedirect = ({phone}) => {
 
         fetchData();
         // fetchData1();
-    }, [auth, code, history, phone, request])
-    return []
+    }
+
+    const changeHandler = event => {
+        setForm(({...form, [event.target.name]: event.target.value}))
+    }
+
+    return (
+        <>
+            <div className="nav-header">
+                <div className={'icon-container'}>
+                    <a href={'/'}>
+                        <img src={backArrow} alt="Back button"/>
+                    </a>
+                </div>
+                <div>
+                    <h3>Введите свой номер телефона</h3>
+                </div>
+            </div>
+            <div className={'inputBox'}>
+
+                <MaskedInput
+                    mask={['+', /[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+                    placeholder={'+7(999)999-99-99'}
+                    type="text"
+                    name={'phone'}
+                    value={form.phone}
+                    onChange={changeHandler}
+                />
+            </div>
+            <div className="turnIn-data">
+                <button
+                    className={"signInButton"}
+                    type={'button'}
+                    onClick={proceedAuth}
+                >
+                    Продолжить регистрацию
+                </button>
+                <p>Совершая заказ, вы соглашаетесь с условиями</p>
+            </div>
+        </>
+    )
 
 }
