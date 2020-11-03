@@ -4,7 +4,8 @@ import {useHttp} from "../../../../hooks/http.hook";
 import {AuthContext} from "../../../../context/AuthContext";
 import {useHistory} from 'react-router-dom';
 import MaskedInput from "react-text-mask";
-import backArrow from '../../../../img/back-arrow.svg'
+import backArrow from '../../../../img/back-arrow.svg';
+import {useMessage} from "../../../../hooks/message.hook";
 
 export const YaRedirect = ({phone}) => {
     let urlParams = new URLSearchParams(window.location.search);
@@ -14,15 +15,15 @@ export const YaRedirect = ({phone}) => {
 
     // const message = useMessage();
     const history = useHistory();
+    const message = useMessage();
     const [form, setForm] = useState({});
     const {request} = useHttp();
 
     const storageName = 'tempUserData';
     // const tempUserData = JSON.parse(window.localStorage.getItem('tempUserData'));
 
-    const proceedAuth = () => {
-        // try {
-        async function fetchData() {
+    const proceedAuth = async () => {
+        try {
             const dataAuth = await request(`/api/mid-yandex/?code=${code}`, 'GET')
             console.log(dataAuth)
 
@@ -39,10 +40,10 @@ export const YaRedirect = ({phone}) => {
                 access_token: dataAuth.access_token,
                 expires_in: dataAuth.expires_in,
                 refresh_token: dataAuth.refresh_token,
-                phone: phone
+                phone: form.phone
             })
 
-            // console.log(dataSend)
+            console.log(dataSend)
 
             localStorage.removeItem(storageName)
 
@@ -56,36 +57,12 @@ export const YaRedirect = ({phone}) => {
             // })
 
             auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id);
-            // history.push('/')
+            history.push('/')
 
+        } catch (e) {
+            message(e);
         }
 
-        // async function fetchData1() {
-        // const dataSend = await request(`/api/yandex-oauth/`, 'POST', {
-        //     access_token: tempUserData.access_token,
-        //     expires_in: tempUserData.expires_in,
-        //     refresh_token: tempUserData.refresh_token,
-        //     phone: phone
-        // })
-        // console.log(dataSend)
-        //
-        // localStorage.removeItem(storageName)
-        //
-        // // const dataLog = await request('/api/login/', 'POST', {
-        // //     id: dataSend.id,
-        // //     username: dataSend.username,
-        // //     is_star: dataSend.is_star,
-        // //     email: dataSend.email,
-        // //     avatar: dataSend.avatar,
-        // //     token: dataSend.token
-        // // })
-        //
-        // auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id);
-        // history.push('/')
-        // }
-
-        fetchData();
-        // fetchData1();
     }
 
     const changeHandler = event => {
@@ -113,6 +90,7 @@ export const YaRedirect = ({phone}) => {
                     name={'phone'}
                     value={form.phone}
                     onChange={changeHandler}
+                    style={{color: 'white'}}
                 />
             </div>
             <div className="turnIn-data">
