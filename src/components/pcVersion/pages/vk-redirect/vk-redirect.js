@@ -8,12 +8,11 @@ export const VkRedirect = ({phone}) => {
     let urlParams = new URLSearchParams(window.location.search);
     let code = urlParams.get('code');
     const auth = useContext(AuthContext);
+    console.log(phone)
 
     // const message = useMessage();
     const history = useHistory();
     const {request} = useHttp();
-
-    console.log(phone)
 
     const storageName = 'tempUserData';
     // const tempUserData = JSON.parse(window.localStorage.getItem('tempUserData'));

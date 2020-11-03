@@ -29,7 +29,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     const [name, setCatName] = useState('')
     const [star, setStar] = useState([])
     const [search, setSearch] = useState([])
-    const [phone, setPhone] = useState('')
+    const [phone, setPhone] = useState('changed?')
 
     // const userData = JSON.parse(window.localStorage.getItem('userData'));
     //
@@ -71,6 +71,8 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     //         return []
     //     }
     // }
+
+    const newPhone = phone;
 
     return (
         <div className="main">
@@ -192,12 +194,12 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                     </Route>
 
                     <Route path={'/api/mid-yandex/'}>
-                        <YaRedirect phone={phone}/>
+                        <YaRedirect phone={newPhone}/>
                         {/*<Redirect to={'/'}/>*/}
                     </Route>
 
                     <Route path={'/api/mid-vk/'}>
-                        <VkRedirect phone={phone}/>
+                        <VkRedirect phone={newPhone}/>
                         {/*<Redirect to={'/'}/>*/}
                     </Route>
 

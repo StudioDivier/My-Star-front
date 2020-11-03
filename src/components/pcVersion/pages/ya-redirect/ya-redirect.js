@@ -9,20 +9,19 @@ export const YaRedirect = ({phone}) => {
     let code = urlParams.get('code');
     const auth = useContext(AuthContext);
     console.log(phone)
+
     // const message = useMessage();
     const history = useHistory();
     const {request} = useHttp();
 
     const storageName = 'tempUserData';
-
-
     // const tempUserData = JSON.parse(window.localStorage.getItem('tempUserData'));
 
     useEffect(() => {
         // try {
         async function fetchData() {
             const dataAuth = await request(`/api/mid-yandex/?code=${code}`, 'GET')
-            // console.log(dataAuth)
+            console.log(dataAuth)
 
             // localStorage.setItem(storageName, JSON.stringify({
             //     access_token: dataAuth.access_token,
