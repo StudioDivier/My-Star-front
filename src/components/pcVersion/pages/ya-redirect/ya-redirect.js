@@ -28,16 +28,16 @@ export const YaRedirect = ({phone}) => {
                 refresh_token: dataAuth.refresh_token
             }))
 
-        }
-        console.log(phone)
-        console.log(tempUserData.access_token)
-        async function fetchData1() {
+            console.log(phone)
+            console.log(dataAuth.access_token)
+
             const dataSend = await request(`/api/yandex-oauth/`, 'POST', {
-                access_token: tempUserData.access_token,
-                expires_in: tempUserData.expires_in,
-                refresh_token: tempUserData.refresh_token,
+                access_token: dataAuth.access_token,
+                expires_in: dataAuth.expires_in,
+                refresh_token: dataAuth.refresh_token,
                 phone: phone
             })
+
             console.log(dataSend)
 
             localStorage.removeItem(storageName)
@@ -53,10 +53,35 @@ export const YaRedirect = ({phone}) => {
 
             auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id);
             history.push('/')
+
         }
 
+        // async function fetchData1() {
+        // const dataSend = await request(`/api/yandex-oauth/`, 'POST', {
+        //     access_token: tempUserData.access_token,
+        //     expires_in: tempUserData.expires_in,
+        //     refresh_token: tempUserData.refresh_token,
+        //     phone: phone
+        // })
+        // console.log(dataSend)
+        //
+        // localStorage.removeItem(storageName)
+        //
+        // // const dataLog = await request('/api/login/', 'POST', {
+        // //     id: dataSend.id,
+        // //     username: dataSend.username,
+        // //     is_star: dataSend.is_star,
+        // //     email: dataSend.email,
+        // //     avatar: dataSend.avatar,
+        // //     token: dataSend.token
+        // // })
+        //
+        // auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id);
+        // history.push('/')
+        // }
+
         fetchData();
-        fetchData1();
+        // fetchData1();
     }, [auth, code, history, phone, request])
     return []
 

@@ -29,13 +29,12 @@ export const VkRedirect = ({phone}) => {
                 email: dataAuth.email
             }))
 
-        }
-        console.log(phone)
-        async function fetchData1() {
+            console.log(phone)
+
             const dataSend = await request(`/api/vk-oauth/`, 'POST', {
-                access_token: tempUserData.access_token,
+                access_token: dataAuth.access_token,
                 phone: phone,
-                email: tempUserData.email
+                email: dataAuth.email
             })
             console.log(dataSend)
 
@@ -53,9 +52,11 @@ export const VkRedirect = ({phone}) => {
             auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id);
             history.push('/')
         }
+        // async function fetchData1() {
+        // }
 
         fetchData();
-        fetchData1();
+        // fetchData1();
     }, [auth, code, history, phone, request])
     return []
 
