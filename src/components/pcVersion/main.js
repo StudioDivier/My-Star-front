@@ -33,14 +33,28 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     console.log(phone)
 
     useEffect(() => {
-            return (
-                <Route path={'/api/mid-yandex/'}>
-                    <YaRedirect phone={newPhone}/>
-                    {/*<Redirect to={'/'}/>*/}
-                </Route>
-            )
+            renderOnStateUpdate();
+            renderOnStateUpdate1();
         }
     )
+
+    function renderOnStateUpdate() {
+        return (
+            <Route path={'/api/mid-yandex/'}>
+                <YaRedirect phone={phone}/>
+                {/*<Redirect to={'/'}/>*/}
+            </Route>
+        )
+    }
+
+    function renderOnStateUpdate1() {
+        return (
+            <Route path={'/api/mid-vk/'}>
+                <VkRedirect phone={phone}/>
+                {/*<Redirect to={'/'}/>*/}
+            </Route>
+        )
+    }
 
     // const userData = JSON.parse(window.localStorage.getItem('userData'));
     //
@@ -82,8 +96,6 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     //         return []
     //     }
     // }
-
-    const newPhone = phone;
 
     return (
         <div className="main">
@@ -209,10 +221,12 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                     {/*    /!*<Redirect to={'/'}/>*!/*/}
                     {/*</Route>*/}
 
-                    <Route path={'/api/mid-vk/'}>
-                        <VkRedirect phone={newPhone}/>
-                        {/*<Redirect to={'/'}/>*/}
-                    </Route>
+                    {/*<Route path={'/api/mid-vk/'}>*/}
+                    {/*    <VkRedirect phone={newPhone}/>*/}
+                    {/*    /!*<Redirect to={'/'}/>*!/*/}
+                    {/*</Route>*/}
+                    {renderOnStateUpdate()}
+                    {renderOnStateUpdate1()}
 
                     <Route exact path={'/account-page'}>
                         <AccountPage/>

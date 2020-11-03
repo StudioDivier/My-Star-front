@@ -51,7 +51,7 @@ export const VkRedirect = ({phone}) => {
             // })
 
             auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id);
-            history.push('/')
+            // history.push('/')
         }
         // async function fetchData1() {
         // }

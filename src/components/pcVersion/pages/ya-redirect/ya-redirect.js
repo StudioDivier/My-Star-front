@@ -53,7 +53,7 @@ export const YaRedirect = ({phone}) => {
             // })
 
             auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id);
-            history.push('/')
+            // history.push('/')
 
         }
 
