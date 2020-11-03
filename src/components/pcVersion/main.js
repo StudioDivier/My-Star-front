@@ -225,8 +225,8 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                     {/*    <VkRedirect phone={newPhone}/>*/}
                     {/*    /!*<Redirect to={'/'}/>*!/*/}
                     {/*</Route>*/}
-                    {renderOnStateUpdate()}
-                    {renderOnStateUpdate1()}
+                    {/*{renderOnStateUpdate()}*/}
+                    {/*{renderOnStateUpdate1()}*/}
 
                     <Route exact path={'/account-page'}>
                         <AccountPage/>
