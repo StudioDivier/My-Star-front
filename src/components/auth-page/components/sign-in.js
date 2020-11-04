@@ -16,7 +16,7 @@ export const SignIn = () => {
 
 
     const [form, setForm] = useState({
-        password: '', email: ''
+        password: '', login: ''
     })
 
     // useEffect(() => {
@@ -73,7 +73,7 @@ export const SignIn = () => {
                     placeholder={'Почта'}
                     onChange={changeHandler}
                     name={'email'}
-                    value={form.email}
+                    value={form.login}
                 />
                 <input
                     type="password"
