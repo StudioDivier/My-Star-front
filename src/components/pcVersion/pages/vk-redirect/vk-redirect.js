@@ -19,7 +19,7 @@ export const VkRedirect = () => {
     const proceedAuth = async () => {
         try {
             const dataAuth = await request(`/api/mid-vk/?code=${code}`, 'GET')
-
+            console.log(dataAuth)
             const dataSend = await request(`/api/vk-oauth/`, 'POST', {
                 access_token: dataAuth.access_token,
                 phone: form.phone.replace(/[^0-9]/g, ''),

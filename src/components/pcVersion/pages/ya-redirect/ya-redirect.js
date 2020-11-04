@@ -19,7 +19,7 @@ export const YaRedirect = () => {
     const proceedAuth = async () => {
         try {
             const dataAuth = await request(`/api/mid-yandex/?code=${code}`, 'GET')
-
+            console.log(dataAuth)
             const dataSend = await request(`/api/yandex-oauth/`, 'POST', {
                 access_token: dataAuth.access_token,
                 expires_in: dataAuth.expires_in,

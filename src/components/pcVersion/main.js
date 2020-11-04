@@ -181,13 +181,13 @@ export const DesktopMain = (isAuthenticated, isStar) => {
 
                     {/* Social media login */}
 
-                    <Route path={'/api/vk-login/mid/'}>
-                        <VkLogin/>
-                    </Route>
+                    {/*<Route path={'/api/vk-login/mid/'}>*/}
+                    {/*    <VkLogin/>*/}
+                    {/*</Route>*/}
 
-                    <Route path={'/api/yandex-login/mid/'}>
-                        <YaLogin/>
-                    </Route>
+                    {/*<Route path={'/api/yandex-login/mid/'}>*/}
+                    {/*    <YaLogin/>*/}
+                    {/*</Route>*/}
 
                     {/*--------------------------------------------------*/}
 
