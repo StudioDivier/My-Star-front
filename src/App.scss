@@ -384,6 +384,7 @@ body {
 
   .turnIn-data {
     padding-bottom: 15px;
+    padding-top: 80px;
 
     .usersConsent {
       text-align: center;
@@ -422,6 +423,37 @@ body {
 
   }
 
+  .socialMediaLogin {
+    hr {
+      width: 85%;
+      background-color: #46588e;
+    }
+
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.81px;
+    color: white;
+    text-align: center;
+    position: relative;
+    top: -30px;
+
+    .buttonContainer {
+      display: flex;
+      justify-content: space-around;
+      padding: 0 15px;
+
+    }
+
+    button {
+      color: #080b36;
+      background-color: #ffffff;
+      border-radius: 35px;
+      border: 0;
+      text-transform: uppercase;
+      font-weight: bold;
+      padding: 12.5px 30px;
+    }
+  }
 
 }
 
