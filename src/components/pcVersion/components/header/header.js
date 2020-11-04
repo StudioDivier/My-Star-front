@@ -241,6 +241,7 @@ export const Header = ({setSearch, setPhone}) => {
     const yaLogin = async () => {
         try {
             const dataAuth1 = await request('/api/yandex-login/pre/', 'GET')
+            // console.log(dataAuth1)
             window.open(`${dataAuth1.link}`).focus();
         } catch (e) {
             message(e);

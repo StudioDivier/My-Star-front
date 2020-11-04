@@ -27,9 +27,15 @@ export const YaRedirect = () => {
                 phone: form.phone.replace(/[^0-9]/g, '')
             })
 
-            auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id);
+            const dataSend1 = await request(`/api/yandex-login/`, 'POST', {
+                access_token: dataAuth.access_token,
+                expires_in: dataAuth.expires_in,
+                refresh_token: dataAuth.refresh_token
+            })
+
+            auth.login(dataSend1.token, dataSend1.username, dataSend1.is_star, dataSend1.id);
             if (dataSend.username === ["Это поле должно быть уникально."]) {
-                message(['Вы уж зарегистрированы!'])
+                message(['Вы уже зарегистрированы!'])
             }
             history.push('/')
             window.location.reload()
