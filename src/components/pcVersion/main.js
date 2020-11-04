@@ -151,6 +151,8 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                         </Container>
                     </Route>
 
+                    {/* Social media OAuth */}
+
                     <Route path={'/api/mid-yandex/'}>
                         <Breadcrumbs secondItem={'Регистрация через Яндекс'}/>
                         <Container style={{paddingBottom: '100px'}}>
@@ -172,12 +174,23 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                                 <Col>
                                     <div className={'pc-password-reset'}>
                                         <VkRedirect/>
-                                        <VkLogin/>
                                     </div>
                                 </Col>
                             </Row>
                         </Container>
                     </Route>
+
+                    {/* Social media login */}
+
+                    <Route path={'/api/mid-vk-login/'}>
+                        <VkLogin/>
+                    </Route>
+
+                    <Route path={'/api/mid-yandex-login/'}>
+                        <VkLogin/>
+                    </Route>
+
+                    {/*--------------------------------------------------*/}
 
                     <Route exact path={'/account-page'}>
                         <AccountPage/>
