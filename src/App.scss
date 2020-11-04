@@ -335,7 +335,7 @@ body {
 
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
 
   .nav-header {
     .icon-container {
@@ -353,7 +353,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: -40px;
+    //margin-bottom: -40px;
 
     input {
       background-color: transparent;
