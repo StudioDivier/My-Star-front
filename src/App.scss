@@ -384,7 +384,9 @@ body {
 
   .turnIn-data {
     padding-bottom: 15px;
-    padding-top: 80px;
+
+    position: relative;
+    top: 40px;
 
     .usersConsent {
       text-align: center;
@@ -435,7 +437,7 @@ body {
     color: white;
     text-align: center;
     position: relative;
-    top: -30px;
+    top: 10px;
 
     .buttonContainer {
       display: flex;
