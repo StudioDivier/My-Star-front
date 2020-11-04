@@ -70,9 +70,9 @@ export const SignIn = () => {
             <div className="signInInputs">
                 <input
                     type="text"
-                    placeholder={'Почта'}
+                    placeholder={'Почта или логин'}
                     onChange={changeHandler}
-                    name={'email'}
+                    name={'login'}
                     value={form.login}
                 />
                 <input
