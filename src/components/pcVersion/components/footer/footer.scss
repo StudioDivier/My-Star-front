@@ -32,6 +32,8 @@
       }
       span:last-child {
         display: block;
+        background-color: #f3d14c;
+        color: black;
         border: 1px solid rgba(172, 172, 172, 0.33);
         border-radius: 21px;
         padding: 10px 17.5px;;
@@ -40,8 +42,8 @@
         cursor: pointer;
       }
       span:last-child:hover {
-        color: #f3d14c;
-        border: 1px solid rgba(243, 209, 76, 0.4);
+        //border: 1px solid rgba(243, 209, 76, 0.4);
+        box-shadow: 0px 0px 10px 2px #f3d14c;
       }
     }
 

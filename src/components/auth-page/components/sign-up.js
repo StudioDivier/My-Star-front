@@ -64,7 +64,9 @@ export const SignUp = () => {
                     }, 555)
 
                 }
-                const dataLog = await request('/api/login/', 'POST', {...form})
+                const dataLog = await request('/api/login/', 'POST', {
+                    login: form.email, password: form.password
+                })
 
 // console.log(dataAuth)
 // auth.login(dataAuth.token, form.username, dataAuth.is_star)

@@ -30,7 +30,7 @@ export const SignIn = () => {
 
 
     const loginHandler = async () => {
-        if (!(form.password.length === 0) && !(form.email.length === 0)) {
+        if (!(form.password.length === 0) && !(form.login.length === 0)) {
             try {
                 const dataLog = await request('/api/login/', 'POST', {...form})
                 // console.log(dataLog)

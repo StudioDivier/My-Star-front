@@ -9,12 +9,16 @@ import Modal from 'react-modal';
 import {useHttp} from "../../../../hooks/http.hook";
 import {useMessage} from "../../../../hooks/message.hook";
 import close from '../../../../img/close.png';
+import MaskedInput from "react-text-mask";
 
 export const Footer = () => {
 
     const {request} = useHttp();
     const message = useMessage();
     const [isOpen, setIsOpen] = useState(false);
+    const [form, setForm] = useState({
+        name: '', phone: '', email: ''
+    })
 
     const customStyles = {
         content: {
@@ -40,11 +44,22 @@ export const Footer = () => {
     }
 
     const handleQuery = async () => {
-        try {
-            const fetchQuery = await request('')
-        } catch (e) {
-            message(e)
+        if (!(form.name.length === 0) && !(form.phone.length === 0) && !(form.email.length === 0)) {
+            try {
+                const fetchQuery = await request('/api/form-request/star/', 'POST', {
+                    name: form.name, phone: form.phone.replace(/[^0-9]/g, ''), email: form.email
+                })
+                message(fetchQuery[0]);
+            } catch (e) {
+                message(e)
+            }
+        } else {
+            message(['Введите все необходимые данные!'])
         }
+    }
+
+    const changeHandler = event => {
+        setForm({...form, [event.target.name]: event.target.value})
     }
 
     return (
@@ -98,8 +113,39 @@ export const Footer = () => {
                         <p>Если вы известный человек, и тоже хотели бы записывать поздравления для людей, оставьте заявку и мы с вами свяжемся.</p>
                     </div>
                 </div>
-                <div className="signInInputs spread">
 
+                <div className="signInInputs spread">
+                    <div className="single-input__wrapper">
+                        <span>Ваше имя</span>
+                        <input
+                            placeholder={'Иван Иванов'}
+                            type="text"
+                            name={'name'}
+                            value={form.name}
+                            onChange={changeHandler}
+                        />
+                    </div>
+                    <div className="single-input__wrapper">
+                        <span>Телефон</span>
+                        <MaskedInput
+                            mask={['+', /[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+                            placeholder={'+7(999)999-99-99'}
+                            type="text"
+                            name={'phone'}
+                            value={form.phone}
+                            onChange={changeHandler}
+                        />
+                    </div>
+                    <div className="single-input__wrapper">
+                        <span>Эл. почта</span>
+                        <input
+                            placeholder={'E-mail'}
+                            type="text"
+                            name={'email'}
+                            value={form.email}
+                            onChange={changeHandler}
+                        />
+                    </div>
                     <div className="login__btn-wrapper">
                         <div
                             className="pc-signInButton rateBtn"

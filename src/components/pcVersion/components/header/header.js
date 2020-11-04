@@ -27,7 +27,7 @@ export const Header = ({setSearch, setPhone}) => {
     const {request} = useHttp();
 
     const [form, setForm] = useState({
-        password: '', email: ''
+        password: '', login: ''
     })
 
     const [form1, setForm1] = useState({search: ''})
@@ -69,7 +69,7 @@ export const Header = ({setSearch, setPhone}) => {
     // }
 
     const loginHandler = async () => {
-        if (!(form.password.length === 0) && !(form.email.length === 0)) {
+        if (!(form.password.length === 0) && !(form.login.length === 0)) {
             try {
                 const dataLog = await request('/api/login/', 'POST', {...form})
                 // console.log(dataLog)
@@ -103,6 +103,7 @@ export const Header = ({setSearch, setPhone}) => {
             try {
                 const dataAuth = await request('/api/registration/', 'POST', {
                     email: form.email,
+                    login: form.email,
                     password: form.password,
                     phone: form.phone.replace(/[^0-9]/g, ''),
                     username: form.username,
@@ -116,7 +117,9 @@ export const Header = ({setSearch, setPhone}) => {
                     }, 555)
 
                 }
-                const dataLog = await request('/api/login/', 'POST', {...form})
+                const dataLog = await request('/api/login/', 'POST', {
+                    password: form.password, login: form.email
+                })
                 // console.log(dataLog)
 
                 auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
@@ -213,24 +216,8 @@ export const Header = ({setSearch, setPhone}) => {
 
     const vkLogin = async () => {
         try {
-            const dataAuth = await request('/api/yandex-login/', 'POST', {
-                access_token: userData.access_token,
-                expires_in: userData.expires_in,
-                refresh_token: userData.refresh_token
-            })
-            const dataLog = await request('/api/login/', 'POST', {
-                id: dataAuth.id,
-                username: dataAuth.username,
-                phone: dataAuth.phone,
-                is_star: dataAuth.is_star,
-                email: dataAuth.email,
-                avatar: dataAuth.avatar,
-                token: dataAuth.token
-            })
-
-            auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
-            history.push('/')
-
+            const dataAuth1 = await request('/api/pre-vk-oauth/', 'GET')
+            window.open(`${dataAuth1.link}`).focus();
         } catch (e) {
             message(e);
         }
@@ -253,24 +240,8 @@ export const Header = ({setSearch, setPhone}) => {
 
     const yaLogin = async () => {
         try {
-            const dataAuth = await request('/api/yandex-login/', 'POST', {
-                access_token: userData.access_token,
-                expires_in: userData.expires_in,
-                refresh_token: userData.refresh_token
-            })
-            const dataLog = await request('/api/login/', 'POST', {
-                id: dataAuth.id,
-                username: dataAuth.username,
-                phone: dataAuth.phone,
-                is_star: dataAuth.is_star,
-                email: dataAuth.email,
-                avatar: dataAuth.avatar,
-                token: dataAuth.token
-            })
-
-            auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
-            history.push('/')
-
+            const dataAuth1 = await request('/api/pre-vk-oauth/', 'GET')
+            window.open(`${dataAuth1.link}`).focus();
         } catch (e) {
             message(e);
         }
@@ -340,8 +311,8 @@ export const Header = ({setSearch, setPhone}) => {
                             type="text"
                             placeholder={'Почта'}
                             onChange={changeHandler}
-                            name={'email'}
-                            value={form.email}
+                            name={'login'}
+                            value={form.login}
                         />
                     </div>
                     <div className="single-input__wrapper">
