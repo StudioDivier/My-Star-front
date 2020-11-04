@@ -160,7 +160,6 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                                 <Col>
                                     <div className={'pc-password-reset'}>
                                         <YaRedirect/>
-                                        <YaLogin/>
                                     </div>
                                 </Col>
                             </Row>
@@ -182,12 +181,12 @@ export const DesktopMain = (isAuthenticated, isStar) => {
 
                     {/* Social media login */}
 
-                    <Route path={'/api/mid-vk-login/'}>
+                    <Route path={'/api/vk-login/mid/'}>
                         <VkLogin/>
                     </Route>
 
-                    <Route path={'/api/mid-yandex-login/'}>
-                        <VkLogin/>
+                    <Route path={'/api/yandex-login/mid/'}>
+                        <YaLogin/>
                     </Route>
 
                     {/*--------------------------------------------------*/}

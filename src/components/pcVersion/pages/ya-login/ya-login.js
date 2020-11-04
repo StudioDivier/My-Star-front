@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {useHttp} from "../../../../hooks/http.hook";
 import {AuthContext} from "../../../../context/AuthContext";
 import {useHistory} from 'react-router-dom';
@@ -15,9 +15,9 @@ export const YaLogin = () => {
 
     const proceedAuth = async () => {
         try {
-            const dataAuth = await request(`/api/mid-yandex/?code=${code}`, 'GET')
+            const dataAuth = await request(`/api/yandex-login/mid/?code=${code}`, 'GET')
 
-            const dataSend = await request(`/api/ya-login/`, 'POST', {
+            const dataSend = await request(`/api/yandex-login/`, 'POST', {
                 access_token: dataAuth.access_token,
                 expires_in: dataAuth.expires_in,
                 refresh_token: dataAuth.refresh_token

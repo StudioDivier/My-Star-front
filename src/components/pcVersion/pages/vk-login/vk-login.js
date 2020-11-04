@@ -15,7 +15,7 @@ export const VkLogin = () => {
 
     const proceedAuth = async () => {
         try {
-            const dataAuth = await request(`/api/mid-vk/?code=${code}`, 'GET')
+            const dataAuth = await request(`/api/vk-login/mid/?code=${code}`, 'GET')
 
             const dataSend = await request(`/api/vk-login/`, 'POST', {
                 access_token: dataAuth.access_token,
