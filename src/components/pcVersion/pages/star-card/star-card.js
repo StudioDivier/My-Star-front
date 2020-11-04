@@ -15,7 +15,7 @@ import excl from '../../../../img/pc/exclm-icon.png';
 import Ratings from "react-ratings-declarative";
 import Modal from 'react-modal';
 import MaskedInput from "react-text-mask/dist/reactTextMask";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+// import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import close from '../../../../img/close.png';
 import {useHttp} from "../../../../hooks/http.hook";
 import {useMessage} from "../../../../hooks/message.hook";

@@ -6,6 +6,7 @@ import {useHistory} from 'react-router-dom';
 import MaskedInput from 'react-text-mask';
 import {useMessage} from "../../../hooks/message.hook";
 import backArrow from '../../../img/back-arrow.svg'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export const SignUp = () => {
     const history = useHistory();
@@ -164,6 +165,17 @@ export const SignUp = () => {
                     Зарегистрироваться
                 </button>
                 <p>Совершая заказ, вы соглашаетесь с условиями</p>
+            </div>
+            <div className="socialMediaLogin">
+                <hr/>
+                <div className={'buttonContainer'}>
+                    <button>
+                        <FontAwesomeIcon size='lg' icon={['fab', 'yandex']}/>&nbsp;&nbsp;яндекс
+                    </button>
+                    <button>
+                        <FontAwesomeIcon size='lg' icon={['fab', 'vk']}/>&nbsp;&nbsp;вконтакте
+                    </button>
+                </div>
             </div>
         </>
     )

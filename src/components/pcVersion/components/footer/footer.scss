@@ -20,6 +20,31 @@
     flex-direction: column;
     align-items: flex-start;
 
+    div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      span:first-child {
+        color: #ffffff;
+        padding: 20px 20px 20px 0;
+        //font-size: 16px !important;
+      }
+      span:last-child {
+        display: block;
+        border: 1px solid rgba(172, 172, 172, 0.33);
+        border-radius: 21px;
+        padding: 10px 17.5px;;
+        margin-left: 10px;
+        font-size: 13px;
+        cursor: pointer;
+      }
+      span:last-child:hover {
+        color: #f3d14c;
+        border: 1px solid rgba(243, 209, 76, 0.4);
+      }
+    }
+
     a {
       color: #bfbfbf;
       text-decoration: underline;

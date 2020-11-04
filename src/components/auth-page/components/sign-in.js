@@ -94,7 +94,7 @@ export const SignIn = () => {
                 <hr/>
                 <div className={'buttonContainer'}>
                     <button>
-                        <FontAwesomeIcon size='lg' icon={['fab', 'google']}/>&nbsp;&nbsp;google
+                        <FontAwesomeIcon size='lg' icon={['fab', 'yandex']}/>&nbsp;&nbsp;яндекс
                     </button>
                     <button>
                         <FontAwesomeIcon size='lg' icon={['fab', 'vk']}/>&nbsp;&nbsp;вконтакте
