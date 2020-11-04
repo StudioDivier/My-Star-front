@@ -177,7 +177,7 @@ export const OrdersPage = () => {
                                                     forWhom={value.for_whom}
                                                     price={value.order_price}
                                                     status={value.status_order}
-                                                    bgColor={bgColor}
+                                                    bgColor={colors}
                                                     id={value.id}
                                                     starId={value.star_id}
                                                     turnOnDetail={setDetailActive}
@@ -251,7 +251,7 @@ export const OrdersPage = () => {
                                                 forWhom={value.for_whom}
                                                 price={value.order_price}
                                                 status={value.status_order}
-                                                bgColor={bgColor}
+                                                bgColor={colors}
                                                 id={value.id}
                                                 starId={value.star_id}
                                                 starAvatar={value.star_avatar}

@@ -9,10 +9,12 @@ import {useHttp} from "../../hooks/http.hook";
 import {AuthContext} from "../../context/AuthContext";
 import backBlueArrow from '../../img/back-blue.svg';
 import {Filter} from "../filter/filter";
+import {useHistory} from 'react-router-dom';
 
 export const Categories = () => {
     const authToken = useContext(AuthContext)
     const {request} = useHttp()
+    const history = useHistory();
     const [data, setData] = useState([]);
     const [query, setQuery] = useState('');
 
@@ -58,13 +60,18 @@ export const Categories = () => {
         setQuery(query)
     }
 
+    function logout() {
+        authToken.logout()
+        history.push('/')
+    }
+
     return (
         <>
             <div className="categories">
                 <div className="header-block">
                     <div className={'icon-container'}>
                         <a href={'/'}>
-                            <img src={backBlueArrow} alt="Back button"/>
+                            <img src={backBlueArrow} alt="Back button" onClick={logout}/>
                         </a>
                     </div>
                     <div>

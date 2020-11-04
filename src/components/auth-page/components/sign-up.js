@@ -7,6 +7,8 @@ import MaskedInput from 'react-text-mask';
 import {useMessage} from "../../../hooks/message.hook";
 import backArrow from '../../../img/back-arrow.svg'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Modal from "react-modal";
+import close from '../../../img/close.png';
 
 export const SignUp = () => {
     const history = useHistory();
@@ -19,6 +21,7 @@ export const SignUp = () => {
     })
 
     const [consent, setConsent] = useState(false);
+    const [modalIsOpen, setIsOpen] = useState(false);
 
     // const [] = useState({
     //     day: '', month: '', year: ''
@@ -91,6 +94,52 @@ export const SignUp = () => {
             setConsent(true)
         } else {
             setConsent(false)
+        }
+    }
+
+    // Modal
+
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            height: 'auto',
+            width: '80%',
+            borderRadius: '25px',
+            padding: '30px'
+        }
+    };
+
+    const showModal = () => {
+        setIsOpen(true)
+    }
+
+    const closeModal = () => {
+        setIsOpen(!modalIsOpen);
+    }
+
+    const vkAuth = async () => {
+        try {
+            const dataAuth = await request('/api/pre-vk-oauth/', 'GET')
+            // console.log(dataAuth)
+            window.open(`${dataAuth.link}`).focus();
+
+        } catch (e) {
+            message(e);
+        }
+    }
+    const yaAuth = async () => {
+        try {
+            const dataAuth = await request('/api/pre-yandex-oauth/', 'GET')
+            // console.log(dataAuth)
+            window.open(`${dataAuth.link}`).focus();
+
+        } catch (e) {
+            message(e);
         }
     }
 
@@ -171,14 +220,38 @@ export const SignUp = () => {
             <div className="socialMediaLogin">
                 <hr/>
                 <div className={'buttonContainer'}>
-                    <button>
-                        <FontAwesomeIcon size='lg' icon={['fab', 'yandex']}/>&nbsp;&nbsp;яндекс
-                    </button>
-                    <button>
-                        <FontAwesomeIcon size='lg' icon={['fab', 'vk']}/>&nbsp;&nbsp;вконтакте
-                    </button>
+                    <span onClick={showModal}>Другие способы</span>
                 </div>
             </div>
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Example Modal"
+                style={customStyles}
+            >
+                <div className="modal-header">
+                    <button className={'close-btn'} onClick={closeModal}>
+                        <img src={close}
+                             alt="Close"
+                        />
+                    </button>
+                    <div className="header-text">
+                        <span>Войдите через соцсети</span>
+                    </div>
+                </div>
+                <div className="spread">
+                    <div className="socialMediaLogin">
+                        <div className={'buttonContainer'}>
+                            <button onClick={yaAuth}>
+                                <FontAwesomeIcon size='lg' icon={['fab', 'yandex']}/>&nbsp;&nbsp;яндекс
+                            </button>
+                            <button onClick={vkAuth}>
+                                <FontAwesomeIcon size='lg' icon={['fab', 'vk']}/>&nbsp;&nbsp;вконтакте
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
         </>
     )
 }

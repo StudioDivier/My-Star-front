@@ -14,7 +14,22 @@ export const SingleOrder = ({customer, customerAvatar, getId, starId, watchOrder
 
     const [selected, setSelected] = useState(false)
 
-    const orderDetails = {customer: customer, customerAvatar: customerAvatar, date: date, time: time, comment: comment, username: username, forWhom: forWhom, price: price, profession: profession, star: star, status: status, starId: starId, starAvatar: starAvatar, video: video}
+    const orderDetails = {
+        customer: customer,
+        customerAvatar: customerAvatar,
+        date: date,
+        time: time,
+        comment: comment,
+        username: username,
+        forWhom: forWhom,
+        price: price,
+        profession: profession,
+        star: star,
+        status: status,
+        starId: starId,
+        starAvatar: starAvatar,
+        video: video
+    }
 
     const parsedStatus = (status) => {
         switch (status) {
@@ -48,6 +63,25 @@ export const SingleOrder = ({customer, customerAvatar, getId, starId, watchOrder
                 return '';
         }
     }
+    //console.log(bgColor[2])
+
+    const orderColor = (status) => {
+        console.log(status);
+        switch (status) {
+            case 0:
+                return bgColor[0];
+            case 1:
+                return bgColor[1];
+            case -1:
+                return bgColor[2];
+            case 2:
+                return bgColor[3];
+            case 3:
+                return bgColor[4];
+            default:
+                return '';
+        }
+    }
 
     function multipleHandler(value) {
         turnOnDetail(value)
@@ -69,7 +103,8 @@ export const SingleOrder = ({customer, customerAvatar, getId, starId, watchOrder
         if (selected) {
             return (
                 <>
-                    <div className={'order-card'} style={{backgroundImage: bgColor}} onClick={() => multipleHandler3()}>
+                    <div className={'order-card'} style={{backgroundImage: orderColor(status)}}
+                         onClick={() => multipleHandler3()}>
                         <div className="status">
                             <span>Статус: </span>
                             <span className={'stage'}
@@ -91,7 +126,8 @@ export const SingleOrder = ({customer, customerAvatar, getId, starId, watchOrder
         }
         return (
             <>
-                <div className={'order-card'} style={{backgroundImage: bgColor}} onClick={() => multipleHandler2()}>
+                <div className={'order-card'} style={{backgroundImage: orderColor(status)}}
+                     onClick={() => multipleHandler2()}>
                     <div className="status">
                         <span>Статус: </span>
                         <span className={'stage'}
@@ -111,7 +147,7 @@ export const SingleOrder = ({customer, customerAvatar, getId, starId, watchOrder
 
     return (
         <>
-            <div className={'order-card'} style={{backgroundImage: bgColor}} onClick={() => multipleHandler3()}>
+            <div className={'order-card'} style={{backgroundImage: orderColor(status)}} onClick={() => multipleHandler3()}>
                 <div className="status">
                     <span>Статус: </span>
                     <span className={'stage'}

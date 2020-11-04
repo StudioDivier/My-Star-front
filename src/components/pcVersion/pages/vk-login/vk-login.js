@@ -17,10 +17,11 @@ export const VkLogin = () => {
         try {
             const dataAuth = await request(`/api/vk-login/mid/?code=${code}`, 'GET')
 
-            const dataSend = await request(`/api/vk-login/`, 'POST', {
-                access_token: dataAuth.access_token,
-                email: dataAuth.email
-            })
+            const dataSend = await request(`/api/vk-login/?access_token=${dataAuth.access_token}&email=${dataAuth.email}`, 'GET')
+                // {
+            //     access_token: dataAuth.access_token,
+            //     email: dataAuth.email
+            // })
 
             auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id);
 

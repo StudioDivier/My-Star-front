@@ -6,6 +6,8 @@ import {useHttp} from "../../../hooks/http.hook";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useHistory} from 'react-router-dom';
 import {useMessage} from "../../../hooks/message.hook";
+import Modal from "react-modal";
+import close from '../../../img/close.png';
 
 
 export const SignIn = () => {
@@ -13,7 +15,7 @@ export const SignIn = () => {
     const message = useMessage();
     const auth = useContext(AuthContext);
     const {request} = useHttp();
-
+    const [modalIsOpen, setIsOpen] = useState(false);
 
     const [form, setForm] = useState({
         password: '', login: ''
@@ -28,6 +30,23 @@ export const SignIn = () => {
         setForm(({...form, [event.target.name]: event.target.value.toLowerCase()}))
     }
 
+    const vkLogin = async () => {
+        try {
+            const dataAuth1 = await request('/api/pre-vk-oauth/', 'GET')
+            window.open(`${dataAuth1.link}`).focus();
+        } catch (e) {
+            message(e);
+        }
+    }
+    const yaLogin = async () => {
+        try {
+            const dataAuth1 = await request('/api/pre-yandex-oauth/', 'GET')
+            // console.log(dataAuth1)
+            window.open(`${dataAuth1.link}`).focus();
+        } catch (e) {
+            message(e);
+        }
+    }
 
     const loginHandler = async () => {
         if (!(form.password.length === 0) && !(form.login.length === 0)) {
@@ -53,6 +72,32 @@ export const SignIn = () => {
             message(['Заполните все поля!'])
         }
     }
+
+    // Modal
+
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            height: 'auto',
+            width: '80%',
+            borderRadius: '25px',
+            padding: '30px'
+        }
+    };
+
+    const showModal = () => {
+        setIsOpen(true)
+    }
+
+    const closeModal = () => {
+        setIsOpen(!modalIsOpen);
+    }
+
 
     return (
         <>
@@ -93,14 +138,38 @@ export const SignIn = () => {
             <div className="socialMediaLogin">
                 <hr/>
                 <div className={'buttonContainer'}>
-                    <button>
-                        <FontAwesomeIcon size='lg' icon={['fab', 'yandex']}/>&nbsp;&nbsp;яндекс
-                    </button>
-                    <button>
-                        <FontAwesomeIcon size='lg' icon={['fab', 'vk']}/>&nbsp;&nbsp;вконтакте
-                    </button>
+                    <span onClick={showModal}>Другие способы</span>
                 </div>
             </div>
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                contentLabel="Example Modal"
+                style={customStyles}
+            >
+                <div className="modal-header">
+                    <button className={'close-btn'} onClick={closeModal}>
+                        <img src={close}
+                             alt="Close"
+                        />
+                    </button>
+                    <div className="header-text">
+                        <span>Войдите через соцсети</span>
+                    </div>
+                </div>
+                <div className="spread">
+                    <div className="socialMediaLogin">
+                        <div className={'buttonContainer'}>
+                            <button oncancel={yaLogin}>
+                                <FontAwesomeIcon size='lg' icon={['fab', 'yandex']}/>&nbsp;&nbsp;яндекс
+                            </button>
+                            <button oncancel={vkLogin}>
+                                <FontAwesomeIcon size='lg' icon={['fab', 'vk']}/>&nbsp;&nbsp;вконтакте
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </Modal>
         </>
     )
 }
