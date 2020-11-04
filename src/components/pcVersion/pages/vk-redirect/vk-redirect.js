@@ -39,11 +39,14 @@ export const VkRedirect = () => {
     const finishLogin = async () => {
         try {
             const dataAuth = await request(`/api/mid-vk/?code=${code}`, 'GET')
-            const dataSend1 = await request(`/api/vk-login/`, 'POST', {
-                access_token: dataAuth.access_token,
-                expires_in: dataAuth.expires_in,
-                refresh_token: dataAuth.refresh_token
-            })
+            console.log(dataAuth)
+            const dataSend1 = await request(`/api/vk-login/?access_token=${dataAuth.access_token}&email=${dataAuth.email}`, 'GET',
+            //     {
+            //     access_token: dataAuth.access_token,
+            //     expires_in: dataAuth.expires_in,
+            //     refresh_token: dataAuth.refresh_token
+            // }
+            )
             auth.login(dataSend1.token, dataSend1.username, dataSend1.is_star, dataSend1.id);
             history.push('/')
             window.location.reload()
