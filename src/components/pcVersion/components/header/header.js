@@ -216,7 +216,7 @@ export const Header = ({setSearch, setPhone}) => {
 
     const vkLogin = async () => {
         try {
-            const dataAuth1 = await request('/api/pre-yandex-oauth/', 'GET')
+            const dataAuth1 = await request('/api/pre-vk-oauth/', 'GET')
             window.open(`${dataAuth1.link}`).focus();
         } catch (e) {
             message(e);
