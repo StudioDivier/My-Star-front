@@ -27,13 +27,7 @@ export const YaRedirect = () => {
                 phone: form.phone.replace(/[^0-9]/g, '')
             })
 
-            const dataSend1 = await request(`/api/yandex-login/`, 'POST', {
-                access_token: dataAuth.access_token,
-                expires_in: dataAuth.expires_in,
-                refresh_token: dataAuth.refresh_token
-            })
-
-            auth.login(dataSend1.token, dataSend1.username, dataSend1.is_star, dataSend1.id);
+            auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id);
             if (dataSend.username === ["Это поле должно быть уникально."]) {
                 message(['Вы уже зарегистрированы!'])
             }
@@ -43,6 +37,22 @@ export const YaRedirect = () => {
             message(e);
         }
 
+    }
+
+    const finishLogin = async () => {
+        try {
+            const dataAuth = await request(`/api/mid-yandex/?code=${code}`, 'GET')
+            const dataSend1 = await request(`/api/yandex-login/`, 'POST', {
+                access_token: dataAuth.access_token,
+                expires_in: dataAuth.expires_in,
+                refresh_token: dataAuth.refresh_token
+            })
+            auth.login(dataSend1.token, dataSend1.username, dataSend1.is_star, dataSend1.id);
+            history.push('/')
+            window.location.reload()
+        } catch (e) {
+            message(e)
+        }
     }
 
     const changeHandler = event => {
@@ -74,13 +84,22 @@ export const YaRedirect = () => {
                 />
             </div>
             <div className="turnIn-data">
-                <button
-                    className={"signInButton"}
-                    type={'button'}
-                    onClick={proceedAuth}
-                >
-                    Продолжить регистрацию
-                </button>
+                <div className="btn-wrapper">
+                    <button
+                        className={"signInButton"}
+                        type={'button'}
+                        onClick={proceedAuth}
+                    >
+                        Продолжить регистрацию
+                    </button>
+                    <button
+                        className={"signInButton"}
+                        type={'button'}
+                        onClick={finishLogin}
+                    >
+                        Я уже зарегистрирован
+                    </button>
+                </div>
                 <p>Совершая заказ, вы соглашаетесь с условиями</p>
             </div>
         </>

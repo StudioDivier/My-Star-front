@@ -36,6 +36,22 @@ export const VkRedirect = () => {
         }
     }
 
+    const finishLogin = async () => {
+        try {
+            const dataAuth = await request(`/api/mid-vk/?code=${code}`, 'GET')
+            const dataSend1 = await request(`/api/vk-login/`, 'POST', {
+                access_token: dataAuth.access_token,
+                expires_in: dataAuth.expires_in,
+                refresh_token: dataAuth.refresh_token
+            })
+            auth.login(dataSend1.token, dataSend1.username, dataSend1.is_star, dataSend1.id);
+            history.push('/')
+            window.location.reload()
+        } catch (e) {
+            message(e)
+        }
+    }
+
     const changeHandler = event => {
         setForm(({...form, [event.target.name]: event.target.value}))
     }
@@ -65,15 +81,25 @@ export const VkRedirect = () => {
                 />
             </div>
             <div className="turnIn-data">
-                <button
-                    className={"signInButton"}
-                    type={'button'}
-                    onClick={proceedAuth}
-                >
-                    Продолжить регистрацию
-                </button>
+                <div className="btn-wrapper">
+                    <button
+                        className={"signInButton"}
+                        type={'button'}
+                        onClick={proceedAuth}
+                    >
+                        Продолжить регистрацию
+                    </button>
+                    <button
+                        className={"signInButton"}
+                        type={'button'}
+                        onClick={finishLogin}
+                    >
+                        Я уже зарегистрирован
+                    </button>
+                </div>
                 <p>Совершая заказ, вы соглашаетесь с условиями</p>
             </div>
+
         </>
     )
 

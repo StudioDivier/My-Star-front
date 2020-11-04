@@ -18,6 +18,7 @@
   .icon-container {
     display: none;
   }
+
   .nav-header, .inputBox, .turnIn-data {
     padding-top: 40px;
   }
@@ -28,6 +29,22 @@
   }
 
   .turnIn-data {
+    .btn-wrapper {
+      display: flex;
+      flex-direction: row;
+
+      .signInButton {
+        margin: 20px 0;
+        background-color: #fcc808;
+        border: 0;
+        border-radius: 15px;
+        padding: 10px 60px;
+      }
+      .signInButton:last-child {
+        margin-left: 20px;
+      }
+    }
+
     .signInButton {
       margin: 20px 0;
       background-color: #fcc808;

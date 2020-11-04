@@ -216,7 +216,7 @@ export const Header = ({setSearch, setPhone}) => {
 
     const vkLogin = async () => {
         try {
-            const dataAuth1 = await request('/api/vk-login/pre/', 'GET')
+            const dataAuth1 = await request('/api/pre-yandex-oauth/', 'GET')
             window.open(`${dataAuth1.link}`).focus();
         } catch (e) {
             message(e);
@@ -240,7 +240,7 @@ export const Header = ({setSearch, setPhone}) => {
 
     const yaLogin = async () => {
         try {
-            const dataAuth1 = await request('/api/yandex-login/pre/', 'GET')
+            const dataAuth1 = await request('/api/pre-yandex-oauth/', 'GET')
             // console.log(dataAuth1)
             window.open(`${dataAuth1.link}`).focus();
         } catch (e) {
