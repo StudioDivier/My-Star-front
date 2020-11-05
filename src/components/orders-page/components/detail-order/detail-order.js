@@ -8,6 +8,7 @@ import {useHttp} from "../../../../hooks/http.hook";
 import {AuthContext} from "../../../../context/AuthContext";
 import Modal from 'react-modal';
 import placeholder from '../../../../img/userBck.png';
+import axios from "axios";
 
 
 export const DetailOrder = ({isActive, details, setActive}) => {
@@ -19,6 +20,7 @@ export const DetailOrder = ({isActive, details, setActive}) => {
     const authToken = useContext(AuthContext);
     const message = useMessage();
     // const [data, setData] = useState([]);
+    const [video, setVideo] = useState('');
     const {request} = useHttp();
     const [modalIsOpen, setIsOpen] = useState(false);
     const [form, setForm] = useState({
@@ -103,7 +105,7 @@ export const DetailOrder = ({isActive, details, setActive}) => {
 
     // Load video
 
-    const uploadVid = async (e) => {
+    const uploadVid = (e) => {
         e.preventDefault();
 
         // try {
@@ -129,23 +131,43 @@ export const DetailOrder = ({isActive, details, setActive}) => {
         // console.log(files)
 
         // let myForm = document.getElementById('formElem')
-        // console.log(formData1)
-        formData.append("video_con", document.querySelector('input[type="file"]').files[0])
+        // console.log(video)
+        formData.append("video_con", video)
         formData.append("star_id", details.starId)
         formData.append("order_id", details.orderId)
-        for (let pair of formData.entries()) {
-            console.log(pair[0] + ', ' + pair[1]);
-        }
+        // for (let pair of formData.entries()) {
+        //     console.log(pair[0] + ', ' + pair[1]);
+        // }
 
-        try {
-            const uploadVideo = await request('/api/upload/congritulatoin/', 'POST', {
-                formData
-            }, {Authorization: `Bearer ${authToken.token}`})
-            console.log(uploadVideo)
-        } catch (e) {
-            message(e)
-        }
+        axios.post(`${SERVER_URL}/api/upload/congritulatoin/`, formData, {
+            headers: {Authorization: `Bearer ${authToken.token}`, 'content-type': 'multipart/form-data'}
+        })
+            .then(res => {
+                console.log(res)
+                if (typeof res === 'string') {
+                    message(res)
+                } else {
+                    message('Видео отправлено!')
+                }
+                // console.log(res.data);
+            })
+            .catch(err => message(err))
 
+        // try {
+        //     const uploadVideo = await request('/api/upload/congritulatoin/', 'PUT', {
+        //         formData
+        //     }, {Authorization: `Bearer ${authToken.token}`, 'content-type': 'multipart/form-data'})
+        //     console.log(uploadVideo)
+        // } catch (e) {
+        //     message(e)
+        // }
+
+    }
+
+    const videoInputHandler = (e) => {
+        // console.log(e.target.files[0])
+        message('Видео загружено')
+        setVideo(e.target.files[0])
     }
 
     if (isActive) {
@@ -340,24 +362,32 @@ export const DetailOrder = ({isActive, details, setActive}) => {
                         </div>
                         <div className="btn-wrapper">
                             {/*<label form="fileUpload" className={'custom-file-upload'}>*/}
-                            {/*    <form id={'formElem'}>*/}
-                            {/*        <input*/}
-                            {/*            type="file"*/}
-                            {/*            name={'video'}*/}
-                            {/*            id="fileUpload"*/}
-                            {/*            onChange={(e) => uploadVid(e)}*/}
-                            {/*        />*/}
-                            {/*        <span>Загрузить поздравление</span>*/}
-                            {/*    </form>*/}
+                                {/*    <form id={'formElem'}>*/}
+                                {/*        <input*/}
+                                {/*            type="file"*/}
+                                {/*            name={'video'}*/}
+                                {/*            id="fileUpload"*/}
+                                {/*            onChange={(e) => uploadVid(e)}*/}
+                                {/*        />*/}
+                                {/*        <span>Загрузить поздравление</span>*/}
+                                {/*    </form>*/}
                             {/*</label>*/}
-                            <form id={'formElem'} onSubmit={(e) => uploadVid(e)} encType={"multipart/form-data"}>
-                                <input
-                                    type="file"
-                                    name={'video'}
-                                    id="fileUpload"
-                                    // onChange={(e) => uploadVid(e)}
-                                />
-                                <input type="submit"/>
+                            <form id={'formElem'} onSubmit={uploadVid}>
+                                <label form="formElem" className={'custom-file-upload'}>
+                                    <input
+                                        type="file"
+                                        accept={'image/*, video/*'}
+                                        name={'video'}
+                                        id="formElem"
+                                        onChange={(e) => videoInputHandler(e)}
+                                        // onChange={(e) => uploadVid(e)}
+                                    />
+                                    <span>Загрузить поздравление</span>
+                                </label>
+                                <label form="submit" className={'custom-file-upload'}>
+                                    <input type="submit" id={'submit'}/>
+                                    <span>Отправить</span>
+                                </label>
                             </form>
                         </div>
 

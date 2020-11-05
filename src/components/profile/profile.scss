@@ -131,9 +131,14 @@
     padding: 85px 15px 170px 15px;
     //margin-top: 65px;
     //margin-bottom: 130px;
+    overflow: hidden;
 
     input[type="file"] {
-      //display: none;
+      display: none;
+    }
+
+    input[type="submit"] {
+      display: none;
     }
 
     p {
@@ -165,7 +170,11 @@
       height: 51px;
       background-image: linear-gradient(to left, #001f77 0%, #0a1162 51%, #070b3a 100%);
 
-      form {
+      span:first-child {
+        padding-top: 6px;
+      }
+
+      span:last-child {
         padding-top: 4px;
       }
     }

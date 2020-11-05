@@ -25,6 +25,7 @@ export const Confirm = () => {
     const history = useHistory();
     const starInfo = useContext(StarsContext);
     const [order, setOrder] = useState('');
+    const [redirect, setRedirect] = useState('');
     const [modalIsOpen, setIsOpen] = useState(false)
     const [form, setForm] = useState({
         status_order: '0',
@@ -76,7 +77,8 @@ export const Confirm = () => {
     }
 
 
-    // let orderId1;
+    let orderId1;
+
 
     const submitHandler = async () => {
         if (form.comment.length > 0 && form.by_date.length && form.for_whom.length) {
@@ -90,10 +92,11 @@ export const Confirm = () => {
                     star_id: starInfo.starId,
                     customer_id: auth.id
                 }, {Authorization: `Bearer ${auth.token}`})// 'cors',
+                // setOrder(dataLog.order_id)
                 // console.log(dataLog)
+                orderId1 = dataLog.order_id;
                 message(dataLog.message)
-                // orderId1 = dataLog.order_id;
-                setOrder(dataLog.order_id)
+                console.log(order)
                 // makeOrder();
                 // history.push('/categories');
                 // if (dataLog)
@@ -104,19 +107,21 @@ export const Confirm = () => {
         } else {
             message(['Заполните все необходимые поля!'])
         }
+        await redirectHandler()
     }
 
     const redirectHandler = async () => {
         try {
-            const makeOrder = await request(`/api/order/pay/?order_id=${order}`, 'GET', null, {Authorization: `Bearer ${auth.token}`})// 'no-cors', , 'follow'
+            const makeOrder = await request(`/api/order/pay/?order_id=${orderId1}`, 'GET', null, {Authorization: `Bearer ${auth.token}`})// 'no-cors', , 'follow'
             //makeOrder();
             console.log(makeOrder)
             // history.push(makeOrder.link)
-            window.open(`${makeOrder.link}`, "_blank").focus();
-            history.push('/orders')
+            setRedirect(makeOrder.link);
+            // window.open(`${makeOrder.link}`, "_blank").focus();
         } catch (e) {
         }
     }
+
 
     const likeHandler = async () => {
         try {
@@ -144,6 +149,11 @@ export const Confirm = () => {
     if (starInfo.starId === null) {
         history.push('/')
         window.location.reload()
+    }
+
+    const directClick = () => {
+        window.open(`${redirect}`, "_blank").focus()
+        history.push('/orders')
     }
 
     return (
@@ -242,7 +252,7 @@ export const Confirm = () => {
                     </div>
                 </div>
                 <div className="spread">
-                    <button onClick={redirectHandler}>Перейти к оплате</button>
+                    <button onClick={() => directClick()}>Перейти к оплате</button>
                 </div>
             </Modal>
             <NavBar/>

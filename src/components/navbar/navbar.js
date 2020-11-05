@@ -18,7 +18,7 @@ export const NavBar = () => {
 
     // Look for photo
 
-    const bgUrl = `${SERVER_URL}${authData.avatar}`;
+    const bgUrl = `${SERVER_URL}/media/${authData.avatar}`;
 
     function determineStar() {
         if (authData.isStar) {
