@@ -74,7 +74,7 @@ export const Footer = () => {
                                     <span><a href="/#">Реквизиты компании</a></span>
                                     <span className={'becomeStar'} onClick={openModal}>Я исполнитель</span>
                                 </div>
-                                <span>© 2020 MyStar</span>
+                                <span>© 2020 Exprome</span>
                             </div>
                             <div className="secondCol">
                                 <span>Мы в соц. сетях:</span>

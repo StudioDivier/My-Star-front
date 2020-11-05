@@ -43,7 +43,7 @@ export const Start = () => {
                 </div>
             </div>
             <div className={'authPage__footer'}>
-                <p>© 2020 MyStar. All rights reserved.</p>
+                <p>© 2020 Exprome. All rights reserved.</p>
             </div>
         </>
     )

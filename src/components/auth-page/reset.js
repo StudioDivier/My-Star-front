@@ -18,11 +18,6 @@ export const Reset = () => {
 
     const [consent, setConsent] = useState(false);
 
-    useEffect(() => {
-        message(error);
-        clearError();
-    }, [error, message, clearError])
-
     const changeHandler = event => {
         setForm(({...form, [event.target.name]: event.target.value}))
     }

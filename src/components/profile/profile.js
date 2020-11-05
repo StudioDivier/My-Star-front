@@ -18,7 +18,7 @@ export const Profile = () => {
     const [data, setData] = useState([]);
     // const [form, setForm] = useState({"user_id": authToken.id, "image": ''});
 
-    console.log(authToken)
+    // console.log(authToken)
 
     const changeHandler = event => {
         setData(({...data, [event.target.name]: event.target.value}))
