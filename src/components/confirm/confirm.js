@@ -96,7 +96,7 @@ export const Confirm = () => {
                 // console.log(dataLog)
                 orderId1 = dataLog.order_id;
                 message(dataLog.message)
-                console.log(order)
+                // console.log(order)
                 // makeOrder();
                 // history.push('/categories');
                 // if (dataLog)

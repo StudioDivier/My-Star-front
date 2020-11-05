@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import '../auth-page.scss';
 // import logo from '../../../img/logo.png';
 import {AuthContext} from "../../../context/AuthContext";
@@ -16,6 +16,8 @@ export const SignIn = () => {
     const auth = useContext(AuthContext);
     const {request} = useHttp();
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [yaLink, setYaLink] = useState('')
+    const [vkLink, setVkLink] = useState('')
 
     const [form, setForm] = useState({
         password: '', login: ''
@@ -30,22 +32,44 @@ export const SignIn = () => {
         setForm(({...form, [event.target.name]: event.target.value.toLowerCase()}))
     }
 
-    const vkLogin = async () => {
-        try {
-            const dataAuth1 = await request('/api/pre-vk-oauth/', 'GET')
-            window.open(`${dataAuth1.link}`).focus();
-        } catch (e) {
-            message(e);
+    useEffect(() => {
+        async function fetchYaLink() {
+            const YaLink = await request('/api/pre-yandex-oauth/', 'GET')
+            setYaLink(YaLink.link)
         }
+
+        async function fetchVkLink() {
+            const VkLink = await request('/api/pre-vk-oauth/', 'GET')
+            setVkLink(VkLink.link)
+        }
+
+        fetchYaLink();
+        fetchVkLink()
+    }, [])
+
+    // const vkLogin = async () => {
+    //     try {
+    //         const dataAuth1 = await request('/api/pre-vk-oauth/', 'GET')
+    //         window.open(`${dataAuth1.link}`).focus();
+    //     } catch (e) {
+    //         message(e);
+    //     }
+    // }
+    // const yaLogin = async () => {
+    //     try {
+    //         const dataAuth1 = await request('/api/pre-yandex-oauth/', 'GET')
+    //         // console.log(dataAuth1)
+    //         window.open(`${dataAuth1.link}`).focus();
+    //     } catch (e) {
+    //         message(e);
+    //     }
+    // }
+
+    const vkLogin = () => {
+        window.open(`${vkLink}`).focus();
     }
-    const yaLogin = async () => {
-        try {
-            const dataAuth1 = await request('/api/pre-yandex-oauth/', 'GET')
-            // console.log(dataAuth1)
-            window.open(`${dataAuth1.link}`).focus();
-        } catch (e) {
-            message(e);
-        }
+    const yaLogin = () => {
+        window.open(`${yaLink}`).focus();
     }
 
     const loginHandler = async () => {
