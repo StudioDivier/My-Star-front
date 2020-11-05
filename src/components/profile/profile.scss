@@ -132,6 +132,10 @@
     //margin-top: 65px;
     //margin-bottom: 130px;
 
+    input[type="file"] {
+      //display: none;
+    }
+
     p {
       margin-top: 15px;
       text-align: center;
@@ -146,6 +150,24 @@
       padding: 15px 0 40px 0;
       height: 51px;
       background-image: linear-gradient(to left, #001f77 0%, #0a1162 51%, #070b3a 100%);
+    }
+
+    .custom-file-upload {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      //align-items: center;
+      width: 100%;
+      color: white;
+      border-radius: 45px;
+      border: none;
+      padding: 15px 0 40px 0;
+      height: 51px;
+      background-image: linear-gradient(to left, #001f77 0%, #0a1162 51%, #070b3a 100%);
+
+      form {
+        padding-top: 4px;
+      }
     }
   }
 

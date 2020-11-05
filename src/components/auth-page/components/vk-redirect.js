@@ -1,12 +1,12 @@
 import React, {useContext, useState} from 'react';
-import {useHttp} from "../../../../hooks/http.hook";
-import {AuthContext} from "../../../../context/AuthContext";
 import {useHistory} from 'react-router-dom';
 import MaskedInput from "react-text-mask";
-import backArrow from '../../../../img/back-arrow.svg';
-import {useMessage} from "../../../../hooks/message.hook";
+import {AuthContext} from "../../../context/AuthContext";
+import {useHttp} from "../../../hooks/http.hook";
+import {useMessage} from "../../../hooks/message.hook";
+import backArrow from '../../../img/back-arrow.svg';
 
-export const YaRedirect = () => {
+export const VkRedirect = () => {
 
     let urlParams = new URLSearchParams(window.location.search);
     let code = urlParams.get('code');
@@ -18,35 +18,35 @@ export const YaRedirect = () => {
 
     const proceedAuth = async () => {
         try {
-            const dataAuth = await request(`/api/mid-yandex/?code=${code}`, 'GET')
+            const dataAuth = await request(`/api/mid-vk/?code=${code}`, 'GET')
             console.log(dataAuth)
-            const dataSend = await request(`/api/yandex-oauth/`, 'POST', {
+            const dataSend = await request(`/api/vk-oauth/`, 'POST', {
                 access_token: dataAuth.access_token,
-                expires_in: dataAuth.expires_in,
-                refresh_token: dataAuth.refresh_token,
-                phone: form.phone.replace(/[^0-9]/g, '')
+                phone: form.phone.replace(/[^0-9]/g, ''),
+                email: dataAuth.email,
+                user_id: dataAuth.user_id,
+                expires_in: dataAuth.expires_in
             })
 
             auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id, dataSend.email, dataSend.avatar);
-            if (dataSend.username === ["Это поле должно быть уникально."]) {
-                message(['Вы уже зарегистрированы!'])
-            }
             history.push('/')
             window.location.reload()
         } catch (e) {
             message(e);
         }
-
     }
 
     const finishLogin = async () => {
         try {
-            const dataAuth = await request(`/api/mid-yandex/?code=${code}`, 'GET')
-            const dataSend1 = await request(`/api/yandex-login/`, 'POST', {
-                access_token: dataAuth.access_token,
-                expires_in: dataAuth.expires_in,
-                refresh_token: dataAuth.refresh_token
-            })
+            const dataAuth = await request(`/api/mid-vk/?code=${code}`, 'GET')
+            console.log(dataAuth)
+            const dataSend1 = await request(`/api/vk-login/?access_token=${dataAuth.access_token}&email=${dataAuth.email}`, 'GET',
+            //     {
+            //     access_token: dataAuth.access_token,
+            //     expires_in: dataAuth.expires_in,
+            //     refresh_token: dataAuth.refresh_token
+            // }
+            )
             auth.login(dataSend1.token, dataSend1.username, dataSend1.is_star, dataSend1.id, dataSend1.email, dataSend1.avatar);
             history.push('/')
             window.location.reload()
@@ -102,6 +102,7 @@ export const YaRedirect = () => {
                 </div>
                 <p>Совершая заказ, вы соглашаетесь с условиями</p>
             </div>
+
         </>
     )
 

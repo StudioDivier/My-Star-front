@@ -20,8 +20,6 @@ import {Policy} from "./pages/privacy-policy/privacy-policy";
 import {Redirect} from "react-router-dom/";
 import {YaRedirect} from "./pages/ya-redirect/ya-redirect";
 import {VkRedirect} from "./pages/vk-redirect/vk-redirect";
-import {VkLogin} from "./pages/vk-login/vk-login";
-import {YaLogin} from "./pages/ya-login/ya-login";
 
 export const DesktopMain = (isAuthenticated, isStar) => {
 

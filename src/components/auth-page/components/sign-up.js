@@ -73,7 +73,7 @@ export const SignUp = () => {
 
 // console.log(dataAuth)
 // auth.login(dataAuth.token, form.username, dataAuth.is_star)
-                auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
+                auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
                 if (dataLog.token) {
                     message('Вы зарегистрированы!')
                 }
@@ -142,6 +142,8 @@ export const SignUp = () => {
             message(e);
         }
     }
+
+    Modal.setAppElement(document.querySelector('.App'))
 
     return (
         <>

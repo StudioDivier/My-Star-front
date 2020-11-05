@@ -98,6 +98,8 @@ export const SignIn = () => {
         setIsOpen(!modalIsOpen);
     }
 
+    Modal.setAppElement(document.querySelector('.App'))
+
 
     return (
         <>
@@ -160,10 +162,10 @@ export const SignIn = () => {
                 <div className="spread">
                     <div className="socialMediaLogin">
                         <div className={'buttonContainer'}>
-                            <button oncancel={yaLogin}>
+                            <button onClick={yaLogin}>
                                 <FontAwesomeIcon size='lg' icon={['fab', 'yandex']}/>&nbsp;&nbsp;яндекс
                             </button>
-                            <button oncancel={vkLogin}>
+                            <button onClick={vkLogin}>
                                 <FontAwesomeIcon size='lg' icon={['fab', 'vk']}/>&nbsp;&nbsp;вконтакте
                             </button>
                         </div>

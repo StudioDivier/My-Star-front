@@ -28,7 +28,8 @@ export const SingleOrder = ({customer, customerAvatar, getId, starId, watchOrder
         status: status,
         starId: starId,
         starAvatar: starAvatar,
-        video: video
+        video: video,
+        orderId: id
     }
 
     const parsedStatus = (status) => {
@@ -66,7 +67,7 @@ export const SingleOrder = ({customer, customerAvatar, getId, starId, watchOrder
     //console.log(bgColor[2])
 
     const orderColor = (status) => {
-        console.log(status);
+        // console.log(status);
         switch (status) {
             case 0:
                 return bgColor[0];

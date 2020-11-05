@@ -18,7 +18,7 @@ export const Profile = () => {
     const [data, setData] = useState([]);
     // const [form, setForm] = useState({"user_id": authToken.id, "image": ''});
 
-    // console.log(data)
+    console.log(authToken)
 
     const changeHandler = event => {
         setData(({...data, [event.target.name]: event.target.value}))
@@ -41,8 +41,9 @@ export const Profile = () => {
     // Получить путь картинки
 
     const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
-    const avatar = `${SERVER_URL}` + data.avatar;
+    const avatar = `${SERVER_URL}/media/${data.avatar}`;
     // const placeholderAvatar = `${SERVER_URL}` + placeholder;
+    // console.log(data.avatar)
 
     // Высчитать сколько лет пользователю
 
@@ -82,7 +83,7 @@ export const Profile = () => {
 
     const makeRequest = async () => {
         try {
-            const changePW = await request('/password-reset/', 'POST', {"email": authToken.email}, {Authorization: `Bearer ${authToken.token}`})
+            const changePW = await request('/password-reset/', 'POST', {email: authToken.email}, {Authorization: `Bearer ${authToken.token}`})
             alert('Вам на почту отправлена ссылка для смены пароля');
         } catch (e) {
             message(e)

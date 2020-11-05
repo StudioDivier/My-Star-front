@@ -28,7 +28,7 @@ export const VkRedirect = () => {
                 expires_in: dataAuth.expires_in
             })
 
-            auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id);
+            auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id, dataSend.email, dataSend.avatar);
             history.push('/')
             window.location.reload()
         } catch (e) {
@@ -47,7 +47,7 @@ export const VkRedirect = () => {
             //     refresh_token: dataAuth.refresh_token
             // }
             )
-            auth.login(dataSend1.token, dataSend1.username, dataSend1.is_star, dataSend1.id);
+            auth.login(dataSend1.token, dataSend1.username, dataSend1.is_star, dataSend1.id, dataSend1.email, dataSend1.avatar);
             history.push('/')
             window.location.reload()
         } catch (e) {

@@ -6,6 +6,8 @@ import {SignIn} from "./components/sign-in";
 import {SignUp} from "./components/sign-up";
 import {Start} from "./components/start";
 import {Reset} from "./reset";
+import {YaRedirect} from "./components/ya-redirect";
+import {VkRedirect} from "./components/vk-redirect";
 
 export const AuthPage = () => {
 
@@ -33,6 +35,19 @@ export const AuthPage = () => {
                             <Reset/>
                         </div>
                     </Route>
+
+                    <Route path={'/api/mid-yandex/'}>
+                        <div className={'gradient__signUp'}>
+                            <YaRedirect/>
+                        </div>
+                    </Route>
+
+                    <Route path={'/api/mid-vk/'}>
+                        <div className={'gradient__signUp'}>
+                            <VkRedirect/>
+                        </div>
+                    </Route>
+
                     <Redirect to="/"/>
                 </Switch>
             </div>

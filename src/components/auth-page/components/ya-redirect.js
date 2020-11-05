@@ -1,10 +1,10 @@
 import React, {useContext, useState} from 'react';
-import {useHttp} from "../../../../hooks/http.hook";
-import {AuthContext} from "../../../../context/AuthContext";
 import {useHistory} from 'react-router-dom';
 import MaskedInput from "react-text-mask";
-import backArrow from '../../../../img/back-arrow.svg';
-import {useMessage} from "../../../../hooks/message.hook";
+import {AuthContext} from "../../../context/AuthContext";
+import {useHttp} from "../../../hooks/http.hook";
+import {useMessage} from "../../../hooks/message.hook";
+import backArrow from '../../../img/back-arrow.svg';
 
 export const YaRedirect = () => {
 

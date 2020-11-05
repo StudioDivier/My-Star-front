@@ -7,6 +7,7 @@ import {useMessage} from "../../../../hooks/message.hook";
 import {useHttp} from "../../../../hooks/http.hook";
 import {AuthContext} from "../../../../context/AuthContext";
 import Modal from 'react-modal';
+import placeholder from '../../../../img/userBck.png';
 
 
 export const DetailOrder = ({isActive, details, setActive}) => {
@@ -96,8 +97,43 @@ export const DetailOrder = ({isActive, details, setActive}) => {
     // Parse avatar
 
     const starAv = `${SERVER_URL}${details.starAvatar}`
-    const custAv = `${SERVER_URL}${details.customerAvatar}`
-    console.log(starAv)
+    // const custAv = `${SERVER_URL}${details.customerAvatar}`
+    const custAv = placeholder;
+    console.log(details.orderId)
+
+    // Load video
+
+    const uploadVid = async (e) => {
+        e.preventDefault();
+        const formData = new FormData()
+        // const files = document.querySelector('input[type="file"]').files[0]
+        // formData.append("myFile", files)
+        // console.log(files)
+
+        // let myForm = document.getElementById('formElem')
+        // console.log(formData1)
+        formData.append("video_con", document.querySelector('input[type="file"]').files[0])
+        formData.append("star_id", details.starId)
+        formData.append("order_id", details.orderId)
+        for (let pair of formData.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+        }
+
+        //
+        // function ugh() {
+        //     return formData
+        // }
+
+        try {
+            const uploadVideo = await request('/api/upload/congritulatoin/', 'POST', {
+                formData
+            }, {Authorization: `Bearer ${authToken.token}`})
+            console.log(uploadVideo)
+        } catch (e) {
+            message(e)
+        }
+
+    }
 
     if (isActive) {
         if (!userData.is_star) {
@@ -221,7 +257,7 @@ export const DetailOrder = ({isActive, details, setActive}) => {
                     <div className="main-wrapper">
 
                         <div className="profile__info"
-                             style={{background: `linear-gradient(rgba(0, 0, 0, 0.4),rgba(0, 0, 0, 0.4)), url(${custAv})`}}>
+                             style={{backgroundImage: `url(${custAv})`}}>
                             <div className="header">
                                 <div className="header-top">
                                     <a href={hashTagLink} data-target="slide-out"
@@ -288,6 +324,28 @@ export const DetailOrder = ({isActive, details, setActive}) => {
                                 </div>
                             </div>
 
+                        </div>
+                        <div className="btn-wrapper">
+                            <label form="fileUpload" className={'custom-file-upload'}>
+                                <form id={'formElem'}>
+                                    {/*<input*/}
+                                    {/*    type="file"*/}
+                                    {/*    name={'video'}*/}
+                                    {/*    id="fileUpload"*/}
+                                    {/*    onChange={(e) => uploadVid(e)}*/}
+                                    {/*/>*/}
+                                    <span>Загрузить поздравление</span>
+                                </form>
+                            </label>
+                            <form id={'formElem'} onSubmit={(e) => uploadVid(e)}>
+                                <input
+                                    type="file"
+                                    name={'video'}
+                                    id="fileUpload"
+                                    // onChange={(e) => uploadVid(e)}
+                                />
+                                <input type="submit"/>
+                            </form>
                         </div>
 
                     </div>
