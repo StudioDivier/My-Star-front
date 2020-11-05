@@ -43,7 +43,7 @@ export const useRoutes = (isAuthenticated, isStar) => {
 
                         <Route exact path="/categories/stars/order/confirm" component={Confirm}/>
 
-                        <Route exact path='/password-reset/confirm/'>
+                        <Route path='/password-reset/confirm/'>
                             <div className={'gradient__signUp'}>
                                 <Reset/>
                             </div>
@@ -106,7 +106,7 @@ export const useRoutes = (isAuthenticated, isStar) => {
                         <Route exact path="/categories/stars/order/confirm">
                             <Confirm/>
                         </Route>
-                        <Route exact path='/password-reset/confirm/'>
+                        <Route path='/password-reset/confirm/'>
                             <div className={'gradient__signUp'}>
                                 <Reset/>
                             </div>
@@ -145,6 +145,11 @@ export const useRoutes = (isAuthenticated, isStar) => {
                         </Route>
                         <Route exact path="/categories/stars">
                             <Stars/>
+                        </Route>
+                        <Route path='/password-reset/confirm/'>
+                            <div className={'gradient__signUp'}>
+                                <Reset/>
+                            </div>
                         </Route>
 
                         <Redirect to="/"/>
