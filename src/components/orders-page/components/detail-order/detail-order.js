@@ -89,6 +89,7 @@ export const DetailOrder = ({isActive, details, setActive}) => {
                 <button
                     onClick={seeVideo}
                     className={'submitButton'}
+                    style={{marginTop: '65px'}}
                 >
                     Поздравление
                 </button>

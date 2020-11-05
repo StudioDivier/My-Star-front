@@ -17,8 +17,8 @@ export const SeeVideo = () => {
             {/*    title="Congratulation video"*/}
             {/*    allowFullScreen>*/}
             {/*</iframe>*/}
-            <video width="560" height="405" controls>
-                <source src="http://exprome.ru:8080/media/congratulation/2/c29c5f1b-4175-4ee0-bdfc-acfa8ac02e40.mp4"
+            <video width="100%" height="100%" controls>
+                <source src="https://exprome.ru:8080/media/congratulation/2/c29c5f1b-4175-4ee0-bdfc-acfa8ac02e40.mp4"
                         type="video/mp4" />
             </video>
         </>
