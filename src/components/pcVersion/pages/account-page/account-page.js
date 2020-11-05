@@ -6,10 +6,13 @@ import {useHttp} from "../../../../hooks/http.hook";
 import Modal from 'react-modal';
 import close from '../../../../img/close.png';
 import {useHistory} from 'react-router-dom';
+import axios from "axios";
 
 export const AccountPage = () => {
 
     const userData = JSON.parse(window.localStorage.getItem('userData'));
+
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
 
     const authToken = useContext(AuthContext);
     const history = useHistory();
@@ -21,6 +24,7 @@ export const AccountPage = () => {
     // const [selected, setSelected] = useState('');
     const [orderIsOpen, setOrderIsOpen] = useState(false)
     const [currentOrder, setCurrentOrder] = useState([])
+    const [video, setVideo] = useState('');
 
     // Получить данные профиля и заказов профиля
 
@@ -215,9 +219,15 @@ export const AccountPage = () => {
     function checkStar() {
         if (userData.is_star) {
             return (
-                <div className="btn-wrapper">
+                <div className="btn-wrapper" style={{flexWrap: 'wrap'}}>
                     <button className={'accept'} onClick={() => acceptOrder(currentOrder.id)}>
                         Принять
+                    </button>
+                    <button className={'accept'} onClick={() => acceptOrder(currentOrder.id)}>
+                        Загрузить поздравление
+                    </button>
+                    <button className={'decline'} onClick={() => acceptOrder(currentOrder.id)}>
+                        Отправить
                     </button>
                     <button className={'decline'} onClick={() => rejectOrder(currentOrder.id)}>
                         Отклонить
@@ -255,6 +265,38 @@ export const AccountPage = () => {
                 <th scope="col">Имя звезды</th>
             )
         }
+    }
+
+    // Load video
+
+    const uploadVid = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData()
+
+        formData.append("video_con", video)
+        formData.append("star_id", userData.starId)
+        formData.append("order_id", currentOrder)
+
+        axios.post(`${SERVER_URL}/api/upload/congritulatoin/`, formData, {
+            headers: {Authorization: `Bearer ${authToken.token}`, 'content-type': 'multipart/form-data'}
+        })
+            .then(res => {
+                console.log(res)
+                if (typeof res === 'string') {
+                    message(res)
+                } else {
+                    message('Видео отправлено!')
+                }
+                // console.log(res.data);
+            })
+            .catch(err => message(err))
+
+    }
+
+    const videoInputHandler = (e) => {
+        message('Видео загружено')
+        setVideo(e.target.files[0])
     }
 
 
@@ -371,14 +413,14 @@ export const AccountPage = () => {
                         </span>
                     </div>
 
-{/*                    <div className="time field">*/}
-{/*                        <span className="field-name">*/}
-{/*Время*/}
-{/*                        </span>*/}
-{/*                        <span className="field-value">*/}
-{/*                            {currentOrder.by_time}*/}
-{/*                        </span>*/}
-{/*                    </div>*/}
+                    {/*                    <div className="time field">*/}
+                    {/*                        <span className="field-name">*/}
+                    {/*Время*/}
+                    {/*                        </span>*/}
+                    {/*                        <span className="field-value">*/}
+                    {/*                            {currentOrder.by_time}*/}
+                    {/*                        </span>*/}
+                    {/*                    </div>*/}
 
                     <div className="date field">
                         <span className="field-name">
