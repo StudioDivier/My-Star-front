@@ -13,6 +13,8 @@ import {DesktopMain} from "./components/pcVersion/main";
 // import {AccountPage} from "./components/pcVersion/pages/account-page/account-page";
 import {Reset} from "./components/auth-page/reset";
 import {SeeVideo} from "./components/see-video/SeeVideo";
+import {YaRedirect} from "./components/auth-page/components/ya-redirect";
+import {VkRedirect} from "./components/auth-page/components/vk-redirect";
 
 export const useRoutes = (isAuthenticated, isStar) => {
 
@@ -49,8 +51,20 @@ export const useRoutes = (isAuthenticated, isStar) => {
                             </div>
                         </Route>
 
-                        <Route exact path={'/media/congratulation'}>
+                        <Route path={'/media/congratulation/'}>
                             <SeeVideo/>
+                        </Route>
+
+                        <Route path={'/api/mid-yandex/'}>
+                            <div className={'gradient__signUp'}>
+                                <YaRedirect/>
+                            </div>
+                        </Route>
+
+                        <Route path={'/api/mid-vk/'}>
+                            <div className={'gradient__signUp'}>
+                                <VkRedirect/>
+                            </div>
                         </Route>
 
                         {/*<Route render={() => <Redirect to="/categories"/>}/>*/}
@@ -111,6 +125,17 @@ export const useRoutes = (isAuthenticated, isStar) => {
                                 <Reset/>
                             </div>
                         </Route>
+                        <Route path={'/api/mid-yandex/'}>
+                            <div className={'gradient__signUp'}>
+                                <YaRedirect/>
+                            </div>
+                        </Route>
+
+                        <Route path={'/api/mid-vk/'}>
+                            <div className={'gradient__signUp'}>
+                                <VkRedirect/>
+                            </div>
+                        </Route>
                         {/*<Redirect to={'/'}/>*/}
                     </Switch>
                 </StarsProvider>
@@ -149,6 +174,16 @@ export const useRoutes = (isAuthenticated, isStar) => {
                         <Route path='/password-reset/confirm/'>
                             <div className={'gradient__signUp'}>
                                 <Reset/>
+                            </div>
+                        </Route>
+                        <Route path={'/api/mid-yandex/'}>
+                            <div className={'gradient__signUp'}>
+                                <YaRedirect/>
+                            </div>
+                        </Route>
+                        <Route path={'/api/mid-vk/'}>
+                            <div className={'gradient__signUp'}>
+                                <VkRedirect/>
                             </div>
                         </Route>
 

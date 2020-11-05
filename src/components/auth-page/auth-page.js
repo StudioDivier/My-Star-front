@@ -20,16 +20,19 @@ export const AuthPage = () => {
                             <Start/>
                         </div>
                     </Route>
+
                     <Route path="/sign-in" exact>
                         <div className={'gradient__signIn'}>
                             <SignIn/>
                         </div>
                     </Route>
+
                     <Route path="/sign-up" exact>
                         <div className={'gradient__signUp'}>
                             <SignUp/>
                         </div>
                     </Route>
+
                     <Route path='/password-reset/confirm/'>
                         <div className={'gradient__signUp'}>
                             <Reset/>
