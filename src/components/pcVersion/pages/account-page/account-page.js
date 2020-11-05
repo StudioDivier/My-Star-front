@@ -223,10 +223,10 @@ export const AccountPage = () => {
                     <button className={'accept'} onClick={() => acceptOrder(currentOrder.id)}>
                         Принять
                     </button>
-                    <button className={'accept'} onClick={() => acceptOrder(currentOrder.id)}>
+                    <button className={'accept'}>
                         Загрузить поздравление
                     </button>
-                    <button className={'decline'} onClick={() => acceptOrder(currentOrder.id)}>
+                    <button className={'decline'}>
                         Отправить
                     </button>
                     <button className={'decline'} onClick={() => rejectOrder(currentOrder.id)}>
