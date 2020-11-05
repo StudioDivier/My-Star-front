@@ -85,13 +85,31 @@ export const DetailOrder = ({isActive, details, setActive}) => {
 
     function returnVid() {
         if (details.status === 3) {
-            return <div className="btn-wrapper" style={{borderBottom: '2px solid #eeeeee'}}>
+            return <div className="btn-wrapper">
                 <button
                     onClick={seeVideo}
                     className={'submitButton'}
                 >
                     Поздравление
                 </button>
+                <hr/>
+                <button
+                    onClick={showModal}
+                    className={'submitButton'}
+                >
+                    Связаться с исполнителем
+                </button>
+                <p>Совершая заказ, вы соглашаетесь с условиями</p>
+            </div>
+        } else {
+            return <div className="btn-wrapper">
+                <button
+                    onClick={showModal}
+                    className={'submitButton'}
+                >
+                    Связаться с исполнителем
+                </button>
+                <p>Совершая заказ, вы соглашаетесь с условиями</p>
             </div>
         }
     }
@@ -243,18 +261,18 @@ export const DetailOrder = ({isActive, details, setActive}) => {
                                     </div>
                                 </div>
 
-                                {returnVid()}
+                            </div>
 
-                            </div>
-                            <div className="btn-wrapper">
-                                <button
-                                    onClick={showModal}
-                                    className={'submitButton'}
-                                >
-                                    Связаться с исполнителем
-                                </button>
-                                <p>Совершая заказ, вы соглашаетесь с условиями</p>
-                            </div>
+                            {returnVid()}
+                            {/*<div className="btn-wrapper">*/}
+                            {/*    <button*/}
+                            {/*        onClick={showModal}*/}
+                            {/*        className={'submitButton'}*/}
+                            {/*    >*/}
+                            {/*        Связаться с исполнителем*/}
+                            {/*    </button>*/}
+                            {/*    <p>Совершая заказ, вы соглашаетесь с условиями</p>*/}
+                            {/*</div>*/}
                         </div>
 
                     </div>
@@ -362,15 +380,15 @@ export const DetailOrder = ({isActive, details, setActive}) => {
                         </div>
                         <div className="btn-wrapper">
                             {/*<label form="fileUpload" className={'custom-file-upload'}>*/}
-                                {/*    <form id={'formElem'}>*/}
-                                {/*        <input*/}
-                                {/*            type="file"*/}
-                                {/*            name={'video'}*/}
-                                {/*            id="fileUpload"*/}
-                                {/*            onChange={(e) => uploadVid(e)}*/}
-                                {/*        />*/}
-                                {/*        <span>Загрузить поздравление</span>*/}
-                                {/*    </form>*/}
+                            {/*    <form id={'formElem'}>*/}
+                            {/*        <input*/}
+                            {/*            type="file"*/}
+                            {/*            name={'video'}*/}
+                            {/*            id="fileUpload"*/}
+                            {/*            onChange={(e) => uploadVid(e)}*/}
+                            {/*        />*/}
+                            {/*        <span>Загрузить поздравление</span>*/}
+                            {/*    </form>*/}
                             {/*</label>*/}
                             <form id={'formElem'} onSubmit={uploadVid}>
                                 <label form="formElem" className={'custom-file-upload'}>

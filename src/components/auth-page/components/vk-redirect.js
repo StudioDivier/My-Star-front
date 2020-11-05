@@ -62,11 +62,11 @@ export const VkRedirect = () => {
     return (
         <>
             <div className="nav-header">
-                <div className={'icon-container'}>
-                    <a href={'/'}>
-                        <img src={backArrow} alt="Back button"/>
-                    </a>
-                </div>
+                {/*<div className={'icon-container'}>*/}
+                {/*    <a href={'/'}>*/}
+                {/*        <img src={backArrow} alt="Back button"/>*/}
+                {/*    </a>*/}
+                {/*</div>*/}
                 <div>
                     <h3>Введите свой номер телефона</h3>
                 </div>
@@ -84,7 +84,7 @@ export const VkRedirect = () => {
                 />
             </div>
             <div className="turnIn-data">
-                <div className="btn-wrapper">
+                <div className="btn-wrapper" style={{textAlign: 'center'}}>
                     <button
                         className={"signInButton"}
                         type={'button'}
