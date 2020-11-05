@@ -136,6 +136,10 @@ export const useRoutes = (isAuthenticated, isStar) => {
                                 <VkRedirect/>
                             </div>
                         </Route>
+
+                        <Route path={'/media/congratulation/'}>
+                            <SeeVideo/>
+                        </Route>
                         {/*<Redirect to={'/'}/>*/}
                     </Switch>
                 </StarsProvider>
@@ -185,6 +189,9 @@ export const useRoutes = (isAuthenticated, isStar) => {
                             <div className={'gradient__signUp'}>
                                 <VkRedirect/>
                             </div>
+                        </Route>
+                        <Route path={'/media/congratulation/'}>
+                            <SeeVideo/>
                         </Route>
 
                         <Redirect to="/"/>
