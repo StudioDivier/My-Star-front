@@ -99,7 +99,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
     let catPic;
 
     console.log(star.avatar)
-    if (star.avatar.includes('media')) {
+    if (star.avatar && star.avatar.includes('media')) {
         catPic = `${SERVER_URL}${star.avatar}`;
     } else {
         catPic = `${SERVER_URL}/media/${star.avatar}`
