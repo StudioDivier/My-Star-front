@@ -69,6 +69,7 @@ export const Profile = () => {
             }, {Authorization: `Bearer ${authToken.token}`})
             if (dataLog === 201) {
                 message('Данные успешно изменены');
+                authToken.login(authToken.token, data.username, authToken.is_star, authToken.userId, data.email, authToken.avatar)
             }
         } catch (e) {
             message(e);

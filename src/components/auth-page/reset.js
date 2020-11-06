@@ -3,11 +3,13 @@ import './auth-page.scss';
 import {useHttp} from "../../hooks/http.hook";
 import {useMessage} from "../../hooks/message.hook";
 import backArrow from '../../img/back-arrow.svg';
+import {useHistory} from 'react-router-dom';
 
 
 export const Reset = () => {
     const message = useMessage();
     const {request, error, clearError} = useHttp();
+    const history = useHistory();
 
     let urlParams = new URLSearchParams(window.location.search);
     let token = urlParams.get('token');
@@ -39,6 +41,7 @@ export const Reset = () => {
                 }
 
                 message('Пароль изменен!!')
+                history.push('/')
             } else {
                 let customMessage = 'Необходимо согласие на обработку данных';
                 message([customMessage])
@@ -72,6 +75,7 @@ export const Reset = () => {
             <div className={'inputBox'}>
 
                 <input
+                    style={{color: 'white'}}
                     placeholder={'Новый пароль'}
                     type="text"
                     name={'password'}
@@ -79,6 +83,7 @@ export const Reset = () => {
                     onChange={changeHandler}
                 />
                 <input
+                    style={{color: 'white'}}
                     placeholder={'Повтор пароля'}
                     type="text"
                     name={'passwordRepeat'}

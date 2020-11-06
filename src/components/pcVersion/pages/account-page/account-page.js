@@ -7,6 +7,7 @@ import Modal from 'react-modal';
 import close from '../../../../img/close.png';
 import {useHistory} from 'react-router-dom';
 import axios from "axios";
+import MaskedInput from "react-text-mask";
 
 export const AccountPage = () => {
 
@@ -78,6 +79,13 @@ export const AccountPage = () => {
         fetchOrders();
     }, [request, userData.is_star, userData.userId, userData.token])
 
+    // Transform birth year
+    function reverseDate(str) {
+        return str.split('-').reverse().join('-')
+    }
+
+    // console.log(reverseDate(data.date_of_birth))
+
     // Изменение персональных данных
 
     const submitHandler = async () => {
@@ -89,7 +97,12 @@ export const AccountPage = () => {
             }, {Authorization: `Bearer ${authToken.token}`})
             if (dataLog === 201) {
                 message('Данные успешно изменены');
+                authToken.login(userData.token, data.username, userData.is_star, userData.userId, data.email, userData.avatar)
             }
+            if (dataLog[1] === 400) {
+                message([dataLog[0]])
+            }
+            console.log(dataLog)
         } catch (e) {
             message(e);
 
@@ -123,7 +136,7 @@ export const AccountPage = () => {
             case -1:
                 return 'Отклонен';
             case 2:
-                return 'Ожидание оплаты';
+                return 'Не оплачен, отменен';
             case 3:
                 return 'Оплачено';
             default:
@@ -205,6 +218,7 @@ export const AccountPage = () => {
         console.log(value)
         setCurrentOrder(value);
         setOrderIsOpen(true)
+        console.log(currentOrder.status)
     }
     const closeModal = () => {
         setOrderIsOpen(false)
@@ -252,7 +266,7 @@ export const AccountPage = () => {
                 </div>
             )
         } else {
-            return []
+            return returnVid()
         }
     }
 
@@ -316,6 +330,29 @@ export const AccountPage = () => {
         setVideo(e.target.files[0])
     }
 
+    // View video if order complete
+
+    function seeVideo() {
+        console.log(currentOrder.video)
+        window.open(`media/${currentOrder.video}`).focus();
+    }
+
+    function returnVid() {
+        if (currentOrder.status_order === 3) {
+            return <div className="btn-wrapper">
+                <button
+                    onClick={seeVideo}
+                    className={'accept'}
+                    style={{marginTop: '65px'}}
+                >
+                    Поздравление
+                </button>
+            </div>
+        } else {
+            return []
+        }
+    }
+
 
     return (
         <section className="account-page">
@@ -336,8 +373,23 @@ export const AccountPage = () => {
                             <span>Телефон</span>
                         </div>
                         <div className="list-item_content">
-                            <input type="text" name={'phone'} className="form-control" onChange={changeHandler}
-                                   value={data.phone}/>
+                            {/*<input type="text"*/}
+                            {/*       name={'phone'}*/}
+                            {/*       className="form-control"*/}
+                            {/*       onChange={changeHandler}*/}
+                            {/*       value={data.phone}*/}
+                            {/*/>*/}
+                            <MaskedInput
+                                mask={['(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+                                placeholder={'+7(999)999-99-99'}
+                                type="text"
+                                name={'phone'}
+                                className="form-control"
+                                onClick={() => message(['Вы не можете изменить мобильный телефон'])}
+                                value={data.phone}
+                                disabled
+                                style={{color: 'white'}}
+                            />
                         </div>
                     </li>
                     <li className="list-group-item">
@@ -354,8 +406,23 @@ export const AccountPage = () => {
                             <span>Дата рождения</span>
                         </div>
                         <div className="list-item_content">
-                            <input type="text" name={'date_of_birth'} className="form-control" onChange={changeHandler}
-                                   value={data.date_of_birth}/>
+                            {/*<input type="text"*/}
+                            {/*       name={'date_of_birth'}*/}
+                            {/*       className="form-control"*/}
+                            {/*       onChange={() => message(['Вы не можете изменить дату рождения'])}*/}
+                            {/*       value={data.date_of_birth}*/}
+                            {/*/>*/}
+                            <MaskedInput
+                                mask={[/[0-3]/, /[0-9]/, '-', /[0-1]/, /[0-9]/, '-', /\d/, /\d/, /\d/, /\d/]}
+                                placeholder={'дд-мм-гггг'}
+                                type="text"
+                                name={'date_of_birth'}
+                                className="form-control"
+                                onClick={() => message(['Вы не можете изменить дату рождения'])}
+                                value={data.date_of_birth}
+                                disabled
+                                style={{color: 'white'}}
+                            />
                         </div>
                     </li>
                 </ul>

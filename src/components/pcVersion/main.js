@@ -20,6 +20,7 @@ import {Policy} from "./pages/privacy-policy/privacy-policy";
 import {Redirect} from "react-router-dom/";
 import {YaRedirect} from "./pages/ya-redirect/ya-redirect";
 import {VkRedirect} from "./pages/vk-redirect/vk-redirect";
+import {SeeVideo} from "../see-video/SeeVideo";
 
 export const DesktopMain = (isAuthenticated, isStar) => {
 
@@ -33,7 +34,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     return (
         <div className="main">
             <Router>
-                <Header setSearch={setSearch} />
+                <Header setSearch={setSearch}/>
 
                 <Switch>
 
@@ -192,6 +193,10 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                     <Route exact path={'/account-page'}>
                         <AccountPage/>
                         <Redirect to="/account-page"/>
+                    </Route>
+
+                    <Route path={'/media/congratulation/'}>
+                        <SeeVideo/>
                     </Route>
 
                     <Redirect to={'/'}/>
