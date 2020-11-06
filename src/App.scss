@@ -339,7 +339,7 @@ body {
       justify-content: space-between;
 
       form {
-        width: 50%;
+        //width: 50%;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
@@ -349,6 +349,7 @@ body {
         }
         label.accept {
           padding: 11px 35px;
+          margin-right: 20px;
         }
       }
 
