@@ -117,15 +117,18 @@ export const Header = ({setSearch, setPhone}) => {
                     }, 555)
 
                 }
-                const dataLog = await request('/api/login/', 'POST', {
-                    password: form.password, login: form.email
-                })
+        // console.log(dataAuth.username[0])
+                if (dataAuth.email[0] !== 'Это поле должно быть уникально.' || dataAuth.phone[0] !== 'Это поле должно быть уникально.' || dataAuth.username[0] !== 'Это поле должно быть уникально.') {
+                    const dataLog = await request('/api/login/', 'POST', {
+                        password: form.password, login: form.email
+                    })
+                    auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
+                    if (dataLog.token) {
+                        message('Вы зарегистрированы!')
+                    }
+                }
                 // console.log(dataLog)
 
-                auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id);
-                if (dataLog.token) {
-                    message('Вы зарегистрированы!')
-                }
                 closeModal();
 
             } catch (e) {

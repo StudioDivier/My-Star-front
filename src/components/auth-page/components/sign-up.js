@@ -67,17 +67,20 @@ export const SignUp = () => {
                     }, 555)
 
                 }
-                const dataLog = await request('/api/login/', 'POST', {
-                    login: form.email, password: form.password
-                })
+                if (dataAuth.email[0] !== 'Это поле должно быть уникально.' || dataAuth.phone[0] !== 'Это поле должно быть уникально.' || dataAuth.username[0] !== 'Это поле должно быть уникально.') {
+                    const dataLog = await request('/api/login/', 'POST', {
+                        login: form.email, password: form.password
+                    })
 
-// console.log(dataAuth)
-// auth.login(dataAuth.token, form.username, dataAuth.is_star)
-                auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
-                if (dataLog.token) {
-                    message('Вы зарегистрированы!')
+    // console.log(dataAuth)
+    // auth.login(dataAuth.token, form.username, dataAuth.is_star)
+                    auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
+                    if (dataLog.token) {
+                        message('Вы зарегистрированы!')
+                    }
+                    history.push('/categories')
                 }
-                history.push('/categories')
+
             } else {
                 let customMessage = 'Необходимо согласие на обработку данных';
                 message([customMessage])

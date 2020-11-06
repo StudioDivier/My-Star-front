@@ -20,19 +20,27 @@ export const YaRedirect = () => {
         try {
             const dataAuth = await request(`/api/mid-yandex/?code=${code}`, 'GET')
             console.log(dataAuth)
-            const dataSend = await request(`/api/yandex-oauth/`, 'POST', {
-                access_token: dataAuth.access_token,
-                expires_in: dataAuth.expires_in,
-                refresh_token: dataAuth.refresh_token,
-                phone: form.phone.replace(/[^0-9]/g, '')
-            })
 
-            auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id, dataSend.email, dataSend.avatar);
-            if (dataSend.username === ["Это поле должно быть уникально."]) {
-                message(['Вы уже зарегистрированы!'])
+            if (!form.phone) {
+                message(['Заполните все необходимые поля'])
             }
-            history.push('/')
-            window.location.reload()
+            if (form.phone.replace(/[^0-9]/g, '').length < 11) {
+                message(['Введите полный номер телефона'])
+            } else {
+                const dataSend = await request(`/api/yandex-oauth/`, 'POST', {
+                    access_token: dataAuth.access_token,
+                    expires_in: dataAuth.expires_in,
+                    refresh_token: dataAuth.refresh_token,
+                    phone: form.phone.replace(/[^0-9]/g, '')
+                })
+
+                auth.login(dataSend.token, dataSend.username, dataSend.is_star, dataSend.id, dataSend.email, dataSend.avatar);
+                if (dataSend.username === ["Это поле должно быть уникально."]) {
+                    message(['Вы уже зарегистрированы!'])
+                }
+                history.push('/')
+                window.location.reload()
+            }
         } catch (e) {
             message(e);
         }
