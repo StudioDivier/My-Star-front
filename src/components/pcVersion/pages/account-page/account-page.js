@@ -175,7 +175,7 @@ export const AccountPage = () => {
                 {order_id: value, accept: 'accept'},
                 {Authorization: `Bearer ${authToken.token}`}
             )
-            message(changePW)
+            message(...changePW)
             // setSelected(value)
         } catch (e) {
             message(e)
@@ -292,11 +292,11 @@ export const AccountPage = () => {
         const formData = new FormData()
 
         formData.append("video_con", video)
-        formData.append("star_id", userData.starId)
-        formData.append("order_id", currentOrder)
+        formData.append("star_id", userData.userId)
+        formData.append("order_id", currentOrder.id)
 
         axios.post(`${SERVER_URL}/api/upload/congritulatoin/`, formData, {
-            headers: {Authorization: `Bearer ${authToken.token}`, 'content-type': 'multipart/form-data'}
+            headers: {Authorization: `Bearer ${userData.token}`, 'content-type': 'multipart/form-data'}
         })
             .then(res => {
                 console.log(res)
