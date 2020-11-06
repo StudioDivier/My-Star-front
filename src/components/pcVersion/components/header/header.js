@@ -415,7 +415,7 @@ export const Header = ({setSearch, setPhone}) => {
                     <div className="single-input__wrapper">
                         <span>Дата рождения</span>
                         <MaskedInput
-                            mask={[/[0-3]/, /[0-9]/, '-', /[0-1]/, /[0-2]/, '-', /\d/, /\d/, /\d/, /\d/]}
+                            mask={[/[0-3]/, /[0-9]/, '-', /[0-1]/, /[0-9]/, '-', /\d/, /\d/, /\d/, /\d/]}
                             placeholder={'дд-мм-гггг'}
                             type="text"
                             name={'date_of_birth'}

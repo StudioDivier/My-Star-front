@@ -338,7 +338,28 @@ body {
       display: flex;
       justify-content: space-between;
 
+      form {
+        width: 50%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 20px;
+        label {
+          margin-bottom: 0;
+        }
+        label.accept {
+          padding: 11px 35px;
+        }
+      }
+
       .accept {
+        input[type='file'] {
+          display: none;
+        }
+        span {
+          font-weight: 700;
+        }
+        cursor: pointer;
         font-size: 16px;
         padding: 10px 35px;
         background-image: none;
@@ -348,6 +369,13 @@ body {
       }
 
       .decline {
+        input[type='submit'] {
+          display: none;
+        }
+        span {
+          font-weight: 700;
+        }
+        cursor: pointer;
         font-size: 16px;
         color: black;
         padding: 10px 35px;

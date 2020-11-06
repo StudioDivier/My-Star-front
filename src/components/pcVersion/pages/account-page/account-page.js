@@ -223,12 +223,29 @@ export const AccountPage = () => {
                     <button className={'accept'} onClick={() => acceptOrder(currentOrder.id)}>
                         Принять
                     </button>
-                    <button className={'accept'}>
-                        Загрузить поздравление
-                    </button>
-                    <button className={'decline'}>
-                        Отправить
-                    </button>
+                    <form id={'formElem'} onSubmit={uploadVid}>
+                        <label form="formElem" className={'accept'}>
+                            <input
+                                type="file"
+                                accept={'image/*, video/*'}
+                                name={'video'}
+                                id="formElem"
+                                onChange={(e) => videoInputHandler(e)}
+                                // onChange={(e) => uploadVid(e)}
+                            />
+                            <span>Загрузить поздравление</span>
+                        </label>
+                        <label form="submit" className={'decline'}>
+                            <input type="submit" id={'submit'}/>
+                            <span>Отправить</span>
+                        </label>
+                    </form>
+                    {/*<button className={'accept'}>*/}
+                    {/*    Загрузить поздравление*/}
+                    {/*</button>*/}
+                    {/*<button className={'decline'}>*/}
+                    {/*    Отправить*/}
+                    {/*</button>*/}
                     <button className={'decline'} onClick={() => rejectOrder(currentOrder.id)}>
                         Отклонить
                     </button>
