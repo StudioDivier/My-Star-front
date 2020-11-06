@@ -78,10 +78,10 @@ export const Footer = () => {
                             </div>
                             <div className="secondCol">
                                 <span>Мы в соц. сетях:</span>
-                                <FontAwesomeIcon icon={['fab', 'vk']} size={'lg'}/>
-                                <FontAwesomeIcon icon={['fab', 'instagram']} size={'lg'}/>
-                                <FontAwesomeIcon icon={['fab', 'facebook']} size={'lg'}/>
-                                <FontAwesomeIcon icon={['fab', 'tiktok']} size={'lg'}/>
+                                <a href={'https://vk.com/public200065985'}><FontAwesomeIcon icon={['fab', 'vk']} size={'lg'}/></a>
+                                <a href={'https://www.instagram.com/mystar.media'}><FontAwesomeIcon icon={['fab', 'instagram']} size={'lg'}/></a>
+                                <a href={'https://www.facebook.com/groups/808735033247131'}><FontAwesomeIcon icon={['fab', 'facebook']} size={'lg'}/></a>
+                                <a href={'https://www.tiktok.com/ru/'}><FontAwesomeIcon icon={['fab', 'tiktok']} size={'lg'}/></a>
                             </div>
                             <div className="thirdCol">
                                 <span className="phone">+7 (495) 925-91-11</span>
