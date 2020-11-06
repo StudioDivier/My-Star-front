@@ -31,24 +31,34 @@ export const Search = ({search, chooseStar}) => {
         history.push('/star-card')
     }
 
-    console.log(stars)
+    console.log(search.length > 0 && stars.filter(value => value.username.toLowerCase() === search.toLowerCase()).length === 0)
 
-    if (search.length > 0) {
+    if (search.length > 0 && stars.filter(value => value.username.toLowerCase() === search.toLowerCase()).length === 0) {
+        return (
+            <Container style={{paddingBottom: '300px', textAlign: 'center'}}>
+                <Row>
+                    <Col>
+                        <h1 style={{color: 'white', paddingTop: '100px'}}>Поиск не дал результатов</h1>
+                    </Col>
+                </Row>
+            </Container>
+        )
+    } else if (search.length > 0) {
         return (
             <>
-                <Container>
+                <Container style={{paddingBottom: '100px'}}>
                     <Row>
                         <Col>
                             <div className="single-cat">
                                 <div className="single-cat__stars">
                                     {
                                         stars.filter(value => value.username.toLowerCase() === search.toLowerCase()).map((value, key) => {
-                                            // console.log(value.avatar)
+                                            console.log(value)
                                             return (
                                                 <div className="single-cat__star" key={key}
                                                      onClick={() => clickStar(value)}>
                                                     <div className="avatar-img"
-                                                         style={{backgroundImage: `url(${SERVER_URL}${value.avatar})`}}>&nbsp;</div>
+                                                         style={{backgroundImage: `url(${SERVER_URL}/media/${value.avatar})`}}>&nbsp;</div>
                                                     {/*<img src={catPic + value.avatar} alt=""/>*/}
                                                     <div className="star-description">
                                                                         <span className="star-name">
@@ -59,7 +69,6 @@ export const Search = ({search, chooseStar}) => {
                                                                         </span>
                                                     </div>
                                                 </div>
-
                                             )
                                         })
                                     }
@@ -70,7 +79,53 @@ export const Search = ({search, chooseStar}) => {
                 </Container>
             </>
         )
+    } else {
+        return (
+            <Container style={{paddingBottom: '300px', textAlign: 'center'}}>
+                <Row>
+                    <Col>
+                        <h1 style={{color: 'white', paddingTop: '100px'}}>Поиск не дал результатов</h1>
+                    </Col>
+                </Row>
+            </Container>
+        )
     }
-    return []
 
+    // if (search.length > 0) {
+    //     return (
+    //         <>
+    //             <Container style={{paddingBottom: '100px'}}>
+    //                 <Row>
+    //                     <Col>
+    //                         <div className="single-cat">
+    //                             <div className="single-cat__stars">
+    //                                 {
+    //                                     stars.filter(value => value.username.toLowerCase() === search.toLowerCase()).map((value, key) => {
+    //                                         console.log(value)
+    //                                         return (
+    //                                             <div className="single-cat__star" key={key}
+    //                                                  onClick={() => clickStar(value)}>
+    //                                                 <div className="avatar-img"
+    //                                                      style={{backgroundImage: `url(${SERVER_URL}/media/${value.avatar})`}}>&nbsp;</div>
+    //                                                 {/*<img src={catPic + value.avatar} alt=""/>*/}
+    //                                                 <div className="star-description">
+    //                                                                     <span className="star-name">
+    //                                                                         {value.first_name}&nbsp;{value.last_name}
+    //                                                                     </span>
+    //                                                     <span className="star-style">
+    //                                                                         {value.profession}
+    //                                                                     </span>
+    //                                                 </div>
+    //                                             </div>
+    //                                         )
+    //                                     })
+    //                                 }
+    //                             </div>
+    //                         </div>
+    //                     </Col>
+    //                 </Row>
+    //             </Container>
+    //         </>
+    //     )
+    // }
 }

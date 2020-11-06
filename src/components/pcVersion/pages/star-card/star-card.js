@@ -96,7 +96,14 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
     };
 
 
-    const catPic = `${SERVER_URL}` + star.avatar;
+    let catPic;
+
+    console.log(star.avatar)
+    if (star.avatar.includes('media')) {
+        catPic = `${SERVER_URL}${star.avatar}`;
+    } else {
+        catPic = `${SERVER_URL}/media/${star.avatar}`
+    }
 
     // Handle date
 
