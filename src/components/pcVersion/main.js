@@ -22,6 +22,8 @@ import {YaRedirect} from "./pages/ya-redirect/ya-redirect";
 import {VkRedirect} from "./pages/vk-redirect/vk-redirect";
 import {SeeVideo} from "../see-video/SeeVideo";
 import {ConfirmReg} from "../confirm-reg/confirm-reg";
+import {FavCategory} from "./pages/favorites-page/favorites-page";
+import {Navbar} from "./components/navbar/navbar";
 
 export const DesktopMain = (isAuthenticated, isStar) => {
 
@@ -35,6 +37,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     return (
         <div className="main">
             <Router>
+                <Navbar />
                 <Header setSearch={setSearch}/>
 
                 <Switch>
@@ -110,6 +113,13 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                         <Category
                             name={name}
                             id={cat}
+                            chooseStar={setStar}
+                        />
+                    </Route>
+
+                    <Route exact path="/favorites">
+                        <FavCategory
+                            name={name}
                             chooseStar={setStar}
                         />
                     </Route>
@@ -205,7 +215,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                         <Container>
                             <Row>
                                 <Col>
-                                    <div className="pc-password-reset">
+                                    <div className="pc-password-reset" style={{paddingBottom: '250px'}}>
                                         <ConfirmReg/>
                                     </div>
                                 </Col>

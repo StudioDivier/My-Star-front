@@ -38,7 +38,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
     const [finalStep, setFinalStep] = useState(false);
     const [order, setOrder] = useState('');
     const [newRating, setNewRating] = useState();
-    const {request} = useHttp();
+    const {request, loading} = useHttp();
     const message = useMessage();
     const history = useHistory();
 
@@ -51,7 +51,8 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         comment: '',
         order_price: star.price,
         star_id: star.id,
-        customer_id: (userData ? userData.userId : '')
+        customer_id: (userData ? userData.userId : ''),
+        type: ''
     })
 
     const changeHandler = event => {
@@ -98,7 +99,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
 
     let catPic;
 
-    console.log(star.avatar)
+    // console.log(star.avatar)
     if (star.avatar && star.avatar.includes('media')) {
         catPic = `${SERVER_URL}${star.avatar}`;
     } else {
@@ -115,6 +116,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
 
     // let orderId1;
 
+    let orderType;
 
     const submitHandler = async () => {
         if (form.comment.length > 0 && form.by_date.length && form.for_whom.length) {
@@ -126,7 +128,8 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                     comment: form.comment,
                     order_price: star.price,
                     star_id: star.id,
-                    customer_id: (userData ? userData.userId : '')
+                    customer_id: (userData ? userData.userId : ''),
+                    type: orderType
                 }, {Authorization: `Bearer ${userData.token}`})// 'cors',
                 message(dataLog.message)
                 // orderId1 = dataLog.order_id;
@@ -199,6 +202,36 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         }
     }
 
+    const handleFav = async () => {
+        try {
+            const addToFav = await request(`/api/star/favorite/?cust_id=${userData.userId}`, 'POST', {
+                cust_id: userData.userId,
+                star_id: star.id
+            }, {Authorization: `Bearer ${userData.token}`})
+            message(...addToFav)
+        } catch (e) {
+            message(e)
+        }
+    }
+
+    const handleFav2 = async () => {
+        try {
+            const addToFav = await request(`/api/star/favorite/?cust_id=${userData.userId}`, 'DELETE', {
+                cust_id: userData.userId,
+                star_id: star.id
+            }, {Authorization: `Bearer ${userData.token}`})
+            // if (addToFav === 204) {
+            //     message(['Удалено из избранного!'])
+            // }
+        } catch (e) {
+            message(e)
+        }
+    }
+
+    const recordType = (value) => {
+        orderType = value;
+    }
+
     return (
         <>
             <Breadcrumbs secondItem={star.cat_name_id || star.cat_name_id_id} thirdItem={star.username}/>
@@ -225,6 +258,22 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                             <div className="pc-star-wrapper">
                                 <div className="star-title">
                                     <h3>{star.first_name}&nbsp;{star.last_name}</h3>
+                                    <div className="btn-wrapper">
+                                        <div className="order-btn">
+                                            <button onClick={handleFav}
+                                                    style={{padding: '15px 40px', fontSize: '18px'}}>&#9733; В избранное
+                                            </button>
+                                        </div>
+                                        <div className="order-btn">
+                                            <button onClick={handleFav2}
+                                                    style={{
+                                                        padding: '15px 40px',
+                                                        fontSize: '18px',
+                                                        backgroundColor: "white"
+                                                    }}>    &#9734; Удалить из избранного
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div className="star-cat-and-rating">
@@ -268,8 +317,8 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                     <div className="star-pc-price-wrapper">
                                         <label className="radio-container">
                                             {/*<img src={circle} alt="Pointer"/>*/}
-                                            <input type="radio" name="order-type"/>
-                                            <span class="checkmark"></span>
+                                            <input type="radio" onClick={() => recordType('Видео-поздравление')} name={'type'} />
+                                            <span className="checkmark"></span>
                                         </label>
                                         <div>
                                             <span>Поздравление</span>
@@ -279,7 +328,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                     <div className="star-pc-price-wrapper">
                                         <label className="radio-container">
                                             {/*<img src={circle} alt="Pointer"/>*/}
-                                            <input type="radio" name="order-type"/>
+                                            <input type="radio" onClick={() => recordType('Приглашение на праздник')} name={'type'} />
                                             <span class="checkmark"></span>
                                         </label>
                                         <div>
@@ -574,12 +623,13 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                     <div className="signInInputs spread">
 
                         <div className="login__btn-wrapper">
-                            <div
+                            <button
                                 className="pc-signInButton rateBtn"
                                 onClick={redirectHandler}
+                                disabled={loading}
                             >
                                 Оплатить
-                            </div>
+                            </button>
                         </div>
                     </div>
                 </Modal>

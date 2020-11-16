@@ -135,7 +135,7 @@ export const Header = ({setSearch, setPhone}) => {
                         //     }
                         // }
 
-                        message(...dataAuth)
+                        alert(...dataAuth)
 
                         closeModal();
 

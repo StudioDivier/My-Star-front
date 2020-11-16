@@ -10,12 +10,14 @@ import {AuthContext} from "../../context/AuthContext";
 import backBlueArrow from '../../img/back-blue.svg';
 import {Filter} from "../filter/filter";
 import {useHistory} from 'react-router-dom';
+import {FavCategory} from "./components/fav-category";
 
 export const Categories = () => {
     const authToken = useContext(AuthContext)
     const {request} = useHttp()
     const history = useHistory();
     const [data, setData] = useState([]);
+
     const [query, setQuery] = useState('');
 
     const colors = [
@@ -47,7 +49,6 @@ export const Categories = () => {
                 setData([...cats])
             }
             // console.log('hello1')
-
         }
 
         // console.log('hello2')
@@ -64,6 +65,9 @@ export const Categories = () => {
         authToken.logout()
         history.push('/')
     }
+
+    let randomNum = Math.floor(Math.random() * 6);
+    let bgColor = colors[randomNum];
 
     return (
         <>
@@ -84,6 +88,14 @@ export const Categories = () => {
                     />
                     <Container>
                         <Row>
+                            <Col xs={6}>
+                                <FavCategory
+                                    // id={value.id}
+                                    name={'Избранное'}
+                                    // catPhoto={value.category_photo}
+                                    bgColor={bgColor}
+                                />
+                            </Col>
                             {data.map((value, key) => {
                                 // console.log(value, key)
                                 let randomNum = Math.floor(Math.random() * 6);

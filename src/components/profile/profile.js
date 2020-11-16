@@ -257,17 +257,17 @@ export const Profile = () => {
                                 {/*/>*/}
                             </div>
                         </div>
-                        <div className="birthday">
-                            <div className="wrapper">
-                                <input
-                                    type="text"
-                                    value={data.date_of_birth}
-                                    name={'date_of_birth'}
-                                    onChange={changeHandler}
-                                />
-                                <span>Дата рождения</span>
-                            </div>
-                        </div>
+                        {/*<div className="birthday">*/}
+                        {/*    <div className="wrapper">*/}
+                        {/*        <input*/}
+                        {/*            type="text"*/}
+                        {/*            value={data.date_of_birth}*/}
+                        {/*            name={'date_of_birth'}*/}
+                        {/*            onChange={changeHandler}*/}
+                        {/*        />*/}
+                        {/*        <span>Дата рождения</span>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                         {/*<div className="avatar">*/}
                         {/*    <div className="wrapper">*/}
                         {/*        <span>Аватарка</span>*/}

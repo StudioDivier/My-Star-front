@@ -1,18 +1,11 @@
 import React, {useState} from 'react';
-import './footer.scss';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import visa from '../../../../img/pc/visa.png';
-import mc from '../../../../img/pc/mc.png';
-import mir from '../../../../img/pc/mir.png';
-import {Container, Row, Col} from 'react-bootstrap';
 import Modal from 'react-modal';
 import {useHttp} from "../../../../hooks/http.hook";
 import {useMessage} from "../../../../hooks/message.hook";
 import close from '../../../../img/close.png';
 import MaskedInput from "react-text-mask";
-import * as JivoSite from "react-jivosite";
 
-export const Footer = () => {
+export const Navbar = () => {
 
     const {request} = useHttp();
     const message = useMessage();
@@ -64,39 +57,37 @@ export const Footer = () => {
     }
 
     return (
-        <div className={'footer'}>
-            <Container>
-                <Row>
-                    <Col>
-                        <div className="wrapper">
-                            <div className="firstCol">
-                                <span>Условия использования &nbsp;&nbsp;| &nbsp;&nbsp;<a href="/privacy-policy">Политика конфиденциальности</a> &nbsp;&nbsp;| &nbsp;&nbsp;Как это работает</span>
-                                <div>
-                                    <span><a href="/#">Реквизиты компании</a></span>
-                                    <span className={'becomeStar'} onClick={openModal}>Я исполнитель</span>
-                                </div>
-                                <span>© 2020 Exprome</span>
-                            </div>
-                            <div className="secondCol">
-                                <span>Мы в соц. сетях:</span>
-                                <a href={'https://vk.com/public200065985'}><FontAwesomeIcon icon={['fab', 'vk']} size={'lg'}/></a>
-                                <a href={'https://www.instagram.com/mystar.media'}><FontAwesomeIcon icon={['fab', 'instagram']} size={'lg'}/></a>
-                                <a href={'https://www.facebook.com/groups/808735033247131'}><FontAwesomeIcon icon={['fab', 'facebook']} size={'lg'}/></a>
-                                <a href={'https://www.tiktok.com/ru/'}><FontAwesomeIcon icon={['fab', 'tiktok']} size={'lg'}/></a>
-                            </div>
-                            <div className="thirdCol">
-                                <span className="phone">+7 (495) 925-91-11</span>
-                                <div className="paySystems">
-                                    <img src={visa} alt="Visa"/>
-                                    <img src={mc} alt="MasterCard"/>
-                                    <img src={mir} alt="Mir"/>
-                                </div>
-                                <span className={'watermark'}><a href="https://www.divier.ru/">Создание сайта</a> ДиВиЕР</span>
-                            </div>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
+        <>
+            <nav className="navbar navbar-expand-lg" style={{backgroundColor: '#141414', color: 'white !important'}}>
+                {/*<a className="navbar-brand" href="/">Exprome</a>*/}
+                {/*<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"*/}
+                {/*        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">*/}
+                {/*    <span className="navbar-toggler-icon"></span>*/}
+                {/*</button>*/}
+                <div className="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul className="navbar-nav" style={{width: '100%', display: 'flex', justifyContent: 'space-around'}}>
+                        <li className="nav-item active">
+                            <a className="nav-link" href="/">Главная</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/categories">Категории</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">Как это работает</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">Как заказть</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">Примеры поздравлений</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#" onClick={openModal}>Я исполнитель</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
             <Modal
                 isOpen={isOpen}
                 onRequestClose={closeModal}
@@ -111,7 +102,8 @@ export const Footer = () => {
                     </div>
                     <div className="header-text">
                         <span>Участвовать как исполнитель</span>
-                        <p>Если вы известный человек, и тоже хотели бы записывать поздравления для людей, оставьте заявку и мы с вами свяжемся.</p>
+                        <p>Если вы известный человек, и тоже хотели бы записывать поздравления для людей, оставьте
+                            заявку и мы с вами свяжемся.</p>
                     </div>
                 </div>
 
@@ -157,7 +149,6 @@ export const Footer = () => {
                     </div>
                 </div>
             </Modal>
-            <JivoSite.Widget id={'H8qH8X0wtp'} />
-        </div>
+        </>
     )
 }

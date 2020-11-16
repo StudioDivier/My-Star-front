@@ -18,7 +18,7 @@ import Modal from 'react-modal';
 
 export const Confirm = () => {
     const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
-    const {request} = useHttp();
+    const {request, loading} = useHttp();
     const message = useMessage();
     const auth = useContext(AuthContext);
     const userInfo = useContext(AuthContext);
@@ -36,6 +36,8 @@ export const Confirm = () => {
         star_id: starInfo.starId,
         customer_id: auth.id
     })
+
+    // console.log(starInfo)
 
     // For modal
 
@@ -79,7 +81,6 @@ export const Confirm = () => {
 
     let orderId1;
 
-
     const submitHandler = async () => {
         if (form.comment.length > 0 && form.by_date.length && form.for_whom.length) {
             try {
@@ -90,10 +91,42 @@ export const Confirm = () => {
                     comment: form.comment,
                     order_price: starInfo.starPrice,
                     star_id: starInfo.starId,
-                    customer_id: auth.id
+                    customer_id: auth.id,
+                    type: 'Видео-поздравление'
                 }, {Authorization: `Bearer ${auth.token}`})// 'cors',
                 // setOrder(dataLog.order_id)
-                // console.log(dataLog)
+                console.log(dataLog)
+                orderId1 = dataLog.order_id;
+                message(dataLog.message)
+                // console.log(order)
+                // makeOrder();
+                // history.push('/categories');
+                // if (dataLog)
+                // history.push('/orders')
+                showModal()
+            } catch (e) {
+            }
+        } else {
+            message(['Заполните все необходимые поля!'])
+        }
+        await redirectHandler()
+    }
+
+    const submitHandler2 = async () => {
+        if (form.comment.length > 0 && form.by_date.length && form.for_whom.length) {
+            try {
+                const dataLog = await request('/api/order/', 'POST', {
+                    status_order: form.status_order,
+                    for_whom: form.for_whom,
+                    by_date: reverseDate(form.by_date),
+                    comment: form.comment,
+                    order_price: starInfo.starAnotherPrice,
+                    star_id: starInfo.starId,
+                    customer_id: auth.id,
+                    type: 'Приглашение на праздник'
+                }, {Authorization: `Bearer ${auth.token}`})// 'cors',
+                // setOrder(dataLog.order_id)
+                console.log(dataLog)
                 orderId1 = dataLog.order_id;
                 message(dataLog.message)
                 // console.log(order)
@@ -112,6 +145,7 @@ export const Confirm = () => {
 
     const redirectHandler = async () => {
         try {
+            console.log(orderId1)
             const makeOrder = await request(`/api/order/pay/?order_id=${orderId1}`, 'GET', null, {Authorization: `Bearer ${auth.token}`})// 'no-cors', , 'follow'
             //makeOrder();
             console.log(makeOrder)
@@ -227,8 +261,11 @@ export const Confirm = () => {
                             />
                         </div>
                         <div className="place-order">
-                            <button onClick={submitHandler}>
+                            <button onClick={submitHandler} style={{marginBottom: '10px'}}>
                                 Заказать
+                            </button>
+                            <button onClick={submitHandler2}>
+                                Пригласить на праздник ({starInfo.starAnotherPrice} руб.)
                             </button>
                             <p>Совершая заказ, вы соглашаетесь с условиями</p>
                         </div>
@@ -252,7 +289,7 @@ export const Confirm = () => {
                     </div>
                 </div>
                 <div className="spread">
-                    <button onClick={() => directClick()}>Перейти к оплате</button>
+                    <button onClick={() => directClick()} disabled={loading}>Перейти к оплате</button>
                 </div>
             </Modal>
             <NavBar/>

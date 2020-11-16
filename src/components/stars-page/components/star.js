@@ -11,7 +11,7 @@ import {StarsContext} from "../../../context/StarsContext";
 // import Modal from 'react-modal';
 import orders from '../../../img/orders_amount.svg'
 
-export const Star = ({id, price, name, rating, days, avatar, bgColor, likes}) => {
+export const Star = ({id, price, name, rating, days, avatar, bgColor, likes, anotherPrice}) => {
     const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
 
     const history = useHistory();
@@ -47,6 +47,7 @@ export const Star = ({id, price, name, rating, days, avatar, bgColor, likes}) =>
         star.setStarDays(days)
         star.setAvatar(avatar)
         star.setLikes(likes)
+        star.setAnotherPrice(anotherPrice)
         history.push(`/categories/stars/order`);
         // console.log(id)
     };

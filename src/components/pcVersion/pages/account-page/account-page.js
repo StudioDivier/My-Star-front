@@ -401,30 +401,24 @@ export const AccountPage = () => {
                             <span>Email</span>
                         </div>
                     </li>
-                    <li className="list-group-item">
-                        <div className="list-item_content">
-                            {/*<input type="text"*/}
-                            {/*       name={'date_of_birth'}*/}
-                            {/*       className="form-control"*/}
-                            {/*       onChange={() => message(['Вы не можете изменить дату рождения'])}*/}
-                            {/*       value={data.date_of_birth}*/}
-                            {/*/>*/}
-                            <MaskedInput
-                                mask={[/[0-3]/, /[0-9]/, '-', /[0-1]/, /[0-9]/, '-', /\d/, /\d/, /\d/, /\d/]}
-                                placeholder={'дд-мм-гггг'}
-                                type="text"
-                                name={'date_of_birth'}
-                                className="form-control"
-                                onClick={() => message(['Вы не можете изменить дату рождения'])}
-                                value={data.date_of_birth}
-                                disabled
-                                style={{color: 'white'}}
-                            />
-                        </div>
-                        <div className="list-item__title">
-                            <span>Дата рождения</span>
-                        </div>
-                    </li>
+                    {/*<li className="list-group-item">*/}
+                    {/*    <div className="list-item_content">*/}
+                    {/*        <MaskedInput*/}
+                    {/*            mask={[/[0-3]/, /[0-9]/, '-', /[0-1]/, /[0-9]/, '-', /\d/, /\d/, /\d/, /\d/]}*/}
+                    {/*            placeholder={'дд-мм-гггг'}*/}
+                    {/*            type="text"*/}
+                    {/*            name={'date_of_birth'}*/}
+                    {/*            className="form-control"*/}
+                    {/*            onClick={() => message(['Вы не можете изменить дату рождения'])}*/}
+                    {/*            value={data.date_of_birth}*/}
+                    {/*            disabled*/}
+                    {/*            style={{color: 'white'}}*/}
+                    {/*        />*/}
+                    {/*    </div>*/}
+                    {/*    <div className="list-item__title">*/}
+                    {/*        <span>Дата рождения</span>*/}
+                    {/*    </div>*/}
+                    {/*</li>*/}
                 </ul>
                 <div className="btn-wrapper">
                     <button className="name-me" onClick={makeRequest}>Запросить изменение пароля</button>

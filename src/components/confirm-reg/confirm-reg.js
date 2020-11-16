@@ -37,7 +37,7 @@ export const ConfirmReg = () => {
                 {/*    </a>*/}
                 {/*</div>*/}
                 <div>
-                    <h3>Завершить регистрацию</h3>
+                    <h3>Завершите регистрацию</h3>
                 </div>
             </div>
 
@@ -48,7 +48,7 @@ export const ConfirmReg = () => {
                         type={'button'}
                         onClick={proceedAuth}
                     >
-                        Завершить регистрацию
+                        Регистрация
                     </button>
                 </div>
                 <p>Совершая заказ, вы соглашаетесь с условиями</p>

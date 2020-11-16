@@ -15,12 +15,13 @@ import {useHistory} from 'react-router-dom';
 
 export const AllCats = ({chooseCat, nameCat}) => {
 
-    // const userData = JSON.parse(window.localStorage.getItem('userData'));
+    const userData = JSON.parse(window.localStorage.getItem('userData'));
 
     // const authToken = useContext(AuthContext)
     const {request} = useHttp()
     const history = useHistory();
     const [data, setData] = useState([]);
+    const [favData, setFavData] = useState([]);
 
     const backgrounds = [
         cat1, cat1, cat2, cat3, cat4, cat5
@@ -41,7 +42,7 @@ export const AllCats = ({chooseCat, nameCat}) => {
         fetchData();
     }, [request]) // needed?
 
-    // console.log(data)
+    console.log(favData)
 
     const settings = {
         dots: false,
@@ -57,6 +58,14 @@ export const AllCats = ({chooseCat, nameCat}) => {
         history.push('/category')
     }
 
+    const clickHandler2 = (name) => {
+        nameCat(name)
+        history.push('/favorites')
+    }
+
+    let randomNum = Math.floor(Math.random() * 6);
+    let bgColor = backgrounds[randomNum];
+
     return (
         <div className="all-cats">
             <div className="header-row">
@@ -66,13 +75,24 @@ export const AllCats = ({chooseCat, nameCat}) => {
 
                 <Slider {...settings}>
 
+                    <div className="all-cats__single-cat"
+                         onClick={() => clickHandler2('Избранное')}>
+                        <div className="inner-wrapper">
+                            {<img src={bgColor} alt=""/>}
+                            <div className="cat-name">
+                                <span>Избранное</span>
+                            </div>
+                        </div>
+                    </div>
+
                     {data.map((value, key) => {
 
                         let randomNum = Math.floor(Math.random() * 6);
                         let bgColor = backgrounds[randomNum];
 
                         return (
-                            <div className="all-cats__single-cat" key={key} onClick={() => clickHandler(value.id, value.cat_name)}>
+                            <div className="all-cats__single-cat" key={key}
+                                 onClick={() => clickHandler(value.id, value.cat_name)}>
                                 <div className="inner-wrapper">
                                     {<img src={bgColor} alt=""/>}
                                     <div className="cat-name">

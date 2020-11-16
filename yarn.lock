@@ -9095,6 +9095,11 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.1.tgz#5b3531bd76a645a4c9fb6e693ed36419e3301339"
   integrity sha512-NAnt2iGDXohE5LI7uBnLnqvLQMtzhkiAOLXTmv+qnF9Ky7xAPcX8Up/xWIhxvLVGJvuLiNc4xQLtuqDRzb4fSA==
 
+react-jivosite@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-jivosite/-/react-jivosite-1.0.0.tgz#963b5a605d1686e2e7ccc51dc46098c127b903c3"
+  integrity sha512-68Xvp2rfpTJMrqZYyHyzENKOZOrZ+Y5wQDsLb9Sn1WrXPKF7eQDC39hTxjsAHIM62DgNKQWhRYtD/OY3XW3vmQ==
+
 react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
