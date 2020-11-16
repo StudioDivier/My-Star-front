@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import './star-card.scss'
 import {Backbtn} from "../../components/back-btn/back-btn";
 
@@ -32,6 +32,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
     window.scrollTo(0, 0);
 
     const userData = JSON.parse(window.localStorage.getItem('userData'));
+    const orderTypeStorage = JSON.parse(window.localStorage.getItem('orderType'))
 
     const [orderIsOpen, setOrderIsOpen] = useState(false);
     const [ratingIsOpen, setRatingIsOpen] = useState(false);
@@ -64,7 +65,11 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
     */
 
     const showOrderModal = () => {
-        setOrderIsOpen(true)
+        if (orderTypeStorage) {
+            setOrderIsOpen(true)
+        } else {
+            message(['Выберите формат заказа!'])
+        }
     }
     const showRatingModal = () => {
         setRatingIsOpen(true)
@@ -116,7 +121,22 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
 
     // let orderId1;
 
-    let orderType;
+
+    const recordType = (value) => {
+        localStorage.removeItem('orderType')
+        localStorage.setItem('orderType', JSON.stringify({
+            type: value
+        }))
+    }
+
+    const choosePrice = () => {
+        if (orderTypeStorage.type === 'Видео-поздравление') {
+            return star.price
+        }
+        if (orderTypeStorage.type === 'Приглашение на праздник') {
+            return star.price_another
+        }
+    }
 
     const submitHandler = async () => {
         if (form.comment.length > 0 && form.by_date.length && form.for_whom.length) {
@@ -126,10 +146,10 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                     for_whom: form.for_whom,
                     by_date: reverseDate(form.by_date),
                     comment: form.comment,
-                    order_price: star.price,
+                    order_price: choosePrice(),
                     star_id: star.id,
                     customer_id: (userData ? userData.userId : ''),
-                    type: orderType
+                    type: orderTypeStorage.type
                 }, {Authorization: `Bearer ${userData.token}`})// 'cors',
                 message(dataLog.message)
                 // orderId1 = dataLog.order_id;
@@ -147,6 +167,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
     }
 
     const redirectHandler = async () => {
+        localStorage.removeItem('orderType')
         try {
             const makeOrder = await request(`/api/order/pay/?order_id=${order}`, 'GET', null, {Authorization: `Bearer ${userData.token}`})// 'no-cors', , 'follow'
             //makeOrder();
@@ -202,6 +223,31 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         }
     }
 
+    function determineAuth2() {
+        if (userData && userData.token) {
+            return (
+                <div className="btn-wrapper">
+                    <div className="order-btn">
+                        <button onClick={handleFav}
+                                style={{padding: '15px 40px', fontSize: '18px'}}>&#9733; В избранное
+                        </button>
+                    </div>
+                    <div className="order-btn">
+                        <button onClick={handleFav2}
+                                style={{
+                                    padding: '15px 40px',
+                                    fontSize: '18px',
+                                    backgroundColor: "white"
+                                }}>    &#9734; Удалить из избранного
+                        </button>
+                    </div>
+                </div>
+            )
+        } else {
+            return []
+        }
+    }
+
     const handleFav = async () => {
         try {
             const addToFav = await request(`/api/star/favorite/?cust_id=${userData.userId}`, 'POST', {
@@ -223,33 +269,32 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
             // if (addToFav === 204) {
             //     message(['Удалено из избранного!'])
             // }
+            message(addToFav)
         } catch (e) {
             message(e)
         }
     }
 
-    const recordType = (value) => {
-        orderType = value;
-    }
-
     const handleType = () => {
-        if (orderType === 'Видео-поздравление') {
-            return (
-                <p>Вы сделали заказ поздравления от звезды<span></span> <span
-                    style={{fontWeight: 700}}>"{star.first_name}&nbsp;{star.last_name}"</span> на
-                    сумму <span
-                        style={{fontWeight: 800}}>{star.price} &#8381;</span>
-                </p>
-            )
-        }
-        if (orderType === 'Приглашение на праздник') {
-            return (
-                <p>Вы сделали заказ на приглашение звезды<span></span> <span
-                    style={{fontWeight: 700}}>"{star.first_name}&nbsp;{star.last_name}"</span> на
-                    свой праздник на сумму <span
-                        style={{fontWeight: 800}}>{star.price_another} &#8381;</span>
-                </p>
-            )
+        if (orderTypeStorage) {
+            if (orderTypeStorage.type === 'Видео-поздравление') {
+                return (
+                    <p>Вы сделали заказ поздравления от звезды<span></span> <span
+                        style={{fontWeight: 700}}>"{star.first_name}&nbsp;{star.last_name}"</span> на
+                        сумму <span
+                            style={{fontWeight: 800}}>{star.price} &#8381;</span>
+                    </p>
+                )
+            }
+            if (orderTypeStorage.type === 'Приглашение на праздник') {
+                return (
+                    <p>Вы сделали заказ на приглашение звезды<span></span> <span
+                        style={{fontWeight: 700}}>"{star.first_name}&nbsp;{star.last_name}"</span> на
+                        свой праздник на сумму <span
+                            style={{fontWeight: 800}}>{star.price_another} &#8381;</span>
+                    </p>
+                )
+            }
         }
     }
 
@@ -279,22 +324,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                             <div className="pc-star-wrapper">
                                 <div className="star-title">
                                     <h3>{star.first_name}&nbsp;{star.last_name}</h3>
-                                    <div className="btn-wrapper">
-                                        <div className="order-btn">
-                                            <button onClick={handleFav}
-                                                    style={{padding: '15px 40px', fontSize: '18px'}}>&#9733; В избранное
-                                            </button>
-                                        </div>
-                                        <div className="order-btn">
-                                            <button onClick={handleFav2}
-                                                    style={{
-                                                        padding: '15px 40px',
-                                                        fontSize: '18px',
-                                                        backgroundColor: "white"
-                                                    }}>    &#9734; Удалить из избранного
-                                            </button>
-                                        </div>
-                                    </div>
+                                    {determineAuth2()}
                                 </div>
 
                                 <div className="star-cat-and-rating">
@@ -350,13 +380,15 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                     <div className="star-pc-price-wrapper">
                                         <label className="radio-container">
                                             {/*<img src={circle} alt="Pointer"/>*/}
-                                            <input type="radio" onClick={() => recordType('Приглашение на праздник')}
+                                            <input type="radio"
+                                                   onClick={() => recordType('Приглашение на праздник')}
                                                    name={'type'}/>
-                                            <span class="checkmark"></span>
+                                            <span className="checkmark"></span>
                                         </label>
                                         <div>
                                             <span>Приглашение на праздник</span>
-                                            <span className={'star-pc-price__price'}>{star.price_another} &#8381;</span>
+                                            <span
+                                                className={'star-pc-price__price'}>{star.price_another} &#8381;</span>
                                         </div>
                                     </div>
                                 </div>
@@ -429,8 +461,10 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                     Для вашего удобства и максимальной надёжности мы используем принцип <strong>«безопасная
                                     сделка»</strong>.
                                     После оформления заявки резервируем деньги на вашем
-                                    счету. Списание средств происходит только в момент получения видео. Если по любым
-                                    причинам заказ не был исполнен <strong>в течение 5 дней</strong>, деньги сразу же
+                                    счету. Списание средств происходит только в момент получения видео. Если по
+                                    любым
+                                    причинам заказ не был исполнен <strong>в течение 5 дней</strong>, деньги сразу
+                                    же
                                     возвращаются вам.
                                 </p>
                             </div>
@@ -446,7 +480,8 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                     Анна Семенович сегодня сразу и певица, и актриса, и телеведущая. Обладательница
                                     пятого с
                                     половиной размера груди является завсегдатаем светских тусовок, а ее
-                                    лицо и красивое тело часто украшают обложки глянцевых журналов. Мало кто знает, что
+                                    лицо и красивое тело часто украшают обложки глянцевых журналов. Мало кто знает,
+                                    что
                                     за
                                     востребованной артисткой прячется прошлое школьного аутсайдера и
                                     ребенка без детства.
@@ -455,7 +490,8 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                     клип на песню «Хочешь», а в сентябре состоялся релиз композиции
                                     «Сексибомбочка». Также артистка приняла участие в благотворительном концерте в
                                     Государственном Кремлевском Дворце.
-                                    Кроме того, Семенович востребована в кинематографе. На 2020 год запланирован выход
+                                    Кроме того, Семенович востребована в кинематографе. На 2020 год запланирован
+                                    выход
                                     фильма с Анной «Гардемарины IV». Ее коллегами по съемочной площадке стали
                                     такие артисты как Дмитрий Харатьян, певица Кристина Орбакайте, а также Михаил
                                     Боярский и
@@ -465,7 +501,8 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                     Что касается личной жизни Семенович, то она по обыкновению скрыта от глаз
                                     посторонних.
                                     Известно лишь, что у артистки есть возлюбленный. Со слов девушки, она
-                                    состоит в отношениях с мужчиной младше нее на семь лет. Семенович призналась, что
+                                    состоит в отношениях с мужчиной младше нее на семь лет. Семенович призналась,
+                                    что
                                     только
                                     сейчас всерьез задумалась завести детей.
                                 </p>
@@ -636,7 +673,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                         </div>
                         <div className="header-text">
                             <span>Завершите оплату</span>
-                            {handleType}
+                            {handleType()}
                         </div>
                     </div>
                     <div className="signInInputs spread">
