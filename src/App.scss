@@ -10,6 +10,14 @@ html, body {
   height: 100%;
 }
 
+nav {
+  ul {
+    a:hover {
+      background-color: transparent !important;
+    }
+  }
+}
+
 @media (max-width: 768px) {
   #root {
     height: auto;

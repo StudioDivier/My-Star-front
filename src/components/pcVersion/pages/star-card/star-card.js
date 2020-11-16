@@ -232,6 +232,27 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         orderType = value;
     }
 
+    const handleType = () => {
+        if (orderType === 'Видео-поздравление') {
+            return (
+                <p>Вы сделали заказ поздравления от звезды<span></span> <span
+                    style={{fontWeight: 700}}>"{star.first_name}&nbsp;{star.last_name}"</span> на
+                    сумму <span
+                        style={{fontWeight: 800}}>{star.price} &#8381;</span>
+                </p>
+            )
+        }
+        if (orderType === 'Приглашение на праздник') {
+            return (
+                <p>Вы сделали заказ на приглашение звезды<span></span> <span
+                    style={{fontWeight: 700}}>"{star.first_name}&nbsp;{star.last_name}"</span> на
+                    свой праздник на сумму <span
+                        style={{fontWeight: 800}}>{star.price_another} &#8381;</span>
+                </p>
+            )
+        }
+    }
+
     return (
         <>
             <Breadcrumbs secondItem={star.cat_name_id || star.cat_name_id_id} thirdItem={star.username}/>
@@ -317,7 +338,8 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                     <div className="star-pc-price-wrapper">
                                         <label className="radio-container">
                                             {/*<img src={circle} alt="Pointer"/>*/}
-                                            <input type="radio" onClick={() => recordType('Видео-поздравление')} name={'type'} />
+                                            <input type="radio" onClick={() => recordType('Видео-поздравление')}
+                                                   name={'type'}/>
                                             <span className="checkmark"></span>
                                         </label>
                                         <div>
@@ -328,7 +350,8 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                     <div className="star-pc-price-wrapper">
                                         <label className="radio-container">
                                             {/*<img src={circle} alt="Pointer"/>*/}
-                                            <input type="radio" onClick={() => recordType('Приглашение на праздник')} name={'type'} />
+                                            <input type="radio" onClick={() => recordType('Приглашение на праздник')}
+                                                   name={'type'}/>
                                             <span class="checkmark"></span>
                                         </label>
                                         <div>
@@ -613,11 +636,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                         </div>
                         <div className="header-text">
                             <span>Завершите оплату</span>
-                            <p>Вы сделали заказ поздравления от звезды<span></span> <span
-                                style={{fontWeight: 700}}>"{star.first_name}&nbsp;{star.last_name}"</span> на
-                                сумму <span
-                                    style={{fontWeight: 800}}>{star.price} &#8381;</span>
-                            </p>
+                            {handleType}
                         </div>
                     </div>
                     <div className="signInInputs spread">
@@ -627,6 +646,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                 className="pc-signInButton rateBtn"
                                 onClick={redirectHandler}
                                 disabled={loading}
+                                style={{backgroundImage: 'none', fontSize: '15px'}}
                             >
                                 Оплатить
                             </button>
