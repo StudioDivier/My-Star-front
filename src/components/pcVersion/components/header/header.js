@@ -94,15 +94,15 @@ export const Header = ({setSearch, setPhone}) => {
     }
 
     // Transform birth year
-    function reverseDate(str) {
-        return str.split('-').reverse().join('-')
-    }
+    // function reverseDate(str) {
+    //     return str.split('-').reverse().join('-')
+    // }
 
     const registerHandler = async () => {
         if (form.password === form.passwordRepeat) {
-            if (form.password && form.email && form.phone && form.username && form.date_of_birth) {
+            if (form.password && form.email && form.phone && form.username) {
 
-                if (!(form.password.length === 0) && !(form.email.length === 0) && !(form.phone.length === 0) && !(form.username.length === 0) && !(form.date_of_birth.length === 0)) {
+                if (!(form.password.length === 0) && !(form.email.length === 0) && !(form.phone.length === 0) && !(form.username.length === 0)) {
                     try {
                         const dataAuth = await request('/api/registration/', 'POST', {
                             email: form.email,
@@ -110,7 +110,7 @@ export const Header = ({setSearch, setPhone}) => {
                             password: form.password,
                             phone: form.phone.replace(/[^0-9]/g, ''),
                             username: form.username,
-                            date_of_birth: reverseDate(form.date_of_birth)
+                            // date_of_birth: reverseDate(form.date_of_birth)
                         })
                         if (Object.keys(dataAuth).length !== 1) {
                             setTimeout(() => {
@@ -122,17 +122,20 @@ export const Header = ({setSearch, setPhone}) => {
                         }
                         // console.log(dataAuth.username[0])
                         // if (dataAuth.email[0] !== 'Это поле должно быть уникально.' || dataAuth.phone[0] !== 'Это поле должно быть уникально.' || dataAuth.username[0] !== 'Это поле должно быть уникально.') {
-                        if (!(Object.values(dataAuth).includes('Это поле должно быть уникально.'))) {
-                            const dataLog = await request('/api/login/', 'POST', {
-                                password: form.password, login: form.email
-                            })
-                            console.log(dataLog)
-                            // message(dataLog)
-                            if (dataLog.token) {
-                                auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
-                                message('Вы зарегистрированы!')
-                            }
-                        }
+
+                        // if (!(Object.values(dataAuth).includes('Это поле должно быть уникально.'))) {
+                        //     const dataLog = await request('/api/login/', 'POST', {
+                        //         password: form.password, login: form.email
+                        //     })
+                        //     console.log(dataLog)
+                        //     // message(dataLog)
+                        //     if (dataLog.token) {
+                        //         auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
+                        //         message('Вы зарегистрированы!')
+                        //     }
+                        // }
+
+                        message(...dataAuth)
 
                         closeModal();
 
@@ -428,17 +431,17 @@ export const Header = ({setSearch, setPhone}) => {
                             onChange={changeHandler}
                         />
                     </div>
-                    <div className="single-input__wrapper">
-                        <span>Дата рождения</span>
-                        <MaskedInput
-                            mask={[/[0-3]/, /[0-9]/, '-', /[0-1]/, /[0-9]/, '-', /\d/, /\d/, /\d/, /\d/]}
-                            placeholder={'дд-мм-гггг'}
-                            type="text"
-                            name={'date_of_birth'}
-                            value={form.date_of_birth}
-                            onChange={changeHandler}
-                        />
-                    </div>
+                    {/*<div className="single-input__wrapper">*/}
+                    {/*    <span>Дата рождения</span>*/}
+                    {/*    <MaskedInput*/}
+                    {/*        mask={[/[0-3]/, /[0-9]/, '-', /[0-1]/, /[0-9]/, '-', /\d/, /\d/, /\d/, /\d/]}*/}
+                    {/*        placeholder={'дд-мм-гггг'}*/}
+                    {/*        type="text"*/}
+                    {/*        name={'date_of_birth'}*/}
+                    {/*        value={form.date_of_birth}*/}
+                    {/*        onChange={changeHandler}*/}
+                    {/*    />*/}
+                    {/*</div>*/}
 
                     <p>Нажимая на кнопку, я принимаю условия <a href="/privacy-policy">пользовательского соглашения.</a>
                     </p>

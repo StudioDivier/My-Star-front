@@ -17,7 +17,7 @@ export const SignUp = () => {
     const {request} = useHttp();
 
     const [form, setForm] = useState({
-        email: '', password: '', phone: '', username: '', date_of_birth: ''
+        email: '', password: '', phone: '', username: '', date_of_birth: '', passwordRepeat: ''
     })
 
     const [consent, setConsent] = useState(false);
@@ -38,9 +38,9 @@ export const SignUp = () => {
     }
 
     // Transform birth year
-    function reverseDate(str) {
-        return str.split('-').reverse().join('-')
-    }
+    // function reverseDate(str) {
+    //     return str.split('-').reverse().join('-')
+    // }
 
     // Transform phone
     // function transformPhone(str) {
@@ -51,36 +51,42 @@ export const SignUp = () => {
     const registerHandler = async () => {
         try {
             if (consent) {
-                const dataAuth = await request('/api/registration/', 'POST', {
-                    // ...form
-                    email: form.email,
-                    password: form.password,
-                    phone: form.phone.replace(/[^0-9]/g, ''),
-                    username: form.username,
-                    date_of_birth: reverseDate(form.date_of_birth)
-                })
-                if (Object.keys(dataAuth).length !== 1) {
-                    setTimeout(() => {
-                        for (let e in dataAuth) {
-                            message([e + ' : ' + dataAuth[e][0]]);
-                        }
-                    }, 555)
-
-                }
-                if (dataAuth.email[0] !== 'Это поле должно быть уникально.' || dataAuth.phone[0] !== 'Это поле должно быть уникально.' || dataAuth.username[0] !== 'Это поле должно быть уникально.') {
-                    const dataLog = await request('/api/login/', 'POST', {
-                        login: form.email, password: form.password
+                if (form.password === form.passwordRepeat) {
+                    const dataAuth = await request('/api/registration/', 'POST', {
+                        // ...form
+                        email: form.email,
+                        password: form.password,
+                        phone: form.phone.replace(/[^0-9]/g, ''),
+                        username: form.username,
+                        // date_of_birth: reverseDate(form.date_of_birth)
                     })
+                    if (Object.keys(dataAuth).length !== 1) {
+                        setTimeout(() => {
+                            for (let e in dataAuth) {
+                                message([e + ' : ' + dataAuth[e][0]]);
+                            }
+                        }, 555)
 
-    // console.log(dataAuth)
-    // auth.login(dataAuth.token, form.username, dataAuth.is_star)
-                    auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
-                    if (dataLog.token) {
-                        message('Вы зарегистрированы!')
                     }
-                    history.push('/categories')
-                }
+                    message(...dataAuth)
+                    // if (dataAuth.email[0] !== 'Это поле должно быть уникально.' || dataAuth.phone[0] !== 'Это поле должно быть уникально.' || dataAuth.username[0] !== 'Это поле должно быть уникально.') {
+                    //     const dataLog = await request('/api/login/', 'POST', {
+                    //         login: form.email, password: form.password
+                    //     })
 
+                        // console.log(dataAuth)
+                        // auth.login(dataAuth.token, form.username, dataAuth.is_star)
+
+                        // auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
+                        // if (dataLog) {
+                        //     message(dataLog[0])
+                        // }
+                        // history.push('/categories')
+                    // }
+
+                } else {
+                    message(['Введенные пароли не совпадают!'])
+                }
             } else {
                 let customMessage = 'Необходимо согласие на обработку данных';
                 message([customMessage])
@@ -88,7 +94,7 @@ export const SignUp = () => {
 // console.log(dataAuth.token.valueOf())
         } catch (e) {
             message([e]);
-            history.push('/sign-up')
+            // history.push('/sign-up')
         }
     }
 
@@ -180,6 +186,8 @@ export const SignUp = () => {
                     placeholder={'Повтор пароля'}
                     type="password"
                     name={'passwordRepeat'}
+                    value={form.passwordRepeat}
+                    onChange={changeHandler}
                 />
                 <input
                     placeholder={'E-mail'}
@@ -196,14 +204,14 @@ export const SignUp = () => {
                     value={form.phone}
                     onChange={changeHandler}
                 />
-                <MaskedInput
-                    mask={[/[0-3]/, /[0-9]/, '-', /[0-1]/, /[0-9]/, '-', /\d/, /\d/, /\d/, /\d/]}
-                    placeholder={'дд-мм-гггг'}
-                    type="text"
-                    name={'date_of_birth'}
-                    value={form.date_of_birth}
-                    onChange={changeHandler}
-                />
+                {/*<MaskedInput*/}
+                {/*    mask={[/[0-3]/, /[0-9]/, '-', /[0-1]/, /[0-9]/, '-', /\d/, /\d/, /\d/, /\d/]}*/}
+                {/*    placeholder={'дд-мм-гггг'}*/}
+                {/*    type="text"*/}
+                {/*    name={'date_of_birth'}*/}
+                {/*    value={form.date_of_birth}*/}
+                {/*    onChange={changeHandler}*/}
+                {/*/>*/}
             </div>
             <div className="turnIn-data">
                 <div className="usersConsent">

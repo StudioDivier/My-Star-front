@@ -272,13 +272,39 @@ body {
         }
       }
 
-      input {
+      input, textarea {
         border: 2px solid #f3f3f3;
         padding-left: 20px;
         border-radius: 15px;
         text-align: left;
         width: 70%;
         color: black;
+      }
+
+      textarea {
+        padding-top: 10px;
+        height: 100px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        //box-shadow: none;
+
+        @include min-w(1000) {
+          width: 74%;
+        }
+        @include min-w(1200) {
+          width: 73.2%;
+        }
+        @include min-w(1400) {
+          width: 72.4%;
+        }
+        @include lg-max {
+          width: 75%;
+        }
+
+        &:focus {
+          outline: 0;
+        }
       }
 
       input:focus {
@@ -344,9 +370,11 @@ body {
         flex-wrap: wrap;
         justify-content: space-between;
         margin-top: 20px;
+
         label {
           margin-bottom: 0;
         }
+
         label.accept {
           padding: 11px 35px;
           margin-right: 20px;
@@ -357,9 +385,11 @@ body {
         input[type='file'] {
           display: none;
         }
+
         span {
           font-weight: 700;
         }
+
         cursor: pointer;
         font-size: 16px;
         padding: 10px 35px;
@@ -373,9 +403,11 @@ body {
         input[type='submit'] {
           display: none;
         }
+
         span {
           font-weight: 700;
         }
+
         cursor: pointer;
         font-size: 16px;
         color: black;

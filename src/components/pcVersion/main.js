@@ -21,6 +21,7 @@ import {Redirect} from "react-router-dom/";
 import {YaRedirect} from "./pages/ya-redirect/ya-redirect";
 import {VkRedirect} from "./pages/vk-redirect/vk-redirect";
 import {SeeVideo} from "../see-video/SeeVideo";
+import {ConfirmReg} from "../confirm-reg/confirm-reg";
 
 export const DesktopMain = (isAuthenticated, isStar) => {
 
@@ -197,6 +198,19 @@ export const DesktopMain = (isAuthenticated, isStar) => {
 
                     <Route path={'/media/congratulation/'}>
                         <SeeVideo/>
+                    </Route>
+
+                    <Route path={'/api/registration-confirm/'}>
+                        <Breadcrumbs secondItem={'Регистрация через ВКонтакте'}/>
+                        <Container>
+                            <Row>
+                                <Col>
+                                    <div className="pc-password-reset">
+                                        <ConfirmReg/>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </Container>
                     </Route>
 
                     <Redirect to={'/'}/>

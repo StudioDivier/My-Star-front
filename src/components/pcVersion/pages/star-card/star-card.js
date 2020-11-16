@@ -230,7 +230,8 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                 <div className="star-cat-and-rating">
                                     <span>{star.profession}</span>
 
-                                    <div className="inner-wrapper">
+                                    <div className="inner-wrapper" onClick={showRatingModal}
+                                         style={{cursor: 'pointer'}}>
                                         <Ratings
                                             rating={star.rating}
                                             widgetRatedColors="orange"
@@ -244,11 +245,10 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                             <Ratings.Widget/>
                                         </Ratings>
 
-                                        <span onClick={showRatingModal}
-                                              style={{
-                                                  cursor: 'pointer',
-                                                  textDecoration: 'underline'
-                                              }}>({star.rating})</span>
+                                        <span style={{
+                                            cursor: 'pointer',
+                                            textDecoration: 'underline'
+                                        }}>({star.rating})</span>
                                     </div>
 
                                     {/*<div className="form-group">*/}
@@ -266,10 +266,25 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                 </div>
                                 <div className="star-pc-price">
                                     <div className="star-pc-price-wrapper">
-                                        <img src={circle} alt="Pointer"/>
+                                        <label className="radio-container">
+                                            {/*<img src={circle} alt="Pointer"/>*/}
+                                            <input type="radio" name="order-type"/>
+                                            <span class="checkmark"></span>
+                                        </label>
                                         <div>
                                             <span>Поздравление</span>
                                             <span className={'star-pc-price__price'}>{star.price} &#8381;</span>
+                                        </div>
+                                    </div>
+                                    <div className="star-pc-price-wrapper">
+                                        <label className="radio-container">
+                                            {/*<img src={circle} alt="Pointer"/>*/}
+                                            <input type="radio" name="order-type"/>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                        <div>
+                                            <span>Приглашение на праздник</span>
+                                            <span className={'star-pc-price__price'}>{star.price_another} &#8381;</span>
                                         </div>
                                     </div>
                                 </div>
@@ -466,12 +481,14 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                         </div>
                         <div className="single-input__wrapper">
                             <span>Текст поздравления</span>
-                            <input
+                            {/*<div style={{width: '70%'}}>*/}
+                            <textarea
                                 name={'comment'}
                                 value={form.comment}
                                 onChange={changeHandler}
                                 placeholder={'Поздравление в свободной форме'}
                             />
+                            {/*</div>*/}
                         </div>
 
                         <p>Нажимая на кнопку, я принимаю условия <a href="/#">пользовательского соглашения.</a></p>
@@ -548,8 +565,9 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                         <div className="header-text">
                             <span>Завершите оплату</span>
                             <p>Вы сделали заказ поздравления от звезды<span></span> <span
-                                style={{fontWeight: 700}}>"{star.first_name}&nbsp;{star.last_name}"</span> на сумму <span
-                                style={{fontWeight: 800}}>{star.price} &#8381;</span>
+                                style={{fontWeight: 700}}>"{star.first_name}&nbsp;{star.last_name}"</span> на
+                                сумму <span
+                                    style={{fontWeight: 800}}>{star.price} &#8381;</span>
                             </p>
                         </div>
                     </div>

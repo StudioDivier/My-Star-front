@@ -360,18 +360,15 @@ export const AccountPage = () => {
                 <h3>Мои данные</h3>
                 <ul className="list-group">
                     <li className="list-group-item">
-                        <div className="list-item__title">
-                            <span>Имя пользователя</span>
-                        </div>
                         <div className="list-item_content">
                             <input type="text" name={'username'} className="form-control" onChange={changeHandler}
                                    value={data.username}/>
                         </div>
+                        <div className="list-item__title">
+                            <span>Имя пользователя</span>
+                        </div>
                     </li>
                     <li className="list-group-item">
-                        <div className="list-item__title">
-                            <span>Телефон</span>
-                        </div>
                         <div className="list-item_content">
                             {/*<input type="text"*/}
                             {/*       name={'phone'}*/}
@@ -391,20 +388,20 @@ export const AccountPage = () => {
                                 style={{color: 'white'}}
                             />
                         </div>
+                        <div className="list-item__title">
+                            <span>Телефон</span>
+                        </div>
                     </li>
                     <li className="list-group-item">
-                        <div className="list-item__title">
-                            <span>Email</span>
-                        </div>
                         <div className="list-item_content">
                             <input type="text" name={'email'} className="form-control" onChange={changeHandler}
                                    value={data.email}/>
                         </div>
+                        <div className="list-item__title">
+                            <span>Email</span>
+                        </div>
                     </li>
                     <li className="list-group-item">
-                        <div className="list-item__title">
-                            <span>Дата рождения</span>
-                        </div>
                         <div className="list-item_content">
                             {/*<input type="text"*/}
                             {/*       name={'date_of_birth'}*/}
@@ -423,6 +420,9 @@ export const AccountPage = () => {
                                 disabled
                                 style={{color: 'white'}}
                             />
+                        </div>
+                        <div className="list-item__title">
+                            <span>Дата рождения</span>
                         </div>
                     </li>
                 </ul>

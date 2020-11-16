@@ -2,10 +2,12 @@ import {useState, useCallback} from 'react';
 
 export const useHttp = () => {
     // let boundary1 = String(Math.random()).slice(2);
+    const [loading, setLoading] = useState(false)
     const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
     // console.log(SERVER_URL)
     const [error, setError] = useState(null);
     const request = useCallback(async (url, method = 'GET', body = null, headers = {}) => { // mode='no-cors', redirect = 'manual'
+        setLoading(true)
         try {
             // console.log(method)
             if (body) {
@@ -36,11 +38,13 @@ export const useHttp = () => {
             //     data.error = "Некорректные данные при регистрации"
             //     throw new Error(`Ошибка: ${data.message}` || `Ошибка: неизвестно`)
             // }
+            setLoading(false)
             return data;
 
         } catch (e) {
             // console.log(e.message)
             // setError(e.message)
+            setLoading(false)
             throw e
         }
     }, [SERVER_URL])
@@ -50,5 +54,5 @@ export const useHttp = () => {
     }, [])
 
 
-    return {request, error, clearError}
+    return {request, error, clearError, loading}
 }

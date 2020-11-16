@@ -197,57 +197,57 @@ export const Profile = () => {
                     <div className="profile__details">
                         <div className="first-name">
                             <div className="wrapper">
-                                <span>Имя</span>
                                 <input
                                     type="text"
                                     value={data.first_name}
                                     name={'first_name'}
                                     onChange={changeHandler}
                                 />
+                                <span>Имя</span>
                             </div>
                         </div>
                         <div className="last-name">
                             <div className="wrapper">
-                                <span>Фамилия</span>
                                 <input
                                     type="text"
                                     value={data.last_name}
                                     name={'last_name'}
                                     onChange={changeHandler}
                                 />
+                                <span>Фамилия</span>
                             </div>
                         </div>
                         <div className="username">
                             <div className="wrapper">
-                                <span>Логин</span>
                                 <input
                                     type="text"
                                     value={data.username}
                                     name={'username'}
                                     onChange={changeHandler}
                                 />
+                                <span>Логин</span>
                             </div>
                         </div>
                         <div className="e-mail">
                             <div className="wrapper">
-                                <span>E-mail</span>
                                 <input
                                     type="text"
                                     value={data.email}
                                     name={'email'}
                                     onChange={changeHandler}
                                 />
+                                <span>E-mail</span>
                             </div>
                         </div>
                         <div className="phone">
                             <div className="wrapper">
-                                <span>Телефон</span>
                                 <input
                                     type="text"
                                     value={data.phone}
                                     name={'phone'}
                                     onChange={changeHandler}
                                 />
+                                <span>Телефон</span>
                                 {/*<MaskedInput*/}
                                 {/*    mask={[/[1-9]/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}*/}
                                 {/*    type="text"*/}
@@ -259,13 +259,13 @@ export const Profile = () => {
                         </div>
                         <div className="birthday">
                             <div className="wrapper">
-                                <span>Дата рождения</span>
                                 <input
                                     type="text"
                                     value={data.date_of_birth}
                                     name={'date_of_birth'}
                                     onChange={changeHandler}
                                 />
+                                <span>Дата рождения</span>
                             </div>
                         </div>
                         {/*<div className="avatar">*/}

@@ -15,6 +15,7 @@ import {Reset} from "./components/auth-page/reset";
 import {SeeVideo} from "./components/see-video/SeeVideo";
 import {YaRedirect} from "./components/auth-page/components/ya-redirect";
 import {VkRedirect} from "./components/auth-page/components/vk-redirect";
+import {ConfirmReg} from "./components/confirm-reg/confirm-reg";
 
 export const useRoutes = (isAuthenticated, isStar) => {
 
@@ -64,6 +65,12 @@ export const useRoutes = (isAuthenticated, isStar) => {
                         <Route path={'/api/mid-vk/'}>
                             <div className={'gradient__signUp'}>
                                 <VkRedirect/>
+                            </div>
+                        </Route>
+
+                        <Route path={'/api/registration-confirm/'}>
+                            <div className={'gradient__signUp'}>
+                                <ConfirmReg/>
                             </div>
                         </Route>
 
@@ -140,6 +147,13 @@ export const useRoutes = (isAuthenticated, isStar) => {
                         <Route path={'/media/congratulation/'}>
                             <SeeVideo/>
                         </Route>
+
+                        <Route path={'/api/registration-confirm/'}>
+                            <div className={'gradient__signUp'}>
+                                <ConfirmReg/>
+                            </div>
+                        </Route>
+
                         {/*<Redirect to={'/'}/>*/}
                     </Switch>
                 </StarsProvider>
@@ -192,6 +206,11 @@ export const useRoutes = (isAuthenticated, isStar) => {
                         </Route>
                         <Route path={'/media/congratulation/'}>
                             <SeeVideo/>
+                        </Route>
+                        <Route path={'/api/registration-confirm/'}>
+                            <div className={'gradient__signUp'}>
+                                <ConfirmReg/>
+                            </div>
                         </Route>
 
                         <Redirect to="/"/>

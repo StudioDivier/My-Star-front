@@ -141,7 +141,7 @@ export const SignIn = () => {
             <div className="signInInputs">
                 <input
                     type="text"
-                    placeholder={'Почта или логин'}
+                    placeholder={'Почта'}
                     onChange={changeHandler}
                     name={'login'}
                     value={form.login}
