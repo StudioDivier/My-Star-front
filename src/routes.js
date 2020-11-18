@@ -9,6 +9,7 @@ import {Confirm} from "./components/confirm/confirm";
 import {OrdersPage} from "./components/orders-page/orders-page";
 import {Profile} from "./components/profile/profile"
 import {Policy} from "./components/docs/policy";
+import {Terms} from "./components/docs/terms";
 import {DesktopMain} from "./components/pcVersion/main";
 // import {AccountPage} from "./components/pcVersion/pages/account-page/account-page";
 import {Reset} from "./components/auth-page/reset";
@@ -37,6 +38,8 @@ export const useRoutes = (isAuthenticated, isStar) => {
                         <Route exact path="/profile" component={Profile}/>
 
                         <Route exact path="/policy" component={Policy}/>
+
+                        <Route exact path="/terms" component={Terms}/>
 
                         <Route exact path="/categories" component={Categories}/>
 

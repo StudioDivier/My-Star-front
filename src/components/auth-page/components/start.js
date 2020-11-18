@@ -21,6 +21,13 @@ export const Start = () => {
                         <p>EXPROME</p>
                         <p>поздравление от звезды</p>
                     </div>
+                    {/*<div className="text-container"*/}
+                    {/*     style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>*/}
+                    {/*    <p className={'mb-2'}*/}
+                    {/*       style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>EXPROME <img*/}
+                    {/*        src={logo} alt="Logo" style={{width: '55px', height: '45px', marginLeft: '15px'}}/></p>*/}
+                    {/*    <p style={{textAlign: 'center'}}>поздравление от звезды</p>*/}
+                    {/*</div>*/}
                 </div>
             </div>
             <div className="authButtons">

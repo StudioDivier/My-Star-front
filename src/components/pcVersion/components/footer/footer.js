@@ -70,9 +70,9 @@ export const Footer = () => {
                     <Col>
                         <div className="wrapper">
                             <div className="firstCol">
-                                <span>Условия использования &nbsp;&nbsp;| &nbsp;&nbsp;<a href="/privacy-policy">Политика конфиденциальности</a> &nbsp;&nbsp;| &nbsp;&nbsp;Как это работает</span>
+                                <span><a href="/terms-of-service">Условия использования</a> &nbsp;&nbsp;| &nbsp;&nbsp;<a href="/privacy-policy">Политика конфиденциальности</a> &nbsp;&nbsp;| &nbsp;&nbsp;<a href="/how-it-works">Как это работает</a></span>
                                 <div>
-                                    <span><a href="/#">Реквизиты компании</a></span>
+                                    {/*<span><a href="/#">Реквизиты компании</a></span>*/}
                                     <span className={'becomeStar'} onClick={openModal}>Я исполнитель</span>
                                 </div>
                                 <span>© 2020 Exprome</span>
@@ -85,7 +85,7 @@ export const Footer = () => {
                                 <a href={'https://www.tiktok.com/ru/'}><FontAwesomeIcon icon={['fab', 'tiktok']} size={'lg'}/></a>
                             </div>
                             <div className="thirdCol">
-                                <span className="phone">+7 (495) 925-91-11</span>
+                                <span className="phone">+7 (920) 173-00-00</span>
                                 <div className="paySystems">
                                     <img src={visa} alt="Visa"/>
                                     <img src={mc} alt="MasterCard"/>

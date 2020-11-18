@@ -61,14 +61,17 @@ export const FilterHead = ({chooseCat, nameCat}) => {
                 <a href={'/'}>
                     <div className="cat">Главная</div>
                 </a>
+                <a href={"/categories"}>
+                    <div className="cat">Все категории ({data.length})</div>
+                </a>
+                <a href={"/video-examples"}>
+                    <div className="cat">Примеры поздравлений</div>
+                </a>
                 {data.map((value, key) => {
                     return (
                         <div className="cat" key={key} onClick={() => multipleHandler(value.id, value.cat_name)}>{value.cat_name}</div>
                     )
                 })}
-                <a href={"/categories"}>
-                    <div className="cat">Все категории ({data.length})</div>
-                </a>
             </div>
         </div>
     )

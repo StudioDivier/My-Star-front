@@ -24,6 +24,9 @@ import {SeeVideo} from "../see-video/SeeVideo";
 import {ConfirmReg} from "../confirm-reg/confirm-reg";
 import {FavCategory} from "./pages/favorites-page/favorites-page";
 import {Navbar} from "./components/navbar/navbar";
+import {Terms} from "./pages/terms-of-service/terms-of-service";
+import {Examples} from "./pages/video-examples/video-examples";
+import {How} from "./pages/how-it-works/how-it-works";
 
 export const DesktopMain = (isAuthenticated, isStar) => {
 
@@ -37,7 +40,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     return (
         <div className="main">
             <Router>
-                <Navbar />
+                {/*<Navbar />*/}
                 <Header setSearch={setSearch}/>
 
                 <Switch>
@@ -143,9 +146,24 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                         />
                     </Route>
 
+                    <Route exact path={'/video-examples'}>
+                        <Breadcrumbs secondItem={'Примеры поздравлений'}/>
+                        <Examples/>
+                    </Route>
+
                     <Route exact path={'/privacy-policy'}>
                         <Breadcrumbs secondItem={'Политика конфиденциальности'}/>
                         <Policy/>
+                    </Route>
+
+                    <Route exact path={'/terms-of-service'}>
+                        <Breadcrumbs secondItem={'Условия использования'}/>
+                        <Terms/>
+                    </Route>
+
+                    <Route exact path={'/how-it-works'}>
+                        <Breadcrumbs secondItem={'Как это работает'}/>
+                        <How/>
                     </Route>
 
                     <Route exact path='/password-reset/confirm/'>

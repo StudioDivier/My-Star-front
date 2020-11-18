@@ -31,9 +31,9 @@ export const Search = ({search, chooseStar}) => {
         history.push('/star-card')
     }
 
-    console.log(search.length > 0 && stars.filter(value => value.username.toLowerCase() === search.toLowerCase()).length === 0)
+    // console.log(search.length > 0 && stars.filter(value => value.username.toLowerCase() === search.toLowerCase()).length === 0)
 
-    if (search.length > 0 && stars.filter(value => value.username.toLowerCase() === search.toLowerCase()).length === 0) {
+    if (search.length > 0 && stars.filter(value => value.username.toLowerCase() === search.toLowerCase() || value.first_name.toLowerCase() === search.toLowerCase() || value.last_name.toLowerCase() === search.toLowerCase()).length === 0) {
         return (
             <Container style={{paddingBottom: '300px', textAlign: 'center'}}>
                 <Row>
@@ -52,7 +52,7 @@ export const Search = ({search, chooseStar}) => {
                             <div className="single-cat">
                                 <div className="single-cat__stars">
                                     {
-                                        stars.filter(value => value.username.toLowerCase() === search.toLowerCase()).map((value, key) => {
+                                        stars.filter(value => value.username.toLowerCase() === search.toLowerCase() || value.first_name.toLowerCase() === search.toLowerCase() || value.last_name.toLowerCase() === search.toLowerCase()).map((value, key) => {
                                             console.log(value)
                                             return (
                                                 <div className="single-cat__star" key={key}

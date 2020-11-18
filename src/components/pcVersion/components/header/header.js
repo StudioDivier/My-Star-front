@@ -10,6 +10,7 @@ import Modal from 'react-modal';
 import {useHistory} from 'react-router-dom';
 import close from '../../../../img/close.png';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import logo from '../../../../img/16 (2).png';
 
 export const Header = ({setSearch, setPhone}) => {
 
@@ -19,21 +20,30 @@ export const Header = ({setSearch, setPhone}) => {
 
     const [loginIsOpen, setLoginIsOpen] = useState(false);
     const [authIsOpen, setAuthIsOpen] = useState(false);
+    const [forgotPW, setForgotIsOpen] = useState(false);
     // const [yaIsOpen, setYaIsOpen] = useState(false);
     // const [vkIsOpen, setVkIsOpen] = useState(false);
 
     const message = useMessage();
     const auth = useContext(AuthContext);
-    const {request} = useHttp();
+    const {request, loading} = useHttp();
 
     const [form, setForm] = useState({
         password: '', login: ''
     })
 
-    const [form1, setForm1] = useState({search: ''})
-
     const changeHandler = event => {
         setForm(({...form, [event.target.name]: event.target.value}))
+    }
+
+    const [emailForm, setEmailForm] = useState({
+        email: ''
+    })
+
+    const [form1, setForm1] = useState({search: ''})
+
+    const mailChangeHandler = event => {
+        setEmailForm(({...emailForm, [event.target.name]: event.target.value}))
     }
 
     /*
@@ -46,16 +56,16 @@ export const Header = ({setSearch, setPhone}) => {
     const showLoginModal = () => {
         setLoginIsOpen(true)
     }
-    // const showYaModal = () => {
-    //     setYaIsOpen(true)
-    // }
+    const showForgotModal = () => {
+        setForgotIsOpen(true)
+    }
     // const showVkModal = () => {
     //     setVkIsOpen(true)
     // }
     const closeModal = () => {
         setLoginIsOpen(false)
         setAuthIsOpen(false)
-        // setYaIsOpen(false)
+        setForgotIsOpen(false)
     }
 
     Modal.setAppElement(document.querySelector('.App'))
@@ -193,7 +203,10 @@ export const Header = ({setSearch, setPhone}) => {
             )
         }
         return (
-            <div onClick={showLoginModal}><span>Вход</span></div>
+            <div style={{display: 'flex'}}>
+                <div onClick={showLoginModal}><span>Войти как исполнитель</span></div>
+                <div onClick={showLoginModal}><span>Вход</span></div>
+            </div>
         )
 
     }
@@ -265,18 +278,36 @@ export const Header = ({setSearch, setPhone}) => {
         }
     }
 
+    // Forgot password
+
+    const sendRecover = async () => {
+        try {
+            const changePW = await request('/password-reset/', 'POST', {"email": emailForm.email})
+            console.log(changePW)
+            if (changePW.status === 'OK') {
+                alert('Вам на почту отправлена ссылка для смены пароля');
+            } else {
+                message(['Пользователь с таким e-mail не зарегистрирован!'])
+            }
+        } catch (e) {
+            message(e)
+        }
+    }
+
 
     return (
         <div className="pc-header">
             <Container>
                 <Row>
-                    <Col lg={5} className={'customCol'}>
-                        <div className="text-container">
+                    <Col md={12} lg={3} xl={5} className={'customCol'}>
+                        <div className="text-container" style={{display: 'flex', alignItems: 'center'}}>
                             <p><span className={'logo'}><a href="/">Exprome</a></span></p>
-                            <p>поздравление от звезды</p>
+                            {/*<p>поздравление от звезды</p>*/}
+                            <p></p>
+                            <img src={logo} alt="Logo" style={{width: '50px'}}/>
                         </div>
                     </Col>
-                    <Col lg={4} className={'customCol'}>
+                    <Col md={12} lg={4} xl={3} className={'customCol'}>
                         <div className="search">
                             <form onSubmit={(e) => searchHandler(e)}>
                                 <input
@@ -290,7 +321,7 @@ export const Header = ({setSearch, setPhone}) => {
                             </form>
                         </div>
                     </Col>
-                    <Col lg={3} className={'customCol'}>
+                    <Col md={12} lg={5} xl={4} className={'customCol'}>
                         <div className="auth">
                             {determineAuth()}
                             {/*<div onClick={showLoginModal}><span>Вход</span></div>*/}
@@ -342,6 +373,13 @@ export const Header = ({setSearch, setPhone}) => {
                             name={'password'}
                             value={form.password}
                         />
+                    </div>
+                    <div className="single-input__wrapper mt-3">
+                        <span style={{
+                            fontSize: '12px',
+                            textDecoration: 'underline',
+                            cursor: 'pointer'
+                        }} onClick={showForgotModal}>Забыли пароль?</span>
                     </div>
                     <div className="login__btn-wrapper">
                         <div
@@ -456,44 +494,45 @@ export const Header = ({setSearch, setPhone}) => {
                     </div>
                 </div>
             </Modal>
-            {/*<Modal*/}
-            {/*    isOpen={yaIsOpen}*/}
-            {/*    onRequestClose={closeModal}*/}
-            {/*    contentLabel="Example Modal"*/}
-            {/*    style={customStyles}*/}
-            {/*>*/}
-            {/*    <div className="pc-modal-header">*/}
-            {/*        <div className={'close-btn'} onClick={closeModal}>*/}
-            {/*            <img src={close}*/}
-            {/*                 alt="Close"*/}
-            {/*            />*/}
-            {/*        </div>*/}
-            {/*        <div className="header-text">*/}
-            {/*            <span>Введите свой номер телефона</span>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*    <div className="signInInputs spread">*/}
-            {/*        <div className="single-input__wrapper">*/}
-            {/*            <span>Телефон</span>*/}
-            {/*            <MaskedInput*/}
-            {/*                mask={['+', /[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}*/}
-            {/*                placeholder={'+7(999)999-99-99'}*/}
-            {/*                type="text"*/}
-            {/*                name={'phone'}*/}
-            {/*                value={form.phone}*/}
-            {/*                onChange={changeHandler}*/}
-            {/*            />*/}
-            {/*        </div>*/}
-            {/*        <div className="login__btn-wrapper">*/}
-            {/*            <div*/}
-            {/*                className="pc-signInButton"*/}
-            {/*                onClick={yaAuth}*/}
-            {/*            >*/}
-            {/*                Зарегистрироваться*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</Modal>*/}
+            <Modal
+                isOpen={forgotPW}
+                onRequestClose={closeModal}
+                contentLabel="Example Modal"
+                style={customStyles}
+            >
+                <div className="pc-modal-header">
+                    <div className={'close-btn'} onClick={closeModal}>
+                        <img src={close}
+                             alt="Close"
+                        />
+                    </div>
+                    <div className="header-text">
+                        <span>Введите свой E-mail</span>
+                    </div>
+                </div>
+                <div className="signInInputs spread">
+                    <div className="single-input__wrapper">
+                        <span>E-mail</span>
+                        <input
+                            placeholder={'E-mail'}
+                            type="text"
+                            name={'email'}
+                            value={emailForm.email}
+                            onChange={mailChangeHandler}
+                        />
+                    </div>
+                    <div className="login__btn-wrapper">
+                        <button
+                            className="pc-signInButton"
+                            onClick={sendRecover}
+                            style={{backgroundImage: 'none', fontSize: '16px'}}
+                            disabled={loading}
+                        >
+                            Отправить
+                        </button>
+                    </div>
+                </div>
+            </Modal>
             {/*<Modal*/}
             {/*    isOpen={vkIsOpen}*/}
             {/*    onRequestClose={closeModal}*/}

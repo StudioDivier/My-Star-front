@@ -14,7 +14,7 @@ export const SignIn = () => {
     const history = useHistory();
     const message = useMessage();
     const auth = useContext(AuthContext);
-    const {request} = useHttp();
+    const {request, loading} = useHttp();
     const [modalIsOpen, setIsOpen] = useState(false);
     const [yaLink, setYaLink] = useState('')
     const [vkLink, setVkLink] = useState('')
@@ -22,6 +22,15 @@ export const SignIn = () => {
     const [form, setForm] = useState({
         password: '', login: ''
     })
+
+    const [forgotPW, setForgotIsOpen] = useState(false);
+    const [emailForm, setEmailForm] = useState({
+        email: ''
+    })
+
+    const mailChangeHandler = event => {
+        setEmailForm(({...emailForm, [event.target.name]: event.target.value}))
+    }
 
     // useEffect(() => {
     //     message(error);
@@ -118,11 +127,30 @@ export const SignIn = () => {
         setIsOpen(true)
     }
 
+    const showForgotModal = () => {
+        setForgotIsOpen(true)
+    }
+
     const closeModal = () => {
         setIsOpen(!modalIsOpen);
+        setForgotIsOpen(false)
     }
 
     Modal.setAppElement(document.querySelector('.App'))
+
+    const sendRecover = async () => {
+        try {
+            const changePW = await request('/password-reset/', 'POST', {"email": emailForm.email})
+            console.log(changePW)
+            if (changePW.status === 'OK') {
+                alert('Вам на почту отправлена ссылка для смены пароля');
+            } else {
+                message(['Пользователь с таким e-mail не зарегистрирован!'])
+            }
+        } catch (e) {
+            message(e)
+        }
+    }
 
 
     return (
@@ -160,6 +188,11 @@ export const SignIn = () => {
                     Войти
                 </button>
                 <p>Совершая заказ, вы соглашаетесь с условиями</p>
+                <p style={{
+                    fontSize: '12px',
+                    textDecoration: 'underline',
+                    cursor: 'pointer'
+                }} onClick={showForgotModal}>Забыли пароль?</p>
             </div>
             <div className="socialMediaLogin">
                 <hr/>
@@ -193,6 +226,48 @@ export const SignIn = () => {
                                 <FontAwesomeIcon size='lg' icon={['fab', 'vk']}/>&nbsp;&nbsp;вконтакте
                             </button>
                         </div>
+                    </div>
+                </div>
+            </Modal>
+            <Modal
+                isOpen={forgotPW}
+                onRequestClose={closeModal}
+                contentLabel="Example Modal"
+                style={customStyles}
+            >
+                <div className="modal-header">
+                    <div className={'close-btn'} onClick={closeModal}>
+                        <img src={close}
+                             alt="Close"
+                        />
+                    </div>
+                    <div className="header-text">
+                        <span>Введите свой E-mail</span>
+                    </div>
+                </div>
+                <div className="spread">
+                    <div className="socialMediaLogin">
+                        <div className={'buttonContainer'}>
+                            <span>E-mail</span>
+                            <input
+                                placeholder={'E-mail'}
+                                type="text"
+                                name={'email'}
+                                value={emailForm.email}
+                                onChange={mailChangeHandler}
+                                style={{color: 'black'}}
+                            />
+                        </div>
+                    </div>
+                    <div className="login__btn-wrapper">
+                        <button
+                            className="pc-signInButton"
+                            onClick={sendRecover}
+                            disabled={loading}
+                            style={{color: 'white'}}
+                        >
+                            Отправить
+                        </button>
                     </div>
                 </div>
             </Modal>
