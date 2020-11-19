@@ -50,9 +50,10 @@
     }
 
     img {
-      @include max-w(1260) {
-        display: none;
+      @include max-w(1350) {
+        //display: none;
       }
+      margin-right: 15px;
     }
   }
 
@@ -86,7 +87,7 @@
       }
       cursor: pointer;
       position: absolute;
-      top: 17.5px;
+      top: 37.5px;
       right: 35px;
       width: 20px;
     }
@@ -106,7 +107,9 @@
     width: 100%;
     font-size: 15px;
     display: flex;
-    justify-content: flex-end;
+    @include min-w(1400) {
+      justify-content: flex-end;
+    }
     color: #ffffff;
 
     div {
@@ -116,6 +119,9 @@
     span:first-child {
       color: #f3d14c;
       padding-right: 40px;
+      @include max-w(1420) {
+        padding-right: 20px !important;
+      }
     }
   }
 

@@ -10,7 +10,8 @@ import Modal from 'react-modal';
 import {useHistory} from 'react-router-dom';
 import close from '../../../../img/close.png';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import logo from '../../../../img/16 (2).png';
+import logo from '../../../../img/Exprome-logo.png';
+import swal from 'sweetalert';
 
 export const Header = ({setSearch, setPhone}) => {
 
@@ -122,14 +123,14 @@ export const Header = ({setSearch, setPhone}) => {
                             username: form.username,
                             // date_of_birth: reverseDate(form.date_of_birth)
                         })
-                        if (Object.keys(dataAuth).length !== 1) {
-                            setTimeout(() => {
-                                for (let e in dataAuth) {
-                                    message([e + ' : ' + dataAuth[e][0]]);
-                                }
-                            }, 555)
-
-                        }
+                        // if (Object.keys(dataAuth).length !== 1) {
+                        //     setTimeout(() => {
+                        //         for (let e in dataAuth) {
+                        //             message([e + ' : ' + dataAuth[e][0]]);
+                        //         }
+                        //     }, 555)
+                        //
+                        // }
                         // console.log(dataAuth.username[0])
                         // if (dataAuth.email[0] !== 'Это поле должно быть уникально.' || dataAuth.phone[0] !== 'Это поле должно быть уникально.' || dataAuth.username[0] !== 'Это поле должно быть уникально.') {
 
@@ -144,8 +145,14 @@ export const Header = ({setSearch, setPhone}) => {
                         //         message('Вы зарегистрированы!')
                         //     }
                         // }
-
-                        alert(...dataAuth)
+                        // console.log(dataAuth[0] === "Подтвердите Ваш Email")
+                        if (dataAuth[0] === "Подтвердите Ваш Email") {
+                            swal("Вы зарегистрированы!", "Вам на почту отправлено письмо для завершения регистрации!", "success", {
+                                button: "Закрыть",
+                            });
+                        } else if (dataAuth.email) {
+                            message(['Данная электронная почта уже зарегистрирована!'])
+                        }
 
                         closeModal();
 
@@ -299,15 +306,15 @@ export const Header = ({setSearch, setPhone}) => {
         <div className="pc-header">
             <Container>
                 <Row>
-                    <Col md={12} lg={3} xl={5} className={'customCol'}>
+                    <Col md={12} lg={3} xl={3} className={'customCol'}>
                         <div className="text-container" style={{display: 'flex', alignItems: 'center'}}>
-                            <p><span className={'logo'}><a href="/">Exprome</a></span></p>
+                            <a href="/"><img src={logo} alt="Logo" style={{width: '100%', maxWidth: '300px'}}/></a>
+                            {/*<p><span className={'logo'}><a href="/">Exprome</a></span></p>*/}
                             {/*<p>поздравление от звезды</p>*/}
                             <p></p>
-                            <img src={logo} alt="Logo" style={{width: '50px'}}/>
                         </div>
                     </Col>
-                    <Col md={12} lg={4} xl={3} className={'customCol'}>
+                    <Col md={12} lg={3} xl={5} className={'customCol'}>
                         <div className="search">
                             <form onSubmit={(e) => searchHandler(e)}>
                                 <input
@@ -321,7 +328,7 @@ export const Header = ({setSearch, setPhone}) => {
                             </form>
                         </div>
                     </Col>
-                    <Col md={12} lg={5} xl={4} className={'customCol'}>
+                    <Col md={12} lg={6} xl={4} className={'customCol'}>
                         <div className="auth">
                             {determineAuth()}
                             {/*<div onClick={showLoginModal}><span>Вход</span></div>*/}
@@ -461,7 +468,7 @@ export const Header = ({setSearch, setPhone}) => {
                     <div className="single-input__wrapper">
                         <span>Телефон</span>
                         <MaskedInput
-                            mask={['+', /[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+                            mask={[/[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
                             placeholder={'+7(999)999-99-99'}
                             type="text"
                             name={'phone'}

@@ -9,6 +9,7 @@ import backArrow from '../../../img/back-arrow.svg'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Modal from "react-modal";
 import close from '../../../img/close.png';
+import swal from 'sweetalert';
 
 export const SignUp = () => {
     const history = useHistory();
@@ -60,28 +61,35 @@ export const SignUp = () => {
                         username: form.username,
                         // date_of_birth: reverseDate(form.date_of_birth)
                     })
-                    if (Object.keys(dataAuth).length !== 1) {
-                        setTimeout(() => {
-                            for (let e in dataAuth) {
-                                message([e + ' : ' + dataAuth[e][0]]);
-                            }
-                        }, 555)
-
+                    // if (Object.keys(dataAuth).length !== 1) {
+                    //     setTimeout(() => {
+                    //         for (let e in dataAuth) {
+                    //             message([e + ' : ' + dataAuth[e][0]]);
+                    //         }
+                    //     }, 555)
+                    //
+                    // }
+                    // message(...dataAuth)
+                    if (dataAuth[0] === "Подтвердите Ваш Email") {
+                        swal("Вы зарегистрированы!", "Вам на почту отправлено письмо для завершения регистрации!", "success", {
+                            button: "Закрыть",
+                        });
+                    } else if (dataAuth.email) {
+                        message(['Данная электронная почта уже зарегистрирована!'])
                     }
-                    message(...dataAuth)
                     // if (dataAuth.email[0] !== 'Это поле должно быть уникально.' || dataAuth.phone[0] !== 'Это поле должно быть уникально.' || dataAuth.username[0] !== 'Это поле должно быть уникально.') {
                     //     const dataLog = await request('/api/login/', 'POST', {
                     //         login: form.email, password: form.password
                     //     })
 
-                        // console.log(dataAuth)
-                        // auth.login(dataAuth.token, form.username, dataAuth.is_star)
+                    // console.log(dataAuth)
+                    // auth.login(dataAuth.token, form.username, dataAuth.is_star)
 
-                        // auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
-                        // if (dataLog) {
-                        //     message(dataLog[0])
-                        // }
-                        // history.push('/categories')
+                    // auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
+                    // if (dataLog) {
+                    //     message(dataLog[0])
+                    // }
+                    // history.push('/categories')
                     // }
 
                 } else {
@@ -197,7 +205,7 @@ export const SignUp = () => {
                     onChange={changeHandler}
                 />
                 <MaskedInput
-                    mask={['+', /[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+                    mask={[/[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
                     placeholder={'+7(999)999-99-99'}
                     type="text"
                     name={'phone'}

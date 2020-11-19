@@ -81,7 +81,7 @@ export const VkRedirect = () => {
             <div className={'inputBox'}>
 
                 <MaskedInput
-                    mask={['+', /[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+                    mask={[/[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
                     placeholder={'+7(999)999-99-99'}
                     type="text"
                     name={'phone'}

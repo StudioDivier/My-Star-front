@@ -47,8 +47,9 @@ export const ConfirmReg = () => {
                         className={"signInButton"}
                         type={'button'}
                         onClick={proceedAuth}
+                        style={{margin: '20px 0', padding: '10px 20px', width: '100%'}}
                     >
-                        Регистрация
+                        Завершить
                     </button>
                 </div>
                 <p>Совершая заказ, вы соглашаетесь с условиями</p>

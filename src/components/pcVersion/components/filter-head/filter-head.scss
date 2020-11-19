@@ -4,6 +4,13 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+
+    .dropdown-menu {
+      background-color: #141414;
+      padding: 15px;
+      border-radius: 21px;
+    }
+
     .cat {
       cursor: pointer;
       margin-right: 15px;

@@ -27,6 +27,7 @@ import {Navbar} from "./components/navbar/navbar";
 import {Terms} from "./pages/terms-of-service/terms-of-service";
 import {Examples} from "./pages/video-examples/video-examples";
 import {How} from "./pages/how-it-works/how-it-works";
+import {Requisites} from "./pages/requisites-page/requisites-page";
 
 export const DesktopMain = (isAuthenticated, isStar) => {
 
@@ -166,6 +167,11 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                         <How/>
                     </Route>
 
+                    <Route exact path={'/requisites-page'}>
+                        <Breadcrumbs secondItem={'Как это работает'}/>
+                        <Requisites/>
+                    </Route>
+
                     <Route exact path='/password-reset/confirm/'>
                         <Breadcrumbs secondItem={'Сброс пароля'}/>
                         <Container>
@@ -233,7 +239,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                         <Container>
                             <Row>
                                 <Col>
-                                    <div className="pc-password-reset" style={{paddingBottom: '250px'}}>
+                                    <div className="pc-password-reset" style={{paddingBottom: '250px', width: '30%'}}>
                                         <ConfirmReg/>
                                     </div>
                                 </Col>

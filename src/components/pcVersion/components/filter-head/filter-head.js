@@ -3,6 +3,7 @@ import './filter-head.scss';
 import {useHttp} from "../../../../hooks/http.hook";
 import {useMessage} from "../../../../hooks/message.hook";
 import {useHistory} from 'react-router-dom';
+import {Dropdown} from 'react-bootstrap';
 
 export const FilterHead = ({chooseCat, nameCat}) => {
 
@@ -61,17 +62,29 @@ export const FilterHead = ({chooseCat, nameCat}) => {
                 <a href={'/'}>
                     <div className="cat">Главная</div>
                 </a>
-                <a href={"/categories"}>
-                    <div className="cat">Все категории ({data.length})</div>
-                </a>
+                <Dropdown>
+                    <Dropdown.Toggle id={'dropdown-basic'} className="cat"
+                                     style={{textTransform: 'initial', lineHeight: '1', border: '0', boxSizing: 'content-box', padding: '2.7px 17.5px', display: 'flex', alignItems: 'center'}}>
+                        Все категории ({data.length})
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        {data.map((value, key) => {
+                            return (
+                                <Dropdown.Item className={'cat'}
+                                               key={key}
+                                               onClick={() => multipleHandler(value.id, value.cat_name)}>{value.cat_name}</Dropdown.Item>
+                            )
+                        })}
+                    </Dropdown.Menu>
+                </Dropdown>
                 <a href={"/video-examples"}>
                     <div className="cat">Примеры поздравлений</div>
                 </a>
-                {data.map((value, key) => {
-                    return (
-                        <div className="cat" key={key} onClick={() => multipleHandler(value.id, value.cat_name)}>{value.cat_name}</div>
-                    )
-                })}
+                {/*{data.map((value, key) => {*/}
+                {/*    return (*/}
+                {/*        <div className="cat" key={key} onClick={() => multipleHandler(value.id, value.cat_name)}>{value.cat_name}</div>*/}
+                {/*    )*/}
+                {/*})}*/}
             </div>
         </div>
     )

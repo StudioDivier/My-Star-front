@@ -28,7 +28,8 @@
     "react-text-mask": "^5.4.3",
     "react-toast-notifications": "^2.4.0",
     "sass": "^1.26.11",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "sweetalert": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
