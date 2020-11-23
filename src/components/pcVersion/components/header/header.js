@@ -92,7 +92,7 @@ export const Header = ({setSearch, setPhone}) => {
                 auth.login(dataLog.token, dataLog.username, dataLog.is_star, dataLog.id, dataLog.email, dataLog.avatar);
                 if (Object.keys(dataLog).length === 1 || Object.keys(dataLog).length === 2) {
                     for (let e in dataLog) {
-                        message([e + ' : ' + dataLog[e][0]]);
+                        message([dataLog[e]]);
                     }
                 }
                 if (dataLog.token) {
