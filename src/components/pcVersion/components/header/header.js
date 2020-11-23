@@ -226,7 +226,7 @@ export const Header = ({setSearch, setPhone}) => {
     function determineAuth1() {
         if (userData && userData.token) {
             return (
-                <div onClick={logout}><span style={{color: 'white'}}>Выйти</span></div>
+                <div onClick={logout}><span style={{color: 'white', paddingRight: '0'}}>Выйти</span></div>
             )
         }
         return (

@@ -232,15 +232,15 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                 style={{padding: '15px 40px', fontSize: '18px'}}>&#9733; В избранное
                         </button>
                     </div>
-                    <div className="order-btn">
-                        <button onClick={handleFav2}
-                                style={{
-                                    padding: '15px 40px',
-                                    fontSize: '18px',
-                                    backgroundColor: "white"
-                                }}>    &#9734; Удалить из избранного
-                        </button>
-                    </div>
+                    {/*<div className="order-btn">*/}
+                    {/*    <button onClick={handleFav2}*/}
+                    {/*            style={{*/}
+                    {/*                padding: '15px 40px',*/}
+                    {/*                fontSize: '18px',*/}
+                    {/*                backgroundColor: "white"*/}
+                    {/*            }}>    &#9734; Удалить из избранного*/}
+                    {/*    </button>*/}
+                    {/*</div>*/}
                 </div>
             )
         } else {
@@ -318,13 +318,14 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                 </div>
                                 {/*<img src={catPic} alt="avatar"/>*/}
                             </div>
+                            {determineAuth2()}
                         </div>
 
                         <div className="col-lg-8">
                             <div className="pc-star-wrapper">
                                 <div className="star-title">
                                     <h3>{star.first_name}&nbsp;{star.last_name}</h3>
-                                    {determineAuth2()}
+                                    {/*{determineAuth2()}*/}
                                 </div>
 
                                 <div className="star-cat-and-rating">
