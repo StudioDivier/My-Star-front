@@ -1,0 +1,41 @@
+.bottom-menu {
+  font-family: 'Montserrat', sans-serif;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  background-color: white;
+
+  .row {
+    margin-bottom: 0;
+    padding: 12.5px 0;
+
+    .col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      span {
+        color: #051a67;
+        font-weight: 400;
+        font-size: 10px;
+        padding-top: 5px;
+      }
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 425px) {
+    span, p {
+      font-size: 12px;
+    }
+    h5 {
+      font-size: 14px;
+    }
+  }
+
+
+}

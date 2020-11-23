@@ -378,7 +378,7 @@ export const AccountPage = () => {
                             {/*/>*/}
                             <MaskedInput
                                 mask={[/[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
-                                placeholder={'+7(999)999-99-99'}
+                                placeholder={'7(999)999-99-99'}
                                 type="text"
                                 name={'phone'}
                                 className="form-control"
@@ -426,12 +426,12 @@ export const AccountPage = () => {
                 </div>
             </div>
             <div className="container account-page__orders">
-                <h3>История заявок</h3>
+                <h3>История заказов</h3>
                 <table className="table">
                     <thead>
                     <tr>
                         {checkStar2()}
-                        {/*<th scope="col">Время</th>*/}
+                        <th scope="col">Время</th>
                         <th scope="col"></th>
                         <th scope="col">Дата (* - по МСК)</th>
                         <th scope="col">Статус</th>
@@ -444,7 +444,7 @@ export const AccountPage = () => {
                             <tbody key={key}>
                             <tr>
                                 <th>{value.star || value.customer_username}</th>
-                                {/*<td>{value.by_time}</td>*/}
+                                <td>{value.by_time}</td>
                                 <td></td>
                                 <td>{value.by_date}</td>
                                 <td className="order-status-new"

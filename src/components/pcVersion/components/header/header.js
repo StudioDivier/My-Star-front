@@ -21,6 +21,7 @@ export const Header = ({setSearch, setPhone}) => {
 
     const [loginIsOpen, setLoginIsOpen] = useState(false);
     const [authIsOpen, setAuthIsOpen] = useState(false);
+    const [isStarOpen, setStarIsOpen] = useState(false);
     const [forgotPW, setForgotIsOpen] = useState(false);
     // const [yaIsOpen, setYaIsOpen] = useState(false);
     // const [vkIsOpen, setVkIsOpen] = useState(false);
@@ -60,6 +61,9 @@ export const Header = ({setSearch, setPhone}) => {
     const showForgotModal = () => {
         setForgotIsOpen(true)
     }
+    const showStarModal = () => {
+        setStarIsOpen(true)
+    }
     // const showVkModal = () => {
     //     setVkIsOpen(true)
     // }
@@ -67,6 +71,7 @@ export const Header = ({setSearch, setPhone}) => {
         setLoginIsOpen(false)
         setAuthIsOpen(false)
         setForgotIsOpen(false)
+        setStarIsOpen(false);
     }
 
     Modal.setAppElement(document.querySelector('.App'))
@@ -211,7 +216,7 @@ export const Header = ({setSearch, setPhone}) => {
         }
         return (
             <div style={{display: 'flex'}}>
-                <div onClick={showLoginModal}><span>Войти как исполнитель</span></div>
+                <div onClick={showStarModal}><span>Я исполнитель</span></div>
                 <div onClick={showLoginModal}><span>Вход</span></div>
             </div>
         )
@@ -225,7 +230,7 @@ export const Header = ({setSearch, setPhone}) => {
             )
         }
         return (
-            <div onClick={showAuthModal}><span style={{color: 'white'}}>Регистрация</span></div>
+            <div onClick={showAuthModal}><span style={{color: 'white', paddingRight: '0'}}>Регистрация</span></div>
         )
     }
 
@@ -301,6 +306,23 @@ export const Header = ({setSearch, setPhone}) => {
         }
     }
 
+    // Я исполнитель
+
+    const handleQuery = async () => {
+        if (!(form.name.length === 0) && !(form.phone.length === 0) && !(form.email.length === 0)) {
+            try {
+                const fetchQuery = await request('/api/form-request/star/', 'POST', {
+                    name: form.name, phone: form.phone.replace(/[^0-9]/g, ''), email: form.email
+                })
+                message(fetchQuery[0]);
+            } catch (e) {
+                message(e)
+            }
+        } else {
+            message(['Введите все необходимые данные!'])
+        }
+    }
+
 
     return (
         <div className="pc-header">
@@ -328,11 +350,13 @@ export const Header = ({setSearch, setPhone}) => {
                             </form>
                         </div>
                     </Col>
-                    <Col md={12} lg={6} xl={4} className={'customCol'}>
+                    <Col md={12} lg={6} xl={4} className={'customCol login-header-block'}>
                         <div className="auth">
                             {determineAuth()}
                             {/*<div onClick={showLoginModal}><span>Вход</span></div>*/}
                             {determineAuth1()}
+                        </div>
+                        <div className={'how-it-works-header'} onClick={() => history.push('/how-it-works')}><span>Как это работает</span>
                         </div>
                     </Col>
                 </Row>
@@ -469,7 +493,7 @@ export const Header = ({setSearch, setPhone}) => {
                         <span>Телефон</span>
                         <MaskedInput
                             mask={[/[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
-                            placeholder={'+7(999)999-99-99'}
+                            placeholder={'7(999)999-99-99'}
                             type="text"
                             name={'phone'}
                             value={form.phone}
@@ -578,6 +602,67 @@ export const Header = ({setSearch, setPhone}) => {
             {/*        </div>*/}
             {/*    </div>*/}
             {/*</Modal>*/}
+            <Modal
+                isOpen={isStarOpen}
+                onRequestClose={closeModal}
+                contentLabel="Example Modal"
+                style={customStyles}
+            >
+                <div className="pc-modal-header rating-header">
+                    <div className={'close-btn'} onClick={closeModal}>
+                        <img src={close}
+                             alt="Close"
+                        />
+                    </div>
+                    <div className="header-text">
+                        <span>Участвовать как исполнитель</span>
+                        <p>Если вы известный человек, и тоже хотели бы записывать поздравления для людей, оставьте
+                            заявку и мы с вами свяжемся.</p>
+                    </div>
+                </div>
+
+                <div className="signInInputs spread">
+                    <div className="single-input__wrapper">
+                        <span>Ваше имя</span>
+                        <input
+                            placeholder={'Иван Иванов'}
+                            type="text"
+                            name={'name'}
+                            value={form.name}
+                            onChange={changeHandler}
+                        />
+                    </div>
+                    <div className="single-input__wrapper">
+                        <span>Телефон</span>
+                        <MaskedInput
+                            mask={[/[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
+                            placeholder={'7(999)999-99-99'}
+                            type="text"
+                            name={'phone'}
+                            value={form.phone}
+                            onChange={changeHandler}
+                        />
+                    </div>
+                    <div className="single-input__wrapper">
+                        <span>Эл. почта</span>
+                        <input
+                            placeholder={'E-mail'}
+                            type="text"
+                            name={'email'}
+                            value={form.email}
+                            onChange={changeHandler}
+                        />
+                    </div>
+                    <div className="login__btn-wrapper">
+                        <div
+                            className="pc-signInButton rateBtn"
+                            onClick={handleQuery}
+                        >
+                            Подать заявку
+                        </div>
+                    </div>
+                </div>
+            </Modal>
         </div>
     )
 }

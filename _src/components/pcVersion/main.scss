@@ -1,0 +1,56 @@
+.main {
+  background-color: #141414;
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 1480px;
+  }
+}
+
+.pc-password-reset {
+  padding-bottom: 40px;
+  //text-align: center;
+  color: white;
+  width: 75%;
+
+  .icon-container {
+    display: none;
+  }
+
+  .nav-header, .inputBox, .turnIn-data {
+    padding-top: 40px;
+  }
+
+  .inputBox {
+    //margin: 0 auto;
+    width: 45%;
+  }
+
+  .turnIn-data {
+    .btn-wrapper {
+      display: flex;
+      flex-direction: row;
+
+      .signInButton {
+        margin: 20px 0;
+        background-color: #fcc808;
+        border: 0;
+        border-radius: 15px;
+        padding: 10px 60px;
+      }
+      .signInButton:last-child {
+        margin-left: 20px;
+      }
+    }
+
+    .signInButton {
+      margin: 20px 0;
+      background-color: #fcc808;
+      border: 0;
+      border-radius: 15px;
+      padding: 10px 60px;
+    }
+  }
+}

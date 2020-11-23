@@ -6,12 +6,14 @@ export const Banner = () => {
     return (
         <div className="banner" style={{backgroundImage: 'url(' + banner + ')'}}>
             <div className="overlay">
-                <p>Видеопоздравление,
-                    Личное общение
-                    и Выступления звёзд
-                </p>
-                <p>Выбирайте любой формат
-                    общения со Звездой!</p>
+                <div className="top-titles">
+                    <h2>Видео поздравления</h2>
+                    <h2>Live стрим со звездой</h2>
+                    <h2>Проведение мероприятий</h2>
+                </div>
+                <div className="bottom-text">
+                    <p>Выбирайте любой формат общения со Звездой!</p>
+                </div>
             </div>
             {/*<img src={banner} alt=""/>*/}
             {/*<div className="wrapper"*/}

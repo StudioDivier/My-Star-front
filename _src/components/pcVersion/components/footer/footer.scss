@@ -1,0 +1,138 @@
+.footer {
+  background-color: #1c1c1c;
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 65px;
+  padding-top: 45px;
+  padding-bottom: 1px;
+
+  .wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-bottom: 25px;
+  }
+
+  .firstCol {
+    padding: 20px 20px 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      span:first-child {
+        color: #ffffff;
+        padding: 20px 20px 20px 0;
+        //font-size: 16px !important;
+      }
+      span:last-child {
+        display: block;
+        background-color: #f3d14c;
+        color: black;
+        border: 1px solid rgba(172, 172, 172, 0.33);
+        border-radius: 21px;
+        padding: 10px 17.5px;;
+        //margin-left: 10px;
+        font-size: 13px;
+        cursor: pointer;
+      }
+      span:last-child:hover {
+        //border: 1px solid rgba(243, 209, 76, 0.4);
+        box-shadow: 0px 0px 10px 2px #f3d14c;
+      }
+    }
+
+    a {
+      color: #bfbfbf;
+      text-decoration: underline;
+    }
+
+    span:first-child {
+      a {
+        text-decoration: none;
+      }
+
+      a:hover {
+        color: #fcc808;
+      }
+    }
+
+    span {
+      color: #ffffff;
+      padding: 20px 20px 20px 0;
+    }
+
+    span:first-child {
+      padding-top: 0;
+    }
+
+    span:nth-child(2) {
+      color: #bfbfbf;
+    }
+
+    span:last-child {
+      font-size: 12px;
+    }
+  }
+
+  .secondCol {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    span {
+      color: #bfbfbf;
+    }
+
+    svg {
+      color: white;
+      margin: 0 10px;
+    }
+  }
+
+  .thirdCol {
+    padding: 20px 0 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    align-items: flex-end;
+
+    .phone {
+      font-weight: 700;
+      color: white;
+      font-size: 20px;
+    }
+
+    .paySystems {
+      padding: 30px 0;
+
+      img {
+        padding: 0 10px;
+      }
+
+      img:last-child {
+        padding-right: 0;
+      }
+    }
+
+    span {
+      color: #bfbfbf;
+    }
+
+    .watermark {
+      font-size: 11px;
+      float: right;
+
+      a {
+        color: #bfbfbf;
+        text-decoration: underline;
+      }
+    }
+  }
+}

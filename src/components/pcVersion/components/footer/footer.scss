@@ -3,7 +3,7 @@
   width: 100%;
   font-family: 'Montserrat', sans-serif;
   margin-top: 65px;
-  padding-top: 45px;
+  padding-top: 15px;
   padding-bottom: 1px;
 
   .wrapper {
@@ -11,7 +11,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding-bottom: 25px;
   }
 
   .firstCol {
@@ -27,7 +26,7 @@
 
       span:first-child {
         color: #ffffff;
-        padding: 20px 20px 20px 0;
+        padding: 10px 20px 10px 0;
         //font-size: 16px !important;
       }
       span:last-child {
@@ -53,9 +52,6 @@
     }
 
     span:first-child {
-      a {
-        text-decoration: none;
-      }
 
       a:hover {
         color: #fcc808;
@@ -64,7 +60,7 @@
 
     span {
       color: #ffffff;
-      padding: 20px 20px 20px 0;
+      padding: 10px 20px 10px 0;
     }
 
     span:first-child {
@@ -97,20 +93,21 @@
   }
 
   .thirdCol {
-    padding: 20px 0 20px 20px;
+    padding: 10px 0 10px 20px;
     display: flex;
     flex-direction: column;
     align-content: space-between;
     align-items: flex-end;
 
     .phone {
+      padding-bottom: 10px;
       font-weight: 700;
       color: white;
       font-size: 20px;
     }
 
     .paySystems {
-      padding: 30px 0;
+      padding: 8px 0;
 
       img {
         padding: 0 10px;

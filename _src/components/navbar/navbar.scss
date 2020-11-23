@@ -1,0 +1,74 @@
+.sidenav {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+
+  .closeBtn {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px 0;
+
+    img {
+      width: 14px;
+      margin-right: -10px;
+    }
+  }
+
+  .account-belongs-to {
+    padding-bottom: 40px;
+  }
+
+  li {
+    .account-info {
+      padding: 0 32px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .avatar-img {
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        width: 70px;
+        border-radius: 65px;
+        height: 70px;
+      }
+
+      .bio {
+        display: flex;
+        flex-direction: column;
+        padding-left: 15px;
+
+        h5 {
+          margin-bottom: 0;
+          font-weight: 700;
+          font-size: 15px;
+          width: 150px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        span {
+          line-height: 12px;
+          padding-top: 3px;
+          color: #a5a5a5;
+          width: 150px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      img {
+        width: 25%;
+      }
+    }
+
+    a {
+      color: black;
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+}

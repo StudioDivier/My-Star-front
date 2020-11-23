@@ -1,0 +1,25 @@
+.filter-head {
+  padding-top: 10px;
+  .cats {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .dropdown-menu {
+      background-color: #141414;
+      padding: 15px;
+      border-radius: 21px;
+    }
+
+    .cat {
+      cursor: pointer;
+      margin-right: 15px;
+      margin-bottom: 15px;
+      color: white;
+      font-size: 14px;
+      border-radius: 21px;
+      background-color: #252525;
+      padding: 10px 17.5px;
+    }
+  }
+}

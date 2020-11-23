@@ -75,15 +75,15 @@ export const AllCats = ({chooseCat, nameCat}) => {
 
                 <Slider {...settings}>
 
-                    <div className="all-cats__single-cat"
-                         onClick={() => clickHandler2('Избранное')}>
-                        <div className="inner-wrapper">
-                            {<img src={bgColor} alt=""/>}
-                            <div className="cat-name">
-                                <span>Избранное</span>
-                            </div>
-                        </div>
-                    </div>
+                    {/*<div className="all-cats__single-cat"*/}
+                    {/*     onClick={() => clickHandler2('Избранное')}>*/}
+                    {/*    <div className="inner-wrapper">*/}
+                    {/*        {<img src={bgColor} alt=""/>}*/}
+                    {/*        <div className="cat-name">*/}
+                    {/*            <span>Избранное</span>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
 
                     {data.map((value, key) => {
 

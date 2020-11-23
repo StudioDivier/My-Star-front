@@ -115,7 +115,7 @@ export const Footer = () => {
                             </div>
                             <div className="thirdCol">
                                 <span className="phone">+7 (920) 173-00-00</span>
-                                <span className="phone" style={{paddingTop: '17.5px'}}>info@exprome.ru</span>
+                                <span className="phone">info@exprome.ru</span>
                                 <div className="paySystems">
                                     <img src={visa} alt="Visa"/>
                                     <img src={mc} alt="MasterCard"/>
@@ -161,7 +161,7 @@ export const Footer = () => {
                         <span>Телефон</span>
                         <MaskedInput
                             mask={[/[1-9]/, '(', /\d/, /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/]}
-                            placeholder={'+7(999)999-99-99'}
+                            placeholder={'7(999)999-99-99'}
                             type="text"
                             name={'phone'}
                             value={form.phone}

@@ -1,0 +1,88 @@
+@import "../../../scss/common/colors";
+@import "../../../scss/common/screen";
+@import "../../../scss/common/variables";
+@import "../../../scss/common/mixins";
+
+.star-card {
+  background-color: white;
+  //padding: 15px 15px 13px 15px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  color: white;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  font-family: 'Montserrat', sans-serif;
+
+  .avatar-img {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 110px;
+    border-radius: 65px;
+    height: 110px;
+  }
+
+  .star-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 0 0 25px;
+    font-size: 12px;
+
+    span:nth-child(2) {
+      font-weight: 200;
+    }
+
+    .star-description {
+      padding-bottom: 10px;
+    }
+
+    .star-stats {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+
+      .star-stats__likes {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        span:first-of-type {
+          font-weight: 700;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .orders {
+    //width: 100%;
+    position: relative;
+    margin-left: auto;
+    margin-right: -11px;
+    margin-bottom: -15px;
+    width: 56px;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .orders-amount {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    margin-left: auto;
+    margin-right: 15px;
+    right: 0;
+    bottom: 38px;
+    font-size: 10px;
+
+    span:first-of-type {
+      font-weight: 700;
+      font-size: 14px;
+    }
+  }
+}

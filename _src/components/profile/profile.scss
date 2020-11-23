@@ -1,0 +1,192 @@
+.profile {
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+
+  .main-wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .profile__info {
+    text-align: center;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    //height: 100%;
+
+    .header {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .header-top {
+        padding: 25px 15px 0;
+        color: inherit;
+
+        .closeOrder {
+          position: absolute;
+          font-size: 40px;
+          top: 7px;
+          right: 30px;
+        }
+
+        a {
+          position: absolute;
+          left: 15px;
+        }
+
+        span {
+          font-size: 16px;
+        }
+
+        img {
+          width: 25px;
+          height: 20px;
+        }
+
+        img:last-child {
+          height: 25px;
+        }
+      }
+
+      .header-bottom {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 40px;
+        padding-bottom: 35px;
+        color: inherit;
+
+        span {
+          color: inherit;
+        }
+
+        span:first-child {
+          font-weight: 700;
+        }
+
+        .likes {
+          padding-top: 35px;
+
+          img {
+            width: 23px;
+          }
+
+          span {
+            color: inherit;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+
+  .profile__details {
+    padding-top: 10px;
+    border-top-left-radius: 45px;
+    border-top-right-radius: 45px;
+
+    .first-name, .last-name, .username, .e-mail, .phone, .birthday, .info-row {
+      border-bottom: 2px solid #eeeeee;
+
+      .wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+
+        span:first-child {
+          color: #a2a1b8;
+        }
+
+        input {
+          margin-bottom: 0;
+          height: auto;
+          width: 45%;
+          text-align: right;
+          background-color: #ededf7;
+          border-radius: 45px;
+          border: 1px solid #dbdbdb;
+          padding: 0 10px;
+          font-size: 14px;
+          font-weight: 700;
+        }
+
+        input:focus {
+          border-bottom: 1px solid #dbdbdb;
+          box-shadow: 0 1px 0 0 #ededf7;
+        }
+      }
+    }
+  }
+
+  .btn-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 85px 15px 170px 15px;
+    //margin-top: 65px;
+    //margin-bottom: 130px;
+    overflow: hidden;
+
+    input[type="file"] {
+      display: none;
+    }
+
+    input[type="submit"] {
+      display: none;
+    }
+
+    p {
+      margin-top: 15px;
+      text-align: center;
+      color: #a2a1b8;
+    }
+
+    .submitButton {
+      width: 100%;
+      color: white;
+      border-radius: 45px;
+      border: none;
+      padding: 15px 0 40px 0;
+      height: 51px;
+      background-image: linear-gradient(to left, #001f77 0%, #0a1162 51%, #070b3a 100%);
+    }
+
+    .custom-file-upload {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      //align-items: center;
+      width: 100%;
+      color: white;
+      border-radius: 45px;
+      border: none;
+      padding: 15px 0 40px 0;
+      height: 51px;
+      background-image: linear-gradient(to left, #001f77 0%, #0a1162 51%, #070b3a 100%);
+
+      span:first-child {
+        padding-top: 6px;
+      }
+
+      span:last-child {
+        padding-top: 4px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 425px) {
+    span, p {
+      font-size: 12px;
+    }
+    h5 {
+      font-size: 14px;
+    }
+  }
+}
+

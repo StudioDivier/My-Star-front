@@ -1,0 +1,435 @@
+@import "src/scss/common/screen";
+
+.rating-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 35%;
+  padding-bottom: 20px;
+
+  .widget-ratings {
+    .widget-container {
+      background-color: #252525;
+      border-radius: 40px;
+      padding: 0 4px !important;
+      margin-right: 7.5px;
+
+      .widget-selected.widget-svg {
+        .widget {
+          fill: white !important;
+        }
+      }
+
+      .widget-svg {
+        .widget {
+          fill: #5b5b5b !important;
+        }
+
+        padding-bottom: 2px;
+      }
+    }
+
+    .widget-container:last-child {
+      margin-right: 0;
+    }
+
+  }
+}
+
+.star-card-pc {
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+
+  .widget-ratings {
+    .widget-container {
+      background-color: #252525;
+      border-radius: 40px;
+      padding: 0 4px !important;
+      margin-right: 7.5px;
+
+      .widget-selected.widget-svg {
+        .widget {
+          fill: white !important;
+        }
+      }
+
+      .widget-svg {
+        .widget {
+          fill: #5b5b5b !important;
+        }
+
+        padding-bottom: 2px;
+      }
+    }
+
+    .widget-container:last-child {
+      margin-right: 0;
+    }
+
+  }
+
+  .section-header {
+    font-size: 28px;
+    font-weight: 700;
+    color: white;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    margin-bottom: 0;
+  }
+
+  .pc-star-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .star-avatar {
+
+    .avatar-img {
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      width: 454px;
+      border-radius: 15px;
+      height: 448.44px;
+    }
+
+    @media screen and (max-width: 1300px) {
+      .avatar-img {
+        width: 354px;
+        border-radius: 15px;
+        height: 298.44px;
+      }
+    }
+
+    @media screen and (min-width: 1301px) and (max-width: 1450px) {
+      .avatar-img {
+        width: 404px;
+        border-radius: 15px;
+        height: 398.44px;
+      }
+    }
+
+    //img {
+    //  width: 100%;
+    //  border-radius: 25px;
+    //}
+  }
+
+  .star-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .btn-wrapper {
+      display: flex;
+      flex-direction: row;
+
+      button {
+        margin-right: 20px;
+      }
+    }
+    h3 {
+      color: white;
+      font-weight: 800;
+      margin-bottom: 0;
+    }
+  }
+
+  .star-cat-and-rating {
+    padding: 30px 0;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: #bfbfbf;
+
+    .inner-wrapper {
+      padding-left: 25px;
+      display: flex;
+      align-items: center;
+
+      span {
+        padding-left: 10px;
+      }
+    }
+  }
+
+  .star-bio {
+    color: #fefefe;
+
+    p {
+      color: #fefefe;
+      font-size: 16px;
+    }
+  }
+
+  .star-pc-price {
+    padding: 15px 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .star-pc-price-wrapper {
+      margin-bottom: 15px;
+
+      // Radio button -------------------------------------------------------
+
+      /* Customize the label (the container) */
+      .radio-container {
+        [type="radio"]:checked + span:after {
+          border: 2px solid white;
+          right: 1px;
+        }
+
+        [type="radio"]:not(:checked)+span, [type="radio"]:checked+span {
+          padding-left: 24px;
+        }
+
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 22px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      /* Hide the browser's default radio button */
+      .radio-container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+
+      /* Create a custom radio button */
+      .checkmark {
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        height: 23px;
+        width: 25px;
+        background-color: #eee;
+        border-radius: 50%;
+      }
+
+      /* On mouse-over, add a grey background color */
+      .radio-container:hover input ~ .checkmark {
+        background-color: #ccc;
+      }
+
+      /* When the radio button is checked, add a blue background */
+      .radio-container input:checked ~ .checkmark {
+        background-color: #f3d14c;
+      }
+
+      /* Create the indicator (the dot/circle - hidden when not checked) */
+      .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+
+      /* Show the indicator (dot/circle) when checked */
+      .radio-container input:checked ~ .checkmark:after {
+        display: block;
+      }
+
+      /* Style the indicator (dot/circle) */
+      .radio-container .checkmark:after {
+        //top: -1px;
+        left: 0.672px;
+        width: auto;
+        height: 65%;
+        border-radius: 50%;
+        background: white;
+      }
+
+      // --------------------------------------------------------------------
+
+      background-color: #ffffff;
+      margin-right: 25px;
+      padding: 10px 30px;
+      display: flex;
+      border-radius: 10px;
+      flex-direction: row;
+      color: black;
+      align-items: center;
+
+      img {
+        width: 25px;
+        height: 25px;
+        margin-right: 15px;
+        margin-left: -10px;
+      }
+
+      div {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .star-pc-price__price {
+        font-weight: 800;
+        font-size: 20px;
+      }
+    }
+  }
+
+  .star-daysForOrder {
+    span {
+      font-weight: 700;
+      font-size: 18px;
+      color: #ffffff;
+    }
+  }
+
+  .order-btn {
+    padding-top: 20px;
+
+    button {
+      color: #000000;
+      background-color: #f3d14c;
+      border-radius: 10px;
+      padding: 15px 70px;
+      font-weight: 700;
+      font-size: 20px;
+      border: 0;
+    }
+  }
+
+  .how-it-works {
+
+    .step-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      img {
+        width: 69px;
+        padding-bottom: 20px;
+      }
+
+      .step {
+        font-size: 22px;
+        font-weight: 700;
+        color: white;
+      }
+
+      .step-info {
+        padding-top: 10px;
+        font-weight: 400;
+        color: #bfbfbf;
+      }
+    }
+
+  }
+
+  .safety-banner {
+    border-radius: 10px;
+    padding: 40px 120px 40px 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #252525;
+
+    p {
+      margin-bottom: 0;
+      padding-left: 40px;
+    }
+  }
+
+  .about-star {
+    .full-bio {
+      color: #bfbfbf;
+    }
+  }
+
+  .gift-samples {
+    .vids-wrapper {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      iframe {
+        padding-right: 20px;
+        padding-bottom: 20px;
+      }
+    }
+  }
+
+  .you-may-consider {
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      color: white;
+
+      .cat-header {
+        font-weight: 700;
+        font-size: 28px;
+      }
+
+      .browse {
+        font-weight: 700;
+        font-size: 14px;
+        color: #bfbfbf;
+      }
+    }
+
+    .single-cat__stars {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      //justify-content: space-between;
+      img {
+        width: 270px;
+      }
+
+      .single-cat__star:first-child {
+        padding-left: 0;
+      }
+
+      .single-cat__star:last-child {
+        padding-right: 0;
+      }
+
+      .single-cat__star {
+        padding: 20px 12.5px;
+        font-size: 16px;
+        color: white;
+
+        .star-description {
+          padding-top: 20px;
+          padding-left: 5px;
+          display: flex;
+          flex-direction: column;
+
+
+          .star-name {
+            font-weight: 700;
+          }
+
+          .star-style {
+            color: #bfbfbf;
+          }
+        }
+      }
+    }
+  }
+}

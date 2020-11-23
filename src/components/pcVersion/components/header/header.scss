@@ -9,6 +9,27 @@
     align-items: center;
   }
 
+  .login-header-block {
+    flex-direction: column;
+    align-items: flex-end !important;
+    justify-content: center;
+
+    .how-it-works-header {
+      margin-top: 15px;
+      //margin-right: 18px;
+
+      span {
+        cursor: pointer;
+        color: white;
+        text-decoration: underline;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
   .text-container {
     display: flex;
     flex-wrap: wrap;

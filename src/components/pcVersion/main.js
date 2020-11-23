@@ -68,22 +68,22 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                                 <Col lg={12}>
                                     <SingleCat
                                         id={1}
-                                        catName={'Хип-хоп'}
+                                        catName={'Избранное'}
                                         chooseCat={setCat}
                                         nameCat={setCatName}
                                         chooseStar={setStar}
                                     />
                                 </Col>
 
-                                <Col lg={12}>
-                                    <SingleCat
-                                        id={2}
-                                        catName={'Шансон'}
-                                        chooseCat={setCat}
-                                        nameCat={setCatName}
-                                        chooseStar={setStar}
-                                    />
-                                </Col>
+                                {/*<Col lg={12}>*/}
+                                {/*    <SingleCat*/}
+                                {/*        id={2}*/}
+                                {/*        catName={'Шансон'}*/}
+                                {/*        chooseCat={setCat}*/}
+                                {/*        nameCat={setCatName}*/}
+                                {/*        chooseStar={setStar}*/}
+                                {/*    />*/}
+                                {/*</Col>*/}
                             </Row>
                             <Row>
                                 <Col>
