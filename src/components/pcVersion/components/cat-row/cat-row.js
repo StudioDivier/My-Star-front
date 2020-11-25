@@ -41,7 +41,7 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
     const clickHandler = () => {
         chooseCat(id)
         nameCat(catName)
-        history.push('/category')
+        history.push('/favorites')
     }
 
     const clickStar = (value) => {
@@ -92,7 +92,7 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
                         return (
                             <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
                                 <div className="avatar-img"
-                                     style={{backgroundImage: `url(${SERVER_URL}${value.avatar})`}}>&nbsp;</div>
+                                     style={{backgroundImage: `url(${SERVER_URL}/media/${value.avatar})`}}>&nbsp;</div>
                                 {/*<img src={catPic + value.avatar} alt=""/>*/}
                                 <div className="star-description">
                                         <span className="star-name">
@@ -117,11 +117,11 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
                 <span className="browse" onClick={clickHandler} style={{cursor: 'pointer'}}>Смотреть все</span>
             </div>
             <div className="single-cat__stars">
-                {stars.slice(0, 5).map((value, key) => {
+                {favData.slice(0, 5).map((value, key) => {
                     return (
                         <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
                             <div className="avatar-img"
-                                 style={{backgroundImage: `url(${SERVER_URL}${value.avatar})`}}>&nbsp;</div>
+                                 style={{backgroundImage: `url(${SERVER_URL}/media/${value.avatar})`}}>&nbsp;</div>
                             {/*<img src={catPic + value.avatar} alt=""/>*/}
                             <div className="star-description">
                                         <span className="star-name">

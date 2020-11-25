@@ -18,7 +18,7 @@ export const AccountPage = () => {
     const authToken = useContext(AuthContext);
     const history = useHistory();
     const message = useMessage();
-    const {request} = useHttp();
+    const {request, loading} = useHttp();
     const [data, setData] = useState([]);
     const [orders, setOrders] = useState([])
     // const [name, setName] = useState([]);

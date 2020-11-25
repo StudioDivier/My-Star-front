@@ -41,7 +41,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     const areYouLogged = () => {
         if (userData && userData.token) {
             return <SingleCat
-                id={1}
+                // id={1}
                 catName={'Избранное'}
                 chooseCat={setCat}
                 nameCat={setCatName}

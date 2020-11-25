@@ -99,14 +99,14 @@ export const Star = ({id, price, name, rating, days, avatar, bgColor, likes, ano
                             <span>{likes}</span>
                             <span>Like</span>
                         </div>
-                        <div className="star-stats__likes">
-                            <span>999</span>
-                            <span>Like</span>
-                        </div>
-                        <div className="star-stats__likes">
-                            <span>999</span>
-                            <span>Like</span>
-                        </div>
+                        {/*<div className="star-stats__likes">*/}
+                        {/*    <span>999</span>*/}
+                        {/*    <span>Like</span>*/}
+                        {/*</div>*/}
+                        {/*<div className="star-stats__likes">*/}
+                        {/*    <span>999</span>*/}
+                        {/*    <span>Like</span>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
 

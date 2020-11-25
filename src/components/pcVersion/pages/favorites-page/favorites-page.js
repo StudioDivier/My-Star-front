@@ -22,7 +22,6 @@ export const FavCategory = ({name, chooseStar}) => {
                                 catName={name}
                                 id={'Избранное'}
                                 chooseStar={chooseStar}
-
                             />
                         </Col>
                     </Row>

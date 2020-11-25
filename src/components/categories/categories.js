@@ -69,6 +69,24 @@ export const Categories = () => {
     let randomNum = Math.floor(Math.random() * 6);
     let bgColor = colors[randomNum];
 
+    const areYouLogged = () => {
+        if (authToken && authToken.token) {
+            return (
+                <Col xs={6}>
+                    <FavCategory
+                        // id={value.id}
+                        name={'Избранное'}
+                        // catPhoto={value.category_photo}
+                        bgColor={bgColor}
+                    />
+                </Col>
+            )
+        } else {
+            return []
+        }
+    }
+
+
     return (
         <>
             <div className="categories">
@@ -88,14 +106,7 @@ export const Categories = () => {
                     />
                     <Container>
                         <Row>
-                            <Col xs={6}>
-                                <FavCategory
-                                    // id={value.id}
-                                    name={'Избранное'}
-                                    // catPhoto={value.category_photo}
-                                    bgColor={bgColor}
-                                />
-                            </Col>
+                            {areYouLogged()}
                             {data.map((value, key) => {
                                 // console.log(value, key)
                                 let randomNum = Math.floor(Math.random() * 6);
