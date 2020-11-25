@@ -21,6 +21,7 @@ export const Search = ({search, chooseStar}) => {
             if (!!starsFetch.length) {
                 setStars([...starsFetch])
             }
+            // console.log(starsFetch)
         }
 
         fetchData();
@@ -33,9 +34,9 @@ export const Search = ({search, chooseStar}) => {
 
     // console.log(search.length > 0 && stars.filter(value => value.username.toLowerCase() === search.toLowerCase()).length === 0)
 
-    if (search.length > 0 && stars.filter(value => value.username.toLowerCase() === search.toLowerCase() || value.first_name.toLowerCase() === search.toLowerCase() || value.last_name.toLowerCase() === search.toLowerCase()).length === 0) {
+    if (search.length > 0 && stars.filter(value => value.username.toLowerCase() === search.toLowerCase() || value.username.toLowerCase().includes(search.toLowerCase()) || value.first_name.toLowerCase() === search.toLowerCase() || value.first_name.toLowerCase().includes(search.toLowerCase()) || value.last_name.toLowerCase() === search.toLowerCase() || value.last_name.toLowerCase().includes(search.toLowerCase())).length === 0) {
         return (
-            <Container style={{paddingBottom: '300px', textAlign: 'center'}}>
+            <Container style={{paddingBottom: '400px', textAlign: 'center'}}>
                 <Row>
                     <Col>
                         <h1 style={{color: 'white', paddingTop: '100px'}}>Поиск не дал результатов</h1>
@@ -46,13 +47,13 @@ export const Search = ({search, chooseStar}) => {
     } else if (search.length > 0) {
         return (
             <>
-                <Container style={{paddingBottom: '100px'}}>
+                <Container style={{paddingBottom: '150px'}}>
                     <Row>
                         <Col>
                             <div className="single-cat">
                                 <div className="single-cat__stars">
                                     {
-                                        stars.filter(value => value.username.toLowerCase() === search.toLowerCase() || value.first_name.toLowerCase() === search.toLowerCase() || value.last_name.toLowerCase() === search.toLowerCase()).map((value, key) => {
+                                        stars.filter(value => value.username.toLowerCase() === search.toLowerCase() || value.username.toLowerCase().includes(search.toLowerCase()) || value.first_name.toLowerCase() === search.toLowerCase() || value.first_name.toLowerCase().includes(search.toLowerCase()) || value.last_name.toLowerCase() === search.toLowerCase() || value.last_name.toLowerCase().includes(search.toLowerCase())).map((value, key) => {
                                             console.log(value)
                                             return (
                                                 <div className="single-cat__star" key={key}

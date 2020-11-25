@@ -31,12 +31,26 @@ import {Requisites} from "./pages/requisites-page/requisites-page";
 
 export const DesktopMain = (isAuthenticated, isStar) => {
 
-    // const userData = JSON.parse(window.localStorage.getItem('userData'));
+    const userData = JSON.parse(window.localStorage.getItem('userData'));
 
     const [cat, setCat] = useState('')
     const [name, setCatName] = useState('')
     const [star, setStar] = useState([])
     const [search, setSearch] = useState([])
+
+    const areYouLogged = () => {
+        if (userData && userData.token) {
+            return <SingleCat
+                id={1}
+                catName={'Избранное'}
+                chooseCat={setCat}
+                nameCat={setCatName}
+                chooseStar={setStar}
+            />
+        } else {
+            return []
+        }
+    }
 
     return (
         <div className="main">
@@ -66,13 +80,14 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                             {/*Two categories*/}
                             <Row>
                                 <Col lg={12}>
-                                    <SingleCat
-                                        id={1}
-                                        catName={'Избранное'}
-                                        chooseCat={setCat}
-                                        nameCat={setCatName}
-                                        chooseStar={setStar}
-                                    />
+                                    {/*<SingleCat*/}
+                                    {/*    id={1}*/}
+                                    {/*    catName={'Избранное'}*/}
+                                    {/*    chooseCat={setCat}*/}
+                                    {/*    nameCat={setCatName}*/}
+                                    {/*    chooseStar={setStar}*/}
+                                    {/*/>*/}
+                                    {areYouLogged()}
                                 </Col>
 
                                 {/*<Col lg={12}>*/}

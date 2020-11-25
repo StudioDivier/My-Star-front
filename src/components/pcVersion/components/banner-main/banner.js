@@ -1,10 +1,10 @@
 import React from 'react';
 import './banner.scss';
-import banner from '../../../../img/pc/background_banner.png';
+import banner from '../../../../img/pc/_background_banner.png';
 
 export const Banner = () => {
     return (
-        <div className="banner" style={{backgroundImage: 'url(' + banner + ')'}}>
+        <div className="banner" style={{backgroundImage: 'linear-gradient(rgba(174, 143, 22, 0.87),rgba(174, 143, 22, 0.87)), url(' + banner + ')'}}>
             <div className="overlay">
                 <div className="top-titles">
                     <h2>Видео поздравления</h2>

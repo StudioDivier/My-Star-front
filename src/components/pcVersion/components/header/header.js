@@ -97,6 +97,7 @@ export const Header = ({setSearch, setPhone}) => {
                 }
                 if (dataLog.token) {
                     message('Добро пожаловать!')
+                    window.location.reload()
                 }
                 closeModal();
                 // window.location.reload();
