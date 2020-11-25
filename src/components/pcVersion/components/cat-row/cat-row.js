@@ -110,34 +110,38 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
             </div>
         )
     }
-    return (
-        <div className="single-cat">
-            <div className="header-row">
-                <span className="cat-header">{catName}</span>
-                <span className="browse" onClick={clickHandler} style={{cursor: 'pointer'}}>Смотреть все</span>
-            </div>
-            <div className="single-cat__stars">
-                {favData.slice(0, 5).map((value, key) => {
-                    return (
-                        <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
-                            <div className="avatar-img"
-                                 style={{backgroundImage: `url(${SERVER_URL}/media/${value.avatar})`}}>&nbsp;</div>
-                            {/*<img src={catPic + value.avatar} alt=""/>*/}
-                            <div className="star-description">
+    if (favData[0] !== "Нет избранных звезд") {
+        return (
+            <div className="single-cat">
+                <div className="header-row">
+                    <span className="cat-header">{catName}</span>
+                    <span className="browse" onClick={clickHandler} style={{cursor: 'pointer'}}>Смотреть все</span>
+                </div>
+                <div className="single-cat__stars">
+                    {favData.slice(0, 5).map((value, key) => {
+                        return (
+                            <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
+                                <div className="avatar-img"
+                                     style={{backgroundImage: `url(${SERVER_URL}/media/${value.avatar})`}}>&nbsp;</div>
+                                {/*<img src={catPic + value.avatar} alt=""/>*/}
+                                <div className="star-description">
                                         <span className="star-name">
                                             {value.first_name}&nbsp;{value.last_name}
                                         </span>
-                                <span className="star-style">
+                                    <span className="star-style">
                                             {value.profession}
                                         </span>
+                                </div>
                             </div>
-                        </div>
 
-                    )
-                })}
+                        )
+                    })}
+                </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return []
+    }
     // }
     // return []
 
