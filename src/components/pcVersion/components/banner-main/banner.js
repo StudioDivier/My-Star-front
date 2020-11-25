@@ -1,6 +1,6 @@
 import React from 'react';
 import './banner.scss';
-import banner from '../../../../img/pc/_background_banner.png';
+import banner from '../../../../img/pc/_background_banner1.png';
 
 export const Banner = () => {
     return (
