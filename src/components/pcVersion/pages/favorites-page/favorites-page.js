@@ -15,7 +15,7 @@ export const FavCategory = ({name, chooseStar}) => {
             <>
                 <Breadcrumbs secondItem={name} setLocal={'Избранное'}/>
 
-                <Container style={{paddingBottom: '100px'}}>
+                <Container style={{paddingBottom: '110px'}}>
                     <Row>
                         <Col>
                             <SingleCat
