@@ -405,6 +405,29 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                     </div>
                     <div className="row">
                         <div className="col">
+                            <div className="gift-samples">
+                                <p className="section-header">
+                                    Примеры видеопоздравлений
+                                </p>
+                                <div className="vids-wrapper">
+                                    <video
+                                        width="560"
+                                        controls
+                                        height="405"
+                                        // frameBorder="0"
+                                        // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        // allowFullScreen
+                                        title={"Video Hi"}
+                                        // X-Frame-Options={'SAMEORIGIN'}
+                                    >
+                                        <source src={`${SERVER_URL}${star.video}`} type={"video/mp4"}/>
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col">
                             <div className="how-it-works">
                                 <p className={'section-header'}>Как это работает?</p>
                                 <div className="row">
@@ -423,10 +446,10 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                         Шаг 2. Звонок от менеджера
                                     </span>
                                         <span className="step-info">
-Мы позвоним и согласуем
-с вами детали, чтобы поздравление
-стало запоминающимся.
-Разговор займёт 5—7 минут.
+                                            Мы позвоним и согласуем
+                                            с вами детали, чтобы поздравление
+                                            стало запоминающимся.
+                                            Разговор займёт 5—7 минут.
                                     </span>
                                     </div>
                                     <div className="col-md-3 step-wrapper">
@@ -436,9 +459,9 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                     </span>
                                         <span className="step-info">
                                     Расскажите подробности
-поздравления: кого вы хотите
-поздравить, по какому поводу
-и в каком формате.
+                                        поздравления: кого вы хотите
+                                        поздравить, по какому поводу
+                                        и в каком формате.
                                     </span>
                                     </div>
                                     <div className="col-md-3 step-wrapper">
@@ -448,9 +471,9 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                     </span>
                                         <span className="step-info">
                                         Через 5 дней мы отправим вам
-ссылку на готовое поздравление!
-Видео можно скачать себе в
-течение 10 дней.
+                                        ссылку на готовое поздравление!
+                                        Видео можно скачать себе в
+                                        течение 10 дней.
                                     </span>
                                     </div>
                                 </div>
@@ -513,29 +536,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                     {/*        </div>*/}
                     {/*    </div>*/}
                     {/*</div>*/}
-                    <div className="row">
-                        <div className="col">
-                            <div className="gift-samples">
-                                <p className="section-header">
-                                    Примеры видеопоздравлений
-                                </p>
-                                <div className="vids-wrapper">
-                                    <video
-                                        width="560"
-                                        controls
-                                        height="405"
-                                        // frameBorder="0"
-                                        // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        // allowFullScreen
-                                        title={"Video Hi"}
-                                        // X-Frame-Options={'SAMEORIGIN'}
-                                    >
-                                        <source src={`${SERVER_URL}${star.video}`} type={"video/mp4"}/>
-                                    </video>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                     <div className="row">
                         <div className="col">
                             <SingleCat

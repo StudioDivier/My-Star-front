@@ -102,6 +102,7 @@ export const Stars = () => {
                                                     bgColor={bgColor}
                                                     likes={value.likes}
                                                     anotherPrice={value.price_another}
+                                                    profession={value.profession}
                                                 />
                                             </Col>
                                         </div>

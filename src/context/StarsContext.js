@@ -13,11 +13,12 @@ export const StarsProvider = ({children}) => {
     const [starAvatar, setAvatar] = useState(null);
     const [starLikes, setLikes] = useState(null);
     const [starAnotherPrice, setAnotherPrice] = useState(null);
+    const [starProfession, setProfession] = useState(null);
 
 
     return (
         <StarsContext.Provider
-            value={{array, setArray, starId, setStarId, starName, setStarName, starPrice, starLikes, setStarPrice, starDays, setStarDays, starRating, setStarRating, starAvatar, setAvatar, setLikes, starAnotherPrice, setAnotherPrice}}
+            value={{array, setArray, starId, setStarId, starName, setStarName, starPrice, starLikes, setStarPrice, starDays, setStarDays, starRating, setStarRating, starAvatar, setAvatar, setLikes, starAnotherPrice, setAnotherPrice, starProfession, setProfession}}
         >
             {children}
         </StarsContext.Provider>

@@ -117,7 +117,7 @@ export const Order = () => {
                             </div>
                             <div className="header-bottom">
                                 <h3>{starInfo.starName}</h3>
-                                <span>Хип-хоп исполнитель</span>
+                                <span>{starInfo.starProfession}</span>
                                 <div className="likes" onClick={likeHandler}>
                                     <img src={like} alt=""/><span>&nbsp;&nbsp;{starInfo.starLikes}</span>
                                 </div>
