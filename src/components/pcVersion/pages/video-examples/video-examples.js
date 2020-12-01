@@ -34,7 +34,7 @@ export const Examples = () => {
                     </Col>
                 </Row>
             </Container>
-            <Container>
+            <Container style={{paddingBottom: "150px"}}>
                 <Row>
                     {data.map(value => {
                         console.log(value)
@@ -43,7 +43,7 @@ export const Examples = () => {
                                 <video
                                     width="100%"
                                     controls
-                                    height="auto"
+                                    height="270"
                                     title={"Video Hi"}
                                     style={{marginBottom: '30px'}}
                                 >
