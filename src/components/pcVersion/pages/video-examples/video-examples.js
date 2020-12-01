@@ -39,8 +39,9 @@ export const Examples = () => {
                     {data.map(value => {
                         console.log(value)
                         return (
-                            <Col md={3} lg={4}>
+                            <Col md={3} lg={4} key={value}>
                                 <video
+
                                     width="100%"
                                     controls
                                     height="270"
