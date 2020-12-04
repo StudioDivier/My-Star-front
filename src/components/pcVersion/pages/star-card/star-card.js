@@ -301,6 +301,29 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         }
     }
 
+    const checkInvitation = () => {
+        if (star.price_another !== '0.00') {
+            return (
+                <div className="star-pc-price-wrapper">
+                                        <label className="radio-container">
+                                            {/*<img src={circle} alt="Pointer"/>*/}
+                                            <input type="radio"
+                                                   onClick={() => recordType('Приглашение на праздник')}
+                                                   name={'type'}/>
+                                            <span className="checkmark"></span>
+                                        </label>
+                                        <div>
+                                            <span>Приглашение на праздник</span>
+                                            <span
+                                                className={'star-pc-price__price'}>{star.price_another} &#8381;</span>
+                                        </div>
+                                    </div>
+            )
+        } else {
+            return []
+        }
+    }
+
     return (
         <>
             <Breadcrumbs secondItem={star.cat_name_id || star.cat_name_id_id} thirdItem={star.username}/>
@@ -381,20 +404,21 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                             <span className={'star-pc-price__price'}>{star.price} &#8381;</span>
                                         </div>
                                     </div>
-                                    <div className="star-pc-price-wrapper">
-                                        <label className="radio-container">
-                                            {/*<img src={circle} alt="Pointer"/>*/}
-                                            <input type="radio"
-                                                   onClick={() => recordType('Приглашение на праздник')}
-                                                   name={'type'}/>
-                                            <span className="checkmark"></span>
-                                        </label>
-                                        <div>
-                                            <span>Приглашение на праздник</span>
-                                            <span
-                                                className={'star-pc-price__price'}>{star.price_another} &#8381;</span>
-                                        </div>
-                                    </div>
+                                    {/*<div className="star-pc-price-wrapper">*/}
+                                    {/*    <label className="radio-container">*/}
+                                    {/*        /!*<img src={circle} alt="Pointer"/>*!/*/}
+                                    {/*        <input type="radio"*/}
+                                    {/*               onClick={() => recordType('Приглашение на праздник')}*/}
+                                    {/*               name={'type'}/>*/}
+                                    {/*        <span className="checkmark"></span>*/}
+                                    {/*    </label>*/}
+                                    {/*    <div>*/}
+                                    {/*        <span>Приглашение на праздник</span>*/}
+                                    {/*        <span*/}
+                                    {/*            className={'star-pc-price__price'}>{star.price_another} &#8381;</span>*/}
+                                    {/*    </div>*/}
+                                    {/*</div>*/}
+                                    {checkInvitation()}
                                 </div>
                                 <div className="star-daysForOrder">
                                     <span>Исполнение заказа через {star.days} дней</span>

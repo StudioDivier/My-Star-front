@@ -15,7 +15,7 @@ export const Category = ({id, name, chooseStar}) => {
             <>
                 <Breadcrumbs secondItem={name} setLocal={setLocal}/>
 
-                <Container style={{paddingBottom: '100px'}}>
+                <Container style={{paddingBottom: '125px'}}>
                     <Row>
                         <Col>
                             <SingleCat

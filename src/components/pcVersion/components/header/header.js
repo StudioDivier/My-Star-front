@@ -342,7 +342,7 @@ export const Header = ({setSearch, setPhone}) => {
                             <form onSubmit={(e) => searchHandler(e)}>
                                 <input
                                     type="text"
-                                    placeholder={'Поиск по звездам'}
+                                    placeholder={'Поиск звезд'}
                                     name={'search'}
                                     onChange={changeHandler1}
                                     value={form.search}
