@@ -11,12 +11,16 @@ import backBlueArrow from '../../img/back-blue.svg';
 import {Filter} from "../filter/filter";
 import {useHistory} from 'react-router-dom';
 import {FavCategory} from "./components/fav-category";
+import {Filter2} from "../filter2/filter";
+import {favCat} from '../../img/cats/gf.svg'
 
 export const Categories = () => {
     const authToken = useContext(AuthContext)
     const {request} = useHttp()
     const history = useHistory();
     const [data, setData] = useState([]);
+
+    const [search, setSearch] = useState([])
 
     const [query, setQuery] = useState('');
 
@@ -76,7 +80,7 @@ export const Categories = () => {
                     <FavCategory
                         // id={value.id}
                         name={'Избранное'}
-                        // catPhoto={value.category_photo}
+                        catPhoto={favCat}
                         bgColor={bgColor}
                     />
                 </Col>
@@ -101,8 +105,9 @@ export const Categories = () => {
                     </div>
                 </div>
                 <div className="categories__container">
-                    <Filter
-                        getQuery={getQuery}
+                    <Filter2
+                        // getQuery={getQuery}
+                        setSearch={setSearch}
                     />
                     <Container>
                         <Row>
@@ -135,8 +140,7 @@ export const Categories = () => {
                                         </Col>
                                     )
                                 }
-                            })
-                            }
+                            })}
                         </Row>
                     </Container>
                 </div>

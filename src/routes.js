@@ -11,6 +11,7 @@ import {Profile} from "./components/profile/profile"
 import {Policy} from "./components/docs/policy";
 import {Terms} from "./components/docs/terms";
 import {DesktopMain} from "./components/pcVersion/main";
+import {Search} from "./components/search/search";
 // import {AccountPage} from "./components/pcVersion/pages/account-page/account-page";
 import {Reset} from "./components/auth-page/reset";
 import {SeeVideo} from "./components/see-video/SeeVideo";
@@ -40,6 +41,8 @@ export const useRoutes = (isAuthenticated, isStar) => {
                         <Route exact path="/policy" component={Policy}/>
 
                         <Route exact path="/terms" component={Terms}/>
+
+                        <Route exact path="/search" component={Search}/>
 
                         <Route exact path="/categories" component={Categories}/>
 
@@ -118,6 +121,7 @@ export const useRoutes = (isAuthenticated, isStar) => {
                         <Route exact path="/policy">
                             <Policy/>
                         </Route>
+                        <Route exact path="/search" component={Search}/>
                         <Route exact path="/categories">
                             <Categories/>
                         </Route>
@@ -192,6 +196,7 @@ export const useRoutes = (isAuthenticated, isStar) => {
                         <Route exact path="/categories/stars">
                             <Stars/>
                         </Route>
+                        <Route exact path="/search" component={Search}/>
                         <Route path='/password-reset/confirm/'>
                             <div className={'gradient__signUp'}>
                                 <Reset/>

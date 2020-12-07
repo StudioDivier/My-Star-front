@@ -78,6 +78,19 @@ export const Star = ({id, price, name, rating, days, avatar, bgColor, likes, ano
     // }
     // Modal.setAppElement('.App')
 
+    const whatPage = () => {
+        if (window.location.pathname !== "/search") {
+            return (
+                                    <div className="star-stats">
+                        <div className="star-stats__likes">
+                            <span>{likes}</span>
+                            <span>Like</span>
+                        </div>
+                    </div>
+            )
+        }
+    }
+
 
     return (
         <div onClick={chooseStar}>
@@ -95,11 +108,12 @@ export const Star = ({id, price, name, rating, days, avatar, bgColor, likes, ano
                         <h5>{name}</h5>
                         <span>{profession}</span>
                     </div>
-                    <div className="star-stats">
-                        <div className="star-stats__likes">
-                            <span>{likes}</span>
-                            <span>Like</span>
-                        </div>
+                    {whatPage()}
+                    {/*<div className="star-stats">*/}
+                    {/*    <div className="star-stats__likes">*/}
+                    {/*        <span>{likes}</span>*/}
+                    {/*        <span>Like</span>*/}
+                    {/*    </div>*/}
                         {/*<div className="star-stats__likes">*/}
                         {/*    <span>999</span>*/}
                         {/*    <span>Like</span>*/}
@@ -108,7 +122,7 @@ export const Star = ({id, price, name, rating, days, avatar, bgColor, likes, ano
                         {/*    <span>999</span>*/}
                         {/*    <span>Like</span>*/}
                         {/*</div>*/}
-                    </div>
+                    {/*</div>*/}
                 </div>
 
                 <div className="orders">

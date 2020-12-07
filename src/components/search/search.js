@@ -1,44 +1,30 @@
-import React, {useContext, useState} from 'react';
-import './stars-page.scss';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-// import {useHttp} from "../../hooks/http.hook";
+import React, {useContext, useEffect, useState} from 'react';
+import {Container} from "react-bootstrap";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import {useHttp} from "../../hooks/http.hook";
 import {useHistory} from 'react-router-dom';
-
-import {Star} from './components/star';
-import {StarsContext} from "../../context/StarsContext";
-import backBlueArrow from '../../img/back-blue.svg';
-import {Filter} from "../filter/filter";
 import {BottomMenu} from "../bottom-menu/bottom-menu";
+import {Filter} from "../filter/filter";
+import {Star} from "../stars-page/components/star";
+import backBlueArrow from '../../img/back-blue.svg'
+import {StarsContext} from "../../context/StarsContext";
 
-export const Stars = () => {
-    // const {loading, request, error, clearError} = useHttp()
-    // const [stars, setStars] = useState([]);
-    const fetchedList = useContext(StarsContext);
-    const [query, setQuery] = useState('');
+export const Search = ({search, chooseStar}) => {
+
+    // const catPic = 'http://exprome.ru:8080';
+    const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
+
+    const {request} = useHttp()
+    const [stars, setStars] = useState([])
     const history = useHistory();
+    const [query, setQuery] = useState('');
+    const fetchedList = useContext(StarsContext);
 
-
-    // const getCats = async () => {
-    //     try {
-    //         const cats = await request('/api/categories/', 'GET')
-    //         setData({...cats})
-    //
-    //     } catch (e) {
-    //     }
-    // }
-
-    // ALL STARS LIST
-
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         const starsList = await request('/api/star/getlist/', 'GET')
-    //         setStars([...starsList])
-    //     }
-    //
-    //     fetchData();
-    // }, [])
+    const clickStar = (value) => {
+        chooseStar(value)
+        history.push('/star-card')
+    }
 
     const colors = [
         'linear-gradient(to top, #f76364 0%, #f76665 26%, #f76665 51%, #f76665 76%, #f56664 100%)',
@@ -48,20 +34,6 @@ export const Stars = () => {
         'linear-gradient(to top, #5960f8 0%, #5762f7 26%, #585df7 51%, #5661f7 76%, #5661f7 100%)',
         'linear-gradient(to top, #90d443 0%, #91d343 26%, #91d343 51%, #91d343 76%, #91d347 100%)'
     ]
-
-    // console.log(window.screen.width)
-
-    // console.log(stars)
-    // console.log(fetchedList.array)
-
-    const getQuery = (query) => {
-        setQuery(query)
-    }
-
-    if (fetchedList.array.length === 0) {
-        history.push('/')
-        window.location.reload();
-    }
 
     return (
         <>
@@ -73,17 +45,16 @@ export const Stars = () => {
                         </a>
                     </div>
                     <div>
-                        <h3>Исполнители</h3>
+                        <h3>Поиск звезд</h3>
                     </div>
                 </div>
                 <div className="stars__container">
                     <Filter
-                        getQuery={getQuery}
+                        getQuery={setQuery}
                     />
                     <Container>
                         <Row style={{paddingBottom: '75px'}}>
                             {fetchedList.array.map((value, key) => {
-                                // console.log(value, key)
 
                                 let randomNum = Math.floor(Math.random() * 6);
                                 let bgColor = colors[randomNum];
@@ -98,7 +69,7 @@ export const Stars = () => {
                                                     rating={value.rating}
                                                     price={value.price}
                                                     days={value.days}
-                                                    avatar={value.avatar}
+                                                    avatar={`/media/${value.avatar}`}
                                                     bgColor={bgColor}
                                                     likes={value.likes}
                                                     anotherPrice={value.price_another}
@@ -117,7 +88,7 @@ export const Stars = () => {
                                                     rating={value.rating}
                                                     price={value.price}
                                                     days={value.days}
-                                                    avatar={value.avatar}
+                                                    avatar={`/media/${value.avatar}`}
                                                     bgColor={bgColor}
                                                 />
                                             </Col>
@@ -126,26 +97,6 @@ export const Stars = () => {
                                 }
                             })
                             }
-                            {/*<div className="single-star">*/}
-                            {/*    <Col lg>*/}
-                            {/*        <Star/>*/}
-                            {/*    </Col>*/}
-                            {/*</div>*/}
-                            {/*<div className="single-star">*/}
-                            {/*    <Col lg>*/}
-                            {/*        <Star/>*/}
-                            {/*    </Col>*/}
-                            {/*</div>*/}
-                            {/*<div className="single-star">*/}
-                            {/*    <Col lg>*/}
-                            {/*        <Star/>*/}
-                            {/*    </Col>*/}
-                            {/*</div>*/}
-                            {/*<div className="single-star">*/}
-                            {/*    <Col lg>*/}
-                            {/*        <Star/>*/}
-                            {/*    </Col>*/}
-                            {/*</div>*/}
                         </Row>
                     </Container>
                 </div>
