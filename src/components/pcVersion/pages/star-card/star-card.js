@@ -301,8 +301,10 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         }
     }
 
+    console.log(star.price_another);
+
     const checkInvitation = () => {
-        if (star.price_another !== '0.00') {
+        if (star.price_another !== 0) {
             return (
                 <div className="star-pc-price-wrapper">
                                         <label className="radio-container">
