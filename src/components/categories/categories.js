@@ -12,7 +12,6 @@ import {Filter} from "../filter/filter";
 import {useHistory} from 'react-router-dom';
 import {FavCategory} from "./components/fav-category";
 import {Filter2} from "../filter2/filter";
-import {favCat} from '../../img/cats/gf.svg'
 
 export const Categories = () => {
     const authToken = useContext(AuthContext)
@@ -80,7 +79,7 @@ export const Categories = () => {
                     <FavCategory
                         // id={value.id}
                         name={'Избранное'}
-                        catPhoto={favCat}
+                        // catPhoto={value.category_photo}
                         bgColor={bgColor}
                     />
                 </Col>
@@ -95,11 +94,11 @@ export const Categories = () => {
         <>
             <div className="categories">
                 <div className="header-block">
-                    <div className={'icon-container'}>
-                        <a href={'/'}>
-                            <img src={backBlueArrow} alt="Back button" onClick={logout}/>
-                        </a>
-                    </div>
+                    {/*<div className={'icon-container'}>*/}
+                    {/*    <a href={'/'}>*/}
+                    {/*        <img src={backBlueArrow} alt="Back button" onClick={logout}/>*/}
+                    {/*    </a>*/}
+                    {/*</div>*/}
                     <div>
                         <h3>Категории</h3>
                     </div>
@@ -111,6 +110,14 @@ export const Categories = () => {
                     />
                     <Container>
                         <Row>
+                            <Col xs={6}>
+                                <Category
+                                    // id={value.id}
+                                    name={'Топ-10'}
+                                    // catPhoto={value.category_photo}
+                                    bgColor={bgColor}
+                                />
+                            </Col>
                             {areYouLogged()}
                             {data.map((value, key) => {
                                 // console.log(value, key)

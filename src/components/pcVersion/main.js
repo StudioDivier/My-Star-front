@@ -80,6 +80,16 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                             {/*Two categories*/}
                             <Row>
                                 <Col lg={12}>
+                                    <SingleCat
+                                        // id={2}
+                                        catName={'Топ-10'}
+                                        chooseCat={setCat}
+                                        nameCat={setCatName}
+                                        chooseStar={setStar}
+                                    />
+                                </Col>
+
+                                <Col lg={12}>
                                     {/*<SingleCat*/}
                                     {/*    id={1}*/}
                                     {/*    catName={'Избранное'}*/}
@@ -89,16 +99,6 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                                     {/*/>*/}
                                     {areYouLogged()}
                                 </Col>
-
-                                {/*<Col lg={12}>*/}
-                                {/*    <SingleCat*/}
-                                {/*        id={2}*/}
-                                {/*        catName={'Шансон'}*/}
-                                {/*        chooseCat={setCat}*/}
-                                {/*        nameCat={setCatName}*/}
-                                {/*        chooseStar={setStar}*/}
-                                {/*    />*/}
-                                {/*</Col>*/}
                             </Row>
                             <Row>
                                 <Col>

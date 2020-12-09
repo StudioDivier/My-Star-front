@@ -24,6 +24,15 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
             }
         }
 
+        async function fetchAllStars() {
+            const starsFetch = await request(`/api/star/getlist/`, 'GET'); //'cors' , //, null, {Authorization: `Bearer ${userData.token}`}
+            // console.log(starsFetch)
+            if (!!starsFetch.length) {
+                setStars([...starsFetch])
+            }
+        }
+
+
         if (userData) {
             async function fetchData2() {
                 const favCat = await request(`/api/star/favorite/?cust_id=${userData.userId}`, 'GET', null, {Authorization: `Bearer ${userData.token}`})
@@ -36,6 +45,7 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
         }
 
         fetchData();
+        fetchAllStars();
     }, [id, request]) // needed?
 
     const clickHandler = () => {
@@ -110,7 +120,7 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
             </div>
         )
     }
-    if (favData[0] !== "Нет избранных звезд") {
+    if (catName === 'Избранное' && favData[0] !== "Нет избранных звезд") {
         return (
             <div className="single-cat">
                 <div className="header-row">
@@ -119,6 +129,36 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
                 </div>
                 <div className="single-cat__stars">
                     {favData.slice(0, 5).map((value, key) => {
+                        return (
+                            <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
+                                <div className="avatar-img"
+                                     style={{backgroundImage: `url(${SERVER_URL}/media/${value.avatar})`}}>&nbsp;</div>
+                                {/*<img src={catPic + value.avatar} alt=""/>*/}
+                                <div className="star-description">
+                                        <span className="star-name">
+                                            {value.first_name}&nbsp;{value.last_name}
+                                        </span>
+                                    <span className="star-style">
+                                            {value.profession}
+                                        </span>
+                                </div>
+                            </div>
+
+                        )
+                    })}
+                </div>
+            </div>
+        )
+    }
+    if (catName === 'Топ-10') {
+        return (
+            <div className="single-cat">
+                <div className="header-row">
+                    <span className="cat-header">{catName}</span>
+                    <span className="browse" onClick={clickHandler} style={{cursor: 'pointer'}}>Смотреть все</span>
+                </div>
+                <div className="single-cat__stars">
+                    {stars.slice(0, 5).filter(value => value.top === true).map((value, key) => {
                         return (
                             <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
                                 <div className="avatar-img"

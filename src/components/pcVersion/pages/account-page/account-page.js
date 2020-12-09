@@ -136,9 +136,9 @@ export const AccountPage = () => {
             case -1:
                 return 'Отклонен';
             case 2:
-                return 'Не оплачен, отменен';
+                return 'Оплачен, не подтвержден';
             case 3:
-                return 'Оплачено';
+                return 'Оплачен, принят';
             default:
                 return '';
         }

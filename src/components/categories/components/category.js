@@ -33,27 +33,64 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
         }
     }
 
+    const clickHandler2 = async () => {
+        try {
+            // console.log('here0')
+            const starsFetch = await request(`/api/star/getlist/`, 'GET'); //'cors' ,
+            // console.log('here1')
+            // setStarsList([...starsFetch])
+            // console.log('here2')
+            list.setArray([...starsFetch.filter(value => value.top === true)])
+            // console.log('here3')
+            history.push(`/categories/stars`)
+
+        } catch (e) {
+            message(['В данной категории нет звезд']);
+        }
+    }
+
     const catPic = `${SERVER_URL}/media/${catPhoto}`;
     // const catPic = 'http://127.0.0.1:8080/' + catPhoto;
 
     // console.log(starsList)
 
-    return (
-        <>
-            <div onClick={clickHandler} className={'category-card'}>
-                <div style={{backgroundImage: bgColor}}>
-                    <div className="category-card__description">
-                        <span>Популярные</span>
-                        <div className="img-card">
-                            <img src={catPic} alt="icon"/>
+    if (name === 'Топ-10') {
+        return (
+            <>
+                <div onClick={clickHandler2} className={'category-card'}>
+                    <div style={{backgroundImage: bgColor}}>
+                        <div className="category-card__description">
+                            <span>Популярные</span>
+                            <div className="img-card">
+                                <img src={catPic} alt="icon"/>
+                            </div>
                         </div>
-                    </div>
-                    <div className="category-card__info">
+                        <div className="category-card__info">
                             <h5>{name}</h5>
                             <span>Песня в подарок</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </>
-    )
+            </>
+        )
+    } else {
+        return (
+            <>
+                <div onClick={clickHandler} className={'category-card'}>
+                    <div style={{backgroundImage: bgColor}}>
+                        <div className="category-card__description">
+                            <span>Популярные</span>
+                            <div className="img-card">
+                                <img src={catPic} alt="icon"/>
+                            </div>
+                        </div>
+                        <div className="category-card__info">
+                            <h5>{name}</h5>
+                            <span>Песня в подарок</span>
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
+    }
 }

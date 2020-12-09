@@ -63,94 +63,117 @@ export const Stars = () => {
         window.location.reload();
     }
 
-    return (
-        <>
-            <div className="stars">
-                <div className="header-block">
-                    <div className={'icon-container'}>
-                        <a href={'/'}>
-                            <img src={backBlueArrow} alt="Back button"/>
-                        </a>
-                    </div>
-                    <div>
-                        <h3>Исполнители</h3>
-                    </div>
-                </div>
-                <div className="stars__container">
-                    <Filter
-                        getQuery={getQuery}
-                    />
-                    <Container>
-                        <Row style={{paddingBottom: '75px'}}>
-                            {fetchedList.array.map((value, key) => {
-                                // console.log(value, key)
+    if (fetchedList.array)
 
-                                let randomNum = Math.floor(Math.random() * 6);
-                                let bgColor = colors[randomNum];
+        return (
+            <>
+                <div className="stars">
+                    <div className="header-block">
+                        <div className={'icon-container'}>
+                            <a href={'/'}>
+                                <img src={backBlueArrow} alt="Back button"/>
+                            </a>
+                        </div>
+                        <div>
+                            <h3>Исполнители</h3>
+                        </div>
+                    </div>
+                    <div className="stars__container">
+                        <Filter
+                            getQuery={getQuery}
+                        />
+                        <Container>
+                            <Row style={{paddingBottom: '75px'}}>
+                                {fetchedList.array.map((value, key) => {
+                                    // console.log(value, key)
+                                    let randomNum = Math.floor(Math.random() * 6);
+                                    let bgColor = colors[randomNum];
 
-                                if (value.username.toLowerCase().includes(query.toLowerCase())) {
-                                    return (
-                                        <div className="single-star" key={key}>
-                                            <Col>
-                                                <Star
-                                                    id={value.id}
-                                                    name={value.username}
-                                                    rating={value.rating}
-                                                    price={value.price}
-                                                    days={value.days}
-                                                    avatar={value.avatar}
-                                                    bgColor={bgColor}
-                                                    likes={value.likes}
-                                                    anotherPrice={value.price_another}
-                                                    profession={value.profession}
-                                                />
-                                            </Col>
-                                        </div>
-                                    )
-                                } else if (query === '') {
-                                    return (
-                                        <div className="single-star" key={key}>
-                                            <Col>
-                                                <Star
-                                                    id={value.id}
-                                                    name={value.username}
-                                                    rating={value.rating}
-                                                    price={value.price}
-                                                    days={value.days}
-                                                    avatar={value.avatar}
-                                                    bgColor={bgColor}
-                                                />
-                                            </Col>
-                                        </div>
-                                    )
+
+                                    if (value.username.toLowerCase().includes(query.toLowerCase())) {
+                                        if (value.avatar.includes('/media/')) {
+                                            return (
+                                                <div className="single-star" key={key}>
+                                                    <Col>
+                                                        <Star
+                                                            id={value.id}
+                                                            name={value.username}
+                                                            rating={value.rating}
+                                                            price={value.price}
+                                                            days={value.days}
+                                                            avatar={value.avatar}
+                                                            bgColor={bgColor}
+                                                            likes={value.likes}
+                                                            anotherPrice={value.price_another}
+                                                            profession={value.profession}
+                                                        />
+                                                    </Col>
+                                                </div>
+                                            )
+                                        } else {
+                                            return (
+                                                <div className="single-star" key={key}>
+                                                    <Col>
+                                                        <Star
+                                                            id={value.id}
+                                                            name={value.username}
+                                                            rating={value.rating}
+                                                            price={value.price}
+                                                            days={value.days}
+                                                            avatar={`/media/${value.avatar}`}
+                                                            bgColor={bgColor}
+                                                            likes={value.likes}
+                                                            anotherPrice={value.price_another}
+                                                            profession={value.profession}
+                                                        />
+                                                    </Col>
+                                                </div>
+                                            )
+                                        }
+                                    } else if (query === '') {
+                                        return (
+                                            <div className="single-star" key={key}>
+                                                <Col>
+                                                    <Star
+                                                        id={value.id}
+                                                        name={value.username}
+                                                        rating={value.rating}
+                                                        price={value.price}
+                                                        days={value.days}
+                                                        avatar={value.avatar}
+                                                        bgColor={bgColor}
+                                                    />
+                                                </Col>
+                                            </div>
+                                        )
+                                    }
+                                })
                                 }
-                            })
-                            }
-                            {/*<div className="single-star">*/}
-                            {/*    <Col lg>*/}
-                            {/*        <Star/>*/}
-                            {/*    </Col>*/}
-                            {/*</div>*/}
-                            {/*<div className="single-star">*/}
-                            {/*    <Col lg>*/}
-                            {/*        <Star/>*/}
-                            {/*    </Col>*/}
-                            {/*</div>*/}
-                            {/*<div className="single-star">*/}
-                            {/*    <Col lg>*/}
-                            {/*        <Star/>*/}
-                            {/*    </Col>*/}
-                            {/*</div>*/}
-                            {/*<div className="single-star">*/}
-                            {/*    <Col lg>*/}
-                            {/*        <Star/>*/}
-                            {/*    </Col>*/}
-                            {/*</div>*/}
-                        </Row>
-                    </Container>
+                                {/*<div className="single-star">*/}
+                                {/*    <Col lg>*/}
+                                {/*        <Star/>*/}
+                                {/*    </Col>*/}
+                                {/*</div>*/}
+                                {/*<div className="single-star">*/}
+                                {/*    <Col lg>*/}
+                                {/*        <Star/>*/}
+                                {/*    </Col>*/}
+                                {/*</div>*/}
+                                {/*<div className="single-star">*/}
+                                {/*    <Col lg>*/}
+                                {/*        <Star/>*/}
+                                {/*    </Col>*/}
+                                {/*</div>*/}
+                                {/*<div className="single-star">*/}
+                                {/*    <Col lg>*/}
+                                {/*        <Star/>*/}
+                                {/*    </Col>*/}
+                                {/*</div>*/}
+                            </Row>
+                        </Container>
+                    </div>
                 </div>
-            </div>
-            <BottomMenu/>
-        </>
-    )
+                <BottomMenu/>
+            </>
+        )
 }
