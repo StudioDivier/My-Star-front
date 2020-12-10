@@ -72,8 +72,19 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                 }
             }
 
+            async function allCats() {
+                const cats = await request('/api/categories/', 'GET') //'cors' ,
+                // console.log(cats)
+                let filteredCat = cats.filter(value => value.id === currentStar.cat_name_id_id)[0]
+                // console.log(localStorage.setItem('catName', JSON.stringify({name: filteredCat.cat_name})))
+                localStorage.setItem('catName', JSON.stringify({name: filteredCat.cat_name}))
+            }
+
             fetchData();
-        } else {
+            allCats();
+        }
+
+        if (currentStar.cat_name_id) {
             async function fetchData() {
                 const starsFetch = await request(`/api/star/category/?id=${currentStar.cat_name_id}`, 'GET'); //'cors' , //, null, {Authorization: `Bearer ${userData.token}`}
                 console.log(starsFetch)
@@ -83,20 +94,6 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                 }
             }
 
-            fetchData();
-        }
-
-        if (currentStar.cat_name_id_id) {
-            async function allCats() {
-                const cats = await request('/api/categories/', 'GET') //'cors' ,
-                // console.log(cats)
-                let filteredCat = cats.filter(value => value.id === currentStar.cat_name_id_id)[0]
-                // console.log(localStorage.setItem('catName', JSON.stringify({name: filteredCat.cat_name})))
-                localStorage.setItem('catName', JSON.stringify({name: filteredCat.cat_name}))
-            }
-
-            allCats();
-        } else {
             async function allCats() {
                 const cats = await request('/api/categories/', 'GET') //'cors' ,
                 // console.log(cats)
@@ -104,7 +101,11 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                 // console.log(localStorage.setItem('catName', JSON.stringify({name: filteredCat.cat_name})))
                 localStorage.setItem('catName', JSON.stringify({name: filteredCat.cat_name}))
             }
+
+            fetchData();
+            allCats();
         }
+
     }, [request]) // needed?
 
     /*

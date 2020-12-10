@@ -47,15 +47,15 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     const {request} = useHttp()
 
     useEffect(() => {
-        async function fetchData() {
-            const starsFetch = await request(`/api/star/category/?id=undefined`, 'GET'); //'cors' , //, null, {Authorization: `Bearer ${userData.token}`}
-            // console.log(starsFetch)
-            if (!!starsFetch.length) {
-                setStars([...starsFetch])
-                localStorage.removeItem('catStars');
-                localStorage.setItem('catStars', JSON.stringify({stars: starsFetch}))
-            }
-        }
+        // async function fetchData() {
+        //     const starsFetch = await request(`/api/star/category/?id=undefined`, 'GET'); //'cors' , //, null, {Authorization: `Bearer ${userData.token}`}
+        //     // console.log(starsFetch)
+        //     if (!!starsFetch.length) {
+        //         setStars([...starsFetch])
+        //         localStorage.removeItem('catStars');
+        //         localStorage.setItem('catStars', JSON.stringify({stars: starsFetch}))
+        //     }
+        // }
 
         async function fetchAllStars() {
             const starsFetch = await request(`/api/star/getlist/`, 'GET'); //'cors' , //, null, {Authorization: `Bearer ${userData.token}`}
@@ -81,7 +81,7 @@ export const DesktopMain = (isAuthenticated, isStar) => {
             fetchData2();
         }
 
-        fetchData();
+        // fetchData();
         fetchAllStars();
     }, [request]) // needed?
 
