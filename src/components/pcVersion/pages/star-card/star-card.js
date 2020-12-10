@@ -61,6 +61,28 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         setForm(({...form, [event.target.name]: event.target.value}))
     }
 
+    useEffect(() => {
+        async function fetchData() {
+            const starsFetch = await request(`/api/star/category/?id=${currentStar.cat_name_id_id}`, 'GET'); //'cors' , //, null, {Authorization: `Bearer ${userData.token}`}
+            console.log(starsFetch)
+            if (!!starsFetch.length) {
+                localStorage.removeItem('catStars');
+                localStorage.setItem('catStars', JSON.stringify({stars: starsFetch}))
+            }
+        }
+
+        async function allCats() {
+            const cats = await request('/api/categories/', 'GET') //'cors' ,
+            // console.log(cats)
+            let filteredCat = cats.filter(value => value.id === currentStar.cat_name_id_id)[0]
+            // console.log(localStorage.setItem('catName', JSON.stringify({name: filteredCat.cat_name})))
+            localStorage.setItem('catName', JSON.stringify({name: filteredCat.cat_name}))
+        }
+
+        fetchData();
+        allCats();
+    }, [request]) // needed?
+
     /*
      * For Modals
     */
@@ -308,19 +330,19 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         if (currentStar.price_another !== 0) {
             return (
                 <div className="star-pc-price-wrapper">
-                                        <label className="radio-container">
-                                            {/*<img src={circle} alt="Pointer"/>*/}
-                                            <input type="radio"
-                                                   onClick={() => recordType('Приглашение на праздник')}
-                                                   name={'type'}/>
-                                            <span className="checkmark"></span>
-                                        </label>
-                                        <div>
-                                            <span>Приглашение на праздник</span>
-                                            <span
-                                                className={'star-pc-price__price'}>{currentStar.price_another} &#8381;</span>
-                                        </div>
-                                    </div>
+                    <label className="radio-container">
+                        {/*<img src={circle} alt="Pointer"/>*/}
+                        <input type="radio"
+                               onClick={() => recordType('Приглашение на праздник')}
+                               name={'type'}/>
+                        <span className="checkmark"></span>
+                    </label>
+                    <div>
+                        <span>Приглашение на праздник</span>
+                        <span
+                            className={'star-pc-price__price'}>{currentStar.price_another} &#8381;</span>
+                    </div>
+                </div>
             )
         } else {
             return []
@@ -329,7 +351,8 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
 
     return (
         <>
-            <Breadcrumbs secondItem={currentStar.cat_name_id || currentStar.cat_name_id_id} thirdItem={currentStar.username}/>
+            <Breadcrumbs secondItem={currentStar.cat_name_id || currentStar.cat_name_id_id}
+                         thirdItem={currentStar.username}/>
 
             <section className="star-card-pc">
                 <div className="container">
@@ -531,34 +554,34 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                     {/*                О звезде*/}
                     {/*            </p>*/}
                     {/*            <p className="full-bio">*/}
-                                    {/*Анна Семенович сегодня сразу и певица, и актриса, и телеведущая. Обладательница*/}
-                                    {/*пятого с*/}
-                                    {/*половиной размера груди является завсегдатаем светских тусовок, а ее*/}
-                                    {/*лицо и красивое тело часто украшают обложки глянцевых журналов. Мало кто знает,*/}
-                                    {/*что*/}
-                                    {/*за*/}
-                                    {/*востребованной артисткой прячется прошлое школьного аутсайдера и*/}
-                                    {/*ребенка без детства.*/}
-                                    {/*Певица продолжает заниматься сольной карьерой. В апреле 2019-го Анна Семенович*/}
-                                    {/*выпустила*/}
-                                    {/*клип на песню «Хочешь», а в сентябре состоялся релиз композиции*/}
-                                    {/*«Сексибомбочка». Также артистка приняла участие в благотворительном концерте в*/}
-                                    {/*Государственном Кремлевском Дворце.*/}
-                                    {/*Кроме того, Семенович востребована в кинематографе. На 2020 год запланирован*/}
-                                    {/*выход*/}
-                                    {/*фильма с Анной «Гардемарины IV». Ее коллегами по съемочной площадке стали*/}
-                                    {/*такие артисты как Дмитрий Харатьян, певица Кристина Орбакайте, а также Михаил*/}
-                                    {/*Боярский и*/}
-                                    {/*многие другие звезды отечественного шоу-бизнеса.*/}
-                                    {/*Анна Семенович уже восемь лет ведет программу «Дембельский альбом» на «Русском*/}
-                                    {/*радио».*/}
-                                    {/*Что касается личной жизни Семенович, то она по обыкновению скрыта от глаз*/}
-                                    {/*посторонних.*/}
-                                    {/*Известно лишь, что у артистки есть возлюбленный. Со слов девушки, она*/}
-                                    {/*состоит в отношениях с мужчиной младше нее на семь лет. Семенович призналась,*/}
-                                    {/*что*/}
-                                    {/*только*/}
-                                    {/*сейчас всерьез задумалась завести детей.*/}
+                    {/*Анна Семенович сегодня сразу и певица, и актриса, и телеведущая. Обладательница*/}
+                    {/*пятого с*/}
+                    {/*половиной размера груди является завсегдатаем светских тусовок, а ее*/}
+                    {/*лицо и красивое тело часто украшают обложки глянцевых журналов. Мало кто знает,*/}
+                    {/*что*/}
+                    {/*за*/}
+                    {/*востребованной артисткой прячется прошлое школьного аутсайдера и*/}
+                    {/*ребенка без детства.*/}
+                    {/*Певица продолжает заниматься сольной карьерой. В апреле 2019-го Анна Семенович*/}
+                    {/*выпустила*/}
+                    {/*клип на песню «Хочешь», а в сентябре состоялся релиз композиции*/}
+                    {/*«Сексибомбочка». Также артистка приняла участие в благотворительном концерте в*/}
+                    {/*Государственном Кремлевском Дворце.*/}
+                    {/*Кроме того, Семенович востребована в кинематографе. На 2020 год запланирован*/}
+                    {/*выход*/}
+                    {/*фильма с Анной «Гардемарины IV». Ее коллегами по съемочной площадке стали*/}
+                    {/*такие артисты как Дмитрий Харатьян, певица Кристина Орбакайте, а также Михаил*/}
+                    {/*Боярский и*/}
+                    {/*многие другие звезды отечественного шоу-бизнеса.*/}
+                    {/*Анна Семенович уже восемь лет ведет программу «Дембельский альбом» на «Русском*/}
+                    {/*радио».*/}
+                    {/*Что касается личной жизни Семенович, то она по обыкновению скрыта от глаз*/}
+                    {/*посторонних.*/}
+                    {/*Известно лишь, что у артистки есть возлюбленный. Со слов девушки, она*/}
+                    {/*состоит в отношениях с мужчиной младше нее на семь лет. Семенович призналась,*/}
+                    {/*что*/}
+                    {/*только*/}
+                    {/*сейчас всерьез задумалась завести детей.*/}
                     {/*            </p>*/}
                     {/*        </div>*/}
                     {/*    </div>*/}

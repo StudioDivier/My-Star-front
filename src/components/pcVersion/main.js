@@ -29,6 +29,7 @@ import {Examples} from "./pages/video-examples/video-examples";
 import {How} from "./pages/how-it-works/how-it-works";
 import {Requisites} from "./pages/requisites-page/requisites-page";
 import {TopCategory} from "./pages/top10-page/top10-page";
+import {useHttp} from "../../hooks/http.hook";
 
 export const DesktopMain = (isAuthenticated, isStar) => {
 
@@ -39,6 +40,51 @@ export const DesktopMain = (isAuthenticated, isStar) => {
     const [star, setStar] = useState([])
     const [search, setSearch] = useState([])
 
+    const [stars, setStars] = useState([]);
+    const [topStars, setTopStars] = useState([]);
+    const [favData, setFavData] = useState([]);
+
+    const {request} = useHttp()
+
+    useEffect(() => {
+        async function fetchData() {
+            const starsFetch = await request(`/api/star/category/?id=undefined`, 'GET'); //'cors' , //, null, {Authorization: `Bearer ${userData.token}`}
+            // console.log(starsFetch)
+            if (!!starsFetch.length) {
+                setStars([...starsFetch])
+                localStorage.removeItem('catStars');
+                localStorage.setItem('catStars', JSON.stringify({stars: starsFetch}))
+            }
+        }
+
+        async function fetchAllStars() {
+            const starsFetch = await request(`/api/star/getlist/`, 'GET'); //'cors' , //, null, {Authorization: `Bearer ${userData.token}`}
+            // console.log(starsFetch)
+            if (!!starsFetch.length) {
+                setTopStars([...starsFetch])
+                localStorage.removeItem('allStars');
+                localStorage.setItem('allStars', JSON.stringify({stars: starsFetch}))
+            }
+        }
+
+
+        if (userData) {
+            async function fetchData2() {
+                const favCat = await request(`/api/star/favorite/?cust_id=${userData.userId}`, 'GET', null, {Authorization: `Bearer ${userData.token}`})
+                if (!!favCat.length) {
+                    setFavData([...favCat])
+                    localStorage.removeItem('favCat');
+                    localStorage.setItem('favCat', JSON.stringify({stars: favCat}))
+                }
+            }
+
+            fetchData2();
+        }
+
+        fetchData();
+        fetchAllStars();
+    }, [request]) // needed?
+
     const areYouLogged = () => {
         if (userData && userData.token) {
             return <SingleCat
@@ -47,6 +93,9 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                 chooseCat={setCat}
                 nameCat={setCatName}
                 chooseStar={setStar}
+                stars1={stars}
+                topStars1={topStars}
+                favData1={favData}
             />
         } else {
             return []
@@ -87,6 +136,9 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                                         chooseCat={setCat}
                                         nameCat={setCatName}
                                         chooseStar={setStar}
+                                        stars1={stars}
+                                        topStars1={topStars}
+                                        favData1={favData}
                                     />
                                 </Col>
 
@@ -134,6 +186,9 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                             name={name}
                             id={cat}
                             chooseStar={setStar}
+                            stars1={stars}
+                            topStars1={topStars}
+                            favData1={favData}
                         />
                     </Route>
 

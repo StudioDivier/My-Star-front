@@ -4,7 +4,7 @@ import './cat-row.scss';
 import {useHttp} from "../../../../hooks/http.hook";
 import {useHistory} from 'react-router-dom';
 
-export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
+export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar, stars1, favData1, topStars1}) => {
     const SERVER_URL = process.env.REACT_APP_SERVER_URL2;
 
     const userData = JSON.parse(window.localStorage.getItem('userData'));
@@ -20,6 +20,10 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
 
     // console.log(starsList)
 
+    let catStars = stars;
+    let allStars = topStars1;
+    let favCat = favData1;
+
     useEffect(() => {
         async function fetchData() {
             const starsFetch = await request(`/api/star/category/?id=${id}`, 'GET'); //'cors' , //, null, {Authorization: `Bearer ${userData.token}`}
@@ -28,6 +32,7 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
                 setStars([...starsFetch])
                 localStorage.removeItem('catStars');
                 localStorage.setItem('catStars', JSON.stringify({stars: starsFetch}))
+                catStars = (JSON.parse(window.localStorage.getItem('catStars'))).stars;
             }
         }
 
@@ -38,17 +43,19 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
                 setTopStars([...starsFetch])
                 localStorage.removeItem('allStars');
                 localStorage.setItem('allStars', JSON.stringify({stars: starsFetch}))
+                allStars = (JSON.parse(window.localStorage.getItem('allStars'))).stars;
             }
         }
 
 
         if (userData) {
             async function fetchData2() {
-                const favCat = await request(`/api/star/favorite/?cust_id=${userData.userId}`, 'GET', null, {Authorization: `Bearer ${userData.token}`})
-                if (!!favCat.length) {
-                    setFavData([...favCat])
+                const favCat1 = await request(`/api/star/favorite/?cust_id=${userData.userId}`, 'GET', null, {Authorization: `Bearer ${userData.token}`})
+                if (!!favCat1.length) {
+                    setFavData([...favCat1])
                     localStorage.removeItem('favCat');
-                    localStorage.setItem('favCat', JSON.stringify({stars: favCat}))
+                    localStorage.setItem('favCat', JSON.stringify({stars: favCat1}))
+                    favCat = (JSON.parse(window.localStorage.getItem('favCat'))).stars;
                 }
             }
 
@@ -57,11 +64,12 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
 
         fetchData();
         fetchAllStars();
-    }, [id, request]) // needed?
+    }, [request]) // needed?
 
-    const catStars = (JSON.parse(window.localStorage.getItem('catStars'))).stars;
-    const allStars = (JSON.parse(window.localStorage.getItem('allStars'))).stars;
-    const favCat = (JSON.parse(window.localStorage.getItem('favCat'))).stars;
+
+    // const catStars = (JSON.parse(window.localStorage.getItem('catStars'))).stars;
+    // const allStars = (JSON.parse(window.localStorage.getItem('allStars'))).stars;
+    // const favCat = (JSON.parse(window.localStorage.getItem('favCat'))).stars;
 
     const currentCat = JSON.parse(window.localStorage.getItem('catName'));
 
@@ -90,6 +98,7 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
     // console.log(stars)
 
     if (window.location.pathname === '/category') {
+        catStars = (JSON.parse(window.localStorage.getItem('catStars'))).stars;
         return (
             <div className="single-cat">
                 <div className="header-row">
@@ -139,7 +148,6 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
                                         </span>
                                 </div>
                             </div>
-
                         )
                     })}
                 </div>
@@ -168,7 +176,6 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
                                         </span>
                                 </div>
                             </div>
-
                         )
                     })}
                 </div>
@@ -183,7 +190,7 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
                     <span className="browse" onClick={clickHandler} style={{cursor: 'pointer'}}>Смотреть все</span>
                 </div>
                 <div className="single-cat__stars">
-                    {favData.slice(0, 5).map((value, key) => {
+                    {favCat.slice(0, 5).map((value, key) => {
                         return (
                             <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
                                 <div className="avatar-img"
@@ -198,7 +205,6 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
                                         </span>
                                 </div>
                             </div>
-
                         )
                     })}
                 </div>
@@ -213,7 +219,7 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
                     <span className="browse" onClick={clickHandler2} style={{cursor: 'pointer'}}>Смотреть все</span>
                 </div>
                 <div className="single-cat__stars">
-                    {topStars.filter(value => value.top === true).slice(0, 5).map((value, key) => {
+                    {allStars.filter(value => value.top === true).slice(0, 5).map((value, key) => {
                         return (
                             <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
                                 <div className="avatar-img"
@@ -228,7 +234,6 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
                                         </span>
                                 </div>
                             </div>
-
                         )
                     })}
                 </div>
