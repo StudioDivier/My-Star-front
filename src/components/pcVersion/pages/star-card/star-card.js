@@ -62,25 +62,49 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
     }
 
     useEffect(() => {
-        async function fetchData() {
-            const starsFetch = await request(`/api/star/category/?id=${currentStar.cat_name_id_id}`, 'GET'); //'cors' , //, null, {Authorization: `Bearer ${userData.token}`}
-            console.log(starsFetch)
-            if (!!starsFetch.length) {
-                localStorage.removeItem('catStars');
-                localStorage.setItem('catStars', JSON.stringify({stars: starsFetch}))
+        if (currentStar.cat_name_id_id) {
+            async function fetchData() {
+                const starsFetch = await request(`/api/star/category/?id=${currentStar.cat_name_id_id}`, 'GET'); //'cors' , //, null, {Authorization: `Bearer ${userData.token}`}
+                console.log(starsFetch)
+                if (!!starsFetch.length) {
+                    localStorage.removeItem('catStars');
+                    localStorage.setItem('catStars', JSON.stringify({stars: starsFetch}))
+                }
+            }
+
+            fetchData();
+        } else {
+            async function fetchData() {
+                const starsFetch = await request(`/api/star/category/?id=${currentStar.cat_name_id}`, 'GET'); //'cors' , //, null, {Authorization: `Bearer ${userData.token}`}
+                console.log(starsFetch)
+                if (!!starsFetch.length) {
+                    localStorage.removeItem('catStars');
+                    localStorage.setItem('catStars', JSON.stringify({stars: starsFetch}))
+                }
+            }
+
+            fetchData();
+        }
+
+        if (currentStar.cat_name_id_id) {
+            async function allCats() {
+                const cats = await request('/api/categories/', 'GET') //'cors' ,
+                // console.log(cats)
+                let filteredCat = cats.filter(value => value.id === currentStar.cat_name_id_id)[0]
+                // console.log(localStorage.setItem('catName', JSON.stringify({name: filteredCat.cat_name})))
+                localStorage.setItem('catName', JSON.stringify({name: filteredCat.cat_name}))
+            }
+
+            allCats();
+        } else {
+            async function allCats() {
+                const cats = await request('/api/categories/', 'GET') //'cors' ,
+                // console.log(cats)
+                let filteredCat = cats.filter(value => value.id === currentStar.cat_name_id)[0]
+                // console.log(localStorage.setItem('catName', JSON.stringify({name: filteredCat.cat_name})))
+                localStorage.setItem('catName', JSON.stringify({name: filteredCat.cat_name}))
             }
         }
-
-        async function allCats() {
-            const cats = await request('/api/categories/', 'GET') //'cors' ,
-            // console.log(cats)
-            let filteredCat = cats.filter(value => value.id === currentStar.cat_name_id_id)[0]
-            // console.log(localStorage.setItem('catName', JSON.stringify({name: filteredCat.cat_name})))
-            localStorage.setItem('catName', JSON.stringify({name: filteredCat.cat_name}))
-        }
-
-        fetchData();
-        allCats();
     }, [request]) // needed?
 
     /*
