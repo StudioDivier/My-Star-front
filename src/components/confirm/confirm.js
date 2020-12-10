@@ -190,6 +190,16 @@ export const Confirm = () => {
         history.push('/orders')
     }
 
+    const checkInvitation = () => {
+        if (starInfo.starAnotherPrice !== 0) {
+            return (
+                <button onClick={submitHandler2}>
+                    Пригласить на праздник ({starInfo.starAnotherPrice} руб.)
+                </button>
+            )
+        }
+    }
+
     return (
         <>
             <div className="confirm">
@@ -264,9 +274,7 @@ export const Confirm = () => {
                             <button onClick={submitHandler} style={{marginBottom: '10px'}}>
                                 Заказать
                             </button>
-                            <button onClick={submitHandler2}>
-                                Пригласить на праздник ({starInfo.starAnotherPrice} руб.)
-                            </button>
+                            {checkInvitation()}
                             <p>Совершая заказ, вы соглашаетесь с условиями</p>
                         </div>
                     </div>

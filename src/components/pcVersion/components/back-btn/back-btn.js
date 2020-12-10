@@ -2,11 +2,11 @@ import React from "react";
 import './back-btn.scss'
 import {useHistory} from 'react-router-dom';
 
-export const Backbtn = () => {
+export const Backbtn = ({catId}) => {
     const history = useHistory();
 
     const clickHandler = () => {
-        history.push('/')
+        history.push('/category')
     }
 
     return (

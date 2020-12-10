@@ -99,10 +99,10 @@ export const Star = ({id, price, name, rating, days, avatar, bgColor, likes, ano
                 <div className="avatar-img"
                      style={{backgroundImage: "url(" + bgUrl + ")"}}
                 />
-                <div className="orders-amount">
-                    <span>&lt; 10</span>
-                    <span>заказов</span>
-                </div>
+                {/*<div className="orders-amount">*/}
+                {/*    <span>&lt; 10</span>*/}
+                {/*    <span>заказов</span>*/}
+                {/*</div>*/}
                 <div className="star-info">
                     <div className="star-description">
                         <h5>{name}</h5>
@@ -125,9 +125,9 @@ export const Star = ({id, price, name, rating, days, avatar, bgColor, likes, ano
                     {/*</div>*/}
                 </div>
 
-                <div className="orders">
-                    <img src={orders} alt=""/>
-                </div>
+                {/*<div className="orders">*/}
+                {/*    <img src={orders} alt=""/>*/}
+                {/*</div>*/}
 
                 {/*<Container fluid>*/}
                 {/*    <Row>*/}

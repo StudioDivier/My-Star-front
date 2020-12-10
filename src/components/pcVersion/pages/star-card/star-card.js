@@ -33,6 +33,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
 
     const userData = JSON.parse(window.localStorage.getItem('userData'));
     const orderTypeStorage = JSON.parse(window.localStorage.getItem('orderType'))
+    const currentStar = (JSON.parse(window.localStorage.getItem('selectedStar'))).star;
 
     const [orderIsOpen, setOrderIsOpen] = useState(false);
     const [ratingIsOpen, setRatingIsOpen] = useState(false);
@@ -50,8 +51,8 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         for_whom: '',
         by_date: '',
         comment: '',
-        order_price: star.price,
-        star_id: star.id,
+        order_price: currentStar.price,
+        star_id: currentStar.id,
         customer_id: (userData ? userData.userId : ''),
         type: ''
     })
@@ -104,11 +105,11 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
 
     let catPic;
 
-    // console.log(star.avatar)
-    if (star.avatar && star.avatar.includes('media')) {
-        catPic = `${SERVER_URL}${star.avatar}`;
+    // console.log(currentStar.avatar)
+    if (currentStar.avatar && currentStar.avatar.includes('media')) {
+        catPic = `${SERVER_URL}${currentStar.avatar}`;
     } else {
-        catPic = `${SERVER_URL}/media/${star.avatar}`
+        catPic = `${SERVER_URL}/media/${currentStar.avatar}`
     }
 
     // Handle date
@@ -131,10 +132,10 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
 
     const choosePrice = () => {
         if (orderTypeStorage.type === 'Видео-поздравление') {
-            return star.price
+            return currentStar.price
         }
         if (orderTypeStorage.type === 'Приглашение на праздник') {
-            return star.price_another
+            return currentStar.price_another
         }
     }
 
@@ -147,7 +148,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                     by_date: reverseDate(form.by_date),
                     comment: form.comment,
                     order_price: choosePrice(),
-                    star_id: star.id,
+                    star_id: currentStar.id,
                     customer_id: (userData ? userData.userId : ''),
                     type: orderTypeStorage.type
                 }, {Authorization: `Bearer ${userData.token}`})// 'cors',
@@ -183,7 +184,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
     //     redirectHandler()
     // }
 
-    if (star.length === 0) {
+    if (currentStar.length === 0) {
         history.push('/')
     }
 
@@ -194,7 +195,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
             const dataLog = await request('/api/ratestar/', 'PUT', {
                 "rating": `${newRating}`,
                 "adresat": userData.userId,
-                "adresant": star.id
+                "adresant": currentStar.id
             }, {Authorization: `Bearer ${userData.token}`})
             message(`${dataLog}`);
             closeModal()
@@ -252,7 +253,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         try {
             const addToFav = await request(`/api/star/favorite/?cust_id=${userData.userId}`, 'POST', {
                 cust_id: userData.userId,
-                star_id: star.id
+                star_id: currentStar.id
             }, {Authorization: `Bearer ${userData.token}`})
             message(...addToFav)
             // if(addToFav === 400) {
@@ -267,7 +268,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         try {
             const addToFav = await request(`/api/star/favorite/?cust_id=${userData.userId}`, 'DELETE', {
                 cust_id: userData.userId,
-                star_id: star.id
+                star_id: currentStar.id
             }, {Authorization: `Bearer ${userData.token}`})
             // if (addToFav === 204) {
             //     message(['Удалено из избранного!'])
@@ -283,28 +284,28 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
             if (orderTypeStorage.type === 'Видео-поздравление') {
                 return (
                     <p>Вы сделали заказ поздравления от звезды<span></span> <span
-                        style={{fontWeight: 700}}>"{star.first_name}&nbsp;{star.last_name}"</span> на
+                        style={{fontWeight: 700}}>"{currentStar.first_name}&nbsp;{currentStar.last_name}"</span> на
                         сумму <span
-                            style={{fontWeight: 800}}>{star.price} &#8381;</span>
+                            style={{fontWeight: 800}}>{currentStar.price} &#8381;</span>
                     </p>
                 )
             }
             if (orderTypeStorage.type === 'Приглашение на праздник') {
                 return (
                     <p>Вы сделали заказ на приглашение звезды<span></span> <span
-                        style={{fontWeight: 700}}>"{star.first_name}&nbsp;{star.last_name}"</span> на
+                        style={{fontWeight: 700}}>"{currentStar.first_name}&nbsp;{currentStar.last_name}"</span> на
                         свой праздник на сумму <span
-                            style={{fontWeight: 800}}>{star.price_another} &#8381;</span>
+                            style={{fontWeight: 800}}>{currentStar.price_another} &#8381;</span>
                     </p>
                 )
             }
         }
     }
 
-    console.log(star.price_another);
+    console.log(currentStar.price_another);
 
     const checkInvitation = () => {
-        if (star.price_another !== 0) {
+        if (currentStar.price_another !== 0) {
             return (
                 <div className="star-pc-price-wrapper">
                                         <label className="radio-container">
@@ -317,7 +318,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                         <div>
                                             <span>Приглашение на праздник</span>
                                             <span
-                                                className={'star-pc-price__price'}>{star.price_another} &#8381;</span>
+                                                className={'star-pc-price__price'}>{currentStar.price_another} &#8381;</span>
                                         </div>
                                     </div>
             )
@@ -328,12 +329,12 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
 
     return (
         <>
-            <Breadcrumbs secondItem={star.cat_name_id || star.cat_name_id_id} thirdItem={star.username}/>
+            <Breadcrumbs secondItem={currentStar.cat_name_id || currentStar.cat_name_id_id} thirdItem={currentStar.username}/>
 
             <section className="star-card-pc">
                 <div className="container">
 
-                    <Backbtn/>
+                    <Backbtn catId={currentStar.cat_name_id_id}/>
 
                     <div className="row mt-5">
 
@@ -352,17 +353,17 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                         <div className="col-lg-8">
                             <div className="pc-star-wrapper">
                                 <div className="star-title">
-                                    <h3>{star.first_name}&nbsp;{star.last_name}</h3>
+                                    <h3>{currentStar.first_name}&nbsp;{currentStar.last_name}</h3>
                                     {/*{determineAuth2()}*/}
                                 </div>
 
                                 <div className="star-cat-and-rating">
-                                    <span>{star.profession}</span>
+                                    <span>{currentStar.profession}</span>
 
                                     <div className="inner-wrapper" onClick={showRatingModal}
                                          style={{cursor: 'pointer'}}>
                                         <Ratings
-                                            rating={star.rating}
+                                            rating={currentStar.rating}
                                             widgetRatedColors="orange"
                                             widgetDimensions="14px"
                                             widgetSpacings="3px"
@@ -377,7 +378,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                         <span style={{
                                             cursor: 'pointer',
                                             textDecoration: 'underline'
-                                        }}>({star.rating})</span>
+                                        }}>({currentStar.rating})</span>
                                     </div>
 
                                     {/*<div className="form-group">*/}
@@ -391,7 +392,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
 
                                 </div>
                                 <div className="star-bio">
-                                    <p>{star.description}</p>
+                                    <p>{currentStar.description}</p>
                                 </div>
                                 <div className="star-pc-price">
                                     <div className="star-pc-price-wrapper">
@@ -403,7 +404,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                         </label>
                                         <div>
                                             <span>Поздравление</span>
-                                            <span className={'star-pc-price__price'}>{star.price} &#8381;</span>
+                                            <span className={'star-pc-price__price'}>{currentStar.price} &#8381;</span>
                                         </div>
                                     </div>
                                     {/*<div className="star-pc-price-wrapper">*/}
@@ -417,13 +418,13 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                     {/*    <div>*/}
                                     {/*        <span>Приглашение на праздник</span>*/}
                                     {/*        <span*/}
-                                    {/*            className={'star-pc-price__price'}>{star.price_another} &#8381;</span>*/}
+                                    {/*            className={'star-pc-price__price'}>{currentStar.price_another} &#8381;</span>*/}
                                     {/*    </div>*/}
                                     {/*</div>*/}
                                     {checkInvitation()}
                                 </div>
                                 <div className="star-daysForOrder">
-                                    <span>Исполнение заказа через {star.days} дней</span>
+                                    <span>Исполнение заказа через {currentStar.days} дней</span>
                                 </div>
                                 {determineAuth()}
                             </div>
@@ -446,7 +447,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                         title={"Video Hi"}
                                         // X-Frame-Options={'SAMEORIGIN'}
                                     >
-                                        <source src={`${SERVER_URL}${star.video}`} type={"video/mp4"}/>
+                                        <source src={`${SERVER_URL}${currentStar.video}`} type={"video/mp4"}/>
                                     </video>
                                 </div>
                             </div>
@@ -566,7 +567,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                     <div className="row">
                         <div className="col">
                             <SingleCat
-                                id={star.cat_name_id}
+                                id={currentStar.cat_name_id}
                                 catName={'Возможно вас заинтересует'}
                                 chooseCat={chooseCat}
                                 nameCat={nameCat}

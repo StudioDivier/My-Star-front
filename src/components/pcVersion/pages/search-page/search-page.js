@@ -20,6 +20,8 @@ export const Search = ({search, chooseStar}) => {
             const starsFetch = await request(`/api/star/getlist/`, 'GET'); //'cors' , //, null, {Authorization: `Bearer ${userData.token}`}
             if (!!starsFetch.length) {
                 setStars([...starsFetch])
+                localStorage.removeItem('allStars');
+                localStorage.setItem('allStars', JSON.stringify({stars: starsFetch}))
             }
             // console.log(starsFetch)
         }
@@ -27,14 +29,17 @@ export const Search = ({search, chooseStar}) => {
         fetchData();
     }, [request])
 
+    const allStars = (JSON.parse(window.localStorage.getItem('allStars'))).stars;
+
     const clickStar = (value) => {
         chooseStar(value)
+        localStorage.setItem('selectedStar', JSON.stringify({star: value}))
         history.push('/star-card')
     }
 
-    // console.log(search.length > 0 && stars.filter(value => value.username.toLowerCase() === search.toLowerCase()).length === 0)
+    // console.log(search.length > 0 && allStars.filter(value => value.username.toLowerCase() === search.toLowerCase()).length === 0)
 
-    if (search.length > 0 && stars.filter(value => value.username.toLowerCase() === search.toLowerCase() || value.username.toLowerCase().includes(search.toLowerCase()) || value.first_name.toLowerCase() === search.toLowerCase() || value.first_name.toLowerCase().includes(search.toLowerCase()) || value.last_name.toLowerCase() === search.toLowerCase() || value.last_name.toLowerCase().includes(search.toLowerCase())).length === 0) {
+    if (search.length > 0 && allStars.filter(value => value.username.toLowerCase() === search.toLowerCase() || value.username.toLowerCase().includes(search.toLowerCase()) || value.first_name.toLowerCase() === search.toLowerCase() || value.first_name.toLowerCase().includes(search.toLowerCase()) || value.last_name.toLowerCase() === search.toLowerCase() || value.last_name.toLowerCase().includes(search.toLowerCase())).length === 0) {
         return (
             <Container style={{paddingBottom: '400px', textAlign: 'center'}}>
                 <Row>
@@ -53,7 +58,7 @@ export const Search = ({search, chooseStar}) => {
                             <div className="single-cat">
                                 <div className="single-cat__stars">
                                     {
-                                        stars.filter(value => value.username.toLowerCase() === search.toLowerCase() || value.username.toLowerCase().includes(search.toLowerCase()) || value.first_name.toLowerCase() === search.toLowerCase() || value.first_name.toLowerCase().includes(search.toLowerCase()) || value.last_name.toLowerCase() === search.toLowerCase() || value.last_name.toLowerCase().includes(search.toLowerCase())).map((value, key) => {
+                                        allStars.filter(value => value.username.toLowerCase() === search.toLowerCase() || value.username.toLowerCase().includes(search.toLowerCase()) || value.first_name.toLowerCase() === search.toLowerCase() || value.first_name.toLowerCase().includes(search.toLowerCase()) || value.last_name.toLowerCase() === search.toLowerCase() || value.last_name.toLowerCase().includes(search.toLowerCase())).map((value, key) => {
                                             console.log(value)
                                             return (
                                                 <div className="single-cat__star" key={key}
@@ -101,7 +106,7 @@ export const Search = ({search, chooseStar}) => {
     //                         <div className="single-cat">
     //                             <div className="single-cat__stars">
     //                                 {
-    //                                     stars.filter(value => value.username.toLowerCase() === search.toLowerCase()).map((value, key) => {
+    //                                     allStars.filter(value => value.username.toLowerCase() === search.toLowerCase()).map((value, key) => {
     //                                         console.log(value)
     //                                         return (
     //                                             <div className="single-cat__star" key={key}

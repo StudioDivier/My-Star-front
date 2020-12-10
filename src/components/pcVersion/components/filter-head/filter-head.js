@@ -27,6 +27,8 @@ export const FilterHead = ({chooseCat, nameCat}) => {
             const stars = await request('/api/star/getlist/', 'GET')
             if (!!stars.length) {
                 setStars([...stars])
+                localStorage.removeItem('allStars');
+                localStorage.setItem('allStars', JSON.stringify({stars: stars}))
             }
         }
 
@@ -41,6 +43,8 @@ export const FilterHead = ({chooseCat, nameCat}) => {
         try {
             const starsFetch = await request(`/api/star/category/?id=${id}`, 'GET'); //'cors' ,
             setStarsList([...starsFetch])
+            localStorage.removeItem('catStars');
+            localStorage.setItem('catStars', JSON.stringify({stars: starsFetch}))
             history.push(`/category`)
 
         } catch (e) {
@@ -51,6 +55,7 @@ export const FilterHead = ({chooseCat, nameCat}) => {
     function multipleHandler(id, name) {
         chooseCat(id)
         nameCat(name)
+        localStorage.setItem('catName', JSON.stringify({name: name}))
         clickHandler(id, name)
     }
 
@@ -64,7 +69,15 @@ export const FilterHead = ({chooseCat, nameCat}) => {
                 </a>
                 <Dropdown>
                     <Dropdown.Toggle id={'dropdown-basic'} className="cat"
-                                     style={{textTransform: 'initial', lineHeight: '1', border: '0', boxSizing: 'content-box', padding: '2.7px 17.5px', display: 'flex', alignItems: 'center'}}>
+                                     style={{
+                                         textTransform: 'initial',
+                                         lineHeight: '1',
+                                         border: '0',
+                                         boxSizing: 'content-box',
+                                         padding: '2.7px 17.5px',
+                                         display: 'flex',
+                                         alignItems: 'center'
+                                     }}>
                         Все категории ({data.length})
                     </Dropdown.Toggle>
                     <Dropdown.Menu>

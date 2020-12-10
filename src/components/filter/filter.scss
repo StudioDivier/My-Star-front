@@ -4,9 +4,10 @@
   font-family: 'Montserrat', sans-serif;
 
   .filter__wrapper {
+    position: relative;
     #input_img {
       position: absolute;
-      top: 102.5px;
+      top: 11px;
       right: 30px;
       width: 20px;
     }

@@ -28,6 +28,7 @@ import {Terms} from "./pages/terms-of-service/terms-of-service";
 import {Examples} from "./pages/video-examples/video-examples";
 import {How} from "./pages/how-it-works/how-it-works";
 import {Requisites} from "./pages/requisites-page/requisites-page";
+import {TopCategory} from "./pages/top10-page/top10-page";
 
 export const DesktopMain = (isAuthenticated, isStar) => {
 
@@ -138,6 +139,13 @@ export const DesktopMain = (isAuthenticated, isStar) => {
 
                     <Route exact path="/favorites">
                         <FavCategory
+                            name={name}
+                            chooseStar={setStar}
+                        />
+                    </Route>
+
+                    <Route exact path="/top-10">
+                        <TopCategory
                             name={name}
                             chooseStar={setStar}
                         />

@@ -10,10 +10,15 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
     const userData = JSON.parse(window.localStorage.getItem('userData'));
 
     const [stars, setStars] = useState([]);
+    const [topStars, setTopStars] = useState([]);
     const [favData, setFavData] = useState([]);
 
     const {request} = useHttp()
     const history = useHistory();
+
+    // const starsList = JSON.parse(window.localStorage.getItem('starsList'));
+
+    // console.log(starsList)
 
     useEffect(() => {
         async function fetchData() {
@@ -21,6 +26,8 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
             // console.log(starsFetch)
             if (!!starsFetch.length) {
                 setStars([...starsFetch])
+                localStorage.removeItem('catStars');
+                localStorage.setItem('catStars', JSON.stringify({stars: starsFetch}))
             }
         }
 
@@ -28,7 +35,9 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
             const starsFetch = await request(`/api/star/getlist/`, 'GET'); //'cors' , //, null, {Authorization: `Bearer ${userData.token}`}
             // console.log(starsFetch)
             if (!!starsFetch.length) {
-                setStars([...starsFetch])
+                setTopStars([...starsFetch])
+                localStorage.removeItem('allStars');
+                localStorage.setItem('allStars', JSON.stringify({stars: starsFetch}))
             }
         }
 
@@ -38,6 +47,8 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
                 const favCat = await request(`/api/star/favorite/?cust_id=${userData.userId}`, 'GET', null, {Authorization: `Bearer ${userData.token}`})
                 if (!!favCat.length) {
                     setFavData([...favCat])
+                    localStorage.removeItem('favCat');
+                    localStorage.setItem('favCat', JSON.stringify({stars: favCat}))
                 }
             }
 
@@ -48,20 +59,36 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
         fetchAllStars();
     }, [id, request]) // needed?
 
+    const catStars = (JSON.parse(window.localStorage.getItem('catStars'))).stars;
+    const allStars = (JSON.parse(window.localStorage.getItem('allStars'))).stars;
+    const favCat = (JSON.parse(window.localStorage.getItem('favCat'))).stars;
+
+    const currentCat = JSON.parse(window.localStorage.getItem('catName'));
+
     const clickHandler = () => {
         chooseCat(id)
+        localStorage.setItem('catName', JSON.stringify({name: catName}))
         nameCat(catName)
         history.push('/favorites')
     }
 
+    const clickHandler2 = () => {
+        chooseCat(id)
+        localStorage.setItem('catName', JSON.stringify({name: catName}))
+        nameCat(catName)
+        history.push('/top-10')
+    }
+
     const clickStar = (value) => {
         chooseStar(value)
+        localStorage.setItem('selectedStar', JSON.stringify({star: value}))
         history.push('/star-card')
     }
 
     // if (list) {
     // let newList = [...list];
     // console.log(stars)
+
     if (window.location.pathname === '/category') {
         return (
             <div className="single-cat">
@@ -69,7 +96,35 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
                     <span className="cat-header">{catName}</span>
                 </div>
                 <div className="single-cat__stars">
-                    {stars.map((value, key) => {
+                    {catStars.map((value, key) => {
+                        return (
+                            <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
+                                <div className="avatar-img"
+                                     style={{backgroundImage: `url(${SERVER_URL}${value.avatar})`}}>&nbsp;</div>
+                                {/*<img src={catPic + value.avatar} alt=""/>*/}
+                                <div className="star-description">
+                                        <span className="star-name">
+                                            {value.first_name}&nbsp;{value.last_name}
+                                        </span>
+                                    <span className="star-style">
+                                            {value.profession}
+                                        </span>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
+        )
+    }
+    if (window.location.pathname === '/favorites') {
+        return (
+            <div className="single-cat">
+                <div className="header-row">
+                    <span className="cat-header">{catName}</span>
+                </div>
+                <div className="single-cat__stars">
+                    {favCat.map((value, key) => {
                         return (
                             <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
                                 <div className="avatar-img"
@@ -91,14 +146,14 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
             </div>
         )
     }
-    if (window.location.pathname === '/favorites') {
+    if (window.location.pathname === '/top-10') {
         return (
             <div className="single-cat">
                 <div className="header-row">
                     <span className="cat-header">{catName}</span>
                 </div>
                 <div className="single-cat__stars">
-                    {favData.map((value, key) => {
+                    {allStars.filter(value => value.top === true).map((value, key) => {
                         return (
                             <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
                                 <div className="avatar-img"
@@ -155,10 +210,10 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar}) => {
             <div className="single-cat">
                 <div className="header-row">
                     <span className="cat-header">{catName}</span>
-                    <span className="browse" onClick={clickHandler} style={{cursor: 'pointer'}}>Смотреть все</span>
+                    <span className="browse" onClick={clickHandler2} style={{cursor: 'pointer'}}>Смотреть все</span>
                 </div>
                 <div className="single-cat__stars">
-                    {stars.slice(0, 5).filter(value => value.top === true).map((value, key) => {
+                    {topStars.filter(value => value.top === true).slice(0, 5).map((value, key) => {
                         return (
                             <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
                                 <div className="avatar-img"
