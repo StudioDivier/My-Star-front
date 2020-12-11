@@ -221,7 +221,7 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar, stars1, 
                 <div className="single-cat__stars">
                     {allStars.filter(value => value.top === true).slice(0, 10).map((value, key) => {
                         return (
-                            <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
+                            <div className="single-cat__star" key={key} onClick={() => clickStar(value)} style={{width: '20%'}}>
                                 <div className="avatar-img"
                                      style={{backgroundImage: `url(${SERVER_URL}/media/${value.avatar})`}}>&nbsp;</div>
                                 {/*<img src={catPic + value.avatar} alt=""/>*/}
