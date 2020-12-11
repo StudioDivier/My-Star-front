@@ -196,6 +196,9 @@ export const DesktopMain = (isAuthenticated, isStar) => {
                         <FavCategory
                             name={name}
                             chooseStar={setStar}
+                            stars1={stars}
+                            topStars1={topStars}
+                            favData1={favData}
                         />
                     </Route>
 
