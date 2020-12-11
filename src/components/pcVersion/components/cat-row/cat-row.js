@@ -216,10 +216,10 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar, stars1, 
             <div className="single-cat">
                 <div className="header-row">
                     <span className="cat-header">{catName}</span>
-                    <span className="browse" onClick={clickHandler2} style={{cursor: 'pointer'}}>Смотреть все</span>
+                    {/*<span className="browse" onClick={clickHandler2} style={{cursor: 'pointer'}}>Смотреть все</span>*/}
                 </div>
                 <div className="single-cat__stars">
-                    {allStars.filter(value => value.top === true).slice(0, 5).map((value, key) => {
+                    {allStars.filter(value => value.top === true).slice(0, 10).map((value, key) => {
                         return (
                             <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
                                 <div className="avatar-img"
