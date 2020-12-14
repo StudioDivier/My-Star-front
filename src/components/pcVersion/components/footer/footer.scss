@@ -13,6 +13,14 @@
     justify-content: space-between;
   }
 
+  .requisites {
+    a {
+      &:hover {
+        color: #f3d14c !important;
+      }
+    }
+  }
+
   .firstCol {
     padding: 20px 20px 20px 0;
     display: flex;

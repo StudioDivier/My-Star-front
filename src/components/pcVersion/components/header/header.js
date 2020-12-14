@@ -12,6 +12,7 @@ import close from '../../../../img/close.png';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import logo from '../../../../img/Exprome-logo.png';
 import swal from 'sweetalert';
+import {OrdersAmount} from "./components/orders-amount";
 
 export const Header = ({setSearch, setPhone}) => {
 
@@ -211,9 +212,15 @@ export const Header = ({setSearch, setPhone}) => {
 
     function determineAuth() {
         if (userData && userData.token) {
-            return (
-                <div onClick={() => history.push('/account-page')}><span>Личный кабинет</span></div>
-            )
+            if (userData.is_star === true) {
+                return (
+                    <div onClick={() => history.push('/account-page')}><span>Личный кабинет (<OrdersAmount />)</span></div>
+                )
+            } else {
+                return (
+                    <div onClick={() => history.push('/account-page')}><span>Личный кабинет</span></div>
+                )
+            }
         }
         return (
             <div style={{display: 'flex'}}>

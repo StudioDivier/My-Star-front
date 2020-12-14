@@ -62,12 +62,12 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
                         <div className="category-card__description">
                             <span>Популярные</span>
                             <div className="img-card">
-                                <img src={catPic} alt="icon"/>
+                                <img src={catPhoto} alt="icon"/>
                             </div>
                         </div>
                         <div className="category-card__info">
                             <h5>{name}</h5>
-                            <span>Песня в подарок</span>
+                            {/*<span>Песня в подарок</span>*/}
                         </div>
                     </div>
                 </div>
@@ -86,7 +86,7 @@ export const Category = ({id, name, bgColor, catPhoto}) => {
                         </div>
                         <div className="category-card__info">
                             <h5>{name}</h5>
-                            <span>Песня в подарок</span>
+                            {/*<span>Песня в подарок</span>*/}
                         </div>
                     </div>
                 </div>

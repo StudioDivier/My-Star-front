@@ -205,6 +205,7 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                 // makeOrder();
                 // history.push('/categories');
                 // if (dataLog)
+                console.log(dataLog)
                 showFinalModal()
             } catch (e) {
                 message(e)
@@ -374,6 +375,40 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
         }
     }
 
+    const checkVideo = () => {
+        if (currentStar.price !== 0 && currentStar.price !== '0.00') {
+            return (
+                <div className="star-pc-price-wrapper">
+                    <label className="radio-container">
+                        {/*<img src={circle} alt="Pointer"/>*/}
+                        <input type="radio" onClick={() => recordType('Видео-поздравление')}
+                               name={'type'}/>
+                        <span className="checkmark"></span>
+                    </label>
+                    <div>
+                        <span>Поздравление</span>
+                        <span className={'star-pc-price__price'}>{currentStar.price} &#8381;</span>
+                    </div>
+                </div>
+            )
+        } else {
+            return (
+                <div className="star-pc-price-wrapper">
+                    <label className="radio-container">
+                        {/*<img src={circle} alt="Pointer"/>*/}
+                        <input type="radio" onClick={() => recordType('Видео-поздравление')}
+                               name={'type'}/>
+                        <span className="checkmark"></span>
+                    </label>
+                    <div>
+                        <span>Поздравление</span>
+                        <span className={'star-pc-price__price'}>По запросу</span>
+                    </div>
+                </div>
+            )
+        }
+    }
+
     return (
         <>
             <Breadcrumbs secondItem={currentStar.cat_name_id || currentStar.cat_name_id_id}
@@ -443,18 +478,19 @@ export const StarCard = ({star, chooseCat, nameCat, chooseStar}) => {
                                     <p>{currentStar.description}</p>
                                 </div>
                                 <div className="star-pc-price">
-                                    <div className="star-pc-price-wrapper">
-                                        <label className="radio-container">
-                                            {/*<img src={circle} alt="Pointer"/>*/}
-                                            <input type="radio" onClick={() => recordType('Видео-поздравление')}
-                                                   name={'type'}/>
-                                            <span className="checkmark"></span>
-                                        </label>
-                                        <div>
-                                            <span>Поздравление</span>
-                                            <span className={'star-pc-price__price'}>{currentStar.price} &#8381;</span>
-                                        </div>
-                                    </div>
+                                    {/*<div className="star-pc-price-wrapper">*/}
+                                    {/*    <label className="radio-container">*/}
+                                    {/*        /!*<img src={circle} alt="Pointer"/>*!/*/}
+                                    {/*        <input type="radio" onClick={() => recordType('Видео-поздравление')}*/}
+                                    {/*               name={'type'}/>*/}
+                                    {/*        <span className="checkmark"></span>*/}
+                                    {/*    </label>*/}
+                                    {/*    <div>*/}
+                                    {/*        <span>Поздравление</span>*/}
+                                    {/*        <span className={'star-pc-price__price'}>{currentStar.price} &#8381;</span>*/}
+                                    {/*    </div>*/}
+                                    {/*</div>*/}
+                                    {checkVideo()}
                                     {/*<div className="star-pc-price-wrapper">*/}
                                     {/*    <label className="radio-container">*/}
                                     {/*        /!*<img src={circle} alt="Pointer"/>*!/*/}

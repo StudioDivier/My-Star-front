@@ -211,6 +211,35 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar, stars1, 
             </div>
         )
     }
+    if (window.location.pathname === '/categories') {
+        allStars = (JSON.parse(window.localStorage.getItem('allStars'))).stars;
+        return (
+            <div className="single-cat">
+                <div className="header-row">
+                    <span className="cat-header">{catName}</span>
+                </div>
+                <div className="single-cat__stars">
+                    {stars.map((value, key) => {
+                        return (
+                            <div className="single-cat__star" key={key} onClick={() => clickStar(value)}>
+                                <div className="avatar-img"
+                                     style={{backgroundImage: `url(${SERVER_URL}${value.avatar})`}}>&nbsp;</div>
+                                {/*<img src={catPic + value.avatar} alt=""/>*/}
+                                <div className="star-description">
+                                        <span className="star-name">
+                                            {value.first_name}&nbsp;{value.last_name}
+                                        </span>
+                                    <span className="star-style">
+                                            {value.profession}
+                                        </span>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
+        )
+    }
     if (catName === 'Топ-10') {
         return (
             <div className="single-cat">
@@ -221,17 +250,19 @@ export const SingleCat = ({id, catName, chooseCat, nameCat, chooseStar, stars1, 
                 <div className="single-cat__stars">
                     {allStars.filter(value => value.top === true).slice(0, 10).map((value, key) => {
                         return (
-                            <div className="single-cat__star" key={key} onClick={() => clickStar(value)} style={{width: '20%'}}>
-                                <div className="avatar-img"
-                                     style={{backgroundImage: `url(${SERVER_URL}/media/${value.avatar})`}}>&nbsp;</div>
-                                {/*<img src={catPic + value.avatar} alt=""/>*/}
-                                <div className="star-description">
-                                        <span className="star-name">
-                                            {value.first_name}&nbsp;{value.last_name}
-                                        </span>
-                                    <span className="star-style">
-                                            {value.profession}
-                                        </span>
+                            <div className="single-cat__star" key={key} onClick={() => clickStar(value)} style={{width: '20%', padding: '20px 12.5px'}}>
+                                <div className="inner-wrapper" style={{backgroundColor: '#0b0b0b', display: 'flex', borderRadius: '15px', flexDirection: 'column', alignItems: 'center', padding: '20px 0'}}>
+                                    <div className="avatar-img"
+                                         style={{backgroundImage: `url(${SERVER_URL}/media/${value.avatar})`}}>&nbsp;</div>
+                                    {/*<img src={catPic + value.avatar} alt=""/>*/}
+                                    <div className="star-description" style={{paddingLeft: '0'}}>
+                                            <span className="star-name">
+                                                {value.first_name}&nbsp;{value.last_name}
+                                            </span>
+                                        <span className="star-style">
+                                                {value.profession}
+                                            </span>
+                                    </div>
                                 </div>
                             </div>
                         )

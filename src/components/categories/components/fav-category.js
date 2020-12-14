@@ -21,6 +21,7 @@ export const FavCategory = ({name, bgColor, catPhoto}) => {
         try {
             // console.log('here0')
             const favCat = await request(`/api/star/favorite/?cust_id=${authToken.id}`, 'GET', {Authorization: `Bearer ${authToken.token}`}); //'cors' ,
+            console.log(favCat)
             // console.log('here1')
             // setStarsList([...starsFetch])
             // console.log('here2')
@@ -46,12 +47,12 @@ export const FavCategory = ({name, bgColor, catPhoto}) => {
                     <div className="category-card__description">
                         <span>Популярные</span>
                         <div className="img-card">
-                            <img src={catPic} alt="icon"/>
+                            <img src={catPhoto} alt="icon"/>
                         </div>
                     </div>
                     <div className="category-card__info">
                         <h5>{name}</h5>
-                        <span>Песня в подарок</span>
+                        {/*<span>Песня в подарок</span>*/}
                     </div>
                 </div>
             </div>

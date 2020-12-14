@@ -97,7 +97,7 @@ export const Footer = () => {
                                     href="/how-it-works">Как это работает</a></span>
                                 <div>
                                     <span onClick={openHelpModal}><a href="/#">Связаться с тех. поддержкой</a></span>
-                                    <span><a href="/requisites-page">Реквизиты компании</a></span>
+                                    <span className={'requisites'}><a href="/requisites-page">Реквизиты компании</a></span>
                                     <span className={'becomeStar'} onClick={openModal}>Я исполнитель</span>
                                 </div>
                                 <span>© 2020 Exprome</span>

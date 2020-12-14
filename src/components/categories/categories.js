@@ -12,6 +12,8 @@ import {Filter} from "../filter/filter";
 import {useHistory} from 'react-router-dom';
 import {FavCategory} from "./components/fav-category";
 import {Filter2} from "../filter2/filter";
+import icon from '../../img/cats/icon1.svg';
+import icon2 from '../../img/cats/icon9.svg';
 
 export const Categories = () => {
     const authToken = useContext(AuthContext)
@@ -79,7 +81,7 @@ export const Categories = () => {
                     <FavCategory
                         // id={value.id}
                         name={'Избранное'}
-                        // catPhoto={value.category_photo}
+                        catPhoto={icon2}
                         bgColor={bgColor}
                     />
                 </Col>
@@ -114,7 +116,7 @@ export const Categories = () => {
                                 <Category
                                     // id={value.id}
                                     name={'Топ-10'}
-                                    // catPhoto={value.category_photo}
+                                    catPhoto={icon}
                                     bgColor={bgColor}
                                 />
                             </Col>

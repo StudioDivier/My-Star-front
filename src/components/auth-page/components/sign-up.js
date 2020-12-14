@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import '../auth-page.scss';
 import {AuthContext} from "../../../context/AuthContext";
 import {useHttp} from "../../../hooks/http.hook";
@@ -23,6 +23,9 @@ export const SignUp = () => {
 
     const [consent, setConsent] = useState(false);
     const [modalIsOpen, setIsOpen] = useState(false);
+
+    const [yaLink, setYaLink] = useState('')
+    const [vkLink, setVkLink] = useState('')
 
     // const [] = useState({
     //     day: '', month: '', year: ''
@@ -139,25 +142,47 @@ export const SignUp = () => {
         setIsOpen(!modalIsOpen);
     }
 
-    const vkAuth = async () => {
-        try {
-            const dataAuth = await request('/api/pre-vk-oauth/', 'GET')
-            // console.log(dataAuth)
-            window.open(`${dataAuth.link}`).focus();
-
-        } catch (e) {
-            message(e);
+    useEffect(() => {
+        async function fetchYaLink() {
+            const YaLink = await request('/api/pre-yandex-oauth/', 'GET')
+            setYaLink(YaLink.link)
         }
+
+        async function fetchVkLink() {
+            const VkLink = await request('/api/pre-vk-oauth/', 'GET')
+            setVkLink(VkLink.link)
+        }
+
+        fetchYaLink();
+        fetchVkLink()
+    }, [])
+
+    // const vkAuth = async () => {
+    //     try {
+    //         const dataAuth = await request('/api/pre-vk-oauth/', 'GET')
+    //         // console.log(dataAuth)
+    //         window.open(`${dataAuth.link}`).focus();
+    //
+    //     } catch (e) {
+    //         message(e);
+    //     }
+    // }
+    // const yaAuth = async () => {
+    //     try {
+    //         const dataAuth = await request('/api/pre-yandex-oauth/', 'GET')
+    //         // console.log(dataAuth)
+    //         window.open(`${dataAuth.link}`).focus();
+    //
+    //     } catch (e) {
+    //         message(e);
+    //     }
+    // }
+
+    const vkAuth = () => {
+        window.open(`${vkLink}`).focus();
     }
-    const yaAuth = async () => {
-        try {
-            const dataAuth = await request('/api/pre-yandex-oauth/', 'GET')
-            // console.log(dataAuth)
-            window.open(`${dataAuth.link}`).focus();
-
-        } catch (e) {
-            message(e);
-        }
+    const yaAuth = () => {
+        window.open(`${yaLink}`).focus();
     }
 
     Modal.setAppElement(document.querySelector('.App'))

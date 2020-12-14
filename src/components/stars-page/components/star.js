@@ -80,14 +80,16 @@ export const Star = ({id, price, name, rating, days, avatar, bgColor, likes, ano
 
     const whatPage = () => {
         if (window.location.pathname !== "/search") {
-            return (
-                                    <div className="star-stats">
-                        <div className="star-stats__likes">
-                            <span>{likes}</span>
-                            <span>Like</span>
+            if (likes) {
+                return (
+                                        <div className="star-stats">
+                            <div className="star-stats__likes">
+                                <span>{likes}</span>
+                                <span>Like</span>
+                            </div>
                         </div>
-                    </div>
-            )
+                )
+            }
         }
     }
 

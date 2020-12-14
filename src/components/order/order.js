@@ -129,8 +129,8 @@ export const Order = () => {
                         <div className="price">
                             <img src={priceTag} alt=""/>
                             <div className={'text'}>
-                                <span>Стоимость поздравления</span>
-                                <span>Длительностью 15 минут</span>
+                                <span style={{color: 'black'}}>Стоимость поздравления</span>
+                                {/*<span>Длительностью 15 минут</span>*/}
                             </div>
                             <p className={'priceTag'}>
                                 <strong>
